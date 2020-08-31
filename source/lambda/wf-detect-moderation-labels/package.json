@@ -1,0 +1,21 @@
+{
+  "name": "wf-detect-moderation-labels",
+  "version": "1.0.0",
+  "description": "Lambda stepfunction task to detect moderation labels",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "clean": "rm -rf node_modules"
+  },
+  "author": "@aws-solutions-builder",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.715.0"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "chai": "^4.2.0",
+    "sinon": "^9.0.2",
+    "jest": "^26.1.0"
+  }
+}

@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test express workflow stack 1`] = `
+Object {
+  "Resources": Object {
+    "WorkflowStackStateMachineLogPolicyB222B557": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The stepfunction log policy requires that resources be \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogDelivery",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "WorkflowStackStateMachineLogPolicyB222B557",
+        "Roles": Array [
+          Object {
+            "Ref": "WorkflowStackStateMachineRole56AD52FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "WorkflowStackStateMachineRole56AD52FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "states.",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ".amazonaws.com",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "WorkflowStackWorkflowEngine48A8BD9B": Object {
+      "DependsOn": Array [
+        "WorkflowStackStateMachineRole56AD52FB",
+      ],
+      "Properties": Object {
+        "DefinitionString": "{\\"StartAt\\":\\"WaitState\\",\\"States\\":{\\"WaitState\\":{\\"Type\\":\\"Wait\\",\\"Seconds\\":60,\\"Next\\":\\"Success\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
+        "LoggingConfiguration": Object {
+          "Destinations": Array [
+            Object {
+              "CloudWatchLogsLogGroup": Object {
+                "LogGroupArn": Object {
+                  "Fn::GetAtt": Array [
+                    "WorkflowStackstatemachineloggroup8D8C9535",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+          ],
+          "IncludeExecutionData": true,
+          "Level": "ALL",
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "WorkflowStackStateMachineRole56AD52FB",
+            "Arn",
+          ],
+        },
+        "StateMachineType": "EXPRESS",
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "WorkflowStackstatemachineloggroup8D8C9535": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "WorkflowStackstatemachineloggroupstatemachinelogstream14FC952A": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "WorkflowStackstatemachineloggroup8D8C9535",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+}
+`;
+
+exports[`test standard workflow stack 1`] = `
+Object {
+  "Resources": Object {
+    "WorkflowStackWorkflowEngine48A8BD9B": Object {
+      "DependsOn": Array [
+        "WorkflowStackWorkflowEngineRoleF56F2281",
+      ],
+      "Properties": Object {
+        "DefinitionString": "{\\"StartAt\\":\\"WaitState\\",\\"States\\":{\\"WaitState\\":{\\"Type\\":\\"Wait\\",\\"Seconds\\":60,\\"Next\\":\\"Success\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "WorkflowStackWorkflowEngineRoleF56F2281",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "WorkflowStackWorkflowEngineRoleF56F2281": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "states.",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ".amazonaws.com",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

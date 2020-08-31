@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Lambda with Kinesis 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9ArtifactHashAECF6781": Object {
+      "Description": "Artifact hash for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4": Object {
+      "Description": "S3 bucket for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7": Object {
+      "Description": "S3 key for asset version \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "FeedConsumerConstructInferenceStreamToWF60D525F1": Object {
+      "Properties": Object {
+        "RetentionPeriodHours": 24,
+        "ShardCount": 1,
+        "StreamEncryption": Object {
+          "EncryptionType": "KMS",
+          "KeyId": "alias/aws/kinesis",
+        },
+      },
+      "Type": "AWS::Kinesis::Stream",
+    },
+    "FeedConsumerConstructLambdaFunction5D2FC9AE": Object {
+      "DependsOn": Array [
+        "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4",
+        "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "WORKFLOW_ARN": "arn:aws:states:us-east-1:someaccountid:stateMachine:WorkflowEngine12346891012-ad234ab",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "FeedConsumerConstructLambdaFunctionKinesisEventSourceFeedConsumerConstructInferenceStreamToWFFDB15F166737E8CE": Object {
+      "Properties": Object {
+        "BatchSize": 100,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "FeedConsumerConstructInferenceStreamToWF60D525F1",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "FeedConsumerConstructLambdaFunction5D2FC9AE",
+        },
+        "StartingPosition": "TRIM_HORIZON",
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "kinesis:DescribeStreamSummary",
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:ListShards",
+                "kinesis:SubscribeToShard",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructInferenceStreamToWF60D525F1",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "kinesis:DescribeStream",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructInferenceStreamToWF60D525F1",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4",
+        "Roles": Array [
+          Object {
+            "Ref": "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;

@@ -1,0 +1,22 @@
+{
+  "name": "wf-extract-text-in-image",
+  "version": "1.0.0",
+  "description": "Lambda function to analyze images for text detection and content moderation",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --config jest.config.js",
+    "clean": "rm -rf node_modules"
+  },
+  "author": "@aws-solutions-builder",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.713.0",
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "chai": "^4.2.0",
+    "jest": "^26.1.0",
+    "sinon": "^9.0.2"
+  }
+}

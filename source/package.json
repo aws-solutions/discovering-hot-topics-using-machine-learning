@@ -1,0 +1,52 @@
+{
+  "name": "discovering-hot-topics-using-machine-learning",
+  "version": "0.1.0",
+  "bin": {
+    "discovering-hot-topics-app": "bin/discovering-hot-topics-app.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest --coverage",
+    "cdk": "cdk",
+    "clean": "rm -rf node_modules && rm -fr test/__snapshots__"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.54.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "10.17.5",
+    "aws-cdk": "^1.54.0",
+    "jest": "^25.5.0",
+    "ts-jest": "^25.5.1",
+    "ts-node": "^8.10.2",
+    "typescript": "~3.7.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-dynamodb": "1.54.0",
+    "@aws-cdk/aws-events": "1.54.0",
+    "@aws-cdk/aws-events-targets": "1.54.0",
+    "@aws-cdk/aws-glue": "1.54.0",
+    "@aws-cdk/aws-iam": "1.54.0",
+    "@aws-cdk/aws-kinesis": "1.54.0",
+    "@aws-cdk/aws-kinesisfirehose": "1.54.0",
+    "@aws-cdk/aws-kms": "1.54.0",
+    "@aws-cdk/aws-lambda": "1.54.0",
+    "@aws-cdk/aws-logs": "1.54.0",
+    "@aws-cdk/aws-s3": "1.54.0",
+    "@aws-cdk/aws-stepfunctions": "1.54.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "1.54.0",
+    "@aws-cdk/core": "1.54.0",
+    "@aws-cdk/custom-resources": "1.54.0",
+    "@aws-solutions-constructs/aws-lambda-dynamodb": "1.54.0",
+    "@aws-solutions-constructs/aws-lambda-s3": "1.54.0",
+    "@aws-solutions-constructs/core": "1.54.0",
+    "source-map-support": "^0.5.16"
+  },
+  "author": "aws-solution-builer@",
+  "license": "Apache-2.0",
+  "description": "CDK app to deploy the application",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-labs/"
+  }
+}

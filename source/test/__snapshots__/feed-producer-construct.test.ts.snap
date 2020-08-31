@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Lambda with role and scheduler 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9ArtifactHashAECF6781": Object {
+      "Description": "Artifact hash for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4": Object {
+      "Description": "S3 bucket for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7": Object {
+      "Description": "S3 key for asset version \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "FeedProducerConstructLambdaDDBDynamoTableAA674720": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "ACCOUNT_IDENTIFIER",
+            "AttributeType": "S",
+          },
+          Object {
+            "AttributeName": "CREATED_TIMESTAMP",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "ACCOUNT_IDENTIFIER",
+            "KeyType": "HASH",
+          },
+          Object {
+            "AttributeName": "CREATED_TIMESTAMP",
+            "KeyType": "RANGE",
+          },
+        ],
+        "SSESpecification": Object {
+          "SSEEnabled": true,
+        },
+        "TimeToLiveSpecification": Object {
+          "AttributeName": "EXP_DATE",
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FeedProducerConstructLambdaDDBLambdaFunctionAllowEventRuleFeedProducerConstructPollFrequencyD3A9EC5AAD684652": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "FeedProducerConstructPollFrequencyA3F49326",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE": Object {
+      "DependsOn": Array [
+        "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF",
+        "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "CREDENTIAL_KEY_PATH": "/some/dummy/path/test",
+            "DDB_TABLE_NAME": Object {
+              "Ref": "FeedProducerConstructLambdaDDBDynamoTableAA674720",
+            },
+            "QUERY_PARAM": "Health",
+            "SOLUTION_NAME": "discovering-hot-topics-using-machine-learning",
+            "STACK_NAME": "Stack",
+            "STREAM_NAME": Object {
+              "Ref": "TestStreamE6F40222",
+            },
+            "SUPPORTED_LANG": "de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "FeedProducerConstructLambdaDDBDynamoTableAA674720",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "kinesis:ListShards",
+                "kinesis:PutRecord",
+                "kinesis:PutRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TestStreamE6F40222",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "ssm:GetParameter",
+                "ssm:PutParameter",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/discovering-hot-topics-using-machine-learning/Stack/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF",
+        "Roles": Array [
+          Object {
+            "Ref": "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FeedProducerConstructPollFrequencyA3F49326": Object {
+      "Properties": Object {
+        "ScheduleExpression": "(0/2 * * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "TestStreamE6F40222": Object {
+      "Properties": Object {
+        "RetentionPeriodHours": 24,
+        "ShardCount": 1,
+        "StreamEncryption": Object {
+          "EncryptionType": "KMS",
+          "KeyId": "alias/aws/kinesis",
+        },
+      },
+      "Type": "AWS::Kinesis::Stream",
+    },
+  },
+}
+`;

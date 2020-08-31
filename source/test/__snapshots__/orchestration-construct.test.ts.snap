@@ -1,0 +1,1587 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test orchestration construct 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9ArtifactHash4B610088": Object {
+      "Description": "Artifact hash for asset \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3Bucket840A3B26": Object {
+      "Description": "S3 bucket for asset \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9": Object {
+      "Description": "S3 key for asset version \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02ArtifactHash32352255": Object {
+      "Description": "Artifact hash for asset \\"4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02S3BucketFFDCA58B": Object {
+      "Description": "S3 bucket for asset \\"4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02S3VersionKey6C3CC588": Object {
+      "Description": "S3 key for asset version \\"4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02\\"",
+      "Type": "String",
+    },
+    "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111ArtifactHashC052695D": Object {
+      "Description": "Artifact hash for asset \\"7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111\\"",
+      "Type": "String",
+    },
+    "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111S3BucketF9A2E618": Object {
+      "Description": "S3 bucket for asset \\"7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111\\"",
+      "Type": "String",
+    },
+    "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111S3VersionKeyD10EE3CB": Object {
+      "Description": "S3 key for asset version \\"7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111\\"",
+      "Type": "String",
+    },
+    "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37ArtifactHashE3CCBDF2": Object {
+      "Description": "Artifact hash for asset \\"96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37\\"",
+      "Type": "String",
+    },
+    "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37S3Bucket6E11FB7D": Object {
+      "Description": "S3 bucket for asset \\"96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37\\"",
+      "Type": "String",
+    },
+    "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37S3VersionKey3083B47C": Object {
+      "Description": "S3 key for asset version \\"96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37\\"",
+      "Type": "String",
+    },
+    "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabArtifactHashAE7D8332": Object {
+      "Description": "Artifact hash for asset \\"f40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaab\\"",
+      "Type": "String",
+    },
+    "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabS3BucketB763A8DD": Object {
+      "Description": "S3 bucket for asset \\"f40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaab\\"",
+      "Type": "String",
+    },
+    "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabS3VersionKey911BD144": Object {
+      "Description": "S3 key for asset version \\"f40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaab\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347",
+        "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111S3BucketF9A2E618",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111S3VersionKeyD10EE3CB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters7282fef31515152ff7beba715155646dd5397f873edd8e9f1fa498e0d3f11111S3VersionKeyD10EE3CB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "S3_BUCKET_NAME": Object {
+              "Ref": "OrchestrationConstructImageBucketS3Bucket20418E23",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 600,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructImageBucketS3Bucket20418E23",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructImageBucketS3Bucket20418E23",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructImageBucketS3Bucket20418E23": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": Object {
+          "DestinationBucketName": Object {
+            "Ref": "OrchestrationConstructImageBucketS3LoggingBucketE585000C",
+          },
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructImageBucketS3BucketPolicy6A71B078": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "OrchestrationConstructImageBucketS3Bucket20418E23",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "OrchestrationConstructImageBucketS3Bucket20418E23",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+            Object {
+              "Action": Array [
+                "s3:List*",
+                "s3:Get*",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "rekognition.amazonaws.com",
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructImageBucketS3Bucket20418E23",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructImageBucketS3Bucket20418E23",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "OrchestrationConstructImageBucketS3LoggingBucketE585000C": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W35",
+              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructImageBucketS3LoggingBucketPolicy7655E08B": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "OrchestrationConstructImageBucketS3LoggingBucketE585000C",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "OrchestrationConstructImageBucketS3LoggingBucketE585000C",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "OrchestrationConstructLabelsRekAnalyzeC2C4DA03": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rekognition:detectModerationLabels",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructLabelsRekAnalyzeC2C4DA03",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructLambdaComprehendPolicy140F9123": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The * resource allows lambda function to access Amazon Comprehend services.
+                  The comprehend services not have a resource arn. This permission is retricted to
+                   the lambda function responsible for accessing the Amazon Comprehend service",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "comprehend:DetectSentiment",
+                "comprehend:DetectEntities",
+                "comprehend:DetectKeyPhrases",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructLambdaComprehendPolicy140F9123",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructLambdaEventBusPolicy557A2842": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "events:PutEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TestEventBus12626D66",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructLambdaEventBusPolicy557A2842",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructPublishEventsLambdaFunctionServiceRole4EA0B6AB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructModerationLabelsLambdaFunction299A68E1": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99",
+        "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37S3Bucket6E11FB7D",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37S3VersionKey3083B47C",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters96ef8cd52ae44c303a7a7712866d9b445c0fb12995bb37fa3596262e1b54ae37S3VersionKey3083B47C",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "S3_BUCKET_NAME": Object {
+              "Ref": "OrchestrationConstructImageBucketS3Bucket20418E23",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructImageBucketS3Bucket20418E23",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructImageBucketS3Bucket20418E23",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructPublishEventsLambdaFunctionE1376EA6": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructPublishEventsLambdaFunctionServiceRole4EA0B6AB",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02S3BucketFFDCA58B",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02S3VersionKey6C3CC588",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4d7f287ad19a0673eaa67c9a35f116345ed2f7b757fdb59a35d250c8f4b70c02S3VersionKey6C3CC588",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "EVENT_BUS_NAME": Object {
+              "Ref": "TestEventBus12626D66",
+            },
+            "EVENT_NAMESPACE": "com.test.text",
+          },
+        },
+        "Handler": "index.handler",
+        "MemorySize": 256,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructPublishEventsLambdaFunctionServiceRole4EA0B6AB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructPublishEventsLambdaFunctionServiceRole4EA0B6AB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructRawForTAFirehosePolicy41D9A17A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructRawForTAFirehosePolicy41D9A17A",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructRawForTAS3BucketF3B00571",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructRawForTAS3BucketF3B00571",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructRawForTAFirehoseRoleF2BBC200": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructRawForTAKinesisFirehose480D395C": Object {
+      "Properties": Object {
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructRawForTAS3BucketF3B00571",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 300,
+            "SizeInMBs": 5,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
+            },
+            "LogStreamName": Object {
+              "Ref": "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "OrchestrationConstructRawForTAS3BucketF3B00571": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W51",
+              "reason": "This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LoggingConfiguration": Object {
+          "DestinationBucketName": Object {
+            "Ref": "OrchestrationConstructRawForTAS3LoggingBucket08E64903",
+          },
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructRawForTAS3BucketPolicyC662093B": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "OrchestrationConstructRawForTAS3BucketF3B00571",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "OrchestrationConstructRawForTAS3BucketF3B00571",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "OrchestrationConstructRawForTAS3LoggingBucket08E64903": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W35",
+              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructRawForTAS3LoggingBucketPolicyD3151207": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "OrchestrationConstructRawForTAS3LoggingBucket08E64903",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "OrchestrationConstructRawForTAS3LoggingBucket08E64903",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "OrchestrationConstructRawForTAfirehoseloggroupDBD11038": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngine23C72B59": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100",
+        "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"AnalyzeImage\\",\\"States\\":{\\"AnalyzeImage\\":{\\"Next\\":\\"TextImageSplitProcess\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD",
+                  "Arn",
+                ],
+              },
+              "\\"},\\"TextImageSplitProcess\\":{\\"Type\\":\\"Parallel\\",\\"Comment\\":\\"Parallely process Text and Image\\",\\"Next\\":\\"MergeJson\\",\\"InputPath\\":\\"$\\",\\"OutputPath\\":\\"$\\",\\"Branches\\":[{\\"StartAt\\":\\"DetectModerationLabels\\",\\"States\\":{\\"DetectModerationLabels\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsLambdaFunction299A68E1",
+                  "Arn",
+                ],
+              },
+              "\\"}}},{\\"StartAt\\":\\"Translate\\",\\"States\\":{\\"Translate\\":{\\"Next\\":\\"AnalyzeText\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateLambdaFunctionE2F10F5D",
+                  "Arn",
+                ],
+              },
+              "\\"},\\"AnalyzeText\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisLambdaFunction4FD55606",
+                  "Arn",
+                ],
+              },
+              "\\"}}}]},\\"MergeJson\\":{\\"Type\\":\\"Pass\\",\\"Parameters\\":{\\"account_name.$\\":\\"$[1].account_name\\",\\"platform.$\\":\\"$[1].platform\\",\\"search_query.$\\":\\"$[1].search_query\\",\\"feed.$\\":\\"$[1].feed\\",\\"Sentiment.$\\":\\"$[1].Sentiment\\",\\"SentimentScore.$\\":\\"$[1].SentimentScore\\",\\"KeyPhrases.$\\":\\"$[1].KeyPhrases\\",\\"Entities.$\\":\\"$[1].Entities\\",\\"moderation_labels_in_imgs.$\\":\\"$[0].moderation_labels_in_imgs\\",\\"text_in_images.$\\":\\"$[1].text_in_images\\"},\\"Next\\":\\"PublishEvent\\"},\\"PublishEvent\\":{\\"Next\\":\\"Success\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructPublishEventsLambdaFunctionE1376EA6",
+                  "Arn",
+                ],
+              },
+              "\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "states.",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ".amazonaws.com",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructPublishEventsLambdaFunctionE1376EA6",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsLambdaFunction299A68E1",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateLambdaFunctionE2F10F5D",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisLambdaFunction4FD55606",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTextAnalysisLambdaFunction4FD55606": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3Bucket840A3B26",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructTextRekAnalyze15062BBD": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rekognition:detectText",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTextRekAnalyze15062BBD",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTranslateLambdaAED204A7": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Translate service",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "translate:translateText",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "firehose:PutRecord",
+                "firehose:PutRecordBatch",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructRawForTAKinesisFirehose480D395C",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTranslateLambdaAED204A7",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTranslateLambdaFunctionE2F10F5D": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabS3BucketB763A8DD",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabS3VersionKey911BD144",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf40d75fc45037cec0ae90b3dedc46b509bbacb63d184306e232f7e168ef7eaabS3VersionKey911BD144",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "KINESIS_FIREHOSE_NAME": Object {
+              "Ref": "OrchestrationConstructRawForTAKinesisFirehose480D395C",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TestEventBus12626D66": Object {
+      "Properties": Object {
+        "Name": "TestEventBus",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+  },
+}
+`;

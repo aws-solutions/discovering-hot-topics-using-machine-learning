@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+######################################################################################################################
+#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           #
+#                                                                                                                    #
+#  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
+#  with the License. A copy of the License is located at                                                             #
+#                                                                                                                    #
+#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#                                                                                                                    #
+#  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
+#  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
+#  and limitations under the License.                                                                                #
+######################################################################################################################
+
+import boto3
+import json
+import os
+import datetime
+
+from datetime import datetime
+
+from util.logging import get_logger
+logger = get_logger(__name__)
+
+firehose = boto3.client('firehose', region_name=os.environ['AWS_REGION'])
+
+def store_topics(data):
+    for key in data:
+        for record in data[key]:
+            logger.debug('Record information for writing to Firehose is '+ json.dumps(record))
+            response = firehose.put_record(
+                DeliveryStreamName = os.environ['TOPICS_FIREHOSE'],
+                Record = {
+                    'Data': json.dumps({
+                        'job_id': record['job_id'],
+                        'job_timestamp': datetime.strftime(datetime.strptime(record['job_timestamp'], '%Y-%m-%dT%H:%M:%S.%fZ'), '%Y-%m-%d %H:%M:%S.%f'),
+                        'topic': record['topic'],
+                        'term': record['term'],
+                        'weight': record['weight']
+                    })+'\n'
+                }
+            )
+            logger.debug ('Response for record '+ record['job_id']+ 'is '+json.dumps(response))
+
+
+def store_mappings(data):
+    logger.debug('Data received is '+ json.dumps(data))
+    response = firehose.put_record(
+        DeliveryStreamName = os.environ['TOPIC_MAPPINGS_FIREHOSE'],
+        Record = {
+            'Data': json.dumps({
+                'job_id': data['job_id'],
+                'job_timestamp': datetime.strftime(datetime.strptime(data['job_timestamp'], '%Y-%m-%dT%H:%M:%S.%fZ'), '%Y-%m-%d %H:%M:%S.%f'),
+                'topic': data['topic'],
+                'id_str': data['id_str']
+            })+'\n'
+        }
+    )
+    logger.debug ('Response for record '+ json.dumps({'topic': data['topic'], 'id_str': data['id_str']})+ 'is '+json.dumps(response))

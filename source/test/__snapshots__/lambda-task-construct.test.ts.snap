@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test lambda task construct 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9ArtifactHash4B610088": Object {
+      "Description": "Artifact hash for asset \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3Bucket840A3B26": Object {
+      "Description": "S3 bucket for asset \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+    "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9": Object {
+      "Description": "S3 key for asset version \\"3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "StepFuncWorkflowStackLambdaFunctionEA7C37F1": Object {
+      "DependsOn": Array [
+        "StepFuncWorkflowStackLambdaFunctionServiceRoleD7BAFDA7",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3Bucket840A3B26",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3a32ea0cea4f9e02b29348ae396bdc2d6c6f0b3a701ea110b8469db08e79d5c9S3VersionKey1ABC98C9",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "StepFuncWorkflowStackLambdaFunctionServiceRoleD7BAFDA7",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "StepFuncWorkflowStackLambdaFunctionServiceRoleD7BAFDA7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;
