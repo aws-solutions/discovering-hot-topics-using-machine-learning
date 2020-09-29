@@ -23,7 +23,7 @@ const lambda = require('../index.js');
 const __test_event__ = require('./event-test-data');
 const assert = require('assert');
 
-describe ('When workflow->translate text is called', () => {
+describe('When workflow->translate text is called', () => {
     let lambdaSpy;
 
     beforeEach(() => {

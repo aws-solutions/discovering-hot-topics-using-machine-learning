@@ -31,7 +31,6 @@ test('Test Lambda with role and scheduler', () => {
         runtime: Runtime.NODEJS_12_X,
         code: Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
         solutionName: 'discovering-hot-topics-using-machine-learning',
-        stackName: stack.stackName,
         supportedLang: 'de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw',
         ingestFrequency: '(0/2 * * * ? *)',
         queryParameter: 'Health',

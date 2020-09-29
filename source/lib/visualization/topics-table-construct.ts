@@ -19,22 +19,28 @@ import { Bucket } from '@aws-cdk/aws-s3';
 export interface TopicsTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class TopicsTable extends Construct {
+    private _table: Table;
+
     constructor (scope: Construct, id: string, props: TopicsTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'Topics', {
+        this._table = new Table(this, 'Topics', {
             database: props.database,
-            tableName: 'topics',
+            tableName: props.tableName,
             columns: this.topicsColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
             bucket: props.s3InputDataBucket,
+            storedAsSubDirectories: true,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: [],
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }],
         });
     }
 
@@ -43,17 +49,21 @@ export class TopicsTable extends Construct {
                 name: 'job_id',
                 type: Schema.STRING
             }, {
-                name: 'job_timestamp',
-                type: Schema.TIMESTAMP
-            }, {
-                name: 'topic',
-                type: Schema.STRING
-            }, {
+            //     name: 'job_timestamp',
+            //     type: Schema.TIMESTAMP
+            // }, {
                 name: 'term',
                 type: Schema.STRING
             }, {
                 name: 'weight',
                 type: Schema.DOUBLE
+            }, {
+                name: 'topic',
+                type: Schema.STRING
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

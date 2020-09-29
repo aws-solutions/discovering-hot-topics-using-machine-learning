@@ -27,7 +27,7 @@ test('test Event Rule Construct', () => {
         lambdaFunctionProps: {
             runtime: Runtime.NODEJS_12_X,
             handler: 'index.handler',
-            code: Code.asset(`${__dirname}/../lambda/integration`),
+            code: Code.fromAsset(`${__dirname}/../lambda/integration`),
             environment: {
                 STREAM_NAME: 'test-stream'
             }

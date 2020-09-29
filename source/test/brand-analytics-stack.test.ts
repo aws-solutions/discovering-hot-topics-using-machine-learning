@@ -12,15 +12,15 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
-import * as cdk from '@aws-cdk/core';
-import * as DiscoveringHotTopics from '../lib/discovering-hot-topics-stack';
+import { Stack } from '@aws-cdk/core';
+import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 
 import '@aws-cdk/assert/jest';
 
 
 test('test ingestion stack', () => {
-    const stack = new cdk.Stack();
-    new DiscoveringHotTopics.DiscoveringHotTopicsStack (stack, 'IngestionStack', {
+    const stack = new Stack();
+    new DiscoveringHotTopicsStack (stack, 'IngestionStack', {
         solutionID: 'SO0122'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

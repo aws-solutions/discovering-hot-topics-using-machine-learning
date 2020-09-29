@@ -13,25 +13,42 @@
  *********************************************************************************************************************/
 
 import { Construct, Aws } from "@aws-cdk/core";
-import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { CfnDeliveryStream, CfnDeliveryStreamProps } from "@aws-cdk/aws-kinesisfirehose";
-import { buildLambdaFunction, buildS3Bucket, DefaultLogGroupProps } from '@aws-solutions-constructs/core';
+import { buildLambdaFunction, DefaultLogGroupProps } from '@aws-solutions-constructs/core';
 import { Runtime, Code, Function } from "@aws-cdk/aws-lambda";
 import { Role, ServicePrincipal, PolicyStatement, Policy, Effect } from "@aws-cdk/aws-iam";
 import { LogGroup } from "@aws-cdk/aws-logs";
+import { IDatabase } from "@aws-cdk/aws-glue";
+import { Table } from "@aws-cdk/aws-glue";
 
 export interface EventStorageProps {
     readonly compressionFormat: string,
     readonly prefix?: string,
     readonly processor?: boolean,
-    readonly s3Bucket?: Bucket
+    readonly s3Bucket: Bucket,
+    readonly keyArn?: string,
+
+    /**
+     * Convert data to Apache Parquet format
+     */
+     readonly convertData?: boolean,
+
+    /**
+     * The database name is required if Firehose should convert data to Apache Parquet
+     */
+    readonly database?: IDatabase,
+
+    /**
+     * Table is required to add dependency for Firehose creation
+     */
+    readonly tableName?: string
 }
+
 export class EventStorage extends Construct {
 
     private readonly _lambda: Function;
     private _firehose: CfnDeliveryStream;
-    private _s3Bucket: Bucket;
-    private _s3LoggingBucket?: Bucket
 
     constructor (scope: Construct, id: string, props: EventStorageProps) {
         super(scope, id);
@@ -45,32 +62,7 @@ export class EventStorage extends Construct {
             assumedBy: new ServicePrincipal('firehose.amazonaws.com'),
         });
 
-        if ( props.s3Bucket === undefined ) {
-            // Setup S3 Bucket
-            [ this._s3Bucket, this._s3LoggingBucket ] = buildS3Bucket(this, {
-                bucketProps: {
-                    versioned: false
-                }
-            });
-
-            (this._s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
-
-            // Extract the CfnBucket from the s3Bucket
-            const s3BucketResource = this._s3Bucket.node.defaultChild as CfnBucket;
-
-            s3BucketResource.cfnOptions.metadata = {
-                cfn_nag: {
-                    rules_to_suppress: [{
-                        id: 'W51',
-                        reason: `This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy`
-                    }]
-                }
-            };
-        } else {
-            this._s3Bucket = props.s3Bucket;
-        }
-
-        this._s3Bucket.grantReadWrite(firehoseRole); // add permissions to read/write to S3 bucket
+        props.s3Bucket.grantReadWrite(firehoseRole); // add permissions to read/write to S3 bucket
 
         // Setup the IAM policy for Kinesis Firehose
         const firehosePolicy = new Policy(this, 'FirehosePolicy', {
@@ -85,6 +77,35 @@ export class EventStorage extends Construct {
 
         // Attach policy to role
         firehosePolicy.attachToRole(firehoseRole);
+
+        let firehoseGluePolicy: Policy;
+        if (props.convertData && props.tableName !== undefined) {
+            firehoseGluePolicy = new Policy(this, 'FirehoseGlueTablePolicy', {
+                statements: [ new PolicyStatement({
+                    effect: Effect.ALLOW,
+                    actions: [ 'glue:GetTable', 'glue:GetTableVersion', 'glue:GetTableVersions' ],
+                    resources: [
+                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:table/${props.database!.databaseName}/${props.tableName}`,
+                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:database/${props.database!.databaseName}`,
+                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:catalog`
+                    ]
+                })]
+            })
+
+            firehoseGluePolicy.attachToRole(firehoseRole);
+        }
+
+        if (props.keyArn !== undefined) {
+            const firehoseGlueKmsPolicy = new Policy(this, 'FirehoseGlueKms', {
+                    statements: [ new PolicyStatement({
+                    effect: Effect.ALLOW,
+                    resources: [ props.keyArn ],
+                    actions: [ 'kms:Decrypt' ]
+                })]
+            });
+
+            firehoseGlueKmsPolicy.attachToRole(firehoseRole);
+        }
 
         if (props?.processor) {
             this._lambda = buildLambdaFunction(this, {
@@ -109,10 +130,10 @@ export class EventStorage extends Construct {
         // Setup the default Kinesis Firehose props
         const defaultKinesisFirehoseProps: CfnDeliveryStreamProps = {
             extendedS3DestinationConfiguration : {
-                bucketArn: this._s3Bucket.bucketArn,
+                bucketArn: props.s3Bucket.bucketArn,
                 bufferingHints: {
                     intervalInSeconds: 300,
-                    sizeInMBs: 5
+                    sizeInMBs: 64
                 },
                 compressionFormat: props.compressionFormat,
                 roleArn: firehoseRole.roleArn,
@@ -121,7 +142,10 @@ export class EventStorage extends Construct {
                     logGroupName: cwLogGroup.logGroupName,
                     logStreamName: cwLogStream.logStreamName
                 },
-                prefix: props?.prefix,
+                ...(props.prefix && {
+                    prefix: `${props?.prefix}created_at=!{timestamp:yyyy-MM-dd}/`,
+                    errorOutputPrefix: `${props.prefix}error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`
+                }),
                 ...(props?.processor && {
                         processingConfiguration: {
                         enabled: true,
@@ -134,27 +158,35 @@ export class EventStorage extends Construct {
                         }]
                     }
                 }),
-                //TODO - conversion for record format to parquet - https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html
-                // TODO - additional permissions required for changing the format when writing for glue tables
-                // {
-                //     "Effect": "Allow",
-                //     "Action": [
-                //       "glue:GetTable",
-                //       "glue:GetTableVersion",
-                //       "glue:GetTableVersions"
-                //     ],
-                //     "Resource": "table-arn"
-                // }
+                ...(props.convertData && {
+                    dataFormatConversionConfiguration: {
+                        inputFormatConfiguration: {
+                            deserializer: {
+                                openXJsonSerDe: {}
+                            }
+                        },
+                        outputFormatConfiguration: {
+                            serializer: {
+                                parquetSerDe: {}
+                            }
+                        },
+                        schemaConfiguration: {
+                            databaseName: props.database!.databaseName,
+                            tableName: props.tableName,
+                            roleArn: firehoseRole.roleArn
+                        }
+                    }
+                })
             }
         }
 
 
         // Override with the input props
         this._firehose = new CfnDeliveryStream(this, 'KinesisFirehose', defaultKinesisFirehoseProps);
-    }
+        if (props.convertData && props.tableName !== undefined) {
+            this._firehose.node.addDependency(firehoseGluePolicy!);
+        }
 
-    public get s3Bucket(): Bucket {
-        return this._s3Bucket;
     }
 
     public get kinesisFirehose(): CfnDeliveryStream {

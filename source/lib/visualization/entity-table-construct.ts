@@ -19,22 +19,28 @@ import { Bucket } from '@aws-cdk/aws-s3';
 export interface EntityTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class EntityTable extends Construct {
+    private _table: Table;
+
     constructor (scope: Construct, id: string, props: EntityTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'Entities', {
+        this._table = new Table(this, 'Entity', {
             database: props.database,
-            tableName: 'entity',
+            tableName: props.tableName,
             columns: this.entityColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
+            storedAsSubDirectories: true,
             bucket: props.s3InputDataBucket,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: []
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }]
         });
     }
 
@@ -51,9 +57,6 @@ export class EntityTable extends Construct {
             }, {
                 name: 'id_str',
                 type: Schema.STRING
-            }, {
-                name: 'created_at',
-                type: Schema.TIMESTAMP
             }, {
                 name: 'text',
                 type: Schema.STRING
@@ -76,5 +79,9 @@ export class EntityTable extends Construct {
                 name: 'entity_end_offset',
                 type: Schema.INTEGER
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

@@ -12,7 +12,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct, Aws } from '@aws-cdk/core';
+import { Construct, Aws, Token } from '@aws-cdk/core';
 import { EventManager, RuleConfig } from './event-manager-construct';
 import { IRuleTarget } from '@aws-cdk/aws-events';
 
@@ -20,9 +20,11 @@ export interface Config {
     readonly source: string [],
     readonly ruleTargets: IRuleTarget[]
 }
+
 export interface EventRuleProps {
     readonly configs: Config []
 }
+
 export class EventRule extends Construct {
     private eventMgr: EventManager
 

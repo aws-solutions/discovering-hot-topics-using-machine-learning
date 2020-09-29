@@ -27,7 +27,6 @@ export interface FeedProducerProps {
     readonly runtime: Runtime,
     readonly code: Code,
     readonly solutionName: string,
-    readonly stackName: string,
     readonly supportedLang: string,
     readonly ingestFrequency: string,
     readonly queryParameter: string,
@@ -43,8 +42,9 @@ export class FeedProducer extends Construct {
 
         const lambdaSSMPolicy = new PolicyStatement({
             effect: Effect.ALLOW,
-            resources: [`arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter/${props.solutionName}/${props.stackName}/*`],
-            actions: [ "ssm:GetParameter", "ssm:PutParameter" ]
+            resources: [ props.credentialKeyPath? `arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter${props.credentialKeyPath}`:
+                `arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter/${props.solutionName}/${Aws.STACK_NAME}/*` ],
+            actions: [ 'ssm:GetParameter', 'ssm:PutParameter' ]
         });
 
         const dynamoDBTable = new LambdaToDynamoDB(this, 'LambdaDDB', {
@@ -55,7 +55,7 @@ export class FeedProducer extends Construct {
                 timeout: props.timeout,
                 environment: {
                     SOLUTION_NAME: props.solutionName,
-                    STACK_NAME: props.stackName,
+                    STACK_NAME: Aws.STACK_NAME,
                     STREAM_NAME: props.stream.streamName,
                     SUPPORTED_LANG: props.supportedLang,
                     QUERY_PARAM: props.queryParameter,

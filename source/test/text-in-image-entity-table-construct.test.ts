@@ -23,11 +23,12 @@ test('test workflow stack', () => {
     const stack = new cdk.Stack();
 
     new TextInImgEntityTable (stack, 'ImgTxtEntity', {
-        s3BucketPrefix: 'txtinimgentity',
+        s3BucketPrefix: 'txtinimgentity/',
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
         database: new Database(stack, 'TestDB', {
             databaseName: 'socialmedia'
         }),
+        tableName: 'txtinimgentity'
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

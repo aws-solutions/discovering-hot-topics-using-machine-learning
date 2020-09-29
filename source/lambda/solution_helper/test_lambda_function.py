@@ -11,7 +11,7 @@
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
-import unittest, requests
+import unittest, requests, os
 from unittest import mock
 
 def mocked_requests_post(*args, **kwargs):
@@ -23,6 +23,15 @@ def mocked_requests_post(*args, **kwargs):
     return MockResponse(200, 'OK')
 
 class LambdaTest(unittest.TestCase):
+
+    def setUp(self):
+        os.environ['SEARCH_QUERY'] = 'someSearchParam'
+        os.environ['LANG_FILTER'] = 'en,fr,es,de,pt'
+
+    def tearDown(self):
+        del os.environ['SEARCH_QUERY']
+        del os.environ['LANG_FILTER']
+
     def test_create_unique_id(self):
         import lambda_function
 

@@ -25,7 +25,8 @@ test('test Text Analysis Fireshose Stream Creation', () => {
     new TextAnalysisProxy(stack, 'TestTAProxy', {
         sentimentStorage: new EventStorage(stack, 'Sentiment', {
             compressionFormat: 'UNCOMPRESSED',
-            prefix: '/sentiment'
+            prefix: '/sentiment',
+            s3Bucket: new Bucket(stack, 'testBucket')
         }),
         entityStorage: new EventStorage(stack, 'Entity', {
             compressionFormat: 'UNCOMPRESSED',

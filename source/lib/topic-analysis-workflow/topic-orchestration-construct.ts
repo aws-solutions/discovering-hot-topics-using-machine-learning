@@ -12,7 +12,7 @@
  *********************************************************************************************************************/
 
 import { Bucket, CfnBucket } from "@aws-cdk/aws-s3";
-import { Construct, Duration } from "@aws-cdk/core";
+import { Construct, Duration, Aws } from "@aws-cdk/core";
 import { Chain, Wait, WaitTime, Choice, Fail, Condition } from '@aws-cdk/aws-stepfunctions';
 import { Policy, PolicyStatement, Effect, Role, ServicePrincipal, CfnPolicy } from "@aws-cdk/aws-iam";
 import { Rule, Schedule, EventBus } from '@aws-cdk/aws-events';
@@ -30,8 +30,7 @@ export interface TopicOrchestrationProps {
     readonly eventBus: EventBus,
     readonly topicsAnalaysisNameSpace: string,
     readonly topicMappingsNameSpace: string,
-    readonly topicSchedule: string,
-    readonly stackName: string
+    readonly topicSchedule: string
 }
 
 export class TopicOrchestration extends Construct {
@@ -59,7 +58,7 @@ export class TopicOrchestration extends Construct {
                     INGESTION_WINDOW: props.ingestionWindow,
                     RAW_BUCKET_FEED: props.rawBucket.bucketName,
                     NUMBER_OF_TOPICS: props.numberofTopics,
-                    STACK_NAME: props.stackName
+                    STACK_NAME: Aws.STACK_NAME
                 },
                 timeout: Duration.minutes(5),
                 memorySize: 512
@@ -121,12 +120,12 @@ export class TopicOrchestration extends Construct {
         });
         lambdaComprehendPassRolePolicy.attachToRole(submitTopicTask.lambdaFunction.role as Role);
 
-        lambdaToS3.s3Bucket.grantRead(comprehendTopicAnalysisRole);
-        inferenceLambdaToS3.s3Bucket.grantWrite(comprehendTopicAnalysisRole);
+        lambdaToS3.s3Bucket!.grantRead(comprehendTopicAnalysisRole);
+        inferenceLambdaToS3.s3Bucket!.grantWrite(comprehendTopicAnalysisRole);
 
-        submitTopicTask.lambdaFunction.addEnvironment('INGESTION_S3_BUCKET_NAME', lambdaToS3.s3Bucket.bucketName);
+        submitTopicTask.lambdaFunction.addEnvironment('INGESTION_S3_BUCKET_NAME', lambdaToS3.s3Bucket!.bucketName);
         submitTopicTask.lambdaFunction.addEnvironment('DATA_ACCESS_ARN', comprehendTopicAnalysisRole.roleArn);
-        submitTopicTask.lambdaFunction.addEnvironment('INFERENCE_BUCKET', inferenceLambdaToS3.s3Bucket.bucketName);
+        submitTopicTask.lambdaFunction.addEnvironment('INFERENCE_BUCKET', inferenceLambdaToS3.s3Bucket!.bucketName!);
 
         const publsihTopicModel = new StepFuncLambdaTask(this, 'PublishTopic', {
             taskName: 'Publish Topic',
@@ -150,7 +149,7 @@ export class TopicOrchestration extends Construct {
             },
             outputPath: '$'
         });
-        inferenceLambdaToS3.s3Bucket.grantRead(publsihTopicModel.lambdaFunction);
+        inferenceLambdaToS3.s3Bucket!.grantRead(publsihTopicModel.lambdaFunction);
         props.rawBucket.grantRead(publsihTopicModel.lambdaFunction);
         lambdaPublishEventPolicy.attachToRole(publsihTopicModel.lambdaFunction.role as Role);
 

@@ -19,22 +19,28 @@ import { Bucket } from '@aws-cdk/aws-s3';
 export interface TextInImgSentimentTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class TextInImgSentimentTable extends Construct {
+    private _table: Table;
+
     constructor (scope: Construct, id: string, props: TextInImgSentimentTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'ImgTxtSentiment', {
+        this._table = new Table(this, 'ImgTxtSentiment', {
             database: props.database,
-            tableName: 'img_text_sentiment',
+            tableName: props.tableName,
             columns: this.sentimentColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
             bucket: props.s3InputDataBucket,
+            storedAsSubDirectories: true,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: [],
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }],
         });
     }
 
@@ -52,12 +58,12 @@ export class TextInImgSentimentTable extends Construct {
                 name: 'id_str',
                 type: Schema.STRING
             }, {
-                name: 'created_at',
-                type: Schema.TIMESTAMP
-            }, {
                 name: 'text',
                 type: Schema.STRING
             }, {
+            //     name: 'created_at',
+            //     type: Schema.TIMESTAMP
+            // }, {
                 name: 'sentiment',
                 type: Schema.STRING
             }, {
@@ -76,5 +82,9 @@ export class TextInImgSentimentTable extends Construct {
                 name: 'image_url',
                 type: Schema.STRING
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

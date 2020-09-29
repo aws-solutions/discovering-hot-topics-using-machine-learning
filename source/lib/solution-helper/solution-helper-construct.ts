@@ -18,6 +18,8 @@ import { ExecutionRole } from './lambda-role-cloudwatch-construct';
 
 export interface SolutionHelperProps {
     readonly solutionId: string;
+    readonly searchQuery: string;
+    readonly langFilter: string;
 }
 
 export class SolutionHelper extends cdk.Construct {
@@ -44,7 +46,11 @@ export class SolutionHelper extends cdk.Construct {
             description: 'This function generates UUID for each deployment and sends anonymous data to the AWS Solutions team',
             role: helperRole.Role,
             code: lambda.Code.fromAsset(`${__dirname}/../../lambda/solution_helper`),
-            timeout: cdk.Duration.seconds(30)
+            timeout: cdk.Duration.seconds(30),
+            environment: {
+                SEARCH_QUERY: props.searchQuery,
+                LANG_FILTER: props.langFilter
+            }
         });
 
         const createIdFunction = new cdk.CustomResource(this, 'CreateUniqueID', {

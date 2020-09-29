@@ -3,16 +3,16 @@
 exports[`Event Storage Construct with Lambda processor 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947ArtifactHash9D67F720": Object {
-      "Description": "Artifact hash for asset \\"afc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947\\"",
+    "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afArtifactHash70BCA2DB": Object {
+      "Description": "Artifact hash for asset \\"605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35af\\"",
       "Type": "String",
     },
-    "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947S3Bucket3C9323A5": Object {
-      "Description": "S3 bucket for asset \\"afc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947\\"",
+    "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afS3Bucket99E9F277": Object {
+      "Description": "S3 bucket for asset \\"605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35af\\"",
       "Type": "String",
     },
-    "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947S3VersionKey2D702865": Object {
-      "Description": "S3 key for asset version \\"afc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947\\"",
+    "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afS3VersionKey099DDC12": Object {
+      "Description": "S3 key for asset version \\"605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35af\\"",
       "Type": "String",
     },
   },
@@ -94,7 +94,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "EventStorageTestS3Bucket0944C915",
+                    "testBucketDF4D7D1A",
                     "Arn",
                   ],
                 },
@@ -104,7 +104,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "EventStorageTestS3Bucket0944C915",
+                          "testBucketDF4D7D1A",
                           "Arn",
                         ],
                       },
@@ -131,13 +131,13 @@ Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
-              "EventStorageTestS3Bucket0944C915",
+              "testBucketDF4D7D1A",
               "Arn",
             ],
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -149,7 +149,8 @@ Object {
             },
           },
           "CompressionFormat": "GZIP",
-          "Prefix": "testPrefix/",
+          "ErrorOutputPrefix": "testPrefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "testPrefix/created_at=!{timestamp:yyyy-MM-dd}/",
           "ProcessingConfiguration": Object {
             "Enabled": true,
             "Processors": Array [
@@ -181,6 +182,7 @@ Object {
     },
     "EventStorageTestLambdaFunction0DDD544F": Object {
       "DependsOn": Array [
+        "EventStorageTestLambdaFunctionServiceRoleDefaultPolicy51A8DD20",
         "EventStorageTestLambdaFunctionServiceRole28BD7F58",
       ],
       "Metadata": Object {
@@ -196,7 +198,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947S3Bucket3C9323A5",
+            "Ref": "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afS3Bucket99E9F277",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -209,7 +211,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947S3VersionKey2D702865",
+                          "Ref": "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afS3VersionKey099DDC12",
                         },
                       ],
                     },
@@ -222,7 +224,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersafc77039660b2b433c98e33a798b6c22a9de4f21af3f6f1a21eecd255b6a5947S3VersionKey2D702865",
+                          "Ref": "AssetParameters605f9425e66cabf7585f9cdfc6db214c0d9ed419cd53730f3e4595af862d35afS3VersionKey099DDC12",
                         },
                       ],
                     },
@@ -245,6 +247,9 @@ Object {
           ],
         },
         "Runtime": "nodejs12.x",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -299,6 +304,40 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
+    "EventStorageTestLambdaFunctionServiceRoleDefaultPolicy51A8DD20": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EventStorageTestLambdaFunctionServiceRoleDefaultPolicy51A8DD20",
+        "Roles": Array [
+          Object {
+            "Ref": "EventStorageTestLambdaFunctionServiceRole28BD7F58",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "EventStorageTestLambdaProcessor4069EDCC": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -328,152 +367,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "EventStorageTestS3Bucket0944C915": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W51",
-              "reason": "This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "LoggingConfiguration": Object {
-          "DestinationBucketName": Object {
-            "Ref": "EventStorageTestS3LoggingBucket5E871860",
-          },
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3BucketPolicyC8F97643": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3Bucket0944C915",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3Bucket0944C915",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
-    "EventStorageTestS3LoggingBucket5E871860": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W35",
-              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3LoggingBucketPolicyAEE33E31": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3LoggingBucket5E871860",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3LoggingBucket5E871860",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
     "EventStorageTestfirehoseloggroupACB75E85": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
@@ -487,6 +380,11 @@ Object {
         },
       },
       "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testBucketDF4D7D1A": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
   },
@@ -573,7 +471,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "EventStorageTestS3Bucket0944C915",
+                    "testBucketDF4D7D1A",
                     "Arn",
                   ],
                 },
@@ -583,7 +481,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "EventStorageTestS3Bucket0944C915",
+                          "testBucketDF4D7D1A",
                           "Arn",
                         ],
                       },
@@ -610,13 +508,13 @@ Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
-              "EventStorageTestS3Bucket0944C915",
+              "testBucketDF4D7D1A",
               "Arn",
             ],
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -628,7 +526,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "test-prefix/",
+          "ErrorOutputPrefix": "test-prefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "test-prefix/created_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "EventStorageTestFirehoseRole9A5FD08D",
@@ -638,152 +537,6 @@ Object {
         },
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
-    },
-    "EventStorageTestS3Bucket0944C915": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W51",
-              "reason": "This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "LoggingConfiguration": Object {
-          "DestinationBucketName": Object {
-            "Ref": "EventStorageTestS3LoggingBucket5E871860",
-          },
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3BucketPolicyC8F97643": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3Bucket0944C915",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3Bucket0944C915",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
-    "EventStorageTestS3LoggingBucket5E871860": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W35",
-              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3LoggingBucketPolicyAEE33E31": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3LoggingBucket5E871860",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3LoggingBucket5E871860",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
     },
     "EventStorageTestfirehoseloggroupACB75E85": Object {
       "DeletionPolicy": "Retain",
@@ -798,6 +551,11 @@ Object {
         },
       },
       "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testBucketDF4D7D1A": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
   },
@@ -884,7 +642,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "EventStorageTestS3Bucket0944C915",
+                    "testBucketDF4D7D1A",
                     "Arn",
                   ],
                 },
@@ -894,7 +652,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "EventStorageTestS3Bucket0944C915",
+                          "testBucketDF4D7D1A",
                           "Arn",
                         ],
                       },
@@ -921,13 +679,13 @@ Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
-              "EventStorageTestS3Bucket0944C915",
+              "testBucketDF4D7D1A",
               "Arn",
             ],
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -949,152 +707,6 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "EventStorageTestS3Bucket0944C915": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W51",
-              "reason": "This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "LoggingConfiguration": Object {
-          "DestinationBucketName": Object {
-            "Ref": "EventStorageTestS3LoggingBucket5E871860",
-          },
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3BucketPolicyC8F97643": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3Bucket0944C915",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3Bucket0944C915",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
-    "EventStorageTestS3LoggingBucket5E871860": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W35",
-              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestS3LoggingBucketPolicyAEE33E31": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "EventStorageTestS3LoggingBucket5E871860",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "EventStorageTestS3LoggingBucket5E871860",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
     "EventStorageTestfirehoseloggroupACB75E85": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
@@ -1108,6 +720,11 @@ Object {
         },
       },
       "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testBucketDF4D7D1A": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
   },

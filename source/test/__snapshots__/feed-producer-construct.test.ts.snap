@@ -3,16 +3,16 @@
 exports[`Test Lambda with role and scheduler 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9ArtifactHashAECF6781": Object {
-      "Description": "Artifact hash for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+    "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7ArtifactHash37A8E5B5": Object {
+      "Description": "Artifact hash for asset \\"6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7\\"",
       "Type": "String",
     },
-    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4": Object {
-      "Description": "S3 bucket for asset \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+    "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7S3Bucket7A8E2B44": Object {
+      "Description": "S3 bucket for asset \\"6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7\\"",
       "Type": "String",
     },
-    "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7": Object {
-      "Description": "S3 key for asset version \\"73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9\\"",
+    "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7S3VersionKey41166C08": Object {
+      "Description": "S3 key for asset version \\"6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7\\"",
       "Type": "String",
     },
   },
@@ -41,6 +41,9 @@ Object {
             "KeyType": "RANGE",
           },
         ],
+        "PointInTimeRecoverySpecification": Object {
+          "PointInTimeRecoveryEnabled": true,
+        },
         "SSESpecification": Object {
           "SSEEnabled": true,
         },
@@ -89,7 +92,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3Bucket5D8B64E4",
+            "Ref": "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7S3Bucket7A8E2B44",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -102,7 +105,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                          "Ref": "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7S3VersionKey41166C08",
                         },
                       ],
                     },
@@ -115,7 +118,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters73a6625c70eaedf02bd1901a58569aa68070c8165d50bcb4e71a68a5c2f1a3c9S3VersionKeyB1EF4AC7",
+                          "Ref": "AssetParameters6eeb56fef36a05d7e1df9e78950f66bddb0be2d8bda2872a753e52b3d90161c7S3VersionKey41166C08",
                         },
                       ],
                     },
@@ -134,7 +137,9 @@ Object {
             },
             "QUERY_PARAM": "Health",
             "SOLUTION_NAME": "discovering-hot-topics-using-machine-learning",
-            "STACK_NAME": "Stack",
+            "STACK_NAME": Object {
+              "Ref": "AWS::StackName",
+            },
             "STREAM_NAME": Object {
               "Ref": "TestStreamE6F40222",
             },
@@ -150,6 +155,9 @@ Object {
         },
         "Runtime": "nodejs12.x",
         "Timeout": 300,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -205,9 +213,27 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             Object {
               "Action": Array [
                 "dynamodb:BatchGetItem",
@@ -270,7 +296,7 @@ Object {
                     Object {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/discovering-hot-topics-using-machine-learning/Stack/*",
+                    ":parameter/some/dummy/path/test",
                   ],
                 ],
               },

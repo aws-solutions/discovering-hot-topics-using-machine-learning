@@ -13,7 +13,7 @@
  *********************************************************************************************************************/
 
 
-import { Construct, Duration } from '@aws-cdk/core';
+import { Construct, Duration, Aws } from '@aws-cdk/core';
 import { Runtime, Code } from '@aws-cdk/aws-lambda';
 import { FeedProducer } from './feed-producer-construct';
 import { FeedConsumer } from './feed-consumer-construct';
@@ -22,7 +22,6 @@ import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 export interface IngestionProps {
     readonly stateMachineArn: string,
     readonly solutionName: string,
-    readonly stackName: string,
     readonly ingestFrequency: string,
     readonly queryParameter: string,
     readonly supportedLang: string //comma separated values of language codes
@@ -58,9 +57,8 @@ export class Ingestion extends Construct {
             timeout: Duration.minutes(5),
             stream: feedConsumerlambda.kinesisStream,
             runtime: Runtime.NODEJS_12_X,
-            code: Code.asset(`${__dirname}/../../lambda/ingestion-producer`),
+            code: Code.fromAsset(`${__dirname}/../../lambda/ingestion-producer`),
             solutionName: props.solutionName,
-            stackName: props.stackName,
             supportedLang: props.supportedLang,
             ingestFrequency: props.ingestFrequency,
             queryParameter: props.queryParameter,

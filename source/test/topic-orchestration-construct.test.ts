@@ -12,10 +12,9 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
-import { Stack } from '@aws-cdk/core'
+import { Stack, CfnParameter } from '@aws-cdk/core'
 import '@aws-cdk/assert/jest';
 
-import { TopicAnalysisProxy } from '../lib/integration/topic-analysis-proxy';
 import { TopicOrchestration } from '../lib/topic-analysis-workflow/topic-orchestration-construct';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { EventBus } from '@aws-cdk/aws-events';
@@ -30,8 +29,7 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         eventBus: new EventBus(stack, 'EventBus'),
         topicsAnalaysisNameSpace: 'com.test.topic',
         topicMappingsNameSpace: 'com.test.mappings',
-        topicSchedule: '(5 */2 * * ? *)',
-        stackName: 'test-stack'
+        topicSchedule: '(5 */2 * * ? *)'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

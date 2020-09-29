@@ -12,29 +12,35 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Table, DataFormat, Column, Schema, IDatabase } from '@aws-cdk/aws-glue';
+import { Table, DataFormat, Column, Schema, IDatabase, TableEncryption } from '@aws-cdk/aws-glue';
 import { Construct } from '@aws-cdk/core';
 import { Bucket } from '@aws-cdk/aws-s3';
 
 export interface SentimentTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class SentimentTable extends Construct {
+    private _table: Table;
+
     constructor (scope: Construct, id: string, props: SentimentTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'Sentiment', {
+        this._table = new Table(this, 'Sentiment', {
             database: props.database,
-            tableName: 'sentiment',
+            tableName: props.tableName,
             columns: this.sentimentColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
             bucket: props.s3InputDataBucket,
+            storedAsSubDirectories: true,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: [],
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }]
         });
     }
 
@@ -51,10 +57,7 @@ export class SentimentTable extends Construct {
             }, {
                 name: 'id_str',
                 type: Schema.STRING
-            }, {
-                name: 'created_at',
-                type: Schema.TIMESTAMP
-            }, {
+            },  {
                 name: 'text',
                 type: Schema.STRING
             }, {
@@ -76,5 +79,9 @@ export class SentimentTable extends Construct {
                 name: 'sentimentmixscore',
                 type: Schema.DOUBLE
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

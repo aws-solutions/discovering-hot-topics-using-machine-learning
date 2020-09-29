@@ -11,7 +11,7 @@
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
-import logging, uuid, requests
+import logging, uuid, requests, os
 from copy import copy
 from crhelper import CfnResource
 from datetime import datetime
@@ -45,6 +45,8 @@ def custom_resource(event, _):
         try:
             metrics_data = _sanitize_data(copy(resource_properties))
             metrics_data['RequestType'] = request_type
+            metrics_data['SearchQuery'] = os.environ['SEARCH_QUERY']
+            metrics_data['LangFilter'] = os.environ['LANG_FILTER']
 
             headers = { 'Content-Type': 'application/json' }
             payload = {

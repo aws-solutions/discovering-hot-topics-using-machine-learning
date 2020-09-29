@@ -26,7 +26,8 @@ test('test workflow stack', () => {
         s3BucketPrefix: 'entity/',
         database: new Database(stack, 'TestDB', {
             databaseName: 'socialmediadb'
-        })
+        }),
+        tableName: 'entity'
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

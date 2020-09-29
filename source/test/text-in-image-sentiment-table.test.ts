@@ -26,7 +26,8 @@ test('test workflow stack', () => {
         s3BucketPrefix: 'textinimgsentiment/',
         database: new Database(stack, 'TestDB', {
             databaseName: 'socialmediadb'
-        })
+        }),
+        tableName: 'textinimgsentiment'
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

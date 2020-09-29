@@ -16,12 +16,14 @@ import { Stack } from '@aws-cdk/core';
 import { EventStorage } from '../lib/storage/event-storage-construct';
 
 import '@aws-cdk/assert/jest';
+import { Bucket } from '@aws-cdk/aws-s3';
 
 test ('Event Storage Construct with props', () => {
     const stack = new Stack();
     new EventStorage(stack, 'EventStorageTest', {
         compressionFormat: 'UNCOMPRESSED',
-        prefix: 'test-prefix/'
+        prefix: 'test-prefix/',
+        s3Bucket: new Bucket(stack, 'testBucket')
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
@@ -29,7 +31,8 @@ test ('Event Storage Construct with props', () => {
 test ('Event Storage Construct without props', () => {
     const stack = new Stack();
     const eventStorage = new EventStorage(stack, 'EventStorageTest', {
-        compressionFormat: 'GZIP'
+        compressionFormat: 'GZIP',
+        s3Bucket: new Bucket(stack, 'testBucket')
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
@@ -39,7 +42,8 @@ test ('Event Storage Construct with Lambda processor', () => {
     const eventStorage = new EventStorage(stack, 'EventStorageTest', {
         compressionFormat: 'GZIP',
         processor: true,
-        prefix: 'testPrefix/'
+        prefix: 'testPrefix/',
+        s3Bucket: new Bucket(stack, 'testBucket')
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

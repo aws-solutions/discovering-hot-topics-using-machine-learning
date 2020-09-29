@@ -13,10 +13,9 @@
  *********************************************************************************************************************/
 
 
-import { Stack, Construct, StackProps, CfnParameter } from '@aws-cdk/core';
+import { CfnParameter, Construct, Stack, StackProps, Token } from '@aws-cdk/core';
 import { TextOrchestration } from './text-analysis-workflow/text-orchestration-construct';
 import { AppIntegration } from './integration/app-integration-construct';
-import { InferenceDatabase } from './visualization/inf-database-construct';
 import { Ingestion } from './ingestion/ingestion-construct';
 import { TopicOrchestration } from './topic-analysis-workflow/topic-orchestration-construct';
 import { SolutionHelper } from './solution-helper/solution-helper-construct';
@@ -28,7 +27,6 @@ export class DiscoveringHotTopicsStack extends Stack {
     constructor(scope: Construct, id: string, props: DiscoveringHotTopicsStackProps) {
         super(scope, id, props);
 
-        //TODO - add cron as part of the input text field
         const ingestFreqParam = new CfnParameter(this, 'IngestQueryFrequency', {
             type: 'String',
             default: 'cron(0/2 * * * ? *)',
@@ -52,7 +50,6 @@ export class DiscoveringHotTopicsStack extends Stack {
             allowedPattern: '([a-z]{2}-[a-z]{2}|[a-z]{2})(,([a-z]{2}-[a-z]{2}|[a-z]{2}))*'
         });
 
-        //TODO - add cron as part of the input text field
         const topicSchedule = new CfnParameter(this, 'TopicAnalysisFrequency', {
             type: 'String',
             default: 'cron(5 */2 * * ? *)',
@@ -61,13 +58,10 @@ export class DiscoveringHotTopicsStack extends Stack {
         });
 
         const numberOfTopics = new CfnParameter(this, 'NumberOfTopics', {
-            type: 'String',
+            type: 'Number',
             default: '10',
-            allowedPattern: '^[1-9][0-9]?$|^100$',
-            // minValue: 1, //TODO - CDK issue with valueAsNumber. Hence using string for now
-            // maxValue: 100,
-            minLength: 1,
-            maxLength: 3,
+            minValue: 1,
+            maxValue: 100,
             description: 'The number of topics to be discovered by Topic analysis. The min value is 1 and maximum value is 100'
         });
 
@@ -77,19 +71,18 @@ export class DiscoveringHotTopicsStack extends Stack {
             description: 'The SSM parameter store path of key where the credentials are stored as encrypted string',
         });
 
-        new SolutionHelper(this, 'SolutionHelper', { solutionId: props.solutionID });
+        new SolutionHelper(this, 'SolutionHelper', { solutionId: props.solutionID, searchQuery: queryParam.valueAsString, langFilter: supportedLang.valueAsString });
 
-        const storageCofig = {
-            Sentiment: 'sentiment/',
-            Entity: 'entity/',
-            KeyPhrase: 'keyphrase/',
-            Topics: 'topics/',
-            TopicMappings: 'topic-mappings/',
-            TxtInImgEntity: 'txtinimgentity/',
-            TxtInImgSentiment: 'txtinimgsentiment/',
-            TxtInImgKeyPhrase: 'txtinimgkeyphrase/',
-            ModerationLabels: 'moderationlabels/'
-        }
+        const storageCofig: Map<string, string> = new Map();
+        storageCofig.set('Sentiment', 'sentiment');
+        storageCofig.set('Entity', 'entity');
+        storageCofig.set('KeyPhrase', 'keyphrase');
+        storageCofig.set('Topics', 'topics');
+        storageCofig.set('TopicMappings', 'topicmappings');
+        storageCofig.set('TxtInImgEntity', 'txtinimgentity');
+        storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
+        storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+        storageCofig.set('ModerationLabels', 'moderationlabels');
 
         // start of workflow -> storage integration
         const textInferenceNameSpace = 'com.analyze.text.inference';
@@ -99,16 +92,9 @@ export class DiscoveringHotTopicsStack extends Stack {
             textAnalysisInfNS: textInferenceNameSpace,
             topicsAnalysisInfNS: topicsAnalysisInfNameSpace,
             topicMappingsInfNS: topicMappingsInfNameSpace,
-            tableMappings: storageCofig
+            tableMappings: storageCofig,
         });
         // start of workflow -> storage integration
-
-        // start of storage and visualization
-        new InferenceDatabase(this, 'InfDB', {
-            s3InputDataBucket: appIntegration.s3Bucket,
-            tableMappings: storageCofig
-        });
-        // end of storage and visualization
 
         // start creation of step functions state machine and event bus
         const textWorkflowEngine = new TextOrchestration(this, 'TextWfEngine', {
@@ -122,9 +108,8 @@ export class DiscoveringHotTopicsStack extends Stack {
             eventBus: appIntegration.eventManager.eventBus,
             rawBucket: textWorkflowEngine.s3Bucket,
             ingestionWindow: '2', // number of days
-            numberofTopics: numberOfTopics.valueAsString,
+            numberofTopics: Token.asString(numberOfTopics.value),
             topicSchedule: topicSchedule.valueAsString,
-            stackName: this.stackName
         });
         // end creation of step functions state machine and event bus
 
@@ -132,7 +117,6 @@ export class DiscoveringHotTopicsStack extends Stack {
         new Ingestion(this, 'Ingestion', {
             stateMachineArn: textWorkflowEngine.stateMachine.stateMachineArn,
             solutionName: 'discovering-hot-topics-using-machine-learning',
-            stackName: this.stackName,
             ingestFrequency: ingestFreqParam.valueAsString,
             queryParameter: queryParam.valueAsString,
             supportedLang: supportedLang.valueAsString,

@@ -20,15 +20,22 @@ import '@aws-cdk/assert/jest';
 
 test('test workflow stack', () => {
     const stack = new cdk.Stack();
+
+    const storageCofig: Map<string, string> = new Map();
+    storageCofig.set('Sentiment', 'sentiment');
+    storageCofig.set('Entity', 'entity');
+    storageCofig.set('Entity', 'entity');
+    storageCofig.set('KeyPhrase', 'keyphrase');
+    storageCofig.set('Topics', 'topics');
+    storageCofig.set('TopicMappings', 'topic-mappings');
+    storageCofig.set('TxtInImgEntity', 'txtinimgentity');
+    storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
+    storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+    storageCofig.set('ModerationLabels', 'moderationlabels');
+
     new InferenceDatabase(stack, 'TestDB', {
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
-        tableMappings: {
-            Sentiment: 'sentiment/',
-            Entity: 'entity/',
-            KeyPhrase: 'keyphrase/',
-            Topics: 'topics/',
-            TopicMappings: 'topic-mappings/'
-        }
+        tablePrefixMappings: storageCofig
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

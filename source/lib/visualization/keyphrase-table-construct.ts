@@ -19,22 +19,28 @@ import { Bucket } from '@aws-cdk/aws-s3';
 export interface KeyPhraseTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class KeyPhraseTable extends Construct {
+    private _table: Table;
+
     constructor (scope: Construct, id: string, props: KeyPhraseTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'KeyPhrase', {
+        this._table = new Table(this, 'KeyPhrase', {
             database: props.database,
-            tableName: 'keyphrase',
+            tableName: props.tableName,
             columns: this.entityColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
             bucket: props.s3InputDataBucket,
+            storedAsSubDirectories: true,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: []
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }]
         });
     }
 
@@ -51,9 +57,6 @@ export class KeyPhraseTable extends Construct {
             }, {
                 name: 'id_str',
                 type: Schema.STRING
-            }, {
-                name: 'created_at',
-                type: Schema.TIMESTAMP
             }, {
                 name: 'text',
                 type: Schema.STRING
@@ -73,5 +76,9 @@ export class KeyPhraseTable extends Construct {
                 name: 'phrase_end_offset',
                 type: Schema.INTEGER
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

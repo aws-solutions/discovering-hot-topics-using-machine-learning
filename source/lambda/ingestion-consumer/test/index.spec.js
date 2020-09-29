@@ -35,7 +35,7 @@ describe ('when consumer lambda is invoked', () => {
         process.env.WORKFLOW_ARN = "arn:aws:us-east-1:1234664:/stepfunctions/workflow";
     });
 
-    it ('should receive the event payload correctly', async () => {
+    it('should receive the event payload correctly', async () => {
         const event = {
             "Records": [{
                 "kinesis": {
@@ -59,7 +59,7 @@ describe ('when consumer lambda is invoked', () => {
         expect(await lambda.handler(event)).to.be.undefined;
     });
 
-    it ('should invoke the step function', async () => {
+    it('should invoke the step function', async () => {
         const event = {
             "Records": [{
                 "kinesis": {
@@ -123,10 +123,10 @@ describe ('In an event stepfunction throws an error', () => {
             }]
         };
         lambda.handler(event).catch((error) => {
-            if (error instanceof assert.AssertionError) {
+            if(error instanceof assert.AssertionError) {
                 assert.fail();
             }
-            assert (error.message, 'Fake error for stepfunctions');
+            assert(error.message, 'Fake error for stepfunctions');
         });
     });
 

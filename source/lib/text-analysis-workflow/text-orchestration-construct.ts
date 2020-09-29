@@ -18,6 +18,7 @@ import { EventBus } from '@aws-cdk/aws-events';
 import { Runtime, Code } from '@aws-cdk/aws-lambda';
 import { StateMachine, Chain, Succeed, Parallel, Pass } from '@aws-cdk/aws-stepfunctions';
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
+import { buildS3Bucket } from '@aws-solutions-constructs/core';
 
 import { StepFuncLambdaTask } from './lambda-task-construct';
 import { Workflow } from './workflow-construct';
@@ -29,15 +30,23 @@ export interface TextOrchestrationProps {
 }
 
 export class TextOrchestration extends Construct {
-    private readonly stMachine: StateMachine
-
-    private eventStorage: EventStorage
+    private readonly _stateMachine: StateMachine;
+    private eventStorage: EventStorage;
+    private _s3Bucket: Bucket;
+    private _s3LoggingBucket?: Bucket;
 
     constructor (scope: Construct, id: string, props: TextOrchestrationProps) {
         super(scope, id);
 
+        [ this._s3Bucket, this._s3LoggingBucket ] = buildS3Bucket(this, {
+            bucketProps: {
+                versioned: false
+            }
+        });
+
         this.eventStorage = new EventStorage(this, 'RawForTA', {
             compressionFormat: 'UNCOMPRESSED',
+            s3Bucket: this._s3Bucket
         });
 
         // start of embedded text detection
@@ -67,8 +76,8 @@ export class TextOrchestration extends Construct {
 
         (imageBucketLambda.s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
 
-        imageBucketLambda.s3Bucket.addToResourcePolicy(new PolicyStatement({
-            resources: [ `${imageBucketLambda.s3Bucket.bucketArn}`, `${imageBucketLambda.s3Bucket.bucketArn}/*` ],
+        imageBucketLambda.s3Bucket!.addToResourcePolicy(new PolicyStatement({
+            resources: [ `${imageBucketLambda.s3Bucket!.bucketArn}`, `${imageBucketLambda.s3Bucket!.bucketArn}/*` ],
             actions: [ 's3:List*', 's3:Get*' ],
             principals: [ new ServicePrincipal('rekognition.amazonaws.com') ],
             effect: Effect.ALLOW
@@ -105,11 +114,11 @@ export class TextOrchestration extends Construct {
                 code: Code.fromAsset(`${__dirname}/../../lambda/wf-detect-moderation-labels`),
                 timeout: Duration.minutes(5),
                 environment: {
-                    S3_BUCKET_NAME: imageBucketLambda.s3Bucket.bucketName
+                    S3_BUCKET_NAME: imageBucketLambda.s3Bucket!.bucketName
                 }
             }
         });
-        imageBucketLambda.s3Bucket.grantReadWrite(moderationLabelTask.lambdaFunction);
+        imageBucketLambda.s3Bucket!.grantReadWrite(moderationLabelTask.lambdaFunction);
 
         const detectModerationLambdaPolicy = new Policy(this, 'LabelsRekAnalyze', {
             statements: [
@@ -258,16 +267,16 @@ export class TextOrchestration extends Construct {
                              .next(new Succeed(this, 'Success'));
         // end of creating workflow
 
-        this.stMachine = new Workflow(this, 'StateMachine', {
+        this._stateMachine = new Workflow(this, 'StateMachine', {
             chain: workflowChain
         }).stateMachine;
     }
 
     public get stateMachine(): StateMachine {
-        return this.stMachine;
+        return this._stateMachine;
     }
 
     public get s3Bucket(): Bucket {
-        return this.eventStorage.s3Bucket;
+        return this._s3Bucket;
     }
 }

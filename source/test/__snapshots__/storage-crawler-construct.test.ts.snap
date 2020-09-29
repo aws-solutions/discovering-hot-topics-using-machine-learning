@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test orchestration construct 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecArtifactHash048C2CF9": Object {
+      "Description": "Artifact hash for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+      "Type": "String",
+    },
+    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079": Object {
+      "Description": "S3 bucket for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+      "Type": "String",
+    },
+    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A": Object {
+      "Description": "S3 key for asset version \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "DatabaseCrawlerCustomResource3816EFB4": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "DatabaseCrawlerLambdaFunction62DC17B4",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::CreatePartition",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DatabaseCrawlerLambdaFunction62DC17B4": Object {
+      "DependsOn": Array [
+        "DatabaseCrawlerLambdaFunctionServiceRoleDefaultPolicy2BA171D3",
+        "DatabaseCrawlerLambdaFunctionServiceRole508963D0",
+        "DatabaseCrawlerLambdaGlueBD6E669D",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "Lambda function to create parition on glue tables",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME": Object {
+              "Ref": "testDB74E9B281",
+            },
+            "TABLE_NAMES": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Ref": "sentimentTable95617508",
+                  },
+                  ",",
+                  Object {
+                    "Ref": "entityTableF0612B70",
+                  },
+                ],
+              ],
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "DatabaseCrawlerLambdaFunctionServiceRole508963D0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "DatabaseCrawlerLambdaFunctionLambdaInvokePermission619FECBF": Object {
+      "DependsOn": Array [
+        "DatabaseCrawlerLambdaGlueBD6E669D",
+      ],
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "DatabaseCrawlerLambdaFunction62DC17B4",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "DatabaseCrawlerNightlyCreateParitionEventsRule82FD2B6A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "DatabaseCrawlerLambdaFunctionServiceRole508963D0": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DatabaseCrawlerLambdaFunctionServiceRoleDefaultPolicy2BA171D3": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "testBucketDF4D7D1A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "testBucketDF4D7D1A",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DatabaseCrawlerLambdaFunctionServiceRoleDefaultPolicy2BA171D3",
+        "Roles": Array [
+          Object {
+            "Ref": "DatabaseCrawlerLambdaFunctionServiceRole508963D0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DatabaseCrawlerLambdaGlueBD6E669D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetPartition",
+                "glue:GetTable",
+                "glue:CreatePartition",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "testDB74E9B281",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "testDB74E9B281",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": "arn:aws:kms:fakeregion:fakeaccountid:kms/testkey",
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":/aws-glue/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DatabaseCrawlerLambdaGlueBD6E669D",
+        "Roles": Array [
+          Object {
+            "Ref": "DatabaseCrawlerLambdaFunctionServiceRole508963D0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DatabaseCrawlerNightlyCreateParitionEventsRule82FD2B6A": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(1 0 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "DatabaseCrawlerLambdaFunction62DC17B4",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "entityTableF0612B70": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "testDB74E9B281",
+        },
+        "TableInput": Object {
+          "Description": "entity generated by CDK",
+          "Name": "entity",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "field1",
+                "Type": "string",
+              },
+              Object {
+                "Name": "field2",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "testBucketDF4D7D1A",
+                  },
+                  "/entity/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "sentimentTable95617508": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "testDB74E9B281",
+        },
+        "TableInput": Object {
+          "Description": "sentiment generated by CDK",
+          "Name": "sentiment",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "field1",
+                "Type": "string",
+              },
+              Object {
+                "Name": "field2",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "testBucketDF4D7D1A",
+                  },
+                  "/sentiment/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "testBucketDF4D7D1A": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testDB74E9B281": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseInput": Object {
+          "Name": "testDB",
+        },
+      },
+      "Type": "AWS::Glue::Database",
+    },
+  },
+}
+`;

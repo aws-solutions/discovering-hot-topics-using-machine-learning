@@ -12,131 +12,91 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct } from '@aws-cdk/core';
+import { Construct, Aws } from '@aws-cdk/core';
+import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
+import { buildS3Bucket } from '@aws-solutions-constructs/core';
 import { EventManager } from './event-manager-construct';
 import { EventStorage } from '../storage/event-storage-construct';
 import { Config, EventRule } from './event-rule-construct';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Bucket } from '@aws-cdk/aws-s3';
 import { TextAnalysisProxy } from './text-analysis-proxy';
 import { TopicAnalysisProxy } from './topic-analysis-proxy';
+import { InferenceDatabase } from '../visualization/inf-database-construct';
 
 export interface AppIntegrationProps {
     readonly textAnalysisInfNS: string,
     readonly topicsAnalysisInfNS: string,
     readonly topicMappingsInfNS: string
-    readonly tableMappings: any
+    readonly tableMappings: Map<string, string>,
 }
 
 export class AppIntegration extends Construct {
     private eventRule: EventRule;
     private _s3Bucket: Bucket;
+    private _s3LoggingBucket?: Bucket
 
     constructor(scope: Construct, id: string, props: AppIntegrationProps) {
+
         super(scope, id);
 
-        //TODO - have a direct stream for data, to re removed if it does not work
-        // const directStream = new Stream (this, 'DirectStream', {
-        //     encryption: StreamEncryption.MANAGED
-        // });
-
-        // start of lambda proxy (work around for event bus - kinesis stream integration)
-        // const lambdaProxyStream = new Stream (this, 'ProxyInfStrmToGlue', {
-        //     encryption: StreamEncryption.MANAGED
-        // });
-
-        // const lambdaKinesisPolicy = new PolicyStatement({
-        //     resources: [`arn:${Aws.PARTITION}:kinesis:${Aws.REGION}:${Aws.ACCOUNT_ID}:stream/${lambdaProxyStream.streamName}`],
-        //     actions: [ 'kinesis:PutRecords', 'kinesis:PutRecord' ]
-        // });
-
-        // const proxylambda = buildLambdaFunction(this,  {
-        //     deployLambda: true,
-        //     lambdaFunctionProps: {
-        //         runtime: Runtime.NODEJS_12_X,
-        //         handler: 'index.handler',
-        //         code: Code.asset(`${__dirname}/../../../../source/integration`),
-        //         environment: {
-        //             STREAM_NAME: lambdaProxyStream.streamName
-        //         }
-        //     }
-        // });
-
-        // proxylambda.addToRolePolicy(lambdaKinesisPolicy);
-        // end of lambda proxy (work-around for event bus - kinesis stream integration)
-
-        // start of temporary mechanism to create tables in Glue tables
-        const sentimentStorage = new EventStorage(this, 'Sentiment', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.Sentiment,
+        // Setup S3 Bucket
+        [ this._s3Bucket, this._s3LoggingBucket ] = buildS3Bucket(this, {
+            bucketProps: {
+                versioned: false
+            }
         });
 
-        this._s3Bucket = sentimentStorage.s3Bucket;
+        (this._s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
 
-        const entityStorage = new EventStorage(this, 'Entity', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.Entity,
-            s3Bucket: sentimentStorage.s3Bucket
+        // Extract the CfnBucket from the s3Bucket
+        const s3BucketResource = this._s3Bucket.node.defaultChild as CfnBucket;
+
+        s3BucketResource.cfnOptions.metadata = {
+            cfn_nag: {
+                rules_to_suppress: [{
+                    id: 'W51',
+                    reason: `This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy`
+                }]
+            }
+        };
+
+        // start of storage and visualization
+        const infDatabase = new InferenceDatabase(this, 'InfDB', {
+            s3InputDataBucket: this._s3Bucket,
+            tablePrefixMappings: props.tableMappings
         });
+        // end of storage and visualization
 
-        const keyPhraseStorage = new EventStorage(this, 'KeyPhrase', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.KeyPhrase,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
+        const eventStorageMap: Map<string, EventStorage> = new Map();
 
-        const txtInImgSentimentStorage = new EventStorage(this, 'TxtInImgSentiment', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.TxtInImgSentiment,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
-
-        const txtInImgEntityStorage = new EventStorage(this, 'TxtInImgEntity', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.TxtInImgEntity,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
-
-        const txtInImgKeyPhraseStorage = new EventStorage(this, 'TxtInImgKeyPhrase', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.TxtInImgKeyPhrase,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
-
-        const moderationLabelStorage = new EventStorage(this, 'ModerationLabels', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.ModerationLabels,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
-
-        const topicsStorage = new EventStorage(this, 'Topics', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.Topics,
-            s3Bucket: sentimentStorage.s3Bucket
-        });
-
-        const topicMappingsStorage = new EventStorage(this, 'TopicMappings', {
-            compressionFormat: 'UNCOMPRESSED',
-            prefix: props.tableMappings.TopicMappings,
-            s3Bucket: sentimentStorage.s3Bucket
+        props.tableMappings.forEach((value: string, key: string) => {
+            eventStorageMap.set(key, new EventStorage(this, key, {
+                compressionFormat: 'UNCOMPRESSED',
+                prefix: `${value}/`,
+                convertData: true,
+                database: infDatabase.database,
+                tableName: infDatabase.tableMap.get(key)!.tableName,
+                s3Bucket: this._s3Bucket,
+                keyArn: infDatabase.key.keyArn
+            }));
         });
 
         const textAnalysisLambda = new TextAnalysisProxy(this, 'TextAnalysis', {
-            sentimentStorage: sentimentStorage,
-            entityStorage: entityStorage,
-            keyPhraseStorage: keyPhraseStorage,
+            sentimentStorage: eventStorageMap.get('Sentiment')!,
+            entityStorage: eventStorageMap.get('Entity')!,
+            keyPhraseStorage: eventStorageMap.get('KeyPhrase')!,
+            txtInImgEntityStorage: eventStorageMap.get('TxtInImgEntity')!,
+            txtInImgSentimentStorage: eventStorageMap.get('TxtInImgSentiment')!,
+            txtInImgKeyPhraseStorage: eventStorageMap.get('TxtInImgKeyPhrase')!,
+            moderationLabelStorage: eventStorageMap.get('ModerationLabels')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
-            txtInImgEntityStorage: txtInImgEntityStorage,
-            txtInImgSentimentStorage: txtInImgSentimentStorage,
-            txtInImgKeyPhraseStorage: txtInImgKeyPhraseStorage,
-            moderationLabelStorage: moderationLabelStorage
         });
 
         // end of temporary mechanism to create tables in Glue tables
 
         const topicAnalysis = new TopicAnalysisProxy(this, 'TopicAnalysis', {
-            topicsStorage: topicsStorage,
-            topicMappingsStorage: topicMappingsStorage,
+            topicsStorage: eventStorageMap.get('Topics')!,
+            topicMappingsStorage: eventStorageMap.get('TopicMappings')!,
             topicsAnalysisInfNS: props.topicsAnalysisInfNS,
             topicMappingsInfNS: props.topicMappingsInfNS
         });
@@ -155,7 +115,7 @@ export class AppIntegration extends Construct {
         }];
 
         this.eventRule = new EventRule(this, 'EventRule', {
-            configs: configs,
+            configs: configs
         });
         // end of configuring targets for event bus
     }

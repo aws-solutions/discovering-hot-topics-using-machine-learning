@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9ArtifactHash4A964C38": Object {
-      "Description": "Artifact hash for asset \\"27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9\\"",
+    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343ArtifactHash26993D76": Object {
+      "Description": "Artifact hash for asset \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
       "Type": "String",
     },
-    "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9S3BucketC31FF96D": Object {
-      "Description": "S3 bucket for asset \\"27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9\\"",
+    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3Bucket85003909": Object {
+      "Description": "S3 bucket for asset \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
       "Type": "String",
     },
-    "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9S3VersionKey05028588": Object {
-      "Description": "S3 key for asset version \\"27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9\\"",
+    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14": Object {
+      "Description": "S3 key for asset version \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
       "Type": "String",
     },
   },
@@ -137,7 +137,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -149,7 +149,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "entity/",
+          "ErrorOutputPrefix": "entity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "entity/created_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "EntityFirehoseRole67127AB0",
@@ -295,7 +296,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -307,7 +308,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "keyphrase/",
+          "ErrorOutputPrefix": "keyphrase/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "keyphrase/created_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "KeyPhraseFirehoseRoleDCB50F6B",
@@ -453,7 +455,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -465,7 +467,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "moderationLabel",
+          "ErrorOutputPrefix": "moderationLabelerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "moderationLabelcreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "ModerationLabelsFirehoseRole7FC3CF11",
@@ -568,7 +571,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "SentimentS3Bucket2D1F85DB",
+                    "testBucketDF4D7D1A",
                     "Arn",
                   ],
                 },
@@ -578,7 +581,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "SentimentS3Bucket2D1F85DB",
+                          "testBucketDF4D7D1A",
                           "Arn",
                         ],
                       },
@@ -605,13 +608,13 @@ Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
-              "SentimentS3Bucket2D1F85DB",
+              "testBucketDF4D7D1A",
               "Arn",
             ],
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -623,7 +626,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "/sentiment",
+          "ErrorOutputPrefix": "/sentimenterror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "/sentimentcreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "SentimentFirehoseRole8C82670C",
@@ -633,152 +637,6 @@ Object {
         },
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
-    },
-    "SentimentS3Bucket2D1F85DB": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W51",
-              "reason": "This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "LoggingConfiguration": Object {
-          "DestinationBucketName": Object {
-            "Ref": "SentimentS3LoggingBucket8F571F22",
-          },
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "SentimentS3BucketPolicy9DFCC0D9": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "SentimentS3Bucket2D1F85DB",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SentimentS3Bucket2D1F85DB",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
-    "SentimentS3LoggingBucket8F571F22": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W35",
-              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "SentimentS3LoggingBucketPolicyC943EEAB": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "SentimentS3LoggingBucket8F571F22",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SentimentS3LoggingBucket8F571F22",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
     },
     "Sentimentfirehoseloggroup56EF2A34": Object {
       "DeletionPolicy": "Retain",
@@ -813,7 +671,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9S3BucketC31FF96D",
+            "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3Bucket85003909",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -826,7 +684,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9S3VersionKey05028588",
+                          "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14",
                         },
                       ],
                     },
@@ -839,7 +697,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters27b1d6df550bb1fae2f0961197fca9d620fbf8ecd49754765ec9b4c31a5162d9S3VersionKey05028588",
+                          "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14",
                         },
                       ],
                     },
@@ -885,6 +743,9 @@ Object {
         },
         "Runtime": "nodejs12.x",
         "Timeout": 900,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -940,9 +801,27 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "TestTAProxyLambdaFunctionServiceRoleDefaultPolicyFC7C1A09": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             Object {
               "Action": Array [
                 "firehose:PutRecord",
@@ -1126,7 +1005,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -1138,7 +1017,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "txtinimgsentiment",
+          "ErrorOutputPrefix": "txtinimgsentimenterror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgsentimentcreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtImgSentimentFirehoseRoleFBEB2611",
@@ -1284,7 +1164,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -1296,7 +1176,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "txtinimgentity/",
+          "ErrorOutputPrefix": "txtinimgentity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgentity/created_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtInImgEntityFirehoseRole053C9DE7",
@@ -1442,7 +1323,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 300,
-            "SizeInMBs": 5,
+            "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -1454,7 +1335,8 @@ Object {
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
-          "Prefix": "txtinimgkeyphrase",
+          "ErrorOutputPrefix": "txtinimgkeyphraseerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgkeyphrasecreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtInImgKeyPhraseFirehoseRoleCD623422",
@@ -1525,6 +1407,11 @@ Object {
           ],
         },
       },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testBucketDF4D7D1A": Object {
+      "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },

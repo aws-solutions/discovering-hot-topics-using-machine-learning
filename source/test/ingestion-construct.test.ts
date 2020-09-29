@@ -21,7 +21,6 @@ test ('Event Bus creation', () => {
     new Ingestion(stack, 'Ingestion', {
         stateMachineArn: 'stateMachineArn',
         solutionName: 'test-solution',
-        stackName: stack.stackName,
         ingestFrequency: '(0/2 * * * ? *)',
         supportedLang: 'de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw',
         queryParameter: 'Health',

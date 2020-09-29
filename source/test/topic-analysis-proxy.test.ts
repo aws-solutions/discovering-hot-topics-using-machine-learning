@@ -22,10 +22,13 @@ import { Bucket } from '@aws-cdk/aws-s3';
 
 test('test Text Analysis Fireshose Stream Creation', () => {
     const stack = new Stack();
-    new TopicAnalysisProxy(stack, 'TestTAProxy', {    
+    new TopicAnalysisProxy(stack, 'TestTAProxy', {
         topicsStorage: new EventStorage(stack, 'Topic', {
             compressionFormat: 'UNCOMPRESSED',
-            prefix: '/topic'
+            prefix: '/topic',
+            s3Bucket: new Bucket(stack, 'topics', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
         }),
         topicMappingsStorage: new EventStorage(stack, 'Mappings', {
             compressionFormat: 'UNCOMPRESSED',

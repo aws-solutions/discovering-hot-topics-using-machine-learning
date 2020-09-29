@@ -3,28 +3,28 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815ArtifactHash21ACADE9": Object {
-      "Description": "Artifact hash for asset \\"306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815\\"",
+    "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eArtifactHash3ADC218F": Object {
+      "Description": "Artifact hash for asset \\"abdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02e\\"",
       "Type": "String",
     },
-    "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815S3BucketBF40CB95": Object {
-      "Description": "S3 bucket for asset \\"306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815\\"",
+    "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eS3BucketAE0189EB": Object {
+      "Description": "S3 bucket for asset \\"abdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02e\\"",
       "Type": "String",
     },
-    "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815S3VersionKeyAF2039D9": Object {
-      "Description": "S3 key for asset version \\"306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815\\"",
+    "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eS3VersionKey157EB094": Object {
+      "Description": "S3 key for asset version \\"abdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02e\\"",
       "Type": "String",
     },
-    "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fArtifactHashB91D0971": Object {
-      "Description": "Artifact hash for asset \\"95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230f\\"",
+    "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0ArtifactHashEF5D50AB": Object {
+      "Description": "Artifact hash for asset \\"ae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0\\"",
       "Type": "String",
     },
-    "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fS3Bucket91486B45": Object {
-      "Description": "S3 bucket for asset \\"95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230f\\"",
+    "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0S3Bucket143680F0": Object {
+      "Description": "S3 bucket for asset \\"ae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0\\"",
       "Type": "String",
     },
-    "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fS3VersionKeyE2E54187": Object {
-      "Description": "S3 key for asset version \\"95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230f\\"",
+    "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0S3VersionKeyEB4D7E75": Object {
+      "Description": "S3 key for asset version \\"ae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0\\"",
       "Type": "String",
     },
     "AssetParametersb74c1c1a0f69f409627c64a51307a8355b259802073b1a1e4d0a1242634de502ArtifactHashF33AA99C": Object {
@@ -54,6 +54,7 @@ Object {
     },
     "TestTopicOrchestrationCheckStatusLambdaFunctionA7FE15A7": Object {
       "DependsOn": Array [
+        "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleDefaultPolicy40B1AC57",
         "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleFC3D008E",
       ],
       "Metadata": Object {
@@ -69,7 +70,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815S3BucketBF40CB95",
+            "Ref": "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0S3Bucket143680F0",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -82,7 +83,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815S3VersionKeyAF2039D9",
+                          "Ref": "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0S3VersionKeyEB4D7E75",
                         },
                       ],
                     },
@@ -95,7 +96,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters306e1c0c318fdc4fa9f1b7a103ed96b0ec1859a9954c3dc7646d5c5c61f28815S3VersionKeyAF2039D9",
+                          "Ref": "AssetParametersae54bc9973b5cdbdf17ba79dc4edd22f40f055edbb946a36e919e73cd10081a0S3VersionKeyEB4D7E75",
                         },
                       ],
                     },
@@ -118,8 +119,45 @@ Object {
           ],
         },
         "Runtime": "nodejs12.x",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleDefaultPolicy40B1AC57": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleDefaultPolicy40B1AC57",
+        "Roles": Array [
+          Object {
+            "Ref": "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleFC3D008E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TestTopicOrchestrationCheckStatusLambdaFunctionServiceRoleFC3D008E": Object {
       "Properties": Object {
@@ -365,6 +403,9 @@ Object {
         },
         "Runtime": "python3.8",
         "Timeout": 600,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -420,9 +461,27 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "TestTopicOrchestrationPublishTopicLambdaFunctionServiceRoleDefaultPolicy6260509B": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             Object {
               "Action": Array [
                 "s3:GetObject*",
@@ -513,7 +572,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fS3Bucket91486B45",
+            "Ref": "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eS3BucketAE0189EB",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -526,7 +585,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fS3VersionKeyE2E54187",
+                          "Ref": "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eS3VersionKey157EB094",
                         },
                       ],
                     },
@@ -539,7 +598,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters95719ca818c340defafe8d1cec023526b2c4d74522b4e33ede99aac1a1d0230fS3VersionKeyE2E54187",
+                          "Ref": "AssetParametersabdd0c4c90d7182426eaf1a6226aaed1bcf31c708627a35eb5973d99ed9ef02eS3VersionKey157EB094",
                         },
                       ],
                     },
@@ -572,7 +631,9 @@ Object {
             "S3_BUCKET_NAME": Object {
               "Ref": "TestTopicOrchestrationTopicInferenceS3Bucket54AC0D6B",
             },
-            "STACK_NAME": "test-stack",
+            "STACK_NAME": Object {
+              "Ref": "AWS::StackName",
+            },
           },
         },
         "Handler": "index.handler",
@@ -585,6 +646,9 @@ Object {
         },
         "Runtime": "nodejs12.x",
         "Timeout": 300,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -640,9 +704,27 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "TestTopicOrchestrationSubmitTopicLambdaFunctionServiceRoleDefaultPolicyF32FE4DE": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+            },
+          ],
+        },
+      },
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             Object {
               "Action": Array [
                 "s3:GetObject*",

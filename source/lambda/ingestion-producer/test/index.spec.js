@@ -75,7 +75,7 @@ describe('when producer lambda is invoked', () => {
 
     });
 
-    it ('should process event and call twitter api', async() => {
+    it('should process event and call twitter api', async() => {
         AWSMock.mock('Kinesis', 'putRecords', (error, callback) => {
             callback(null, "Success");
         });

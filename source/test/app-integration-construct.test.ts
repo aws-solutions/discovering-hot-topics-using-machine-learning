@@ -12,23 +12,32 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
-import { Stack } from '@aws-cdk/core';
+import { Stack, Aws, App } from '@aws-cdk/core';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
 import '@aws-cdk/assert/jest';
 
 test('test App Integration Construct', () => {
-    const stack = new Stack();
+
+    const app = new App();
+    const stack = new Stack(app, 'testStack', {
+        stackName: 'testStack'
+    });
+    const tableMappings: Map<string, string> = new Map();
+    tableMappings.set('Sentiment', 'sentiment');
+    tableMappings.set('Entity', 'entity');
+    tableMappings.set('KeyPhrase', 'keyphrase');
+    tableMappings.set('Topics', 'topics');
+    tableMappings.set('TopicMappings','topic-mappings');
+    tableMappings.set('TxtInImgEntity', 'txtinimgentity');
+    tableMappings.set('TxtInImgSentiment', 'txtinimgsentiment');
+    tableMappings.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+    tableMappings.set('ModerationLabels', 'moderationlabels');
+
     new AppIntegration(stack, 'Integration', {
         textAnalysisInfNS: 'com.test',
         topicsAnalysisInfNS: 'com.topic',
         topicMappingsInfNS: 'com.topic.mappings',
-        tableMappings: {
-            Sentiment: 'sentiment/',
-            Entity: 'entity/',
-            KeyPhrase: 'keyphrase/',
-            Topics: 'topics/',
-            TopicMappings: 'topic-mappings/'
-        }
+        tableMappings: tableMappings
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

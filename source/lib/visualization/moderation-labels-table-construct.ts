@@ -19,22 +19,28 @@ import { Bucket } from '@aws-cdk/aws-s3';
 export interface ModerationLabelsTableProps {
     readonly s3InputDataBucket: Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase
+    readonly database: IDatabase,
+    readonly tableName: string
 }
 
 export class ModerationLabelsTable extends Construct {
+    private _table:Table;
+
     constructor (scope: Construct, id: string, props: ModerationLabelsTableProps) {
         super(scope, id);
 
-        const tweetTable = new Table(this, 'ModerationLabels', {
+        this._table = new Table(this, 'ModerationLabels', {
             database: props.database,
-            tableName: 'moderation_labels',
+            tableName: props.tableName,
             columns: this.sentimentColumns,
-            dataFormat: DataFormat.JSON,
-            compressed: false,
+            dataFormat: DataFormat.PARQUET,
             bucket: props.s3InputDataBucket,
+            storedAsSubDirectories: true,
             s3Prefix: props.s3BucketPrefix,
-            partitionKeys: [],
+            partitionKeys: [{
+                name: 'created_at',
+                type: Schema.TIMESTAMP
+            }],
         });
     }
 
@@ -52,9 +58,6 @@ export class ModerationLabelsTable extends Construct {
                 name: 'id_str',
                 type: Schema.STRING
             }, {
-                name: 'created_at',
-                type: Schema.TIMESTAMP
-            }, {
                 name: 'image_url',
                 type: Schema.STRING
             }, {
@@ -64,5 +67,9 @@ export class ModerationLabelsTable extends Construct {
                 name: 'confidence',
                 type: Schema.DOUBLE
             }];
+    }
+
+    public get table(): Table {
+        return this._table;
     }
 }

@@ -12,43 +12,50 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Database, CfnDataCatalogEncryptionSettings, CfnSecurityConfiguration } from '@aws-cdk/aws-glue';
-import { Construct, Aws } from '@aws-cdk/core';
+import { Database, CfnDataCatalogEncryptionSettings, CfnSecurityConfiguration, Table } from '@aws-cdk/aws-glue';
+import { Aws, Construct, CustomResource, Duration } from '@aws-cdk/core';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Key } from '@aws-cdk/aws-kms';
 import { ServicePrincipal } from '@aws-cdk/aws-iam';
 
-import { SentimentTable } from './sentiment-table-construct';
+import { buildLambdaFunction } from '@aws-solutions-constructs/core';
+
 import { EntityTable } from './entity-table-construct';
 import { KeyPhraseTable } from './keyphrase-table-construct';
+import { ModerationLabelsTable } from './moderation-labels-table-construct';
+import { SentimentTable } from './sentiment-table-construct';
+import { StorageCrawler } from '../storage/storage-crawler-construct';
 import { TopicsTable } from './topics-table-construct';
 import { TopicMappingsTable } from './topicmappings-table-construct';
 import { TextInImgEntityTable } from './text-in-image-entities-table-construct';
 import { TextInImgKeyPhraseTable } from './text-in-img-keyphrase-table-construct';
 import { TextInImgSentimentTable } from './text-in-img-sentiment-table-construct';
-import { ModerationLabelsTable } from './moderation-labels-table-construct';
 
 export interface InferenceDatabaseProps {
     readonly s3InputDataBucket: Bucket,
-    readonly tableMappings: any
+    readonly tablePrefixMappings: Map<string, string>
 }
 
 export class InferenceDatabase extends Construct {
+    private _database: Database;
+    private _tableMap: Map<any, Table>;
+    private _key: Key
+
     constructor (scope: Construct, id: string, props: InferenceDatabaseProps) {
         super(scope, id);
 
-        const key = new Key(this, 'GlueCloudWatch', {
+        this._key = new Key(this, 'GlueCloudWatch', {
             enableKeyRotation: true
         });
 
-        key.grantEncryptDecrypt(new ServicePrincipal(`logs.${Aws.REGION}.amazonaws.com`));
+        this._key.grantEncryptDecrypt(new ServicePrincipal(`logs.${Aws.REGION}.amazonaws.com`));
 
         new CfnSecurityConfiguration (this, 'GlueSecConfig', {
             name: 'socialmediadb-sec-config',
             encryptionConfiguration: {
                 cloudWatchEncryption: {
                     cloudWatchEncryptionMode: 'SSE-KMS',
-                    kmsKeyArn: key.keyArn
+                    kmsKeyArn: this._key.keyArn
                 },
                 s3Encryptions: [{
                     s3EncryptionMode: 'SSE-S3'
@@ -56,71 +63,100 @@ export class InferenceDatabase extends Construct {
             }
         });
 
-        const tweetDB = new Database(this, 'TweetDB', {
-            databaseName: 'socialmediadb',
+        this._database = new Database(this, 'TweetDB', {
+            databaseName: 'socialmediadb'
         });
 
         new CfnDataCatalogEncryptionSettings(this, 'TweetDBEncryption', {
-            catalogId: tweetDB.catalogId,
-            dataCatalogEncryptionSettings: {
-                encryptionAtRest: {
-                    catalogEncryptionMode: 'SSE-KMS'
-                },
-            }
-        });
+             catalogId: this._database.catalogId,
+             dataCatalogEncryptionSettings: {
+                 encryptionAtRest: {
+                     catalogEncryptionMode: 'SSE-KMS'
+                 },
+             }
+         });
 
-        new SentimentTable(this, 'Sentiment', {
+        this._tableMap = new Map();
+        this._tableMap.set('Sentiment', new SentimentTable(this, 'Sentiment', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.Sentiment,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('Sentiment')!}/`,
+            tableName: props.tablePrefixMappings.get('Sentiment')!,
+            database: this._database
+        }).table);
 
-        new EntityTable(this, 'Entity', {
+        this._tableMap.set('Entity', new EntityTable(this, 'Entity', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.Entity,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('Entity')!}/`,
+            tableName: props.tablePrefixMappings.get('Entity')!,
+            database: this._database
+        }).table);
 
-        new KeyPhraseTable(this, 'KeyPhrase', {
+        this._tableMap.set('KeyPhrase', new KeyPhraseTable(this, 'KeyPhrase', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.KeyPhrase,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('KeyPhrase')!}/`,
+            tableName: props.tablePrefixMappings.get('KeyPhrase')!,
+            database: this._database
+        }).table);
 
-        new TopicsTable(this, 'Topics', {
+        this._tableMap.set('Topics', new TopicsTable(this, 'Topics', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.Topics,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('Topics')!}/`,
+            tableName: props.tablePrefixMappings.get('Topics')!,
+            database: this._database
+        }).table);
 
-        new TopicMappingsTable(this, 'TopicMappings', {
+        this._tableMap.set('TopicMappings', new TopicMappingsTable(this, 'TopicMappings', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.TopicMappings,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('TopicMappings')!}/`,
+            tableName: props.tablePrefixMappings.get('TopicMappings')!,
+            database: this._database
+        }).table);
 
-        new TextInImgEntityTable(this, 'TxtInImgEntity', {
+        this._tableMap.set('TxtInImgEntity', new TextInImgEntityTable(this, 'TxtInImgEntity', {
             s3InputDataBucket: props.s3InputDataBucket,
-            s3BucketPrefix: props.tableMappings.TxtInImgEntity,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('TxtInImgEntity')!}/`,
+            tableName: props.tablePrefixMappings.get('TxtInImgEntity')!,
+            database: this._database
+        }).table);
 
-        new TextInImgKeyPhraseTable(this, 'TxtInImgKeyPhrase', {
-            s3BucketPrefix: props.tableMappings.TxtInImgKeyPhrase,
+        this._tableMap.set('TxtInImgKeyPhrase', new TextInImgKeyPhraseTable(this, 'TxtInImgKeyPhrase', {
             s3InputDataBucket: props.s3InputDataBucket,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('TxtInImgKeyPhrase')!}/`,
+            tableName: props.tablePrefixMappings.get('TxtInImgKeyPhrase')!,
+            database: this._database
+        }).table);
 
-        new TextInImgSentimentTable(this, 'TxtInImgSentiment', {
-            s3BucketPrefix: props.tableMappings.TxtInImgSentiment,
+        this._tableMap.set('TxtInImgSentiment', new TextInImgSentimentTable(this, 'TxtInImgSentiment', {
             s3InputDataBucket: props.s3InputDataBucket,
-            database: tweetDB
-        });
+            s3BucketPrefix: `${props.tablePrefixMappings.get('TxtInImgSentiment')!}/`,
+            tableName: props.tablePrefixMappings.get('TxtInImgSentiment')!,
+            database: this._database
+        }).table);
 
-        new ModerationLabelsTable(this, 'ModerationLabels', {
-            s3BucketPrefix: props.tableMappings.ModerationLabels,
+        this._tableMap.set('ModerationLabels', new ModerationLabelsTable(this, 'ModerationLabels', {
             s3InputDataBucket: props.s3InputDataBucket,
-            database: tweetDB
-        })
+            s3BucketPrefix: `${props.tablePrefixMappings.get('ModerationLabels')!}/`,
+            tableName: props.tablePrefixMappings.get('ModerationLabels')!,
+            database: this._database
+        }).table);
+
+        new StorageCrawler(this, 'HotTopicsDB', {
+            s3Bucket: props.s3InputDataBucket,
+            databaseName: this._database.databaseName,
+            keyArn: this._key.keyArn,
+            tableMap: props.tablePrefixMappings
+        });
+    }
+
+    public get database(): Database {
+        return this._database;
+    }
+
+    public get tableMap(): Map<any, Table> {
+        return this._tableMap;
+    }
+
+    public get key(): Key {
+        return this._key;
     }
 }
