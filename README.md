@@ -26,15 +26,12 @@ Deploying this solution with the default parameters builds the following environ
 * Application Integration – Event based architecture approach through the use of AWS Events Bridge
 * Storage and Visualization – A combination of Kinesis Data Firehose, S3 Buckets, Glue, Athena and QuickSight
 
-After you deploy the solution, use the included Amazon QuickSight dashboard to visualize the solution's machine learning inferences. The image to the right is an example
-visualization dashboard featuring a dominant topic list, donut charts, weekly and monthly trend graphs, a word cloud, a tweet table, and a heat map.
-
 <p align="center">
   <img src="source/images/dashboard.png">
   <br/>
 </p>
 
-The first row of visuals in the dashboard shows the aggregation of all the dominant topics detected, and the second row drills down to the most dominant topic '000'. The bottom left corner of the image demonstrates that selecting a specific phrase (in this example, machine learning) in the word cloud filters the data for the related donut chart and table.
+After you deploy the solution, use the included Amazon QuickSight dashboard to visualize the solution's machine learning inferences. The image above is an example visualization dashboard featuring a dominant topic list, donut charts, weekly and monthly trend graphs, a word cloud, a tweet table, and a heat map.
 
 ## 1. Build the solution
 
