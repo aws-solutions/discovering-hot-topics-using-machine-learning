@@ -59,6 +59,7 @@ export class FeedProducer extends Construct {
                     STREAM_NAME: props.stream.streamName,
                     SUPPORTED_LANG: props.supportedLang,
                     QUERY_PARAM: props.queryParameter,
+                    CAP_NUM_RECORD: '25',
                     CREDENTIAL_KEY_PATH: props.credentialKeyPath
                 }
             },

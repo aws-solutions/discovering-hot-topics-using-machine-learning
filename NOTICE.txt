@@ -34,6 +34,7 @@ pytest-cov - MIT license
 pytest - MIT license
 requests - Apache-2.0
 sinon - BSD license
+tenacity under the Apache License Version 2.0
 ts-jest - MIT license
 ts-node - MIT license
 twitter-lite - MIT License

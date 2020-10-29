@@ -1,6 +1,6 @@
 {
   "name": "create-partition",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Lambda function to run Glue Create Partition when a file is written to S3",
   "main": "index.js",
   "scripts": {

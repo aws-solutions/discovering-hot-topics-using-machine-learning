@@ -61,9 +61,6 @@ export class TextInImgSentimentTable extends Construct {
                 name: 'text',
                 type: Schema.STRING
             }, {
-            //     name: 'created_at',
-            //     type: Schema.TIMESTAMP
-            // }, {
                 name: 'sentiment',
                 type: Schema.STRING
             }, {

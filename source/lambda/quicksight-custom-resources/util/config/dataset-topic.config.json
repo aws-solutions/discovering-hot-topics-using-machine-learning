@@ -1,0 +1,279 @@
+{
+    "PhysicalTableMap": {
+        "3c218ed2-47a1-437d-b383-d5b74bd8410a": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "topicmappings",
+                "InputColumns": [
+                    {
+                        "Name": "job_id",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_timestamp",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "topic",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    }
+                ]
+            }
+        },
+        "62c2af00-76ee-43d5-b996-9ca7f94036e7": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "sentiment",
+                "InputColumns": [
+                    {
+                        "Name": "sentimentmixscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "sentiment",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "translated_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "sentimentnegscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentimentposscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "search_query",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentimentneuscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        },
+        "e1086a1c-c6c0-41de-9ecf-61c6c6e4d82f": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "topics",
+                "InputColumns": [
+                    {
+                        "Name": "job_id",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_timestamp",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "weight",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "topic",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "term",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        }
+    },
+    "LogicalTableMap": {
+        "19824c6c-11e9-4c9f-9fed-349c4970b3db": {
+            "Alias": "sentiment",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "id_str",
+                        "NewColumnName": "id_str[sentiment]"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "62c2af00-76ee-43d5-b996-9ca7f94036e7"
+            }
+        },
+        "5483b18d-5b27-4612-814c-0af9ccb06b4d": {
+            "Alias": "topics",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "created_at",
+                        "NewColumnName": "created_at[topics]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "topic",
+                        "NewColumnName": "topic[topics]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "job_timestamp",
+                        "NewColumnName": "job_timestamp[topics]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "job_id",
+                        "NewColumnName": "job_id[topics]"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "e1086a1c-c6c0-41de-9ecf-61c6c6e4d82f"
+            }
+        },
+        "6c49c1b7-a98e-414f-9d85-d6dd323477c5": {
+            "Alias": "Intermediate Table",
+            "Source": {
+                "JoinInstruction": {
+                    "LeftOperand": "19824c6c-11e9-4c9f-9fed-349c4970b3db",
+                    "RightOperand": "e4bd4a71-0eef-4ca7-b7c9-9f2cf0e658f0",
+                    "Type": "LEFT",
+                    "OnClause": "{id_str[sentiment]} = {id_str[topicmappings]}"
+                }
+            }
+        },
+        "e4bd4a71-0eef-4ca7-b7c9-9f2cf0e658f0": {
+            "Alias": "topicmappings",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "created_at",
+                        "NewColumnName": "created_at[topicmappings]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "id_str",
+                        "NewColumnName": "id_str[topicmappings]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "topic",
+                        "NewColumnName": "topic[topicmappings]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "job_timestamp",
+                        "NewColumnName": "job_timestamp[topicmappings]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "job_id",
+                        "NewColumnName": "job_id[topicmappings]"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "3c218ed2-47a1-437d-b383-d5b74bd8410a"
+            }
+        },
+        "f8ac4010-101a-454c-b5c9-77bf98340689": {
+            "Alias": "Intermediate Table (2)",
+            "DataTransforms": [
+                {
+                    "CreateColumnsOperation": {
+                        "Columns": [
+                            {
+                                "ColumnName": "isTermPresent",
+                                "ColumnId": "1e12d15a-a9f5-42d6-8e2f-4bcf54c4842b",
+                                "Expression": "locate(toLower({translated_text}), {term})"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "FilterOperation": {
+                        "ConditionExpression": "{isTermPresent}>0.0"
+                    }
+                },
+                {
+                    "ProjectOperation": {
+                        "ProjectedColumns": [
+                            "account_name",
+                            "platform",
+                            "search_query",
+                            "id_str[sentiment]",
+                            "text",
+                            "translated_text",
+                            "sentiment",
+                            "sentimentposscore",
+                            "sentimentnegscore",
+                            "sentimentneuscore",
+                            "sentimentmixscore",
+                            "created_at",
+                            "job_id[topicmappings]",
+                            "job_timestamp[topicmappings]",
+                            "topic[topicmappings]",
+                            "id_str[topicmappings]",
+                            "created_at[topicmappings]",
+                            "job_id[topics]",
+                            "job_timestamp[topics]",
+                            "term",
+                            "weight",
+                            "topic[topics]",
+                            "created_at[topics]",
+                            "isTermPresent"
+                        ]
+                    }
+                }
+            ],
+            "Source": {
+                "JoinInstruction": {
+                    "LeftOperand": "6c49c1b7-a98e-414f-9d85-d6dd323477c5",
+                    "RightOperand": "5483b18d-5b27-4612-814c-0af9ccb06b4d",
+                    "Type": "INNER",
+                    "OnClause": "{topic[topicmappings]} = {topic[topics]}"
+                }
+            }
+        }
+    }
+}

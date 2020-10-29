@@ -18,7 +18,6 @@ import { Runtime, Code } from '@aws-cdk/aws-lambda';
 import { PolicyStatement, Policy, Effect } from "@aws-cdk/aws-iam";
 import { EventsRuleToLambda } from '@aws-solutions-constructs/aws-events-rule-lambda';
 import { Schedule } from "@aws-cdk/aws-events";
-import { Database, Table } from "@aws-cdk/aws-glue";
 import { buildLambdaFunction } from "@aws-solutions-constructs/core";
 export interface StorageCrawlerProps {
     readonly s3Bucket: Bucket,

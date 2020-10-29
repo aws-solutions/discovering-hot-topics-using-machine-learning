@@ -22,31 +22,34 @@ import { Config, EventRule } from './event-rule-construct';
 import { TextAnalysisProxy } from './text-analysis-proxy';
 import { TopicAnalysisProxy } from './topic-analysis-proxy';
 import { InferenceDatabase } from '../visualization/inf-database-construct';
+import { Key } from '@aws-cdk/aws-kms';
 
 export interface AppIntegrationProps {
     readonly textAnalysisInfNS: string,
     readonly topicsAnalysisInfNS: string,
     readonly topicMappingsInfNS: string
     readonly tableMappings: Map<string, string>,
+    readonly glueKMSKey: Key,
+    readonly s3LoggingBucket: Bucket
 }
 
 export class AppIntegration extends Construct {
     private eventRule: EventRule;
     private _s3Bucket: Bucket;
-    private _s3LoggingBucket?: Bucket
+    // private _s3LoggingBucket?: Bucket
 
     constructor(scope: Construct, id: string, props: AppIntegrationProps) {
 
         super(scope, id);
 
         // Setup S3 Bucket
-        [ this._s3Bucket, this._s3LoggingBucket ] = buildS3Bucket(this, {
+        [ this._s3Bucket ] = buildS3Bucket(this, {
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: props.s3LoggingBucket,
+                serverAccessLogsPrefix: id
             }
         });
-
-        (this._s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
 
         // Extract the CfnBucket from the s3Bucket
         const s3BucketResource = this._s3Bucket.node.defaultChild as CfnBucket;
@@ -63,7 +66,9 @@ export class AppIntegration extends Construct {
         // start of storage and visualization
         const infDatabase = new InferenceDatabase(this, 'InfDB', {
             s3InputDataBucket: this._s3Bucket,
-            tablePrefixMappings: props.tableMappings
+            tablePrefixMappings: props.tableMappings,
+            glueKMSKey: props.glueKMSKey,
+            s3LoggingBucket: props.s3LoggingBucket
         });
         // end of storage and visualization
 
@@ -77,7 +82,7 @@ export class AppIntegration extends Construct {
                 database: infDatabase.database,
                 tableName: infDatabase.tableMap.get(key)!.tableName,
                 s3Bucket: this._s3Bucket,
-                keyArn: infDatabase.key.keyArn
+                keyArn: props.glueKMSKey.keyArn
             }));
         });
 

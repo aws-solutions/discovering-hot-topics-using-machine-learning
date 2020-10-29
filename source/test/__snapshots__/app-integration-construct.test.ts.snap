@@ -3,44 +3,143 @@
 exports[`test App Integration Construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecArtifactHash048C2CF9": Object {
-      "Description": "Artifact hash for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dArtifactHash4664B1A4": Object {
+      "Description": "Artifact hash for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079": Object {
-      "Description": "S3 bucket for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100": Object {
+      "Description": "S3 bucket for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A": Object {
-      "Description": "S3 key for asset version \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E": Object {
+      "Description": "S3 key for asset version \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
-    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343ArtifactHash26993D76": Object {
-      "Description": "Artifact hash for asset \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfArtifactHashCA7671B2": Object {
+      "Description": "Artifact hash for asset \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
-    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3Bucket85003909": Object {
-      "Description": "S3 bucket for asset \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3BucketF90E5EFF": Object {
+      "Description": "S3 bucket for asset \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
-    "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14": Object {
-      "Description": "S3 key for asset version \\"931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055": Object {
+      "Description": "S3 key for asset version \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348ArtifactHashD3ECA88F": Object {
-      "Description": "Artifact hash for asset \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41ArtifactHash2B4DAF44": Object {
+      "Description": "Artifact hash for asset \\"c1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41\\"",
       "Type": "String",
     },
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3Bucket24611C83": Object {
-      "Description": "S3 bucket for asset \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41S3Bucket7CD3FADD": Object {
+      "Description": "S3 bucket for asset \\"c1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41\\"",
       "Type": "String",
     },
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980": Object {
-      "Description": "S3 key for asset version \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41S3VersionKey109FA6BD": Object {
+      "Description": "S3 key for asset version \\"c1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "AccessLogD598EBE9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "GlueCloudWatch69956C56": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "EnableKeyRotation": true,
+        "KeyPolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion",
+                "kms:GenerateDataKey",
+                "kms:TagResource",
+                "kms:UntagResource",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "logs.",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ".amazonaws.com",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
     "IntegrationEntityFirehoseGlueKmsFB7BE402": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -50,7 +149,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -273,7 +372,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -509,82 +608,6 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBGlueCloudWatch4B88A315": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "EnableKeyRotation": true,
-        "KeyPolicy": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "logs.",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ".amazonaws.com",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::KMS::Key",
-      "UpdateReplacePolicy": "Retain",
-    },
     "IntegrationInfDBGlueSecConfigC5DEC89D": Object {
       "Properties": Object {
         "EncryptionConfiguration": Object {
@@ -592,7 +615,7 @@ Object {
             "CloudWatchEncryptionMode": "SSE-KMS",
             "KmsKeyArn": Object {
               "Fn::GetAtt": Array [
-                "IntegrationInfDBGlueCloudWatch4B88A315",
+                "GlueCloudWatch69956C56",
                 "Arn",
               ],
             },
@@ -639,7 +662,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079",
+            "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3BucketF90E5EFF",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -652,7 +675,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                          "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055",
                         },
                       ],
                     },
@@ -665,7 +688,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                          "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055",
                         },
                       ],
                     },
@@ -751,7 +774,11 @@ Object {
                     "Fn::Join": Array [
                       "",
                       Array [
-                        "arn:aws:logs:",
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
                         Object {
                           "Ref": "AWS::Region",
                         },
@@ -926,7 +953,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -1276,6 +1303,10 @@ Object {
                 "Type": "string",
               },
               Object {
+                "Name": "job_timestamp",
+                "Type": "timestamp",
+              },
+              Object {
                 "Name": "topic",
                 "Type": "string",
               },
@@ -1335,6 +1366,10 @@ Object {
               Object {
                 "Name": "job_id",
                 "Type": "string",
+              },
+              Object {
+                "Name": "job_timestamp",
+                "Type": "timestamp",
               },
               Object {
                 "Name": "term",
@@ -1682,7 +1717,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -1905,7 +1940,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -1980,7 +2015,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -2203,7 +2238,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -2293,8 +2328,9 @@ Object {
         },
         "LoggingConfiguration": Object {
           "DestinationBucketName": Object {
-            "Ref": "IntegrationS3LoggingBucket7E29C686",
+            "Ref": "AccessLogD598EBE9",
           },
+          "LogFilePrefix": "Integration",
         },
         "PublicAccessBlockConfiguration": Object {
           "BlockPublicAcls": true,
@@ -2344,77 +2380,6 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "IntegrationS3LoggingBucket7E29C686": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W35",
-              "reason": "This S3 bucket is used as the access logging bucket for another bucket",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
-                "SSEAlgorithm": "AES256",
-              },
-            },
-          ],
-        },
-        "PublicAccessBlockConfiguration": Object {
-          "BlockPublicAcls": true,
-          "BlockPublicPolicy": true,
-          "IgnorePublicAcls": true,
-          "RestrictPublicBuckets": true,
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "IntegrationS3LoggingBucketPolicy188BE329": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "IntegrationS3LoggingBucket7E29C686",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "*",
-              "Condition": Object {
-                "Bool": Object {
-                  "aws:SecureTransport": "false",
-                },
-              },
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "IntegrationS3LoggingBucket7E29C686",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-              "Sid": "HttpsOnly",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::S3::BucketPolicy",
-    },
     "IntegrationSentimentFirehoseGlueKms369B22FE": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -2424,7 +2389,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -2647,7 +2612,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -2731,7 +2696,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3Bucket85003909",
+            "Ref": "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41S3Bucket7CD3FADD",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -2744,7 +2709,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14",
+                          "Ref": "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41S3VersionKey109FA6BD",
                         },
                       ],
                     },
@@ -2757,7 +2722,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters931df97c5bbb1fcde86cefd7862b382e976ad6838aba2d00faea678b06f1e343S3VersionKeyA0E66C14",
+                          "Ref": "AssetParametersc1d089c509abff316463046245b98011eef5fb38de6dd8c491f20c6ec296be41S3VersionKey109FA6BD",
                         },
                       ],
                     },
@@ -2857,7 +2822,11 @@ Object {
                     "Fn::Join": Array [
                       "",
                       Array [
-                        "arn:aws:logs:",
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
                         Object {
                           "Ref": "AWS::Region",
                         },
@@ -2982,7 +2951,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3Bucket24611C83",
+            "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -2995,7 +2964,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980",
+                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
                         },
                       ],
                     },
@@ -3008,7 +2977,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980",
+                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
                         },
                       ],
                     },
@@ -3094,7 +3063,11 @@ Object {
                     "Fn::Join": Array [
                       "",
                       Array [
-                        "arn:aws:logs:",
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
                         Object {
                           "Ref": "AWS::Region",
                         },
@@ -3214,7 +3187,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -3437,7 +3410,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -3512,7 +3485,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -3735,7 +3708,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -3810,7 +3783,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -4033,7 +4006,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -4108,7 +4081,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -4331,7 +4304,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -4406,7 +4379,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IntegrationInfDBGlueCloudWatch4B88A315",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -4629,7 +4602,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {

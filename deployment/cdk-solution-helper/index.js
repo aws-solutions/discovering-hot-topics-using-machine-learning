@@ -34,8 +34,10 @@ fs.readdirSync(global_s3_assets).forEach(file => {
         if (fn.Properties.Code.hasOwnProperty('S3Bucket')) {
             // Set the S3 key reference
             let artifactHash = Object.assign(fn.Properties.Code.S3Bucket.Ref);
-            artifactHash = artifactHash.replace('AssetParameters', '');
+            // console.debug(`Old artificatHash is ${artifactHash}`);
+            artifactHash = artifactHash.replace(/[\w]*AssetParameters/g, '');
             artifactHash = artifactHash.substring(0, artifactHash.indexOf('S3Bucket'));
+            // console.debug(`New artificatHash is ${artifactHash}`);
             const assetPath = `asset${artifactHash}`;
             fn.Properties.Code.S3Key = `%%SOLUTION_NAME%%/%%VERSION%%/${assetPath}.zip`;
 
@@ -43,13 +45,55 @@ fs.readdirSync(global_s3_assets).forEach(file => {
             fn.Properties.Code.S3Bucket = {
                 'Fn::Sub': '%%BUCKET_NAME%%-${AWS::Region}'
             };
+        } else {
+            // console.debug(`Here is the fn dump ${JSON.stringify(fn)}`);
         }
+    });
+
+    // Clean-up nested template stack dependencies
+    const nestedStacks = Object.keys(resources).filter(function(key) {
+        return resources[key].Type === 'AWS::CloudFormation::Stack'
+    });
+
+    nestedStacks.forEach(function(f) {
+        const fn = template.Resources[f];
+        fn.Properties.TemplateURL = {
+            'Fn::Join': [
+                '',
+                [
+                    'https://s3.',
+                    {
+                        'Ref' : 'AWS::URLSuffix'
+                    },
+                    '/',
+                    `%%TEMPLATE_BUCKET_NAME%%/%%SOLUTION_NAME%%/%%VERSION%%/${fn.Metadata.nestedStackFileName}`
+                ]
+            ]
+        };
+
+        const params = fn.Properties.Parameters ? fn.Properties.Parameters : {};
+        const nestedStackParameters = Object.keys(params).filter(function(key) {
+            if (key.search(/[\w]*AssetParameters/g) > -1) {
+                return true;
+            }
+            return false;
+        });
+
+        nestedStackParameters.forEach(function(stkParam) {
+            fn.Properties.Parameters[stkParam] = undefined;
+        });
     });
 
     // Clean-up parameters section
     const parameters = (template.Parameters) ? template.Parameters : {};
     const assetParameters = Object.keys(parameters).filter(function (key) {
-        return key.includes('AssetParameters');
+        console.debug(`key to analyze ${key}`);
+        if (key.search(/[\w]*AssetParameters/g) > -1) {
+            // console.debug('Pattern match');
+            return true;
+        }
+        // console.debug('Pattern did not match');
+        return false;
     });
     assetParameters.forEach(function (a) {
         template.Parameters[a] = undefined;

@@ -26,21 +26,24 @@ import { EventStorage } from '../storage/event-storage-construct';
 
 export interface TextOrchestrationProps {
     readonly eventBus: EventBus
-    readonly textAnalysisNameSpace: string
+    readonly textAnalysisNameSpace: string,
+    readonly s3LoggingBucket: Bucket
 }
 
 export class TextOrchestration extends Construct {
     private readonly _stateMachine: StateMachine;
     private eventStorage: EventStorage;
     private _s3Bucket: Bucket;
-    private _s3LoggingBucket?: Bucket;
+    // private _s3LoggingBucket?: Bucket;
 
     constructor (scope: Construct, id: string, props: TextOrchestrationProps) {
         super(scope, id);
 
-        [ this._s3Bucket, this._s3LoggingBucket ] = buildS3Bucket(this, {
+        [ this._s3Bucket ] = buildS3Bucket(this, {
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: props.s3LoggingBucket,
+                serverAccessLogsPrefix: id
             }
         });
 
@@ -70,11 +73,11 @@ export class TextOrchestration extends Construct {
         const imageBucketLambda = new LambdaToS3(this, 'ImageBucket', {
             existingLambdaObj: imageAnalysisTask.lambdaFunction,
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: props.s3LoggingBucket,
+                serverAccessLogsPrefix: id
             }
         });
-
-        (imageBucketLambda.s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
 
         imageBucketLambda.s3Bucket!.addToResourcePolicy(new PolicyStatement({
             resources: [ `${imageBucketLambda.s3Bucket!.bucketArn}`, `${imageBucketLambda.s3Bucket!.bucketArn}/*` ],

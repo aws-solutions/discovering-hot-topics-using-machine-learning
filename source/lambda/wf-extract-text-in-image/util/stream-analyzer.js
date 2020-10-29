@@ -17,7 +17,12 @@ const { stringify } = require("querystring");
 
 class StreamAnalyzer {
 
-    //TODO - add information about the logic here
+
+    /**
+     *  To check if the media entity object exists. If it does the extended media objects has all the URLs
+     *
+     * @param {*} feed
+     */
     static getMediaEntity (feed) {
         let media;
         if (feed.entities.media !== undefined) {

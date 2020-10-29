@@ -15,6 +15,8 @@ import { SynthUtils } from '@aws-cdk/assert';
 import { Stack, Aws, App } from '@aws-cdk/core';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
 import '@aws-cdk/assert/jest';
+import { Key } from '@aws-cdk/aws-kms';
+import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess } from '@aws-cdk/aws-s3';
 
 test('test App Integration Construct', () => {
 
@@ -33,11 +35,23 @@ test('test App Integration Construct', () => {
     tableMappings.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
     tableMappings.set('ModerationLabels', 'moderationlabels');
 
+    const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
+        versioned: false,
+        encryption: BucketEncryption.S3_MANAGED,
+        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        publicReadAccess: false,
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+    });
+
     new AppIntegration(stack, 'Integration', {
         textAnalysisInfNS: 'com.test',
         topicsAnalysisInfNS: 'com.topic',
         topicMappingsInfNS: 'com.topic.mappings',
-        tableMappings: tableMappings
+        tableMappings: tableMappings,
+        glueKMSKey: new Key(stack, 'GlueCloudWatch', {
+            enableKeyRotation: true
+        }),
+        s3LoggingBucket: s3AccessLoggingBucket
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

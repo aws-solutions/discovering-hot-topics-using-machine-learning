@@ -90,13 +90,13 @@ describe('when producer lambda is invoked', () => {
             "attributes": {
               "ApproximateReceiveCount": "1",
               "SentTimestamp": "1523232000000",
-              "SenderId": "123456789012",
+              "SenderId": "fakeSenderId",
               "ApproximateFirstReceiveTimestamp": "1523232000001"
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
             "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:someaccountid:MyQueue",
+            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         }
 

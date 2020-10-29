@@ -13,10 +13,12 @@
 
 import * as cdk from '@aws-cdk/core';
 import { InferenceDatabase } from '../lib/visualization/inf-database-construct';
-import { Bucket } from '@aws-cdk/aws-s3';
+import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess } from '@aws-cdk/aws-s3';
 
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
+import { Key } from '@aws-cdk/aws-kms';
+import { stat } from 'fs';
 
 test('test workflow stack', () => {
     const stack = new cdk.Stack();
@@ -33,9 +35,21 @@ test('test workflow stack', () => {
     storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
     storageCofig.set('ModerationLabels', 'moderationlabels');
 
+    const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
+        versioned: false,
+        encryption: BucketEncryption.S3_MANAGED,
+        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        publicReadAccess: false,
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+    });
+
     new InferenceDatabase(stack, 'TestDB', {
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
-        tablePrefixMappings: storageCofig
+        tablePrefixMappings: storageCofig,
+        glueKMSKey: new Key(stack, 'GlueCloudWatch', {
+            enableKeyRotation: true
+        }),
+        s3LoggingBucket: s3AccessLoggingBucket
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

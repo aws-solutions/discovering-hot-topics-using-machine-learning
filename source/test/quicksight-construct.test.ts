@@ -11,17 +11,48 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import '@aws-cdk/assert/jest';
 import { SynthUtils } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
-import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
+import { QuickSight, QuickSightSetup } from '../lib/quicksight-custom-resources/quicksight-construct';
+import { Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 
-import '@aws-cdk/assert/jest';
-
-
-test('test ingestion stack', () => {
+test('QS custom resource creation', () => {
     const stack = new Stack();
-    new DiscoveringHotTopicsStack (stack, 'IngestionStack', {
-        solutionID: 'SO0122'
+    new QuickSight(stack, 'testQSConstruct', {
+        name: 'solution-name',
+        resource: QuickSightSetup.ALL,
+        sourceTemplateArn: 'arn:some-parition:quicksight:some-region:fakeaccountid:template/solution_solution-name-v_1_0',
+        principalArn: 'arn:some-partition:quicksight:some-region:fakeaccountid:user/namespace/some-role/some-user',
+        logLevel: 'INFO',
+        workgroupName: 'testGroup',
+        role: new Role(stack, 'testRole', {
+            assumedBy: new ServicePrincipal('lambda.amazonaws.com')
+        })
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
+    expect(stack).toHaveResourceLike('Custom::QuickSightResources', {
+        "Resource": "all",
+        "LogLevel": "INFO",
+        "ApplicationName": "solution-name",
+        "WorkGroupName": "testGroup"
+    });
+
+    expect(stack).toHaveResourceLike('AWS::IAM::Role', {
+        "AssumeRolePolicyDocument": {
+            "Statement": [{
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "lambda.amazonaws.com"
+                }
+            }]
+        }
+    });
+
+    expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
+        "Handler": "lambda_function.handler",
+        "Runtime": "python3.8",
+        "Timeout": 30
+    });
 });

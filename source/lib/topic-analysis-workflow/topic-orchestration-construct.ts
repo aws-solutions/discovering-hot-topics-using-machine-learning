@@ -30,7 +30,8 @@ export interface TopicOrchestrationProps {
     readonly eventBus: EventBus,
     readonly topicsAnalaysisNameSpace: string,
     readonly topicMappingsNameSpace: string,
-    readonly topicSchedule: string
+    readonly topicSchedule: string,
+    readonly s3LoggingBucket: Bucket
 }
 
 export class TopicOrchestration extends Construct {
@@ -89,22 +90,21 @@ export class TopicOrchestration extends Construct {
         const lambdaToS3 = new LambdaToS3(this, 'TopicIngestion', {
             existingLambdaObj: submitTopicTask.lambdaFunction,
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: props.s3LoggingBucket,
+                serverAccessLogsPrefix: `${id}-TopicIngestion`
             }
         });
-
-        (lambdaToS3.s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
 
         const inferenceLambdaToS3 = new LambdaToS3(this, 'TopicInference', {
             existingLambdaObj: submitTopicTask.lambdaFunction,
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: props.s3LoggingBucket,
+                serverAccessLogsPrefix: `${id}-TopicInference`
             }
         });
         props.rawBucket.grantRead(submitTopicTask.lambdaFunction.role as Role);
-
-        (inferenceLambdaToS3.s3LoggingBucket?.node.defaultChild as CfnBucket).addPropertyDeletionOverride('VersioningConfiguration');
-
 
         const comprehendTopicAnalysisRole = new Role (this, 'TopicAnalysisRole', {
             assumedBy: new ServicePrincipal('comprehend.amazonaws.com'),
@@ -132,7 +132,7 @@ export class TopicOrchestration extends Construct {
             lambdaFunctionProps: {
                 runtime: Runtime.PYTHON_3_8,
                 handler: 'lambda_function.handler',
-                code: Code.fromAsset(`${__dirname}/../../lambda/wf_publish_topic_model` /*, {
+                code: Code.fromAsset(`${__dirname}/../../lambda/wf_publish_topic_model` /*, { //TODO - for docker image to build dependencies
                     bundling:{
                         "image": Runtime.PYTHON_3_7.bundlingDockerImage,
                         "command": ["bash", "-c", "ls /asset-input /asset-output && pip install -r requirements.txt -t /asset-output && ls /asset-output && rsync -r . /asset-output"]

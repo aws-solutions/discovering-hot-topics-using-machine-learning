@@ -13,12 +13,10 @@
  *********************************************************************************************************************/
 
 import { Database, CfnDataCatalogEncryptionSettings, CfnSecurityConfiguration, Table } from '@aws-cdk/aws-glue';
-import { Aws, Construct, CustomResource, Duration } from '@aws-cdk/core';
+import { Aws, Construct } from '@aws-cdk/core';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Key } from '@aws-cdk/aws-kms';
 import { ServicePrincipal } from '@aws-cdk/aws-iam';
-
-import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 
 import { EntityTable } from './entity-table-construct';
 import { KeyPhraseTable } from './keyphrase-table-construct';
@@ -33,29 +31,26 @@ import { TextInImgSentimentTable } from './text-in-img-sentiment-table-construct
 
 export interface InferenceDatabaseProps {
     readonly s3InputDataBucket: Bucket,
-    readonly tablePrefixMappings: Map<string, string>
+    readonly tablePrefixMappings: Map<string, string>,
+    readonly glueKMSKey: Key,
+    readonly s3LoggingBucket: Bucket
 }
 
 export class InferenceDatabase extends Construct {
     private _database: Database;
     private _tableMap: Map<any, Table>;
-    private _key: Key
 
     constructor (scope: Construct, id: string, props: InferenceDatabaseProps) {
         super(scope, id);
 
-        this._key = new Key(this, 'GlueCloudWatch', {
-            enableKeyRotation: true
-        });
-
-        this._key.grantEncryptDecrypt(new ServicePrincipal(`logs.${Aws.REGION}.amazonaws.com`));
+        props.glueKMSKey.grantEncryptDecrypt(new ServicePrincipal(`logs.${Aws.REGION}.amazonaws.com`));
 
         new CfnSecurityConfiguration (this, 'GlueSecConfig', {
             name: 'socialmediadb-sec-config',
             encryptionConfiguration: {
                 cloudWatchEncryption: {
                     cloudWatchEncryptionMode: 'SSE-KMS',
-                    kmsKeyArn: this._key.keyArn
+                    kmsKeyArn: props.glueKMSKey.keyArn
                 },
                 s3Encryptions: [{
                     s3EncryptionMode: 'SSE-S3'
@@ -143,7 +138,7 @@ export class InferenceDatabase extends Construct {
         new StorageCrawler(this, 'HotTopicsDB', {
             s3Bucket: props.s3InputDataBucket,
             databaseName: this._database.databaseName,
-            keyArn: this._key.keyArn,
+            keyArn: props.glueKMSKey.keyArn,
             tableMap: props.tablePrefixMappings
         });
     }
@@ -154,9 +149,5 @@ export class InferenceDatabase extends Construct {
 
     public get tableMap(): Map<any, Table> {
         return this._tableMap;
-    }
-
-    public get key(): Key {
-        return this._key;
     }
 }

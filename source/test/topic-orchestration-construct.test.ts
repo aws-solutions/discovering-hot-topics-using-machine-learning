@@ -16,12 +16,21 @@ import { Stack, CfnParameter } from '@aws-cdk/core'
 import '@aws-cdk/assert/jest';
 
 import { TopicOrchestration } from '../lib/topic-analysis-workflow/topic-orchestration-construct';
-import { Bucket } from '@aws-cdk/aws-s3';
+import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess } from '@aws-cdk/aws-s3';
 import { EventBus } from '@aws-cdk/aws-events';
 
 
 test('test Text Analysis Fireshose Stream Creation', () => {
     const stack = new Stack();
+
+    const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
+        versioned: false,
+        encryption: BucketEncryption.S3_MANAGED,
+        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        publicReadAccess: false,
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+    });
+
     new TopicOrchestration(stack, 'TestTopicOrchestration', {
         ingestionWindow: '2',
         numberofTopics: '10',
@@ -29,7 +38,8 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         eventBus: new EventBus(stack, 'EventBus'),
         topicsAnalaysisNameSpace: 'com.test.topic',
         topicMappingsNameSpace: 'com.test.mappings',
-        topicSchedule: '(5 */2 * * ? *)'
+        topicSchedule: '(5 */2 * * ? *)',
+        s3LoggingBucket: s3AccessLoggingBucket
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

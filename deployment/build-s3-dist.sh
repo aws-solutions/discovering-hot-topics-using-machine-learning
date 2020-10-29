@@ -26,18 +26,23 @@
 set -e
 
 # Important: CDK global version number
-cdk_version=1.63.0
+cdk_version=1.69.0
 
 # Check to see if input has been provided:
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ] || [ -z "$6" ]; then
     echo "Please provide all required parameters for the build script"
-    echo "For example: ./build-s3-dist.sh solutions trademarked-solution-name v1.0.0"
+    echo "For example: ./build-s3-dist.sh solutions trademarked-solution-name v1.2.0 template-bucket-name template_account_id solutions"
     exit 1
 fi
 
 bucket_name="$1"
 solution_name="$2"
 solution_version="$3"
+template_bucket_name="$4"
+template_account_id="$5"
+dist_quicksight_namespace="$6"
+
+dashed_version="${solution_version//./$'_'}"
 
 # Get reference for all important folders
 template_dir="$PWD"
@@ -125,6 +130,18 @@ do
     sed -i -e $replace $file
 
     replace="s/%%VERSION%%/$solution_version/g"
+    sed -i -e $replace $file
+
+    replace="s/%%TEMPLATE_BUCKET_NAME%%/$template_bucket_name/g"
+    sed -i -e $replace $file
+
+    replace="s/%%TEMPLATE_ACCOUNT_ID%%/$template_account_id/g"
+    sed -i -e $replace $file
+
+    replace="s/%%DIST_QUICKSIGHT_NAMESPACE%%/$dist_quicksight_namespace/g"
+    sed -i -e $replace $file
+
+    replace="s/%%DASHED_VERSION%%/$dashed_version/g"
     sed -i -e $replace $file
 done
 

@@ -1,6 +1,6 @@
 {
   "name": "ingestion-producer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This function pull data from the twitter stream and pushes it to Kinesis Stream.",
   "main": "feed-producer.js",
   "scripts": {

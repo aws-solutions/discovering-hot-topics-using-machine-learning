@@ -49,9 +49,9 @@ export class TopicMappingsTable extends Construct {
                 name: 'job_id',
                 type: Schema.STRING
             }, {
-            //     name: 'job_timestamp',
-            //     type: Schema.TIMESTAMP
-            // }, {
+                 name: 'job_timestamp',
+                 type: Schema.TIMESTAMP
+            }, {
                 name: 'topic',
                 type: Schema.STRING
             }, {

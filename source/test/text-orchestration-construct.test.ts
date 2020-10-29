@@ -17,13 +17,23 @@ import { TextOrchestration } from '../lib/text-analysis-workflow/text-orchestrat
 
 import '@aws-cdk/assert/jest';
 import { EventBus } from '@aws-cdk/aws-events';
+import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess } from '@aws-cdk/aws-s3';
 
 test('test orchestration construct', () => {
     const stack = new cdk.Stack();
 
+    const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
+        versioned: false,
+        encryption: BucketEncryption.S3_MANAGED,
+        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        publicReadAccess: false,
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+    });
+
     new TextOrchestration (stack, 'OrchestrationConstruct', {
         eventBus: new EventBus(stack, 'TestEventBus'),
-        textAnalysisNameSpace: 'com.test.text'
+        textAnalysisNameSpace: 'com.test.text',
+        s3LoggingBucket: s3AccessLoggingBucket
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

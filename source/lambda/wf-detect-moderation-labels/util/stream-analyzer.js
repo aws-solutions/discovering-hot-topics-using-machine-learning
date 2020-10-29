@@ -17,7 +17,12 @@ const { stringify } = require("querystring");
 
 class StreamAnalyzer {
 
-    //TODO - add information about the logic here
+    /**
+     * The media entity object in the tweet feed contains media url. the media entity does not have all the URLs and hence
+     * the use of the extended media entity object to get all the associated images
+     *
+     * @param {*} feed
+     */
     static getMediaEntity (feed) {
         let media;
         if (feed.entities.media !== undefined) {
@@ -35,6 +40,11 @@ class StreamAnalyzer {
         return media;
     }
 
+    /**
+     * To get the URLs of the media objects associated with the tweets.
+     *
+     * @param {*} media
+     */
     static getMediaUrl (media) {
         let mediaUrl;
         // console.debug(`Printing media attribute ${JSON.stringify(media)}`);

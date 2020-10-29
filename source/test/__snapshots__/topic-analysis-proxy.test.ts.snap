@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348ArtifactHashD3ECA88F": Object {
-      "Description": "Artifact hash for asset \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dArtifactHash4664B1A4": Object {
+      "Description": "Artifact hash for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3Bucket24611C83": Object {
-      "Description": "S3 bucket for asset \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100": Object {
+      "Description": "S3 bucket for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
-    "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980": Object {
-      "Description": "S3 key for asset version \\"c20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348\\"",
+    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E": Object {
+      "Description": "S3 key for asset version \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
       "Type": "String",
     },
   },
@@ -136,7 +136,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {
@@ -194,7 +194,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3Bucket24611C83",
+            "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -207,7 +207,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980",
+                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
                         },
                       ],
                     },
@@ -220,7 +220,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc20982255e45cb8d15c5d732650c13286acc0b1300e4768865aec87d7a851348S3VersionKey248EC980",
+                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
                         },
                       ],
                     },
@@ -287,7 +287,11 @@ Object {
                     "Fn::Join": Array [
                       "",
                       Array [
-                        "arn:aws:logs:",
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
                         Object {
                           "Ref": "AWS::Region",
                         },
@@ -517,7 +521,7 @@ Object {
             ],
           },
           "BufferingHints": Object {
-            "IntervalInSeconds": 300,
+            "IntervalInSeconds": 600,
             "SizeInMBs": 64,
           },
           "CloudWatchLoggingOptions": Object {

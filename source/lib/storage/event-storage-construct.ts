@@ -20,7 +20,6 @@ import { Runtime, Code, Function } from "@aws-cdk/aws-lambda";
 import { Role, ServicePrincipal, PolicyStatement, Policy, Effect } from "@aws-cdk/aws-iam";
 import { LogGroup } from "@aws-cdk/aws-logs";
 import { IDatabase } from "@aws-cdk/aws-glue";
-import { Table } from "@aws-cdk/aws-glue";
 
 export interface EventStorageProps {
     readonly compressionFormat: string,
@@ -29,6 +28,7 @@ export interface EventStorageProps {
     readonly s3Bucket: Bucket,
     readonly keyArn?: string,
 
+    //below props only required if data format is parquet
     /**
      * Convert data to Apache Parquet format
      */
@@ -132,7 +132,7 @@ export class EventStorage extends Construct {
             extendedS3DestinationConfiguration : {
                 bucketArn: props.s3Bucket.bucketArn,
                 bufferingHints: {
-                    intervalInSeconds: 300,
+                    intervalInSeconds: 600,
                     sizeInMBs: 64
                 },
                 compressionFormat: props.compressionFormat,

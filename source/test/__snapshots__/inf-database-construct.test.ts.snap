@@ -3,20 +3,119 @@
 exports[`test workflow stack 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecArtifactHash048C2CF9": Object {
-      "Description": "Artifact hash for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfArtifactHashCA7671B2": Object {
+      "Description": "Artifact hash for asset \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079": Object {
-      "Description": "S3 bucket for asset \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3BucketF90E5EFF": Object {
+      "Description": "S3 bucket for asset \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
-    "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A": Object {
-      "Description": "S3 key for asset version \\"31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ec\\"",
+    "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055": Object {
+      "Description": "S3 key for asset version \\"aeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdf\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "AccessLogD598EBE9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "GlueCloudWatch69956C56": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "EnableKeyRotation": true,
+        "KeyPolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion",
+                "kms:GenerateDataKey",
+                "kms:TagResource",
+                "kms:UntagResource",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "logs.",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ".amazonaws.com",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
     "TestBucket560B80BC": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
@@ -115,82 +214,6 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBGlueCloudWatch1B9AB334": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "EnableKeyRotation": true,
-        "KeyPolicy": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "logs.",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ".amazonaws.com",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::KMS::Key",
-      "UpdateReplacePolicy": "Retain",
-    },
     "TestDBGlueSecConfig0DDD9B15": Object {
       "Properties": Object {
         "EncryptionConfiguration": Object {
@@ -198,7 +221,7 @@ Object {
             "CloudWatchEncryptionMode": "SSE-KMS",
             "KmsKeyArn": Object {
               "Fn::GetAtt": Array [
-                "TestDBGlueCloudWatch1B9AB334",
+                "GlueCloudWatch69956C56",
                 "Arn",
               ],
             },
@@ -245,7 +268,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3Bucket03201079",
+            "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3BucketF90E5EFF",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -258,7 +281,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                          "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055",
                         },
                       ],
                     },
@@ -271,7 +294,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters31e4d2dd212f8bd24681f2a9a6873c02e5067fc35355e80c6e892cd5326172ecS3VersionKeyD074FC5A",
+                          "Ref": "AssetParametersaeae2da2e42bd9518b471158a8a0280e60191e38cef11f582bcb39af0e265fdfS3VersionKey51B27055",
                         },
                       ],
                     },
@@ -357,7 +380,11 @@ Object {
                     "Fn::Join": Array [
                       "",
                       Array [
-                        "arn:aws:logs:",
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
                         Object {
                           "Ref": "AWS::Region",
                         },
@@ -532,7 +559,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "TestDBGlueCloudWatch1B9AB334",
+                  "GlueCloudWatch69956C56",
                   "Arn",
                 ],
               },
@@ -882,6 +909,10 @@ Object {
                 "Type": "string",
               },
               Object {
+                "Name": "job_timestamp",
+                "Type": "timestamp",
+              },
+              Object {
                 "Name": "topic",
                 "Type": "string",
               },
@@ -941,6 +972,10 @@ Object {
               Object {
                 "Name": "job_id",
                 "Type": "string",
+              },
+              Object {
+                "Name": "job_timestamp",
+                "Type": "timestamp",
               },
               Object {
                 "Name": "term",

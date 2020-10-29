@@ -1,10 +1,14 @@
 ## Discovering Hot Topics using Machine Learning
 
-With so much customer sentiment available for analysis today, understanding the contextualization of the most relevant topics can be difficult at scale. Separating the signal from the noise requires analysis that goes beyond basic aggregation of sentiment analysis. Diving deeper and truly understanding the conversation at scale can help organizations to succeed in the market, identify new opportunities and react quickly.
+The Discovering Hot Topics Using Machine Learning solution helps you identify the most dominant topics associated with your products, policies, events, and brands. Implementing this solution helps you react quickly to new growth opportunities, address negative brand associations, and deliver higher levels of customer satisfaction.
 
-The Discovering Hot Topics Using Machine Learning solution addresses the problem of organizing large-scale customer feedback analytics by automating ingesting digital assets and performing near real-time analysis using machine learning algorithms. Organizations can gain insight about new product launches, service announcements, public relations, crisis management, and changes to company policies that impact their customers.
+The solution uses machine learning algorithms to automate digital asset (text and image) ingestion and perform near real-time topic modeling, sentiment analysis, and image detection. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions to building a dashboard that provides you with the context and insights necessary to identify trends that help or harm you brand.
 
-This solution ingests text and images from online discourse and performs topic and sentiment analyses, and detect unsafe content in images. The default input data source for the solution is Twitter, but it can be extended to ingest other social media platforms in addition to any stream from an enterprise’s internal systems. The output of this inference is organized and visualized in a dashboard for users to consult and analyze. 
+The solution performs the following key features:
+* **Performs topic modeling to detect dominant topics**: identifies the terms that collectively form a topic from within customer feedback
+* **Identifies the sentiment of what customers are saying**: uses contextual semantic search to understand the nature of online discussions
+* **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
+* **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
 
 For an overview and solution deployment guide, please visit [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
@@ -22,14 +26,15 @@ Deploying this solution with the default parameters builds the following environ
 * Application Integration – Event based architecture approach through the use of AWS Events Bridge
 * Storage and Visualization – A combination of Kinesis Data Firehose, S3 Buckets, Glue, Athena and QuickSight
 
-Once the solution is deployed, use QuickSight to create a dashboard like the one below.
+After you deploy the solution, use the included Amazon QuickSight dashboard to visualize the solution's machine learning inferences. The image to the right is an example
+visualization dashboard featuring a dominant topic list, donut charts, weekly and monthly trend graphs, a word cloud, a tweet table, and a heat map.
 
 <p align="center">
   <img src="source/images/dashboard.png">
   <br/>
 </p>
 
-This is an example Amazon QuickSight dashboard built by the solution. The first row of visuals in the dashboard shows the aggregation of all the dominant topics detected, and the second row drills down to the most dominant topic '000'. The bottom left corner of the image demonstrates that selecting a specific phrase (in this example, machine learning) in the word cloud filters the data for the related donut chart and table.
+The first row of visuals in the dashboard shows the aggregation of all the dominant topics detected, and the second row drills down to the most dominant topic '000'. The bottom left corner of the image demonstrates that selecting a specific phrase (in this example, machine learning) in the word cloud filters the data for the related donut chart and table.
 
 ## 1. Build the solution
 
@@ -48,17 +53,26 @@ chmod +x ./run-all-tests.sh
 
 * Configure the bucket name of your target Amazon S3 distribution bucket
 ```
-export DIST_OUTPUT_BUCKET=my-bucket-name # bucket where customized code will reside
-export VERSION=my-version # version number for the customized code
+export DIST_OUTPUT_BUCKET=my-bucket-name
+export VERSION=my-version
 ```
-_Note:_ You would have to create an S3 bucket with the prefix 'my-bucket-name-<aws_region>'; aws_region is where you are testing the customized solution. Also, the assets in bucket should be publicly accessible.
 
 * Now build the distributable:
 ```
 cd <rootDir>/deployment
 chmod +x ./build-s3-dist.sh
-./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $$VERSION
+./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $VERSION $CF_TEMPLATE_BUCKET_NAME QS_TEMPLATE_ACCOUNT
+
 ```
+* Parameter details
+```
+$DIST_OUTPUT_BUCKET - This is the global name of the distribution. For the bucket name, the AWS Region is added to the global name (example: 'my-bucket-name-us-east-1') to create a regional bucket. The lambda artifact should be uploaded to the regional buckets for the CloudFormation template to pick it up for deployment.
+$SOLUTION_NAME - The name of This solution (example: discovering-hot-topics-using-machine-learning)
+$VERSION - The version number of the change
+$CF_TEMPLATE_BUCKET_NAME - The name of the S3 bucket where the CloudFormation templates should be uploaded
+$QS_TEMPLATE_ACCOUNT - The account from which the Amazon QuickSight templates should be sourced for Amazon QuickSight Analysis and Dashboard creation
+```
+
 
 * Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
 ```

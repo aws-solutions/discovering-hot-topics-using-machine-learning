@@ -15,8 +15,6 @@
 import logging
 import os
 
-#TODO - add critical log level
-
 DEFAULT_LEVEL = "WARNING"
 
 def get_level():

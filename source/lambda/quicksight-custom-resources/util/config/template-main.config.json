@@ -1,0 +1,25 @@
+{
+    "SourceEntity": {
+        "SourceAnalysis": {
+            "DataSetReferences": [
+                {
+                    "DataSetPlaceholder": "sentiment",
+                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/sentiment"
+                },
+                {
+                    "DataSetPlaceholder": "topic",
+                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic"
+                },
+                {
+                    "DataSetPlaceholder": "text",
+                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/text"
+                },
+                {
+                    "DataSetPlaceholder": "image-text",
+                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-text"
+                }
+            ],
+            "Arn": "{self.source_template_arn}"
+        }
+    }
+}

@@ -45,7 +45,9 @@ export class Ingestion extends Construct {
             },
             runtime: Runtime.NODEJS_12_X,
             code: Code.fromAsset(`${__dirname}/../../lambda/ingestion-consumer`),
-            timeout: Duration.minutes(5)
+            timeout: Duration.minutes(5),
+            batchSize: 10,
+            shardCount: 1
         });
 
         feedConsumerlambda.lambdaFunction.addToRolePolicy(invokeStepFunctionPolicy);

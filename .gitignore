@@ -42,6 +42,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
+coverage-reports/
 coverage
 *.lcov
 
@@ -185,6 +186,9 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+
+# linting, scanning configurations, sonarqube
+.scannerwork/
 
 # Translations
 *.mo

@@ -31,6 +31,7 @@ describe('When testing the twitter-client', () => {
         process.env.SOLUTION_NAME = 'discovering-hot-topics-using-machine-learning';
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
+        process.env.CAP_NUM_RECORD = '100';
 
         ssmStub = sinon.stub(AccountSecrets.prototype, 'getSecretValue').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
 
@@ -115,6 +116,7 @@ describe('When testing the twitter-client', () => {
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
         delete process.env.QUERY_PARAM;
+        delete process.env.CAP_NUM_RECORD;
         AWSMock.restore('DynamoDB');
     });
 });
