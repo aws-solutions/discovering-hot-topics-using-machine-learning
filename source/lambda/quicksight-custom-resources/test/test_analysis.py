@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -14,6 +14,8 @@
 
 import test.logger_test_helper
 import logging
+
+import tenacity
 import pytest
 from moto import mock_sts
 
@@ -30,6 +32,7 @@ from test.fixtures.quicksight_dataset_fixtures import (
     quicksight_delete_data_set_stubber
 )
 from test.fixtures.quicksight_template_fixtures import template_arn
+from test.fixtures.quicksight_datasource_fixtures import mininmal_data_source_stub
 from test.fixtures.quicksight_test_fixture import quicksight_application_stub
 
 from test.logger_test_helper import dump_state
@@ -76,12 +79,18 @@ def test_analysis_update_source_entity(quicksight_application_stub, mininmal_dat
     assert template_arn == source_template['Arn']
 
 @ mock_sts
-def test_analysis_create(quicksight_application_stub, mininmal_data_sets_stub, template_arn):
+def test_analysis_create(
+    quicksight_application_stub,
+    mininmal_data_source_stub,
+    mininmal_data_sets_stub,
+    template_arn,
+):
     obj = Analysis(
         quicksight_application=quicksight_application_stub,
+        data_source=mininmal_data_source_stub,
         data_sets=mininmal_data_sets_stub.data_sets_stub,
         quicksight_template_arn=template_arn,
-        props=None
+        props=None,
     )
 
     sub_type = 'main'
@@ -106,3 +115,57 @@ def test_analysis_delete(quicksight_application_stub, mininmal_data_sets_stub, t
     AnalysisStubber.stub_delete_analysis(sub_type)
     obj.delete()
     dump_state(obj, 'After create')
+
+
+@ mock_sts
+def test_analysis_create_exist(
+    quicksight_application_stub,
+    mininmal_data_source_stub,
+    mininmal_data_sets_stub,
+    template_arn,
+):
+    obj = Analysis(
+        quicksight_application=quicksight_application_stub,
+        data_source=mininmal_data_source_stub,
+        data_sets=mininmal_data_sets_stub.data_sets_stub,
+        quicksight_template_arn=template_arn,
+        props=None,
+    )
+
+    sub_type = "main"
+    AnalysisStubber.stub_create_data_source_error_call(sub_type)
+    AnalysisStubber.stub_describe_data_source_call(sub_type)
+
+    # Function under test
+    response = obj.create()
+
+    # This response is the response to describe_data_source as the code is remaps the response
+    assert response
+    assert response["Status"] in ["CREATION_SUCCESSFUL"]
+    assert obj.arn
+
+
+@ mock_sts
+def test_analysis_create_invalid_parameter(
+    quicksight_application_stub,
+    mininmal_data_source_stub,
+    mininmal_data_sets_stub,
+    template_arn,
+):
+    obj = Analysis(
+        quicksight_application=quicksight_application_stub,
+        data_source=mininmal_data_source_stub,
+        data_sets=mininmal_data_sets_stub.data_sets_stub,
+        quicksight_template_arn=template_arn,
+        props=None,
+    )
+
+    sub_type = "main"
+    [AnalysisStubber.stub_create_data_source_error_invalid_parameter_call(sub_type) for _ in range(3)]
+
+    response = None
+    with pytest.raises(tenacity.RetryError):
+        # Function under test
+        response = obj.create()
+
+    assert not response

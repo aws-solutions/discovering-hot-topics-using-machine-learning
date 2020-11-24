@@ -4,7 +4,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -47,29 +47,32 @@ exports.handler = async (event) => {
 const analyzeText = async(targetElement, elementToAnalyze) => {
     const comprehend = new AWS.Comprehend();
 
-    Promise.all([
-        targetElement = Object.assign(targetElement, await comprehend.detectSentiment({
-            Text: elementToAnalyze._cleansed_text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error('Error when performing sentiment analysis', error);
-            throw error;
-        })),
-        targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
-            Text: elementToAnalyze._cleansed_text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error('Error when performing keyphrase detection', error);
-            throw error;
-        })),
-        targetElement = Object.assign(targetElement, await comprehend.detectEntities({
-            Text: elementToAnalyze._cleansed_text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error('Error when performing detect entities', error);
-            throw error;
-        }))
-    ]);
+    if (elementToAnalyze._cleansed_text.length > 0) {
+
+        Promise.all([
+            targetElement = Object.assign(targetElement, await comprehend.detectSentiment({
+                Text: elementToAnalyze._cleansed_text,
+                LanguageCode: 'en'
+            }).promise().catch((error) => {
+                console.error('Error when performing sentiment analysis', error);
+                throw error;
+            })),
+            targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
+                Text: elementToAnalyze._cleansed_text,
+                LanguageCode: 'en'
+            }).promise().catch((error) => {
+                console.error('Error when performing keyphrase detection', error);
+                throw error;
+            })),
+            targetElement = Object.assign(targetElement, await comprehend.detectEntities({
+                Text: elementToAnalyze._cleansed_text,
+                LanguageCode: 'en'
+            }).promise().catch((error) => {
+                console.error('Error when performing detect entities', error);
+                throw error;
+            }))
+        ]);
+    }
 
     return targetElement;
 }

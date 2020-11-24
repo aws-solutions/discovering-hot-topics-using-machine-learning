@@ -12,13 +12,8 @@
 # #####################################################################################################################
 
 from util.logging import get_logger
-
 from util.quicksight_application import QuicksightApplication
-from util.dashboard import Dashboard
-from util.analysis import Analysis
-from util.dataset import DataSet
-from util.datasource import DataSource
-from util.template import Template, TemplatePermissionType
+from util.template import TemplatePermissionType
 
 logger = get_logger(__name__)
 
@@ -43,7 +38,7 @@ class QuicksightApi:
     def create_data_source(self):
         qs_resource = self.quicksight_application.get_data_source()
         response = qs_resource.create()
-        self.get_global_state().update({'datasource': qs_resource.get_data()})
+        self.get_global_state().update({"datasource": qs_resource.get_data()})
         return response
 
     def create_data_sets(self):
@@ -51,52 +46,52 @@ class QuicksightApi:
 
         data_set_sub_types = self.quicksight_application.get_supported_data_set_sub_types()
         data_sets = self.quicksight_application.get_data_sets()
-        self.get_global_state().update({'dataset': {}})
+        self.get_global_state().update({"dataset": {}})
         for data_set_type in data_set_sub_types:
             response = data_sets[data_set_type].create()
             responses.append(response)
-            self.get_global_state()['dataset'].update({data_set_type: data_sets[data_set_type].get_data()})
+            self.get_global_state()["dataset"].update({data_set_type: data_sets[data_set_type].get_data()})
 
         return responses
 
     def create_analysis(self):
         qs_resource = self.quicksight_application.get_analysis()
         response = qs_resource.create()
-        self.get_global_state().update({'analysis': qs_resource.get_data()})
+        self.get_global_state().update({"analysis": qs_resource.get_data()})
         return response
 
     def create_dashboard(self):
         qs_resource = self.quicksight_application.get_dashboard()
         response = qs_resource.create()
-        self.get_global_state().update({'dashboard': qs_resource.get_data()})
+        self.get_global_state().update({"dashboard": qs_resource.get_data()})
         return response
 
     def delete_all_resources(self):
         responses = []
-        '''
+        """
         To ensure deletion is done on a best effort basis, each method call is in its own try except block
         Any exception that occurs when deleting is logged as a warning but not raised as an exception to
         continue deleting the other QuickSight resources
-        '''
+        """
         try:
             responses.append(self.delete_dashboard())
         except Exception as error:
-            logger.warning(f'Failed to delete dashboard {error}')
+            logger.warning(f"Failed to delete dashboard {error}")
 
         try:
             responses.append(self.delete_analysis())
         except Exception as error:
-            logger.warning(f'Failed to delete analysis {error}')
+            logger.warning(f"Failed to delete analysis {error}")
 
         try:
             responses.append(self.delete_data_sets())
         except Exception as error:
-            logger.warning(f'Failed to delete data sets {error}')
+            logger.warning(f"Failed to delete data sets {error}")
 
         try:
             responses.append(self.delete_data_source())
         except Exception as error:
-            logger.warning(f'Failed to delete data source {error}')
+            logger.warning(f"Failed to delete data source {error}")
 
         return responses
 
@@ -127,27 +122,25 @@ class QuicksightApi:
     def create_template_from_template(self, source_template_arn):
         qs_resource = self.quicksight_application.get_template()
         response = qs_resource.create_from_template(source_template_arn)
-        self.get_global_state().update({'template': qs_resource.get_data()})
+        self.get_global_state().update({"template": qs_resource.get_data()})
         return response
 
     def create_template_from_analysis(self):
         template = self.quicksight_application.get_template()
         analysis = self.quicksight_application.get_analysis()
         response = template.create_from_analysis(analysis)
-        self.get_global_state().update({'template': template.get_data()})
+        self.get_global_state().update({"template": template.get_data()})
         return response
 
     def create_template_from_dashboard(self):
         template = self.quicksight_application.get_template()
         dashboard = self.quicksight_application.get_dashboard()
         response = template.create_from_dashboard(dashboard)
-        self.get_global_state().update({'template': template.get_data()})
+        self.get_global_state().update({"template": template.get_data()})
         return response
 
     def update_template_permissions(
-        self,
-        permission:TemplatePermissionType = TemplatePermissionType.PUBLIC,
-        principal=None
+        self, permission: TemplatePermissionType = TemplatePermissionType.PUBLIC, principal=None
     ):
         qs_resource = self.quicksight_application.get_template()
         response = qs_resource.update_template_permissions(permission, principal)
@@ -160,3 +153,28 @@ class QuicksightApi:
 
     def get_global_state(self):
         return self.global_state
+
+    def describe_data_source(self):
+        qs_resource = self.quicksight_application.get_data_source()
+        response = qs_resource.describe()
+        return response
+
+    def describe_data_sets(self):
+        responses = []
+
+        data_sets = self.quicksight_application.get_data_sets()
+        for data_set in data_sets.values():
+            response = data_set.describe()
+            responses.append(response)
+        return responses
+
+    def describe_analysis(self):
+        qs_resource = self.quicksight_application.get_analysis()
+        response = qs_resource.describe()
+        return response
+
+    def describe_dashboard(self):
+        qs_resource = self.quicksight_application.get_dashboard()
+        response = qs_resource.describe()
+        return response
+

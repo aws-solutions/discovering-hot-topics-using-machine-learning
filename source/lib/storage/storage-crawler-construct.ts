@@ -5,20 +5,21 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Bucket } from "@aws-cdk/aws-s3";
-import { Construct, Duration, Aws, CustomResource } from "@aws-cdk/core";
-import { Runtime, Code } from '@aws-cdk/aws-lambda';
-import { PolicyStatement, Policy, Effect } from "@aws-cdk/aws-iam";
-import { EventsRuleToLambda } from '@aws-solutions-constructs/aws-events-rule-lambda';
 import { Schedule } from "@aws-cdk/aws-events";
+import { Effect, Policy, PolicyStatement } from "@aws-cdk/aws-iam";
+import { Code, Runtime } from '@aws-cdk/aws-lambda';
+import { Bucket } from "@aws-cdk/aws-s3";
+import { Aws, Construct, CustomResource, Duration } from "@aws-cdk/core";
+import { EventsRuleToLambda } from '@aws-solutions-constructs/aws-events-rule-lambda';
 import { buildLambdaFunction } from "@aws-solutions-constructs/core";
+
 export interface StorageCrawlerProps {
     readonly s3Bucket: Bucket,
     readonly databaseName: string,

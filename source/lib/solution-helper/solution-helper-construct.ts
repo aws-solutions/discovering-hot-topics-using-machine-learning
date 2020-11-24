@@ -11,10 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
-
+import * as cdk from '@aws-cdk/core';
 import { ExecutionRole } from './lambda-role-cloudwatch-construct';
+
 
 export interface SolutionHelperProps {
     readonly solutionId: string;

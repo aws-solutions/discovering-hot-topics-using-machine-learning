@@ -12,14 +12,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct, Duration, Aws } from '@aws-cdk/core';
-import { Runtime, Code, Function}  from '@aws-cdk/aws-lambda';
-import { PolicyStatement, Role, Effect } from '@aws-cdk/aws-iam';
+import { AttributeType } from '@aws-cdk/aws-dynamodb';
 import { Rule, Schedule } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { AttributeType } from '@aws-cdk/aws-dynamodb';
-import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
+import { Effect, PolicyStatement, Role } from '@aws-cdk/aws-iam';
 import { IStream } from '@aws-cdk/aws-kinesis';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Aws, Construct, Duration } from '@aws-cdk/core';
+import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
 
 export interface FeedProducerProps {
     readonly timeout: Duration,

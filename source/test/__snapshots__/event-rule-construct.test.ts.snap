@@ -3,20 +3,39 @@
 exports[`test Event Rule Construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faArtifactHash119DFB79": Object {
-      "Description": "Artifact hash for asset \\"bc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111fa\\"",
+    "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffArtifactHashA8BB31C3": Object {
+      "Description": "Artifact hash for asset \\"10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bff\\"",
       "Type": "String",
     },
-    "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faS3BucketE1A330C5": Object {
-      "Description": "S3 bucket for asset \\"bc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111fa\\"",
+    "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffS3Bucket6A8883AE": Object {
+      "Description": "S3 bucket for asset \\"10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bff\\"",
       "Type": "String",
     },
-    "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faS3VersionKeyC91ED03E": Object {
-      "Description": "S3 key for asset version \\"bc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111fa\\"",
+    "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffS3VersionKey0C0BF415": Object {
+      "Description": "S3 key for asset version \\"10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bff\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "EventRuleEventRule0AllowEventRuleEventRuleEventRule080442C926E2F4A47": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "LambdaFunctionBF21E41F",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "EventRuleEventRule0FC2BB61D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
     "EventRuleEventRule0FC2BB61D": Object {
       "Properties": Object {
         "EventBusName": Object {
@@ -58,25 +77,6 @@ Object {
       },
       "Type": "AWS::Events::EventBus",
     },
-    "LambdaFunctionAllowEventRuleEventRuleEventRule080442C92991593C9": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "LambdaFunctionBF21E41F",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "EventRuleEventRule0FC2BB61D",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "LambdaFunctionBF21E41F": Object {
       "DependsOn": Array [
         "LambdaFunctionServiceRoleDefaultPolicy126C8897",
@@ -95,7 +95,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faS3BucketE1A330C5",
+            "Ref": "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffS3Bucket6A8883AE",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -108,7 +108,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faS3VersionKeyC91ED03E",
+                          "Ref": "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffS3VersionKey0C0BF415",
                         },
                       ],
                     },
@@ -121,7 +121,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersbc6626d43df48792f35b6f7abbea91bf9f3c8acba59a000b34dcb872783111faS3VersionKeyC91ED03E",
+                          "Ref": "AssetParameters10db91ed0eae39d99a177624e711fd1199442e755e187b6231035e39171b4bffS3VersionKey0C0BF415",
                         },
                       ],
                     },

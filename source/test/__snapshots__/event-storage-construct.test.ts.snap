@@ -3,63 +3,20 @@
 exports[`Event Storage Construct with Lambda processor 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeArtifactHash1FC37BE2": Object {
-      "Description": "Artifact hash for asset \\"98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71ae\\"",
+    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471ArtifactHashCE593F19": Object {
+      "Description": "Artifact hash for asset \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
       "Type": "String",
     },
-    "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeS3BucketF41C237E": Object {
-      "Description": "S3 bucket for asset \\"98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71ae\\"",
+    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3BucketCD9EF05A": Object {
+      "Description": "S3 bucket for asset \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
       "Type": "String",
     },
-    "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeS3VersionKey0268FA87": Object {
-      "Description": "S3 key for asset version \\"98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71ae\\"",
+    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20": Object {
+      "Description": "S3 key for asset version \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "EventStorageTestFirehosePolicy5A230078": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupACB75E85",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "EventStorageTestFirehosePolicy5A230078",
-        "Roles": Array [
-          Object {
-            "Ref": "EventStorageTestFirehoseRole9A5FD08D",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "EventStorageTestFirehoseRole9A5FD08D": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -126,7 +83,11 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "EventStorageTestKinesisFirehose442A2573": Object {
+    "EventStorageTestKinesisFirehoseC7A32BA8": Object {
+      "DependsOn": Array [
+        "EventStorageTestFirehoseRoleDefaultPolicyE272AE26",
+        "EventStorageTestFirehoseRole9A5FD08D",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -142,13 +103,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupACB75E85",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
             },
             "LogStreamName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
             },
           },
           "CompressionFormat": "GZIP",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "ErrorOutputPrefix": "testPrefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
           "Prefix": "testPrefix/created_at=!{timestamp:yyyy-MM-dd}/",
           "ProcessingConfiguration": Object {
@@ -180,6 +165,118 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
+    "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "testBucketDF4D7D1A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "testBucketDF4D7D1A",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2",
+        "Roles": Array [
+          Object {
+            "Ref": "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "EventStorageTestLambdaFunction0DDD544F": Object {
       "DependsOn": Array [
         "EventStorageTestLambdaFunctionServiceRoleDefaultPolicy51A8DD20",
@@ -198,7 +295,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeS3BucketF41C237E",
+            "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3BucketCD9EF05A",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -211,7 +308,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeS3VersionKey0268FA87",
+                          "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20",
                         },
                       ],
                     },
@@ -224,7 +321,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters98da2060d447f553b891b388796059aca702a890847fc8ea4f2e469bf35c71aeS3VersionKey0268FA87",
+                          "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20",
                         },
                       ],
                     },
@@ -371,21 +468,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "EventStorageTestfirehoseloggroupACB75E85": Object {
-      "DeletionPolicy": "Retain",
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "LogGroupName": Object {
-          "Ref": "EventStorageTestfirehoseloggroupACB75E85",
-        },
-      },
-      "Type": "AWS::Logs::LogStream",
-      "UpdateReplacePolicy": "Retain",
-    },
     "testBucketDF4D7D1A": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
@@ -398,49 +480,6 @@ Object {
 exports[`Event Storage Construct with props 1`] = `
 Object {
   "Resources": Object {
-    "EventStorageTestFirehosePolicy5A230078": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupACB75E85",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "EventStorageTestFirehosePolicy5A230078",
-        "Roles": Array [
-          Object {
-            "Ref": "EventStorageTestFirehoseRole9A5FD08D",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "EventStorageTestFirehoseRole9A5FD08D": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -507,7 +546,11 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "EventStorageTestKinesisFirehose442A2573": Object {
+    "EventStorageTestKinesisFirehoseC7A32BA8": Object {
+      "DependsOn": Array [
+        "EventStorageTestFirehoseRoleDefaultPolicyE272AE26",
+        "EventStorageTestFirehoseRole9A5FD08D",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -523,13 +566,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupACB75E85",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
             },
             "LogStreamName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "ErrorOutputPrefix": "test-prefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
           "Prefix": "test-prefix/created_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
@@ -542,16 +609,113 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "EventStorageTestfirehoseloggroupACB75E85": Object {
+    "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "testBucketDF4D7D1A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "testBucketDF4D7D1A",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2",
+        "Roles": Array [
+          Object {
+            "Ref": "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C": Object {
+    "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "LogGroupName": Object {
-          "Ref": "EventStorageTestfirehoseloggroupACB75E85",
+          "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
         },
       },
       "Type": "AWS::Logs::LogStream",
@@ -569,49 +733,6 @@ Object {
 exports[`Event Storage Construct without props 1`] = `
 Object {
   "Resources": Object {
-    "EventStorageTestFirehosePolicy5A230078": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupACB75E85",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "EventStorageTestFirehosePolicy5A230078",
-        "Roles": Array [
-          Object {
-            "Ref": "EventStorageTestFirehoseRole9A5FD08D",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "EventStorageTestFirehoseRole9A5FD08D": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -678,7 +799,11 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "EventStorageTestKinesisFirehose442A2573": Object {
+    "EventStorageTestKinesisFirehoseC7A32BA8": Object {
+      "DependsOn": Array [
+        "EventStorageTestFirehoseRoleDefaultPolicyE272AE26",
+        "EventStorageTestFirehoseRole9A5FD08D",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -694,13 +819,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupACB75E85",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
             },
             "LogStreamName": Object {
-              "Ref": "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C",
+              "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
             },
           },
           "CompressionFormat": "GZIP",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "EventStorageTestFirehoseRole9A5FD08D",
@@ -711,16 +860,113 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "EventStorageTestfirehoseloggroupACB75E85": Object {
+    "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "testBucketDF4D7D1A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "testBucketDF4D7D1A",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EventStorageTestKinesisFirehoseKinesisFirehosePolicy8524C4A2",
+        "Roles": Array [
+          Object {
+            "Ref": "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EventStorageTestKinesisFirehoseKinesisFirehoseRoleD2EAD075": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "EventStorageTestfirehoseloggroupfirehoselogstreamD3224E6C": Object {
+    "EventStorageTestKinesisFirehosefirehoseloggroupfirehoselogstream1C275BD1": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "LogGroupName": Object {
-          "Ref": "EventStorageTestfirehoseloggroupACB75E85",
+          "Ref": "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F",
         },
       },
       "Type": "AWS::Logs::LogStream",

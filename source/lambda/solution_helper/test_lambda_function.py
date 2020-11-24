@@ -11,8 +11,12 @@
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
-import unittest, requests, os
+import os
+import unittest
 from unittest import mock
+
+import requests
+
 
 def mocked_requests_post(*args, **kwargs):
     class MockResponse:
@@ -20,110 +24,103 @@ def mocked_requests_post(*args, **kwargs):
             self.status_code = status_code
             self.reason = reason
 
-    return MockResponse(200, 'OK')
+    return MockResponse(200, "OK")
+
 
 class LambdaTest(unittest.TestCase):
-
     def setUp(self):
-        os.environ['SEARCH_QUERY'] = 'someSearchParam'
-        os.environ['LANG_FILTER'] = 'en,fr,es,de,pt'
+        os.environ["SEARCH_QUERY"] = "someSearchParam"
+        os.environ["LANG_FILTER"] = "en,fr,es,de,pt"
 
     def tearDown(self):
-        del os.environ['SEARCH_QUERY']
-        del os.environ['LANG_FILTER']
+        del os.environ["SEARCH_QUERY"]
+        del os.environ["LANG_FILTER"]
 
     def test_create_unique_id(self):
         import lambda_function
 
-        event = {
-            'RequestType': 'Create',
-            'ResourceProperties': { 'Resource': 'UUID' }
-        }
+        event = {"RequestType": "Create", "ResourceProperties": {"Resource": "UUID"}}
 
         lambda_function.custom_resource(event, None)
-        self.assertIsNotNone(lambda_function.helper.Data.get('UUID'))
+        self.assertIsNotNone(lambda_function.helper.Data.get("UUID"))
 
-    @mock.patch('requests.post', side_effect=mocked_requests_post)
+    @mock.patch("requests.post", side_effect=mocked_requests_post)
     def test_send_metrics_successful(self, mock_post):
         event = {
-            'RequestType': 'Create',
-            'ResourceProperties': {
-                'Resource': 'AnonymousMetric',
-                'SolutionId': 'SO1234',
-                'UUID': 'some-uuid',
-                'Foo': 'Bar'
-            }
+            "RequestType": "Create",
+            "ResourceProperties": {
+                "Resource": "AnonymousMetric",
+                "SolutionId": "SO1234",
+                "UUID": "some-uuid",
+                "Foo": "Bar",
+            },
         }
 
         from lambda_function import custom_resource
+
         custom_resource(event, None)
 
-        expected_metrics_endpoint = 'https://metrics.awssolutionsbuilder.com/generic'
+        expected_metrics_endpoint = "https://metrics.awssolutionsbuilder.com/generic"
         actual_metrics_endpoint = mock_post.call_args.args[0]
         self.assertEqual(expected_metrics_endpoint, actual_metrics_endpoint)
 
-        expected_headers = {'Content-Type': 'application/json'}
-        actual_headers = mock_post.call_args.kwargs['headers']
+        expected_headers = {"Content-Type": "application/json"}
+        actual_headers = mock_post.call_args.kwargs["headers"]
         self.assertEqual(expected_headers, actual_headers)
 
-        actual_payload = mock_post.call_args.kwargs['json']
-        self.assertIn('Solution', actual_payload)
-        self.assertIn('UUID', actual_payload)
-        self.assertIn('TimeStamp', actual_payload)
-        self.assertIn('Data', actual_payload)
-        self.assertEqual(actual_payload['Data'], {'Foo': 'Bar', 'RequestType': 'Create', 'SearchQuery': 'someSearchParam', 'LangFilter': 'en,fr,es,de,pt'})
+        actual_payload = mock_post.call_args.kwargs["json"]
+        self.assertIn("Solution", actual_payload)
+        self.assertIn("UUID", actual_payload)
+        self.assertIn("TimeStamp", actual_payload)
+        self.assertIn("Data", actual_payload)
+        self.assertEqual(
+            actual_payload["Data"],
+            {"Foo": "Bar", "RequestType": "Create", "SearchQuery": "someSearchParam", "LangFilter": "en,fr,es,de,pt"},
+        )
 
-    @mock.patch('requests.post')
+    @mock.patch("requests.post")
     def test_send_metrics_connection_error(self, mock_post):
         mock_post.side_effect = requests.exceptions.ConnectionError()
 
         event = {
-            'RequestType': 'Update',
-            'ResourceProperties': {
-                'Resource': 'AnonymousMetric',
-                'SolutionId': 'SO1234',
-                'UUID': 'some-uuid'
-            }
+            "RequestType": "Update",
+            "ResourceProperties": {"Resource": "AnonymousMetric", "SolutionId": "SO1234", "UUID": "some-uuid"},
         }
 
         try:
             from lambda_function import custom_resource
+
             custom_resource(event, None)
         except:
-            self.fail('Exception should not be raised when metrics cannot be sent')
+            self.fail("Exception should not be raised when metrics cannot be sent")
 
-    @mock.patch('requests.post')
+    @mock.patch("requests.post")
     def test_send_metrics_other_error(self, mock_post):
         try:
             invalid_event = {
-                'RequestType': 'Delete',
-                'ResourceProperties': {
-                    'Resource': 'AnonymousMetric',
-                    'UUID': 'some-uuid'
-                }
+                "RequestType": "Delete",
+                "ResourceProperties": {"Resource": "AnonymousMetric", "UUID": "some-uuid"},
             }
 
             from lambda_function import custom_resource
+
             custom_resource(invalid_event, None)
         except:
-            self.fail('Exception should not be raised when metrics cannot be sent')
+            self.fail("Exception should not be raised when metrics cannot be sent")
 
     def test_sanitize_data(self):
         from lambda_function import _sanitize_data
 
         resource_properties = {
-            'ServiceToken': 'lambda-fn-arn',
-            'Resource': 'AnonymousMetric',
-            'SolutionId': 'SO1234',
-            'UUID': 'some-uuid',
-            'Region': 'us-east-1',
-            'Foo': 'Bar'
+            "ServiceToken": "lambda-fn-arn",
+            "Resource": "AnonymousMetric",
+            "SolutionId": "SO1234",
+            "UUID": "some-uuid",
+            "Region": "us-east-1",
+            "Foo": "Bar",
         }
 
-        expected_response = {
-            'Region': 'us-east-1',
-            'Foo': 'Bar'
-        }
+        expected_response = {"Region": "us-east-1", "Foo": "Bar"}
 
         actual_response = _sanitize_data(resource_properties)
         self.assertCountEqual(expected_response, actual_response)

@@ -4,21 +4,21 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Runtime, Code } from "@aws-cdk/aws-lambda";
 import { SynthUtils } from '@aws-cdk/assert';
-import { Stack, Duration } from '@aws-cdk/core';
-import { FeedProducer } from '../lib/ingestion/feed-producer-construct';
-import { Stream, StreamEncryption } from '@aws-cdk/aws-kinesis';
-import * as assert from 'assert';
-
 import '@aws-cdk/assert/jest';
+import { Stream, StreamEncryption } from '@aws-cdk/aws-kinesis';
+import { Code, Runtime } from "@aws-cdk/aws-lambda";
+import { Duration, Stack } from '@aws-cdk/core';
+import * as assert from 'assert';
+import { FeedProducer } from '../lib/ingestion/feed-producer-construct';
+
 
 test('Test Lambda with role and scheduler', () => {
     const stack = new Stack();

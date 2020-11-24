@@ -5,7 +5,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,14 +13,12 @@
  *********************************************************************************************************************/
 
 
-import { Construct, Duration, Aws } from '@aws-cdk/core';
-import { Runtime, Code } from '@aws-cdk/aws-lambda';
-import { FeedProducer } from './feed-producer-construct';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Construct, Duration } from '@aws-cdk/core';
 import { FeedConsumer } from './feed-consumer-construct';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
+import { FeedProducer } from './feed-producer-construct';
 
 export interface IngestionProps {
-    readonly stateMachineArn: string,
     readonly solutionName: string,
     readonly ingestFrequency: string,
     readonly queryParameter: string,
@@ -29,33 +27,24 @@ export interface IngestionProps {
 }
 
 export class Ingestion extends Construct {
+    private readonly _producerLambdaFunction: Function;
+    private readonly _consumerLambdaFunction: Function;
+
     constructor(scope: Construct, id: string, props: IngestionProps) {
         super(scope, id);
 
-        // start creation of Kinesis consumer that invokes state machine
-        const invokeStepFunctionPolicy = new PolicyStatement({
-            effect: Effect.ALLOW,
-            resources: [ props.stateMachineArn ],
-            actions: ['states:StartExecution']
-        });
-
         const feedConsumerlambda = new FeedConsumer(this, 'FeedConsumer', {
-            environment: {
-                WORKFLOW_ARN: props.stateMachineArn,
-            },
             runtime: Runtime.NODEJS_12_X,
             code: Code.fromAsset(`${__dirname}/../../lambda/ingestion-consumer`),
             timeout: Duration.minutes(5),
-            batchSize: 10,
+            batchSize: 5,
             shardCount: 1
         });
 
-        feedConsumerlambda.lambdaFunction.addToRolePolicy(invokeStepFunctionPolicy);
-        // end creation of Kinesis consumer that invokes state machine
-
+        this._consumerLambdaFunction = feedConsumerlambda.lambdaFunction;
 
         // start creation of Lambda Kinesis producer that fetches social media feed
-        new FeedProducer(this, 'FeedProducerConstruct', {
+        this._producerLambdaFunction =  new FeedProducer(this, 'FeedProducerConstruct', {
             timeout: Duration.minutes(5),
             stream: feedConsumerlambda.kinesisStream,
             runtime: Runtime.NODEJS_12_X,
@@ -65,7 +54,15 @@ export class Ingestion extends Construct {
             ingestFrequency: props.ingestFrequency,
             queryParameter: props.queryParameter,
             credentialKeyPath: props.credentialKeyPath
-        });
+        }).producerFunction;
         // end creation of Lambda Kinesis producer that fetches social media feed
+    }
+
+    public get producerLambdaFunc(): Function {
+        return this._producerLambdaFunction;
+    }
+
+    public get consumerLambdaFunc(): Function {
+        return this._consumerLambdaFunction;
     }
 }

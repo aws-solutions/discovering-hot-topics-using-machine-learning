@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -58,12 +58,18 @@ def test_data_source_create(quicksight_application_stub):
         props=None
     )
 
+    assert obj.athena_workgroup
+    assert obj.athena_workgroup == "primary"
     dump_state(obj)
 
     sub_type = 'main'
     dump_state(obj, 'Before create')
     DataSourceStubber.stub_create_data_source_call(sub_type)
-    obj.create()
+    response = obj.create()
+    assert response
+    assert response["Status"] in [202]
+    assert response["CreationStatus"] in ["CREATION_IN_PROGRESS"]
+    assert obj.arn
     dump_state(obj, 'After create')
 
 @ mock_sts
@@ -80,3 +86,25 @@ def test_data_source_delete(quicksight_application_stub):
     DataSourceStubber.stub_delete_data_source_call(sub_type)
     obj.delete()
     dump_state(obj, 'After delete')
+
+@ mock_sts
+def test_data_source_create_exist(quicksight_application_stub):
+    obj = DataSource(
+        quicksight_application=quicksight_application_stub,
+        props=None
+    )
+
+    assert obj.athena_workgroup
+    assert obj.athena_workgroup == "primary"
+
+    sub_type = "main"
+    DataSourceStubber.stub_create_data_source_error_call(sub_type)
+    DataSourceStubber.stub_describe_data_source_call(sub_type)
+
+    # Function under test
+    response = obj.create()
+
+    # This response is the response to describe_data_source as the code is remaps the response
+    assert response
+    assert response["Status"] in ["CREATION_SUCCESSFUL"]
+    assert obj.arn

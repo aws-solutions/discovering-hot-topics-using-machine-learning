@@ -5,24 +5,24 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct, Aws } from '@aws-cdk/core';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { Key } from '@aws-cdk/aws-kms';
 import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
+import { Construct } from '@aws-cdk/core';
 import { buildS3Bucket } from '@aws-solutions-constructs/core';
-import { EventManager } from './event-manager-construct';
 import { EventStorage } from '../storage/event-storage-construct';
+import { InferenceDatabase } from '../visualization/inf-database-construct';
+import { EventManager } from './event-manager-construct';
 import { Config, EventRule } from './event-rule-construct';
 import { TextAnalysisProxy } from './text-analysis-proxy';
 import { TopicAnalysisProxy } from './topic-analysis-proxy';
-import { InferenceDatabase } from '../visualization/inf-database-construct';
-import { Key } from '@aws-cdk/aws-kms';
 
 export interface AppIntegrationProps {
     readonly textAnalysisInfNS: string,
@@ -47,7 +47,7 @@ export class AppIntegration extends Construct {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
-                serverAccessLogsPrefix: id
+                serverAccessLogsPrefix: `${id}/`
             }
         });
 

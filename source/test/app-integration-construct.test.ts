@@ -4,7 +4,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -12,11 +12,11 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
-import { Stack, Aws, App } from '@aws-cdk/core';
-import { AppIntegration } from '../lib/integration/app-integration-construct';
 import '@aws-cdk/assert/jest';
 import { Key } from '@aws-cdk/aws-kms';
-import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
+import { App, Stack } from '@aws-cdk/core';
+import { AppIntegration } from '../lib/integration/app-integration-construct';
 
 test('test App Integration Construct', () => {
 

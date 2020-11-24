@@ -3,64 +3,76 @@
 exports[`test orchestration construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0ArtifactHash9A647AE8": Object {
-      "Description": "Artifact hash for asset \\"4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0\\"",
+    "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aArtifactHashA12F181F": Object {
+      "Description": "Artifact hash for asset \\"11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3a\\"",
       "Type": "String",
     },
-    "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0S3BucketEBD4D337": Object {
-      "Description": "S3 bucket for asset \\"4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0\\"",
+    "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aS3BucketFB5C8110": Object {
+      "Description": "S3 bucket for asset \\"11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3a\\"",
       "Type": "String",
     },
-    "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0S3VersionKeyCFAAD4C0": Object {
-      "Description": "S3 key for asset version \\"4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0\\"",
+    "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aS3VersionKeyCF7DA137": Object {
+      "Description": "S3 key for asset version \\"11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3a\\"",
       "Type": "String",
     },
-    "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641ArtifactHash2FB858F8": Object {
-      "Description": "Artifact hash for asset \\"5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641\\"",
+    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aArtifactHashCB06F386": Object {
+      "Description": "Artifact hash for asset \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
       "Type": "String",
     },
-    "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641S3Bucket33A3C4DB": Object {
-      "Description": "S3 bucket for asset \\"5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641\\"",
+    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3Bucket66F7D124": Object {
+      "Description": "S3 bucket for asset \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
       "Type": "String",
     },
-    "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641S3VersionKeyDE55FBB8": Object {
-      "Description": "S3 key for asset version \\"5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641\\"",
+    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA": Object {
+      "Description": "S3 key for asset version \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
       "Type": "String",
     },
-    "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dArtifactHash6EF485EA": Object {
-      "Description": "Artifact hash for asset \\"6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16d\\"",
+    "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48ArtifactHashBC60452B": Object {
+      "Description": "Artifact hash for asset \\"1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48\\"",
       "Type": "String",
     },
-    "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dS3Bucket2FCFE17B": Object {
-      "Description": "S3 bucket for asset \\"6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16d\\"",
+    "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48S3BucketC8D8F0B5": Object {
+      "Description": "S3 bucket for asset \\"1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48\\"",
       "Type": "String",
     },
-    "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dS3VersionKey76C11D83": Object {
-      "Description": "S3 key for asset version \\"6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16d\\"",
+    "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48S3VersionKey66C0FB0B": Object {
+      "Description": "S3 key for asset version \\"1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48\\"",
       "Type": "String",
     },
-    "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857ArtifactHash33015F4F": Object {
-      "Description": "Artifact hash for asset \\"8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857\\"",
+    "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaArtifactHash3859A019": Object {
+      "Description": "Artifact hash for asset \\"4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaa\\"",
       "Type": "String",
     },
-    "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857S3Bucket90BD91DC": Object {
-      "Description": "S3 bucket for asset \\"8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857\\"",
+    "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaS3BucketA499118C": Object {
+      "Description": "S3 bucket for asset \\"4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaa\\"",
       "Type": "String",
     },
-    "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857S3VersionKeyC214CCA5": Object {
-      "Description": "S3 key for asset version \\"8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857\\"",
+    "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaS3VersionKey5C74ACC5": Object {
+      "Description": "S3 key for asset version \\"4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaa\\"",
       "Type": "String",
     },
-    "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2ArtifactHashE2AD6027": Object {
-      "Description": "Artifact hash for asset \\"9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fArtifactHashE806D2E9": Object {
+      "Description": "Artifact hash for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
       "Type": "String",
     },
-    "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2S3Bucket9C62956A": Object {
-      "Description": "S3 bucket for asset \\"9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0": Object {
+      "Description": "S3 bucket for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
       "Type": "String",
     },
-    "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2S3VersionKey5A3FE867": Object {
-      "Description": "S3 key for asset version \\"9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD": Object {
+      "Description": "S3 key for asset version \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfArtifactHash0698CEAC": Object {
+      "Description": "Artifact hash for asset \\"4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bf\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfS3BucketAF4DF723": Object {
+      "Description": "S3 bucket for asset \\"4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bf\\"",
+      "Type": "String",
+    },
+    "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfS3VersionKeyBDF8C724": Object {
+      "Description": "S3 key for asset version \\"4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bf\\"",
       "Type": "String",
     },
   },
@@ -106,7 +118,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0S3BucketEBD4D337",
+            "Ref": "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48S3BucketC8D8F0B5",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -119,7 +131,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0S3VersionKeyCFAAD4C0",
+                          "Ref": "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48S3VersionKey66C0FB0B",
                         },
                       ],
                     },
@@ -132,7 +144,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c563fdba5c0b55c12da9ebdedee307bc106d5e007b1bab5171b28aae3c8e6d0S3VersionKeyCFAAD4C0",
+                          "Ref": "AssetParameters1f34df132253d293f885b313a53eb74f130f7b3cc7d311c4413ab72b8ef5ad48S3VersionKey66C0FB0B",
                         },
                       ],
                     },
@@ -303,7 +315,7 @@ Object {
           "DestinationBucketName": Object {
             "Ref": "AccessLogD598EBE9",
           },
-          "LogFilePrefix": "OrchestrationConstruct",
+          "LogFilePrefix": "OrchestrationConstruct/",
         },
         "PublicAccessBlockConfiguration": Object {
           "BlockPublicAcls": true,
@@ -391,7 +403,8 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
             },
           ],
         },
@@ -497,7 +510,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641S3Bucket33A3C4DB",
+            "Ref": "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aS3BucketFB5C8110",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -510,7 +523,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641S3VersionKeyDE55FBB8",
+                          "Ref": "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aS3VersionKeyCF7DA137",
                         },
                       ],
                     },
@@ -523,7 +536,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5ffb3d995b007340a16f0c8005669bf76c5d7e98c5245ead81b477d7b6cd1641S3VersionKeyDE55FBB8",
+                          "Ref": "AssetParameters11a602c17b45efd2ac4777078c3279c660cffe70ccdb1680cd53c512c12fae3aS3VersionKeyCF7DA137",
                         },
                       ],
                     },
@@ -696,7 +709,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857S3Bucket90BD91DC",
+            "Ref": "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaS3BucketA499118C",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -709,7 +722,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857S3VersionKeyC214CCA5",
+                          "Ref": "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaS3VersionKey5C74ACC5",
                         },
                       ],
                     },
@@ -722,7 +735,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters8c91cba18dde9e20d87054127bb8fd299c94ed92a1aca970d415cc2991c33857S3VersionKeyC214CCA5",
+                          "Ref": "AssetParameters4011bc8713ebb0a31fc354cfe5aa8ab5f08110cda4f9c534d946ffe06d469aaaS3VersionKey5C74ACC5",
                         },
                       ],
                     },
@@ -846,49 +859,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructRawForTAFirehosePolicy41D9A17A": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "OrchestrationConstructRawForTAFirehosePolicy41D9A17A",
-        "Roles": Array [
-          Object {
-            "Ref": "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -955,7 +925,11 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "OrchestrationConstructRawForTAKinesisFirehose480D395C": Object {
+    "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E",
+        "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -971,13 +945,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
+              "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
             },
             "LogStreamName": Object {
-              "Ref": "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E",
+              "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257",
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
@@ -988,16 +986,113 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "OrchestrationConstructRawForTAfirehoseloggroupDBD11038": Object {
+    "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehosePolicyFEB8F134": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructS3Bucket2727DF68",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructS3Bucket2727DF68",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehosePolicyFEB8F134",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehoseRole7BE1E3D7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehoseRole7BE1E3D7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "OrchestrationConstructRawForTAfirehoseloggroupfirehoselogstream82F98F5E": Object {
+    "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "LogGroupName": Object {
-          "Ref": "OrchestrationConstructRawForTAfirehoseloggroupDBD11038",
+          "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
         },
       },
       "Type": "AWS::Logs::LogStream",
@@ -1019,7 +1114,7 @@ Object {
           "DestinationBucketName": Object {
             "Ref": "AccessLogD598EBE9",
           },
-          "LogFilePrefix": "OrchestrationConstruct",
+          "LogFilePrefix": "OrchestrationConstruct/",
         },
         "PublicAccessBlockConfiguration": Object {
           "BlockPublicAcls": true,
@@ -1069,10 +1164,73 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "OrchestrationConstructStateMachineWorkflowEngine23C72B59": Object {
+    "OrchestrationConstructStateMachineWorkflowEngineExecutionAbortedAlarmFA7A72F2": Object {
+      "Properties": Object {
+        "AlarmDescription": "Alarm for the number of executions that aborted exceeded the threshold of 1. ",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": Array [
+          Object {
+            "Name": "StateMachineArn",
+            "Value": Object {
+              "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05",
+            },
+          },
+        ],
+        "EvaluationPeriods": 1,
+        "MetricName": "ExecutionsAborted",
+        "Namespace": "AWS/States",
+        "Period": 300,
+        "Statistic": "Maximum",
+        "Threshold": 1,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineExecutionFailedAlarm5512CA66": Object {
+      "Properties": Object {
+        "AlarmDescription": "Alarm for the number of executions that failed exceeded the threshold of 1. ",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": Array [
+          Object {
+            "Name": "StateMachineArn",
+            "Value": Object {
+              "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05",
+            },
+          },
+        ],
+        "EvaluationPeriods": 1,
+        "MetricName": "ExecutionsFailed",
+        "Namespace": "AWS/States",
+        "Period": 300,
+        "Statistic": "Sum",
+        "Threshold": 1,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineExecutionThrottledAlarmE931A386": Object {
+      "Properties": Object {
+        "AlarmDescription": "Alarm for the number of executions that throttled exceeded the threshold of 1. ",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": Array [
+          Object {
+            "Name": "StateMachineArn",
+            "Value": Object {
+              "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05",
+            },
+          },
+        ],
+        "EvaluationPeriods": 1,
+        "MetricName": "ExecutionThrottled",
+        "Namespace": "AWS/States",
+        "Period": 300,
+        "Statistic": "Sum",
+        "Threshold": 1,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05": Object {
       "DependsOn": Array [
-        "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100",
-        "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+        "OrchestrationConstructStateMachineWorkflowEngineStateMachineRoleDefaultPolicy1C64BE7B",
+        "OrchestrationConstructStateMachineWorkflowEngineStateMachineRole21FD21B0",
       ],
       "Properties": Object {
         "DefinitionString": Object {
@@ -1118,16 +1276,36 @@ Object {
             ],
           ],
         },
+        "LoggingConfiguration": Object {
+          "Destinations": Array [
+            Object {
+              "CloudWatchLogsLogGroup": Object {
+                "LogGroupArn": Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructStateMachineWorkflowEngineStateMachineLogGroup1C3FDDB1",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+          ],
+          "Level": "ERROR",
+        },
         "RoleArn": Object {
           "Fn::GetAtt": Array [
-            "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+            "OrchestrationConstructStateMachineWorkflowEngineStateMachineRole21FD21B0",
             "Arn",
           ],
         },
       },
       "Type": "AWS::StepFunctions::StateMachine",
     },
-    "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041": Object {
+    "OrchestrationConstructStateMachineWorkflowEngineStateMachineLogGroup1C3FDDB1": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructStateMachineWorkflowEngineStateMachineRole21FD21B0": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1155,10 +1333,35 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100": Object {
+    "OrchestrationConstructStateMachineWorkflowEngineStateMachineRoleDefaultPolicy1C64BE7B": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W76",
+              "reason": "The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the                     SPCM violation as this policy is required to monitor as well as invoke specific tasks",
+            },
+            Object {
+              "id": "W12",
+              "reason": "The 'LogDelivery' actions do not support resource-level authorizations",
+            },
+          ],
+        },
+      },
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogDelivery",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             Object {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
@@ -1209,13 +1412,41 @@ Object {
                 ],
               },
             },
+            Object {
+              "Action": Array [
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":*",
+                  ],
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "OrchestrationConstructStateMachineWorkflowEngineRoleDefaultPolicyCEB06100",
+        "PolicyName": "OrchestrationConstructStateMachineWorkflowEngineStateMachineRoleDefaultPolicy1C64BE7B",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructStateMachineWorkflowEngineRole6BB9C041",
+            "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineRole21FD21B0",
           },
         ],
       },
@@ -1239,7 +1470,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2S3Bucket9C62956A",
+            "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3Bucket66F7D124",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1252,7 +1483,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2S3VersionKey5A3FE867",
+                          "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA",
                         },
                       ],
                     },
@@ -1265,7 +1496,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters9d08d752c3f2e1321a44767b046a64b413bba08a7b0f87c8c5bcc769e3af84f2S3VersionKey5A3FE867",
+                          "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA",
                         },
                       ],
                     },
@@ -1390,7 +1621,8 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+              "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
             },
           ],
         },
@@ -1421,7 +1653,8 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Translate service",
+              "reason": "The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Translate service",
             },
           ],
         },
@@ -1442,7 +1675,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "OrchestrationConstructRawForTAKinesisFirehose480D395C",
+                  "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA",
                   "Arn",
                 ],
               },
@@ -1477,7 +1710,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dS3Bucket2FCFE17B",
+            "Ref": "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfS3BucketAF4DF723",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1490,7 +1723,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dS3VersionKey76C11D83",
+                          "Ref": "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfS3VersionKeyBDF8C724",
                         },
                       ],
                     },
@@ -1503,7 +1736,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters6ab60df28a0b713c4fb76236e66a0add731f8ac7c8106b24b9268190b33ba16dS3VersionKey76C11D83",
+                          "Ref": "AssetParameters4d09efa0b9351353774aa757cfa3690a3ac5b68d0376a2eb60d8eadcf4bf73bfS3VersionKeyBDF8C724",
                         },
                       ],
                     },
@@ -1517,7 +1750,7 @@ Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "KINESIS_FIREHOSE_NAME": Object {
-              "Ref": "OrchestrationConstructRawForTAKinesisFirehose480D395C",
+              "Ref": "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA",
             },
           },
         },
@@ -1630,6 +1863,122 @@ Object {
         "Name": "TestEventBus",
       },
       "Type": "AWS::Events::EventBus",
+    },
+    "testFunction483F4CBE": Object {
+      "DependsOn": Array [
+        "testFunctionServiceRoleDefaultPolicy159F3A68",
+        "testFunctionServiceRoleFEC29B6F",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "STATE_MACHINE_ARN": Object {
+              "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "testFunctionServiceRoleFEC29B6F",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "testFunctionServiceRoleDefaultPolicy159F3A68": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "OrchestrationConstructStateMachineWorkflowEngineStateMachineA5FF5C05",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "testFunctionServiceRoleDefaultPolicy159F3A68",
+        "Roles": Array [
+          Object {
+            "Ref": "testFunctionServiceRoleFEC29B6F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "testFunctionServiceRoleFEC29B6F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
     },
   },
 }

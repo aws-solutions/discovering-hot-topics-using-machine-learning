@@ -5,20 +5,21 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { NestedStack, CfnParameter, Construct, NestedStackProps } from '@aws-cdk/core';
-import { QuickSight, QuickSightSetup } from './quicksight-construct';
+import { CfnParameter, Construct, NestedStack, NestedStackProps } from '@aws-cdk/core';
 import { ExecutionRole } from '../solution-helper/lambda-role-cloudwatch-construct';
+import { QuickSight, QuickSightSetup } from './quicksight-construct';
+
 export class QuickSightStack extends NestedStack {
     private _quickSight: QuickSight;
 
-    constructor(scope: Construct, id: string, props?:NestedStackProps) {
+    constructor(scope: Construct, id: string, props:NestedStackProps) {
         super(scope, id, props);
 
         /**
@@ -51,6 +52,9 @@ export class QuickSightStack extends NestedStack {
             constraintDescription: 'Provide an arn matching an Amazon Quicksight principal arn. The input did not match the validation pattern.'
         });
 
+        /**
+         * Use the provided access logging bucket for any S3 bucket creation
+         */
         const s3AccessLogging = new CfnParameter(this, 'S3AccessLogBucket', {
             type: 'String',
             description: 'The S3 Access Log bucket arn',
@@ -58,16 +62,47 @@ export class QuickSightStack extends NestedStack {
             constraintDescription: 'Please provide a valid S3 bucket arn to store S3 access logs'
         });
 
+        /**
+         * The Solution ID with which the nested stack is associated with
+         */
+        const solutionID = new CfnParameter(this, 'SolutionID', {
+            type: 'String',
+            description: 'The SolutionID with which the nested stack is associated',
+            allowedPattern: 'SO([\\d]{4})',
+            constraintDescription: 'Please provide the parent stack\'s solutionID. The pattern must match the following regular experssion SO([\d]{4})'
+        });
+
+        /**
+         * The name of the solution with which the the nested stack is associated with
+         */
+        const solutionName = new CfnParameter(this, 'SolutionName', {
+            type: 'String',
+            description: 'The name of the solution for this stack',
+            allowedPattern: '[\\w\\W]{1,200}',
+            constraintDescription: 'Please provide the name of the solution to which the solution belongs to. The max length of the name is 200 characters'
+        });
+
+        /**
+         * The name of the parent stack to use the AWS stack name for QuickSight resource creation
+         */
+        const parentStackName = new CfnParameter(this, 'ParentStackName', {
+            type: 'String',
+            description: 'The AWS Stack nane of the parent stack',
+            allowedPattern: '[\\w\\W]{1,128}',
+            constraintDescription: 'Please provide the AWS stack name with which the nested stack is associated with'
+        });
+
         const customResourceRole = new ExecutionRole(this, 'CustomResourceRole');
 
         this._quickSight = new QuickSight(this, 'Quicksight', {
-            name: 'SO0122-Discovering-Hot-Topics-QS-Dashboard',
+            name: `${solutionID.valueAsString}-${solutionName.valueAsString}`,
             resource: QuickSightSetup.ALL,
             sourceTemplateArn: quickSightSourceTemplateArn.valueAsString,
             principalArn: quicksightPrincipalArn.valueAsString,
             workgroupName: 'primary',
             logLevel: 'INFO',
-            role: customResourceRole.Role
+            role: customResourceRole.Role,
+            parentStackName: parentStackName.valueAsString
         });
     }
 

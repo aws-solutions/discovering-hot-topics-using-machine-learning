@@ -5,7 +5,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,20 +13,22 @@
  *********************************************************************************************************************/
 
 
-import { CfnParameter, Construct, Stack, StackProps, Token, CfnOutput, RemovalPolicy } from '@aws-cdk/core';
-import { TextOrchestration } from './text-analysis-workflow/text-orchestration-construct';
-import { AppIntegration } from './integration/app-integration-construct';
-import { Ingestion } from './ingestion/ingestion-construct';
-import { TopicOrchestration } from './topic-analysis-workflow/topic-orchestration-construct';
-import { SolutionHelper } from './solution-helper/solution-helper-construct';
-import { QuickSightStack } from './quicksight-custom-resources/quicksight-stack';
+import { AnyPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Key } from '@aws-cdk/aws-kms';
-import { Bucket, BucketEncryption, BucketAccessControl, BlockPublicAccess, CfnBucket } from '@aws-cdk/aws-s3';
-import { PolicyStatement, AnyPrincipal, Effect } from '@aws-cdk/aws-iam';
+import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption, CfnBucket } from '@aws-cdk/aws-s3';
+import { Aws, CfnOutput, CfnParameter, Construct, RemovalPolicy, Stack, StackProps, Token } from '@aws-cdk/core';
+import { Ingestion } from './ingestion/ingestion-construct';
+import { AppIntegration } from './integration/app-integration-construct';
+import { QuickSightStack } from './quicksight-custom-resources/quicksight-stack';
+import { SolutionHelper } from './solution-helper/solution-helper-construct';
+import { TextOrchestration } from './text-analysis-workflow/text-orchestration-construct';
+import { TopicOrchestration } from './topic-analysis-workflow/topic-orchestration-construct';
+
 export interface DiscoveringHotTopicsStackProps extends StackProps {
     readonly solutionID: string,
     readonly solutionName: string
 }
+
 export class DiscoveringHotTopicsStack extends Stack {
     constructor(scope: Construct, id: string, props: DiscoveringHotTopicsStackProps) {
         super(scope, id, props);
@@ -131,8 +133,11 @@ export class DiscoveringHotTopicsStack extends Stack {
             parameters: {
                 "QuickSightSourceTemplateArn": this.node.tryGetContext('quicksight_source_template_arn'),
                 "QuickSightPrincipalArn": quickSightPrincipalArn.valueAsString,
-                "S3AccessLogBucket": s3AccessLoggingBucket.bucketArn
-            },
+                "S3AccessLogBucket": s3AccessLoggingBucket.bucketArn,
+                "SolutionID": props.solutionID,
+                "SolutionName": props.solutionName,
+                "ParentStackName": Aws.STACK_NAME
+            }
         });
         qsNestedTemplate.nestedStackResource?.addMetadata('nestedStackFileName', qsNestedTemplate.templateFile.slice(0, -5));
 
@@ -162,13 +167,24 @@ export class DiscoveringHotTopicsStack extends Stack {
         appIntegration.node.addDependency(qsNestedTemplate);
         // start of workflow -> storage integration
 
+        // start creation of Kinesis consumer that invokes state machine
+        const ingestionConstruct = new Ingestion(this, 'Ingestion', {
+            solutionName: props.solutionName,
+            ingestFrequency: ingestFreqParam.valueAsString,
+            queryParameter: queryParam.valueAsString,
+            supportedLang: supportedLang.valueAsString,
+            credentialKeyPath : credentialKeyPath.valueAsString
+        });
+        ingestionConstruct.node.addDependency(qsNestedTemplate);
+        // end creation of Lambda Kinesis producer that fetches social media feed
+
         // start creation of step functions state machine and event bus
         const textWorkflowEngine = new TextOrchestration(this, 'TextWfEngine', {
             eventBus: appIntegration.eventManager.eventBus,
             textAnalysisNameSpace: textInferenceNameSpace,
-            s3LoggingBucket: s3AccessLoggingBucket
+            s3LoggingBucket: s3AccessLoggingBucket,
+            lambdaTriggerFunc: ingestionConstruct.consumerLambdaFunc
         });
-
         textWorkflowEngine.node.addDependency(qsNestedTemplate);
 
         const topicWorkflowEngine = new TopicOrchestration(this, 'TopicWFEngine', {
@@ -184,17 +200,6 @@ export class DiscoveringHotTopicsStack extends Stack {
 
         topicWorkflowEngine.node.addDependency(qsNestedTemplate);
         // end creation of step functions state machine and event bus
-
-        // start creation of Kinesis consumer that invokes state machine
-        new Ingestion(this, 'Ingestion', {
-            stateMachineArn: textWorkflowEngine.stateMachine.stateMachineArn,
-            solutionName: props.solutionName,
-            ingestFrequency: ingestFreqParam.valueAsString,
-            queryParameter: queryParam.valueAsString,
-            supportedLang: supportedLang.valueAsString,
-            credentialKeyPath : credentialKeyPath.valueAsString
-        }).node.addDependency(qsNestedTemplate);
-        // end creation of Lambda Kinesis producer that fetches social media feed
 
         new CfnOutput(this, 'QSAnalysisURL', {
             value: qsNestedTemplate.analysisURLOutput,

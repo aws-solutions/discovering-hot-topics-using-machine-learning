@@ -4,7 +4,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -12,12 +12,12 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
+import '@aws-cdk/assert/jest';
+import { Chain, StateMachineType, Succeed, Wait, WaitTime } from '@aws-cdk/aws-stepfunctions';
 import * as cdk from '@aws-cdk/core';
+import { Duration } from '@aws-cdk/core';
 import { Workflow } from '../lib/text-analysis-workflow/workflow-construct';
 
-import '@aws-cdk/assert/jest';
-import { Chain, Succeed, Wait, WaitTime, StateMachineType } from '@aws-cdk/aws-stepfunctions';
-import { Duration } from '@aws-cdk/core';
 
 test('test standard workflow stack', () => {
     const stack = new cdk.Stack();

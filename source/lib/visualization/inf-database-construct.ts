@@ -5,29 +5,28 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Database, CfnDataCatalogEncryptionSettings, CfnSecurityConfiguration, Table } from '@aws-cdk/aws-glue';
-import { Aws, Construct } from '@aws-cdk/core';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Key } from '@aws-cdk/aws-kms';
+import { CfnDataCatalogEncryptionSettings, CfnSecurityConfiguration, Database, Table } from '@aws-cdk/aws-glue';
 import { ServicePrincipal } from '@aws-cdk/aws-iam';
-
+import { Key } from '@aws-cdk/aws-kms';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Aws, Construct } from '@aws-cdk/core';
+import { StorageCrawler } from '../storage/storage-crawler-construct';
 import { EntityTable } from './entity-table-construct';
 import { KeyPhraseTable } from './keyphrase-table-construct';
 import { ModerationLabelsTable } from './moderation-labels-table-construct';
 import { SentimentTable } from './sentiment-table-construct';
-import { StorageCrawler } from '../storage/storage-crawler-construct';
-import { TopicsTable } from './topics-table-construct';
-import { TopicMappingsTable } from './topicmappings-table-construct';
 import { TextInImgEntityTable } from './text-in-image-entities-table-construct';
 import { TextInImgKeyPhraseTable } from './text-in-img-keyphrase-table-construct';
 import { TextInImgSentimentTable } from './text-in-img-sentiment-table-construct';
+import { TopicMappingsTable } from './topicmappings-table-construct';
+import { TopicsTable } from './topics-table-construct';
 
 export interface InferenceDatabaseProps {
     readonly s3InputDataBucket: Bucket,
@@ -35,7 +34,6 @@ export interface InferenceDatabaseProps {
     readonly glueKMSKey: Key,
     readonly s3LoggingBucket: Bucket
 }
-
 export class InferenceDatabase extends Construct {
     private _database: Database;
     private _tableMap: Map<any, Table>;

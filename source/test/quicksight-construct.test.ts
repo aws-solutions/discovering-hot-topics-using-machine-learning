@@ -4,18 +4,18 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import '@aws-cdk/assert/jest';
 import { SynthUtils } from '@aws-cdk/assert';
-import { Stack } from '@aws-cdk/core';
-import { QuickSight, QuickSightSetup } from '../lib/quicksight-custom-resources/quicksight-construct';
+import '@aws-cdk/assert/jest';
 import { Role, ServicePrincipal } from '@aws-cdk/aws-iam';
+import { Aws, Stack } from '@aws-cdk/core';
+import { QuickSight, QuickSightSetup } from '../lib/quicksight-custom-resources/quicksight-construct';
 
 test('QS custom resource creation', () => {
     const stack = new Stack();
@@ -28,31 +28,8 @@ test('QS custom resource creation', () => {
         workgroupName: 'testGroup',
         role: new Role(stack, 'testRole', {
             assumedBy: new ServicePrincipal('lambda.amazonaws.com')
-        })
+        }),
+        parentStackName: Aws.STACK_NAME
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('Custom::QuickSightResources', {
-        "Resource": "all",
-        "LogLevel": "INFO",
-        "ApplicationName": "solution-name",
-        "WorkGroupName": "testGroup"
-    });
-
-    expect(stack).toHaveResourceLike('AWS::IAM::Role', {
-        "AssumeRolePolicyDocument": {
-            "Statement": [{
-                "Action": "sts:AssumeRole",
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": "lambda.amazonaws.com"
-                }
-            }]
-        }
-    });
-
-    expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
-        "Handler": "lambda_function.handler",
-        "Runtime": "python3.8",
-        "Timeout": 30
-    });
 });

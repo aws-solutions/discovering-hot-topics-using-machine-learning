@@ -3,21 +3,21 @@
 exports[`Test Lambda with Kinesis 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fArtifactHash12BCB84D": Object {
-      "Description": "Artifact hash for asset \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7ArtifactHash7BD648D2": Object {
+      "Description": "Artifact hash for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3Bucket0A7E5D48": Object {
-      "Description": "S3 bucket for asset \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74": Object {
+      "Description": "S3 bucket for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770": Object {
-      "Description": "S3 key for asset version \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB": Object {
+      "Description": "S3 key for asset version \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "FeedConsumerConstructInferenceStreamToWF60D525F1": Object {
+    "FeedConsumerConstructIngestionStreamKinesisStreamF21DCD9B": Object {
       "Properties": Object {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
@@ -28,10 +28,36 @@ Object {
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "FeedConsumerConstructLambdaFunction5D2FC9AE": Object {
+    "FeedConsumerConstructIngestionStreamKinesisStreamGetRecordsIteratorAgeAlarm1507C6F6": Object {
+      "Properties": Object {
+        "AlarmDescription": "Consumer Record Processing Falling Behind, there is risk for data loss due to record expiration.",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "EvaluationPeriods": 1,
+        "MetricName": "GetRecords.IteratorAgeMilliseconds",
+        "Namespace": "AWS/Kinesis",
+        "Period": 300,
+        "Statistic": "Maximum",
+        "Threshold": 2592000,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "FeedConsumerConstructIngestionStreamKinesisStreamReadProvisionedThroughputExceededAlarm3786A46E": Object {
+      "Properties": Object {
+        "AlarmDescription": "Consumer Application is Reading at a Slower Rate Than Expected.",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "MetricName": "ReadProvisionedThroughputExceeded",
+        "Namespace": "AWS/Kinesis",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 0,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "FeedConsumerConstructIngestionStreamLambdaFunction77D1CF81": Object {
       "DependsOn": Array [
-        "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4",
-        "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+        "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRoleDefaultPolicy014923F5",
+        "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRole4FAEBA16",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -46,7 +72,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3Bucket0A7E5D48",
+            "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -59,7 +85,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770",
+                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
                         },
                       ],
                     },
@@ -72,7 +98,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770",
+                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
                         },
                       ],
                     },
@@ -91,7 +117,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+            "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRole4FAEBA16",
             "Arn",
           ],
         },
@@ -103,23 +129,35 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "FeedConsumerConstructLambdaFunctionKinesisEventSourceFeedConsumerConstructInferenceStreamToWFFDB15F166737E8CE": Object {
+    "FeedConsumerConstructIngestionStreamLambdaFunctionKinesisEventSourceFeedConsumerConstructIngestionStreamKinesisStream6783F5C4F7BA2158": Object {
       "Properties": Object {
         "BatchSize": 100,
+        "BisectBatchOnFunctionError": true,
+        "DestinationConfig": Object {
+          "OnFailure": Object {
+            "Destination": Object {
+              "Fn::GetAtt": Array [
+                "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+                "Arn",
+              ],
+            },
+          },
+        },
         "EventSourceArn": Object {
           "Fn::GetAtt": Array [
-            "FeedConsumerConstructInferenceStreamToWF60D525F1",
+            "FeedConsumerConstructIngestionStreamKinesisStreamF21DCD9B",
             "Arn",
           ],
         },
         "FunctionName": Object {
-          "Ref": "FeedConsumerConstructLambdaFunction5D2FC9AE",
+          "Ref": "FeedConsumerConstructIngestionStreamLambdaFunction77D1CF81",
         },
+        "MaximumRecordAgeInSeconds": 86400,
         "StartingPosition": "TRIM_HORIZON",
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124": Object {
+    "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRole4FAEBA16": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -174,7 +212,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4": Object {
+    "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRoleDefaultPolicy014923F5": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -207,7 +245,21 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "FeedConsumerConstructInferenceStreamToWF60D525F1",
+                  "FeedConsumerConstructIngestionStreamKinesisStreamF21DCD9B",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
                   "Arn",
                 ],
               },
@@ -217,7 +269,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "FeedConsumerConstructInferenceStreamToWF60D525F1",
+                  "FeedConsumerConstructIngestionStreamKinesisStreamF21DCD9B",
                   "Arn",
                 ],
               },
@@ -225,14 +277,89 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "FeedConsumerConstructLambdaFunctionServiceRoleDefaultPolicyE9FC8BA4",
+        "PolicyName": "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRoleDefaultPolicy014923F5",
         "Roles": Array [
           Object {
-            "Ref": "FeedConsumerConstructLambdaFunctionServiceRole1C4C9124",
+            "Ref": "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRole4FAEBA16",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7": Object {
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+    },
+    "FeedConsumerConstructIngestionStreamSqsDlqQueuePolicy59698F47": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
     },
   },
 }

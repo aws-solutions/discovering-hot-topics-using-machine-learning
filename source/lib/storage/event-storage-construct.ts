@@ -5,21 +5,21 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct, Aws } from "@aws-cdk/core";
-import { Bucket } from '@aws-cdk/aws-s3';
-import { CfnDeliveryStream, CfnDeliveryStreamProps } from "@aws-cdk/aws-kinesisfirehose";
-import { buildLambdaFunction, DefaultLogGroupProps } from '@aws-solutions-constructs/core';
-import { Runtime, Code, Function } from "@aws-cdk/aws-lambda";
-import { Role, ServicePrincipal, PolicyStatement, Policy, Effect } from "@aws-cdk/aws-iam";
-import { LogGroup } from "@aws-cdk/aws-logs";
 import { IDatabase } from "@aws-cdk/aws-glue";
+import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from "@aws-cdk/aws-iam";
+import { CfnDeliveryStream, CfnDeliveryStreamProps } from "@aws-cdk/aws-kinesisfirehose";
+import { Code, Function, Runtime } from "@aws-cdk/aws-lambda";
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Aws, Construct } from "@aws-cdk/core";
+import { KinesisFirehoseToS3 } from '@aws-solutions-constructs/aws-kinesisfirehose-s3';
+import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 
 export interface EventStorageProps {
     readonly compressionFormat: string,
@@ -53,30 +53,12 @@ export class EventStorage extends Construct {
     constructor (scope: Construct, id: string, props: EventStorageProps) {
         super(scope, id);
 
-        // Setup Cloudwatch Log group & stream for Kinesis Firehose
-        const cwLogGroup = new LogGroup(this, 'firehose-log-group', DefaultLogGroupProps());
-        const cwLogStream = cwLogGroup.addStream('firehose-log-stream');
-
         // Setup the IAM Role for Kinesis Firehose
         const firehoseRole = new Role(this, 'FirehoseRole', {
             assumedBy: new ServicePrincipal('firehose.amazonaws.com'),
         });
 
         props.s3Bucket.grantReadWrite(firehoseRole); // add permissions to read/write to S3 bucket
-
-        // Setup the IAM policy for Kinesis Firehose
-        const firehosePolicy = new Policy(this, 'FirehosePolicy', {
-            statements: [ new PolicyStatement({
-                effect: Effect.ALLOW,
-                actions: [
-                    'logs:PutLogEvents'
-                ],
-                resources: [`arn:aws:logs:${Aws.REGION}:${Aws.ACCOUNT_ID}:log-group:${cwLogGroup.logGroupName}:log-stream:${cwLogStream.logStreamName}`]
-            })]
-        });
-
-        // Attach policy to role
-        firehosePolicy.attachToRole(firehoseRole);
 
         let firehoseGluePolicy: Policy;
         if (props.convertData && props.tableName !== undefined) {
@@ -95,8 +77,9 @@ export class EventStorage extends Construct {
             firehoseGluePolicy.attachToRole(firehoseRole);
         }
 
+        let firehoseGlueKmsPolicy: Policy;
         if (props.keyArn !== undefined) {
-            const firehoseGlueKmsPolicy = new Policy(this, 'FirehoseGlueKms', {
+            firehoseGlueKmsPolicy = new Policy(this, 'FirehoseGlueKms', {
                     statements: [ new PolicyStatement({
                     effect: Effect.ALLOW,
                     resources: [ props.keyArn ],
@@ -137,11 +120,6 @@ export class EventStorage extends Construct {
                 },
                 compressionFormat: props.compressionFormat,
                 roleArn: firehoseRole.roleArn,
-                cloudWatchLoggingOptions: {
-                    enabled: true,
-                    logGroupName: cwLogGroup.logGroupName,
-                    logStreamName: cwLogStream.logStreamName
-                },
                 ...(props.prefix && {
                     prefix: `${props?.prefix}created_at=!{timestamp:yyyy-MM-dd}/`,
                     errorOutputPrefix: `${props.prefix}error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`
@@ -180,13 +158,17 @@ export class EventStorage extends Construct {
             }
         }
 
+        const firehoseToS3 = new KinesisFirehoseToS3(this, 'KinesisFirehose', {
+            kinesisFirehoseProps: defaultKinesisFirehoseProps,
+            existingBucketObj: props.s3Bucket
+        });
 
-        // Override with the input props
-        this._firehose = new CfnDeliveryStream(this, 'KinesisFirehose', defaultKinesisFirehoseProps);
+        this._firehose = firehoseToS3.kinesisFirehose;
+        this._firehose.node.addDependency(firehoseRole);
         if (props.convertData && props.tableName !== undefined) {
             this._firehose.node.addDependency(firehoseGluePolicy!);
+            this._firehose.node.addDependency(firehoseGlueKmsPolicy!);
         }
-
     }
 
     public get kinesisFirehose(): CfnDeliveryStream {

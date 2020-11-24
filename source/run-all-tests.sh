@@ -1,4 +1,16 @@
 #!/bin/bash
+######################################################################################################################
+#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           #
+#                                                                                                                    #
+#  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
+#  with the License. A copy of the License is located at                                                             #
+#                                                                                                                    #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
+#                                                                                                                    #
+#  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
+#  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
+#  and limitations under the License.                                                                                #
+######################################################################################################################
 #
 # This script runs all tests for the root CDK project, as well as any microservices, Lambda functions, or dependency
 # source code packages. These include unit tests, integration tests, and snapshot tests.
@@ -37,7 +49,7 @@ run_python_lambda_test() {
 	echo "------------------------------------------------------------------------------"
 	cd $source_dir/lambda/$lambda_name
 
-	rm -fr .venv-test
+	[ "${CLEAN:-true}" = "true" ] && rm -fr .venv-test
 
 	setup_python_env
 
@@ -57,10 +69,13 @@ run_python_lambda_test() {
 	fi
 	echo "deactivate virtual environment"
 	deactivate
-	rm -fr .venv-test
-	# Note: leaving $source_dir/test/coverage-reports to allow further processing of coverage reports
-	rm -fr coverage
-	rm .coverage
+
+	if [ "${CLEAN:-true}" = "true" ]; then
+		rm -fr .venv-test
+		# Note: leaving $source_dir/test/coverage-reports to allow further processing of coverage reports
+		rm -fr coverage
+		rm .coverage
+	fi
 }
 
 run_javascript_lambda_test() {
@@ -70,14 +85,14 @@ run_javascript_lambda_test() {
 	echo "[Test] Javascript Lambda: $lambda_name, $lambda_description"
 	echo "------------------------------------------------------------------------------"
 	cd $source_dir/lambda/$lambda_name
-	npm run clean
+	[ "${CLEAN:-true}" = "true" ] && npm run clean
 	npm ci
 	npm test
 	if [ "$?" = "1" ]; then
 		echo "(source/run-all-tests.sh) ERROR: there is likely output above." 1>&2
 		exit 1
 	fi
-	rm -fr coverage
+	[ "${CLEAN:-true}" = "true" ] && rm -fr coverage
 }
 
 run_cdk_project_test() {
@@ -85,7 +100,7 @@ run_cdk_project_test() {
 	echo "------------------------------------------------------------------------------"
 	echo "[Test] $component_description"
 	echo "------------------------------------------------------------------------------"
-	npm run clean
+	[ "${CLEAN:-true}" = "true" ] && npm run clean
 	npm ci
 	npm run build
 	npm run test -- -u
@@ -93,13 +108,20 @@ run_cdk_project_test() {
 		echo "(source/run-all-tests.sh) ERROR: there is likely output above." 1>&2
 		exit 1
 	fi
-	rm -fr coverage
+	[ "${CLEAN:-true}" = "true" ] && rm -fr coverage
 }
 
 
 # Save the current working directory and set source directory
 source_dir=$PWD
 cd $source_dir
+
+# Option to clean or not clean the unit test environment before and after running tests.
+# The environment variable CLEAN has default of 'true' and can be overwritten by caller
+# by setting it to 'false'. Particularly,
+#    $ CLEAN=false ./run-all-tests.sh
+#
+CLEAN="${CLEAN:-true}"
 
 #
 # Test the CDK project

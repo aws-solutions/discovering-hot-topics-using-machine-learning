@@ -17,6 +17,10 @@
                 {
                     "DataSetPlaceholder": "image-text",
                     "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-text"
+                },
+                {
+                    "DataSetPlaceholder": "image-moderation-label",
+                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-moderation-label"
                 }
             ],
             "Arn": "{self.source_template_arn}"

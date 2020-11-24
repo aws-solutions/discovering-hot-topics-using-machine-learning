@@ -4,7 +4,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICNSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -35,11 +35,17 @@ class AccountSecrets{
             throw new Error(`SSM parameter key value does not exist. Create SSM parameter at ${keyName} and update lambda environment variable CREDENTIAL_KEY_PATH with the key`)
         } else {
             console.debug(`SSM Parameter Key name is ${keyName}`);
-            const secretValue = await this.parameterStore.getParameter({
-                Name: keyName,
-                WithDecryption: true
-            }).promise();
-            const responseValue = secretValue.Parameter.Value;
+            let responseValue;
+            try {
+                const secretValue = await this.parameterStore.getParameter({
+                    Name: keyName,
+                    WithDecryption: true
+                }).promise();
+                responseValue = secretValue.Parameter.Value;
+            } catch(error) {
+                console.error(`Error in retrieving secrets from Parameter store ${error}`);
+                throw error;
+            }
 
             return responseValue;
         }

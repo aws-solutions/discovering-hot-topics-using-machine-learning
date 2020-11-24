@@ -57,47 +57,6 @@
                 ]
             }
         },
-        "5b06a875-4653-4f79-ab3a-3c89e8893ad8": {
-            "RelationalTable": {
-                "DataSourceArn": "{self.data_source.arn}",
-                "Schema": "socialmediadb",
-                "Name": "moderationlabels",
-                "InputColumns": [
-                    {
-                        "Name": "image_url",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "account_name",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "id_str",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "confidence",
-                        "Type": "DECIMAL"
-                    },
-                    {
-                        "Name": "created_at",
-                        "Type": "DATETIME"
-                    },
-                    {
-                        "Name": "search_query",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "label_name",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "platform",
-                        "Type": "STRING"
-                    }
-                ]
-            }
-        },
         "6dfa9e9a-bee8-4555-b93d-5d55e647f678": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
@@ -268,7 +227,7 @@
     },
     "LogicalTableMap": {
         "25a3f0e8-f74a-4d43-b700-6d1959f26808": {
-            "Alias": "Intermediate Table (3)",
+            "Alias": "Intermediate Table (2)",
             "Source": {
                 "JoinInstruction": {
                     "LeftOperand": "45c1ee32-88b0-40ad-88a2-c4f2084108af",
@@ -278,52 +237,8 @@
                 }
             }
         },
-        "2e7eca93-5fa3-4095-a6ec-43ebc143c7fa": {
-            "Alias": "moderationlabels",
-            "DataTransforms": [
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "created_at",
-                        "NewColumnName": "created_at[moderationlabels]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "image_url",
-                        "NewColumnName": "image_url[moderationlabels]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "id_str",
-                        "NewColumnName": "id_str[moderationlabels]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "search_query",
-                        "NewColumnName": "search_query[moderationlabels]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "platform",
-                        "NewColumnName": "platform[moderationlabels]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "account_name",
-                        "NewColumnName": "account_name[moderationlabels]"
-                    }
-                }
-            ],
-            "Source": {
-                "PhysicalTableId": "5b06a875-4653-4f79-ab3a-3c89e8893ad8"
-            }
-        },
         "3eed5e39-acd6-4b38-ad07-cc24e8621a17": {
-            "Alias": "Intermediate Table (4)",
+            "Alias": "Intermediate Table (3)",
             "Source": {
                 "JoinInstruction": {
                     "LeftOperand": "25a3f0e8-f74a-4d43-b700-6d1959f26808",
@@ -334,24 +249,13 @@
             }
         },
         "45c1ee32-88b0-40ad-88a2-c4f2084108af": {
-            "Alias": "Intermediate Table (2)",
-            "Source": {
-                "JoinInstruction": {
-                    "LeftOperand": "72a1cedc-b1ab-4f11-a288-a975a457441b",
-                    "RightOperand": "bf9c9329-c121-426d-ae1a-a2790d601d8b",
-                    "Type": "INNER",
-                    "OnClause": "{id_str[sentiment]} = {id_str[txtinimgentity]}"
-                }
-            }
-        },
-        "72a1cedc-b1ab-4f11-a288-a975a457441b": {
             "Alias": "Intermediate Table",
             "Source": {
                 "JoinInstruction": {
                     "LeftOperand": "f2aa7ce2-d88c-4dba-9663-79c731f63dd7",
-                    "RightOperand": "2e7eca93-5fa3-4095-a6ec-43ebc143c7fa",
+                    "RightOperand": "bf9c9329-c121-426d-ae1a-a2790d601d8b",
                     "Type": "INNER",
-                    "OnClause": "{id_str[sentiment]} = {id_str[moderationlabels]}"
+                    "OnClause": "{id_str[sentiment]} = {id_str[txtinimgentity]}"
                 }
             }
         },

@@ -11,18 +11,17 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Bucket, CfnBucket } from "@aws-cdk/aws-s3";
-import { Construct, Duration, Aws } from "@aws-cdk/core";
-import { Chain, Wait, WaitTime, Choice, Fail, Condition } from '@aws-cdk/aws-stepfunctions';
-import { Policy, PolicyStatement, Effect, Role, ServicePrincipal, CfnPolicy } from "@aws-cdk/aws-iam";
-import { Rule, Schedule, EventBus } from '@aws-cdk/aws-events';
-import { Runtime, Code } from "@aws-cdk/aws-lambda";
+import { EventBus, Rule, Schedule } from '@aws-cdk/aws-events';
 import { SfnStateMachine } from '@aws-cdk/aws-events-targets';
-import { StateMachineType } from "@aws-cdk/aws-stepfunctions";
+import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from "@aws-cdk/aws-iam";
+import { Code, Runtime } from "@aws-cdk/aws-lambda";
+import { Bucket } from "@aws-cdk/aws-s3";
+import { Chain, Choice, Condition, Fail, StateMachineType, Wait, WaitTime } from '@aws-cdk/aws-stepfunctions';
+import { Aws, Construct, Duration } from "@aws-cdk/core";
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
-
 import { StepFuncLambdaTask } from "../text-analysis-workflow/lambda-task-construct";
 import { Workflow } from "../text-analysis-workflow/workflow-construct";
+
 export interface TopicOrchestrationProps {
     readonly ingestionWindow: string,
     readonly numberofTopics: string,
@@ -92,7 +91,7 @@ export class TopicOrchestration extends Construct {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
-                serverAccessLogsPrefix: `${id}-TopicIngestion`
+                serverAccessLogsPrefix: `${id}-TopicIngestion/`
             }
         });
 
@@ -101,7 +100,7 @@ export class TopicOrchestration extends Construct {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
-                serverAccessLogsPrefix: `${id}-TopicInference`
+                serverAccessLogsPrefix: `${id}-TopicInference/`
             }
         });
         props.rawBucket.grantRead(submitTopicTask.lambdaFunction.role as Role);

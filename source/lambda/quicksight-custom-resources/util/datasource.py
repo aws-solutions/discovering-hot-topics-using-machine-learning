@@ -11,8 +11,8 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from util.logging import get_logger
 from util.helpers import get_quicksight_client
+from util.logging import get_logger
 from util.quicksight_resource import QuickSightResource
 
 logger = get_logger(__name__)
@@ -20,56 +20,59 @@ logger = get_logger(__name__)
 
 class DataSource(QuickSightResource):
     def __init__(self, quicksight_application=None, props=None):
-        super().__init__(quicksight_application, props=props)
-        self.type = 'datasource'
+        super().__init__(quicksight_application, type="datasource", props=props)
         self.use_props(props)
-        self.athena_workgroup = 'primary'
+        self.athena_workgroup = "primary"
 
     def create(self):
         logger.info(f"creating quicksight datasource id:{self.id}")
         quicksight_client = get_quicksight_client()
 
-        data_source_parameters = {
-            "AthenaParameters": {
-                "WorkGroup":  self.athena_workgroup
-            }
-        }
+        data_source_parameters = {"AthenaParameters": {"WorkGroup": self.athena_workgroup}}
 
         try:
             response = quicksight_client.create_data_source(
                 AwsAccountId=self.aws_account_id,
                 DataSourceId=self.id,
                 Name=self.name,
-                Type='ATHENA',
+                Type="ATHENA",
                 DataSourceParameters=data_source_parameters,
                 Permissions=self._get_permissions(),
-                SslProperties={
-                    'DisableSsl': False
-                }
+                SslProperties={"DisableSsl": False},
             )
-            logger.info(f"finished creating quicksight datasource for id:{self.id}"
-                        f"response {response}")
+            logger.info(f"finished creating quicksight datasource for id:{self.id}" f"response {response}")
         except quicksight_client.exceptions.ResourceExistsException:
             logger.info(f"datasource for id:{self.id} already exists")
-            response = quicksight_client.describe_data_source(
-                AwsAccountId=self.aws_account_id, DataSourceId=self.id
-            )
+            response = quicksight_client.describe_data_source(AwsAccountId=self.aws_account_id, DataSourceId=self.id)
             response = response["DataSource"]
 
-        self.arn = response['Arn']
+        self.arn = response["Arn"]
+        return response
+
+    def update(self):
+        quicksight_client = get_quicksight_client()
+        quicksight_client.describe_data_source
+        data_source_parameters = {"AthenaParameters": {"WorkGroup": self.athena_workgroup}}
+        try:
+            response = quicksight_client.update_data_source(
+                AwsAccountId=self.aws_account_id,
+                DataSourceId=self.id,
+                Name=self.name,
+                DataSourceParameters=data_source_parameters,
+                SslProperties={"DisableSsl": False},
+            )
+        except quicksight_client.exceptions.ConflictException as exc:
+            logger.debug(str(exc))
+            response = response["DataSource"]
         return response
 
     def delete(self):
         logger.info(f"deleting quicksight datasource id:{self.id}")
         quicksight_client = get_quicksight_client()
 
-        response = quicksight_client.delete_data_source(
-            AwsAccountId=self.aws_account_id,
-            DataSourceId=self.id
-        )
-        logger.info(f"finished deleting quicksight datasource for id:{self.id}, "
-                    f"response:{response}")
-        self.arn = response['Arn']
+        response = quicksight_client.delete_data_source(AwsAccountId=self.aws_account_id, DataSourceId=self.id)
+        logger.info(f"finished deleting quicksight datasource for id:{self.id}, " f"response:{response}")
+        self.arn = response["Arn"]
         return response
 
     def _get_permissions(self):
@@ -83,8 +86,8 @@ class DataSource(QuickSightResource):
                     "quicksight:PassDataSource",
                     "quicksight:UpdateDataSource",
                     "quicksight:UpdateDataSourcePermissions",
-                    "quicksight:DeleteDataSource"
-                ]
+                    "quicksight:DeleteDataSource",
+                ],
             }
         ]
         return permissions

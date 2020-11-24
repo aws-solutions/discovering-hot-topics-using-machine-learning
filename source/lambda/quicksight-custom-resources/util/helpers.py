@@ -33,34 +33,33 @@ def get_service_client(service_name, arguments):
     """Get the global service boto3 client"""
     global _helpers_service_clients
     if service_name not in _helpers_service_clients:
-        config = botocore.config.Config(
-            retries=dict(
-                max_attempts=3
-            )
-        )
-        logger.debug(f'Initializing global boto3 client for {service_name}')
+        config = botocore.config.Config(retries=dict(max_attempts=3))
+        logger.debug(f"Initializing global boto3 client for {service_name}")
         _helpers_service_clients[service_name] = boto3.client(service_name, config=config, region_name=get_aws_region())
     return _helpers_service_clients[service_name]
 
+
 def get_quicksight_client(**kwargs):
     """Get the global quicksight boto3 client"""
-    return get_service_client('quicksight', kwargs)
+    return get_service_client("quicksight", kwargs)
+
 
 def get_sts_client(**kwargs):
     """Get the global sts boto3 client"""
-    return get_service_client('sts', kwargs)
+    return get_service_client("sts", kwargs)
+
 
 def get_aws_partition():
     """
     Get the caller's AWS partion by driving it from AWS region
     :return: partition name for the current AWS region (e.g. aws)
     """
-    region_name = environ.get('AWS_REGION')
-    china_region_name_prefix = 'cn'
-    us_gov_cloud_region_name_prefix = 'us-gov'
-    aws_regions_partition = 'aws'
-    aws_china_regions_partition = 'aws-cn'
-    aws_us_gov_cloud_regions_partition = 'aws-us-gov'
+    region_name = environ.get("AWS_REGION")
+    china_region_name_prefix = "cn"
+    us_gov_cloud_region_name_prefix = "us-gov"
+    aws_regions_partition = "aws"
+    aws_china_regions_partition = "aws-cn"
+    aws_us_gov_cloud_regions_partition = "aws-us-gov"
 
     # China regions
     if region_name.startswith(china_region_name_prefix):
@@ -70,6 +69,7 @@ def get_aws_partition():
         return aws_us_gov_cloud_regions_partition
     else:
         return aws_regions_partition
+
 
 def get_aws_region():
     """
@@ -82,6 +82,7 @@ def get_aws_region():
 
     return region
 
+
 def get_aws_account_id():
     """
     Get the caller's AWS account ID
@@ -89,4 +90,4 @@ def get_aws_account_id():
     """
     sts_client = get_sts_client()
     identity = sts_client.get_caller_identity()
-    return identity.get('Account')
+    return identity.get("Account")

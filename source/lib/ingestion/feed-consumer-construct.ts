@@ -5,7 +5,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,13 +13,10 @@
  *********************************************************************************************************************/
 
 
+import { IStream, StreamEncryption } from '@aws-cdk/aws-kinesis';
+import { Code, Function, Runtime, StartingPosition } from '@aws-cdk/aws-lambda';
 import { Construct, Duration } from '@aws-cdk/core';
-import { Runtime, StartingPosition, Code, IFunction } from '@aws-cdk/aws-lambda';
-import { StreamEncryption, Stream, IStream } from '@aws-cdk/aws-kinesis';
-import { buildLambdaFunction } from '@aws-solutions-constructs/core';
-import { KinesisEventSource } from '@aws-cdk/aws-lambda-event-sources';
-
-
+import { KinesisStreamsToLambda } from '@aws-solutions-constructs/aws-kinesisstreams-lambda';
 export interface FeedConsumerProps {
     readonly environment?: { [key: string]: string }
     readonly timeout: Duration,
@@ -34,36 +31,37 @@ export interface FeedConsumerProps {
 export class FeedConsumer extends Construct {
 
     private readonly feedConsumerStream: IStream;
-    private consumerFunction: IFunction;
+    private _consumerFunction: Function;
 
     constructor(scope: Construct, id: string, props: FeedConsumerProps) {
         super(scope, id);
 
-        this.feedConsumerStream = new Stream (this, 'InferenceStreamToWF', {
-            encryption: StreamEncryption.MANAGED,
-            retentionPeriod: props.retentionPeriod,
-            shardCount: props.shardCount
-        });
-
-        this.consumerFunction = buildLambdaFunction(this, {
+        const ingestionStream = new KinesisStreamsToLambda(this, 'IngestionStream', {
             lambdaFunctionProps: {
                 runtime: props.runtime,
                 handler: 'index.handler',
                 code: props.code,
                 timeout: Duration.minutes(5),
-                environment: props.environment,
-                events: [ new KinesisEventSource(this.feedConsumerStream, {
-                        startingPosition: StartingPosition.TRIM_HORIZON,
-                        batchSize: props.batchSize,
-                        retryAttempts: props.retryAttempts
-                    }
-                )]
+                environment: props.environment
+            },
+            kinesisStreamProps: {
+                encryption: StreamEncryption.MANAGED,
+                retentionPeriod: props.retentionPeriod,
+                shardCount: props.shardCount
+            },
+            kinesisEventSourceProps: {
+                startingPosition: StartingPosition.TRIM_HORIZON,
+                batchSize: props.batchSize,
+                retryAttempts: props.retryAttempts
             }
         });
+
+        this._consumerFunction = ingestionStream.lambdaFunction;
+        this.feedConsumerStream = ingestionStream.kinesisStream;
     }
 
-    public get lambdaFunction(): IFunction {
-        return this.consumerFunction;
+    public get lambdaFunction(): Function {
+        return this._consumerFunction;
     }
 
     public get kinesisStream(): IStream {

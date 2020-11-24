@@ -271,7 +271,7 @@
                     "LeftOperand": "6c49c1b7-a98e-414f-9d85-d6dd323477c5",
                     "RightOperand": "5483b18d-5b27-4612-814c-0af9ccb06b4d",
                     "Type": "INNER",
-                    "OnClause": "{topic[topicmappings]} = {topic[topics]}"
+                    "OnClause": "{topic[topicmappings]} = {topic[topics]} AND {job_id[topicmappings]} = {job_id[topics]}"
                 }
             }
         }

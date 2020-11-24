@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -19,6 +19,7 @@ import pytest
 from moto import mock_sts
 
 from util.quicksight import QuicksightApi
+from util.quicksight_application import QuicksightApplication
 from util.template import Template, TemplatePermissionType
 
 from test.fixtures.quicksight_test_fixture import TestHelper, quicksight_application_resource_properties
@@ -109,3 +110,12 @@ def test_quicksight_api_update_template_permissions(
         principal=None
     )
     assert_success_response(response, expected_status_list=[200])
+
+@mock_sts
+def test_quicksight_api_long_app_name(quicksight_application_resource_properties):
+    resource_properties = quicksight_application_resource_properties
+    stack_name = "MOCK" + "".join(["A" for _ in range(100)])
+    resource_properties.update({"StackName": stack_name})
+    QuicksightApplication.clear_global_states()
+    qs_api = QuicksightApi(resource_properties)
+    assert len(qs_api.quicksight_application.data_source.name) == 80

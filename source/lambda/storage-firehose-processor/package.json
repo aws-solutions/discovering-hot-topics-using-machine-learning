@@ -1,6 +1,6 @@
 {
   "name": "storage-firehose-processor",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Function to unwrap event object",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "@aws-solutions-builder",
   "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "jest": "^26.4.2",
-    "sinon": "^9.0.3"
+    "chai": "4.2.0",
+    "jest": "26.6.3",
+    "sinon": "9.2.1"
   }
 }

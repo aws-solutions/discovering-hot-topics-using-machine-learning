@@ -4,37 +4,36 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
-import { Construct, Duration } from '@aws-cdk/core';
-import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 import { EventBus } from '@aws-cdk/aws-events';
-import { Runtime, Code } from '@aws-cdk/aws-lambda';
-import { StateMachine, Chain, Succeed, Parallel, Pass } from '@aws-cdk/aws-stepfunctions';
+import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Chain, Parallel, Pass, StateMachine, Succeed } from '@aws-cdk/aws-stepfunctions';
+import { Construct, Duration } from '@aws-cdk/core';
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
 import { buildS3Bucket } from '@aws-solutions-constructs/core';
-
+import { EventStorage } from '../storage/event-storage-construct';
 import { StepFuncLambdaTask } from './lambda-task-construct';
 import { Workflow } from './workflow-construct';
-import { EventStorage } from '../storage/event-storage-construct';
 
 export interface TextOrchestrationProps {
     readonly eventBus: EventBus
     readonly textAnalysisNameSpace: string,
-    readonly s3LoggingBucket: Bucket
+    readonly s3LoggingBucket: Bucket,
+    readonly lambdaTriggerFunc: Function
 }
 
 export class TextOrchestration extends Construct {
     private readonly _stateMachine: StateMachine;
     private eventStorage: EventStorage;
     private _s3Bucket: Bucket;
-    // private _s3LoggingBucket?: Bucket;
 
     constructor (scope: Construct, id: string, props: TextOrchestrationProps) {
         super(scope, id);
@@ -43,7 +42,7 @@ export class TextOrchestration extends Construct {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
-                serverAccessLogsPrefix: id
+                serverAccessLogsPrefix: `${id}/`
             }
         });
 
@@ -75,7 +74,7 @@ export class TextOrchestration extends Construct {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
-                serverAccessLogsPrefix: id
+                serverAccessLogsPrefix: `${id}/`
             }
         });
 
@@ -102,7 +101,8 @@ export class TextOrchestration extends Construct {
             cfn_nag: {
                 rules_to_suppress: [{
                   id: 'W12',
-                  reason: `The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service`
+                  reason: `The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service`
                 }]
             }
         };
@@ -132,6 +132,7 @@ export class TextOrchestration extends Construct {
                 })
             ]
         });
+
         const moderationLabelRole = moderationLabelTask.lambdaFunction.role as Role;
         detectModerationLambdaPolicy.attachToRole(moderationLabelRole);
 
@@ -139,7 +140,8 @@ export class TextOrchestration extends Construct {
             cfn_nag: {
                 rules_to_suppress: [{
                   id: 'W12',
-                  reason: `The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service`
+                  reason: `The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service`
                 }]
             }
         };
@@ -177,7 +179,8 @@ export class TextOrchestration extends Construct {
             cfn_nag: {
                 rules_to_suppress: [{
                   id: 'W12',
-                  reason: `The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Translate service`
+                  reason: `The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn.
+                  This permission is retricted to the lambda function responsible for accessing the Amazon Translate service`
                 }]
             }
         };
@@ -271,8 +274,19 @@ export class TextOrchestration extends Construct {
         // end of creating workflow
 
         this._stateMachine = new Workflow(this, 'StateMachine', {
-            chain: workflowChain
+            chain: workflowChain,
+            lambdaFunc: props.lambdaTriggerFunc
         }).stateMachine;
+
+        // const stateMachinePolicy = this._stateMachine.node.findChild('StateMachine').node.findChild('WorkflowEngine').node.findChild('StateMachine').node.findChild('Role').node.findChild('DefaultPolicy') as CfnPolicy;
+        // stateMachinePolicy.cfnOptions.metadata = {
+        //     cfn_nag: {
+        //         rules_to_suppress: [{
+        //           id: 'W76',
+        //           reason: `The statemachine policy is to allow different lambda function tasks to be invoked from the state machine`
+        //         }]
+        //     }
+        // };
     }
 
     public get stateMachine(): StateMachine {

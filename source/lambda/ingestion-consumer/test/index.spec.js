@@ -4,7 +4,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICNSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -32,7 +32,7 @@ describe ('when consumer lambda is invoked', () => {
             callback(null, 'Success');
         });
 
-        process.env.WORKFLOW_ARN = "arn:aws:us-east-1:1234664:/stepfunctions/workflow";
+        process.env.STATE_MACHINE_ARN = "arn:aws:us-east-1:1234664:/stepfunctions/workflow";
     });
 
     it('should receive the event payload correctly', async () => {
@@ -79,7 +79,7 @@ describe ('when consumer lambda is invoked', () => {
             }]
         };
         expect(new AWS.StepFunctions().startExecution({
-            stateMachineArn: process.env.WORKFLOW_ARN,
+            stateMachineArn: process.env.STATE_MACHINE_ARN,
             input: event.Records[0].kinesis.data
         }).promise()).is.ok;
     });

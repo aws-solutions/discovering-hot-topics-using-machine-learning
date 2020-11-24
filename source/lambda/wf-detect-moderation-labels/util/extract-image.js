@@ -5,7 +5,7 @@
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICNSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -48,18 +48,23 @@ class ImageExtractor {
 
             console.debug(`Key are ${JSON.stringify(keys)}`);
 
-            const deleteResponse = await this.s3.deleteObjects({
-                Bucket: destinationBucket,
-                Delete: {
-                    Objects: keys,
-                    Quiet: true
-                }
-            }).promise();
+            try {
+                const deleteResponse = await this.s3.deleteObjects({
+                    Bucket: destinationBucket,
+                    Delete: {
+                        Objects: keys,
+                        Quiet: true
+                    }
+                }).promise();
 
-            if (deleteResponse.Deleted !== undefined && deleteResponse.Deleted.length > 0) {
-                deleteResponse.Deleted.forEach((notDeletedKey) => {
-                    console.warn(`${JSON.stringify(notDeletedKey)} could not be deleted`);
-                });
+                if (deleteResponse.Deleted !== undefined && deleteResponse.Deleted.length > 0) {
+                    deleteResponse.Deleted.forEach((notDeletedKey) => {
+                        console.warn(`${JSON.stringify(notDeletedKey)} could not be deleted`);
+                    });
+                }
+            } catch(error) {
+                console.error(`Error in deleting following keys ${JSON.stringify(keys)}`, error);
+                throw error;
             }
 
             if (!objectList.IsTruncated) {

@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -36,7 +36,10 @@ from test.fixtures.quicksight_datasource_fixtures import (
     quicksight_create_data_source_stubber,
     quicksight_delete_data_source_stubber
 )
-from test.fixtures.quicksight_test_fixture import quicksight_state_all
+from test.fixtures.quicksight_test_fixture import (
+    quicksight_state_all,
+    quicksight_lambda_resource_properties,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -60,7 +63,10 @@ def generate_event(request_type, resource):
     return event
 
 @ mock_sts
-def test_data_source_create_and_delete(quicksight_create_and_delete_data_source_stubber):
+def test_data_source_create_and_delete(
+    quicksight_lambda_resource_properties,
+    quicksight_create_and_delete_data_source_stubber,
+):
     # call lambda function under test
     from lambda_function import custom_resource_create, custom_resource_delete
 
@@ -142,7 +148,7 @@ def test_all_delete(quicksight_delete_dashboard_stubber,
 
 @ mock_sts
 def test_all_create_and_delete(
-    quicksight_create_data_source_stubber,
+    quicksight_create_data_source_stubber,  # NOSONAR:S107 this test function is designed to take many fixtures and is a larger test
     quicksight_create_data_set_stubber,
     quicksight_create_analysis_stubber,
     quicksight_create_dashboard_stubber,

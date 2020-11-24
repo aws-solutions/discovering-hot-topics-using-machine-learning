@@ -3,33 +3,33 @@
 exports[`Event Bus creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77ArtifactHash663F231F": Object {
-      "Description": "Artifact hash for asset \\"10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fArtifactHashE806D2E9": Object {
+      "Description": "Artifact hash for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
       "Type": "String",
     },
-    "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77S3Bucket49F85C5B": Object {
-      "Description": "S3 bucket for asset \\"10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0": Object {
+      "Description": "S3 bucket for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
       "Type": "String",
     },
-    "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77S3VersionKeyD2DB33B7": Object {
-      "Description": "S3 key for asset version \\"10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77\\"",
+    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD": Object {
+      "Description": "S3 key for asset version \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
       "Type": "String",
     },
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fArtifactHash12BCB84D": Object {
-      "Description": "Artifact hash for asset \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7ArtifactHash7BD648D2": Object {
+      "Description": "Artifact hash for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3Bucket0A7E5D48": Object {
-      "Description": "S3 bucket for asset \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74": Object {
+      "Description": "S3 bucket for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
-    "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770": Object {
-      "Description": "S3 key for asset version \\"e07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6f\\"",
+    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB": Object {
+      "Description": "S3 key for asset version \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "IngestionFeedConsumerInferenceStreamToWF047D9AA3": Object {
+    "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644": Object {
       "Properties": Object {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
@@ -40,10 +40,36 @@ Object {
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "IngestionFeedConsumerLambdaFunction936A0C8F": Object {
+    "IngestionFeedConsumerIngestionStreamKinesisStreamGetRecordsIteratorAgeAlarmE6C16601": Object {
+      "Properties": Object {
+        "AlarmDescription": "Consumer Record Processing Falling Behind, there is risk for data loss due to record expiration.",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "EvaluationPeriods": 1,
+        "MetricName": "GetRecords.IteratorAgeMilliseconds",
+        "Namespace": "AWS/Kinesis",
+        "Period": 300,
+        "Statistic": "Maximum",
+        "Threshold": 2592000,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "IngestionFeedConsumerIngestionStreamKinesisStreamReadProvisionedThroughputExceededAlarm821B53BC": Object {
+      "Properties": Object {
+        "AlarmDescription": "Consumer Application is Reading at a Slower Rate Than Expected.",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "MetricName": "ReadProvisionedThroughputExceeded",
+        "Namespace": "AWS/Kinesis",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 0,
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "IngestionFeedConsumerIngestionStreamLambdaFunction81C67CF2": Object {
       "DependsOn": Array [
-        "IngestionFeedConsumerLambdaFunctionServiceRoleDefaultPolicy4D65D426",
-        "IngestionFeedConsumerLambdaFunctionServiceRoleA17A92CA",
+        "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D",
+        "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -58,7 +84,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77S3Bucket49F85C5B",
+            "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -71,7 +97,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77S3VersionKeyD2DB33B7",
+                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
                         },
                       ],
                     },
@@ -84,7 +110,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters10951f532a2ffd11210d117e7695ffccd17a1de302f447a3afb56aeaa4fafd77S3VersionKeyD2DB33B7",
+                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
                         },
                       ],
                     },
@@ -97,13 +123,12 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "WORKFLOW_ARN": "stateMachineArn",
           },
         },
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "IngestionFeedConsumerLambdaFunctionServiceRoleA17A92CA",
+            "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
             "Arn",
           ],
         },
@@ -115,23 +140,35 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "IngestionFeedConsumerLambdaFunctionKinesisEventSourceIngestionFeedConsumerInferenceStreamToWFFB09A6ADAAC17EF8": Object {
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionKinesisEventSourceIngestionFeedConsumerIngestionStreamKinesisStreamD87284BD48D72474": Object {
       "Properties": Object {
-        "BatchSize": 10,
+        "BatchSize": 5,
+        "BisectBatchOnFunctionError": true,
+        "DestinationConfig": Object {
+          "OnFailure": Object {
+            "Destination": Object {
+              "Fn::GetAtt": Array [
+                "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+                "Arn",
+              ],
+            },
+          },
+        },
         "EventSourceArn": Object {
           "Fn::GetAtt": Array [
-            "IngestionFeedConsumerInferenceStreamToWF047D9AA3",
+            "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
             "Arn",
           ],
         },
         "FunctionName": Object {
-          "Ref": "IngestionFeedConsumerLambdaFunction936A0C8F",
+          "Ref": "IngestionFeedConsumerIngestionStreamLambdaFunction81C67CF2",
         },
+        "MaximumRecordAgeInSeconds": 86400,
         "StartingPosition": "TRIM_HORIZON",
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "IngestionFeedConsumerLambdaFunctionServiceRoleA17A92CA": Object {
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -186,7 +223,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "IngestionFeedConsumerLambdaFunctionServiceRoleDefaultPolicy4D65D426": Object {
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -219,7 +256,21 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IngestionFeedConsumerInferenceStreamToWF047D9AA3",
+                  "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
                   "Arn",
                 ],
               },
@@ -229,27 +280,97 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IngestionFeedConsumerInferenceStreamToWF047D9AA3",
+                  "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": "states:StartExecution",
-              "Effect": "Allow",
-              "Resource": "stateMachineArn",
-            },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "IngestionFeedConsumerLambdaFunctionServiceRoleDefaultPolicy4D65D426",
+        "PolicyName": "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D",
         "Roles": Array [
           Object {
-            "Ref": "IngestionFeedConsumerLambdaFunctionServiceRoleA17A92CA",
+            "Ref": "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7": Object {
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+    },
+    "IngestionFeedConsumerIngestionStreamSqsDlqQueuePolicy74C5C73B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
     },
     "IngestionFeedProducerConstructLambdaDDBDynamoTable52EB3FCC": Object {
       "DeletionPolicy": "Retain",
@@ -307,7 +428,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3Bucket0A7E5D48",
+            "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -320,7 +441,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770",
+                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
                         },
                       ],
                     },
@@ -333,7 +454,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse07e44b9103e9af8c6282586d9fa69dba161d5554149cbafee7c2183363efc6fS3VersionKeyD977F770",
+                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
                         },
                       ],
                     },
@@ -357,7 +478,7 @@ Object {
               "Ref": "AWS::StackName",
             },
             "STREAM_NAME": Object {
-              "Ref": "IngestionFeedConsumerInferenceStreamToWF047D9AA3",
+              "Ref": "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
             },
             "SUPPORTED_LANG": "de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw",
           },
@@ -376,25 +497,6 @@ Object {
         },
       },
       "Type": "AWS::Lambda::Function",
-    },
-    "IngestionFeedProducerConstructLambdaDDBLambdaFunctionAllowEventRuleIngestionFeedProducerConstructPollFrequencyA0B6F1DB122EF73C": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "IngestionFeedProducerConstructLambdaDDBLambdaFunctionADC081FB",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "IngestionFeedProducerConstructPollFrequency5D26B899",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
     },
     "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRole17CBC38F": Object {
       "Properties": Object {
@@ -508,7 +610,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IngestionFeedConsumerInferenceStreamToWF047D9AA3",
+                  "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
                   "Arn",
                 ],
               },
@@ -569,6 +671,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "IngestionFeedProducerConstructPollFrequencyAllowEventRuleIngestionFeedProducerConstructPollFrequencyA0B6F1DBC0E0A1BC": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "IngestionFeedProducerConstructLambdaDDBLambdaFunctionADC081FB",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "IngestionFeedProducerConstructPollFrequency5D26B899",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
   },
 }

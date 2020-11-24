@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICNSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -34,6 +34,7 @@ stubber_quicksight = None
 FAKE_ACCOUNT_ID = 'FAKE_ACCOUNT'
 prefix = 'DHTUT'
 MOCK_VALUE = "GENERIC_MOCK_VALUE"  # 18 characters, replaced in mock steps
+MOCK_DATE = "Wed, 30 Sep 2020 02:28:21 GMT"
 
 @pytest.fixture(params=TestHelper.get_supported_data_set_sub_types())
 def data_set_type(request):
@@ -65,19 +66,29 @@ def quicksight_delete_analysis_stubber():
 class AnalysisStubber():
 
     @staticmethod
-    def stub_create_analysis(sub_type):
-        stubber = get_quicksight_api_stubber()
+    @TestHelper.stubber_wrapper
+    def stub_create_analysis(stubber, sub_type):
         AnalysisStubber.add_create_response(stubber, sub_type)
-        stubber.activate()
-        return stubber
 
     @staticmethod
-    def stub_delete_analysis(sub_type):
-        logger.info(f"Using stub_delete_data for {sub_type}")
-        stubber = get_quicksight_api_stubber()
+    @TestHelper.stubber_wrapper
+    def stub_delete_analysis(stubber, sub_type):
         AnalysisStubber.add_delete_response(stubber, sub_type)
-        stubber.activate()
-        return stubber
+
+    @staticmethod
+    @TestHelper.stubber_wrapper
+    def stub_create_data_source_error_call(stubber, sub_type):
+        AnalysisStubber.add_create_client_error(stubber, sub_type, service_error_code="ResourceExistsException")
+
+    @staticmethod
+    @TestHelper.stubber_wrapper
+    def stub_create_data_source_error_invalid_parameter_call(stubber, sub_type):
+        AnalysisStubber.add_create_client_error(stubber, sub_type, service_error_code="InvalidParameterValueException")
+
+    @staticmethod
+    @TestHelper.stubber_wrapper
+    def stub_describe_data_source_call(stubber, sub_type):
+        AnalysisStubber.add_describe_response(stubber, sub_type)
 
     @staticmethod
     def add_create_response(stubber, name):
@@ -145,4 +156,70 @@ class AnalysisStubber():
             'AnalysisId': ANY
         }
         stubber.add_response(operation, mock_reponse, api_params)
+        logger.debug(f"Stubber: added response for {operation} for name:{name}")
+
+    @staticmethod
+    def add_create_client_error(stubber, name, service_error_code):
+        """service_error_code should be either ResourceExistsException or InvalidParameterValueException"""
+        operation = "create_analysis"
+        operation_name = "CreateAnalysis"
+        resource_type = "analysis"
+
+        service_message = {
+            "ResourceExistsException": f"An error occurred ({service_error_code}) when calling the {operation_name} operation: Analysis {resource_type}/{name} already exists",
+            "InvalidParameterValueException": f"An error occurred ({service_error_code}) when calling the {operation_name} operation: Analysis {resource_type}/{name} validtion error",
+        }
+
+        api_params = {
+            "AwsAccountId": ANY,
+            "AnalysisId": ANY,
+            "Name": ANY,
+            "Permissions": ANY,
+            "SourceEntity": ANY
+        }
+        stubber.add_client_error(
+            operation,
+            service_error_code,
+            service_message.get(
+                service_error_code,
+                f"An error occurred ({service_error_code}) when calling the {operation_name} operation: Analysis {resource_type}/{name} general error"
+            ),
+            404,
+            expected_params=api_params,
+        )
+
+    @staticmethod
+    def add_describe_response(stubber, name):
+        operation = 'describe_analysis'
+        resource_type = 'analysis'
+        mock_response = {
+            "ResponseMetadata": {
+                "RequestId": "44f5bd3b-bca0-4ecf-b4b6-c39d834ecbff",
+                "HTTPStatusCode": 200,
+                "HTTPHeaders": {
+                    "date": "Wed, 30 Sep 2020 02:28:21 GMT",
+                    "content-type": "application/json",
+                    "content-length": "1029",
+                    "connection": "keep-alive",
+                    "x-amzn-requestid": "44f5bd3b-bca0-4ecf-b4b6-c39d834ecbff"
+                },
+                "RetryAttempts": 0
+            },
+            "Status": 200,
+            "Analysis": {
+                "Arn": f"arn:aws:quicksight:us-east-1:{FAKE_ACCOUNT_ID}:{resource_type}/{name}",
+                "AnalysisId": f"{MOCK_VALUE}",
+                "Name": f"{name}",
+                "Status": "CREATION_SUCCESSFUL",
+                "CreatedTime": f"{MOCK_DATE}",
+                "LastUpdatedTime": f"{MOCK_DATE}",
+            },
+            "RequestId": "44f5bd3b-bca0-4ecf-b4b6-c39d834ecbff"
+        }
+
+        api_params = {
+            "AwsAccountId": ANY,
+            "AnalysisId": ANY
+        }
+        stubber.add_response(operation, mock_response, api_params)
         logger.debug(f"Stubber: added response for {operation} for name:{name}")

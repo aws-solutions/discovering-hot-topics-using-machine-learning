@@ -11,11 +11,10 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-import json
 from enum import Enum, auto
 
-from util.logging import get_logger
 from util.helpers import get_quicksight_client
+from util.logging import get_logger
 from util.quicksight_resource import QuickSightResource
 from util.source_entity import SourceEntity
 
@@ -38,24 +37,20 @@ class TemplatePermissionType(Enum):
 
 class Template(QuickSightResource):
     def __init__(self, quicksight_application=None, data_sets=None, props=None):
-        super().__init__(quicksight_application=quicksight_application, props=props)
-        self.type = 'template'
+        super().__init__(quicksight_application=quicksight_application, type="template", props=props)
         self.use_props(props)
 
         self.data_sets = data_sets
 
         self.config_data = {}
-        self._load_config(self.type, ['main'], self.config_data)
+        self._load_config(self.type, ["main"], self.config_data)
 
     def create_from_analysis(self, analysis):
         logger.info(f"requesting quicksight create_template id {self.id} from analysis")
         quicksight_client = get_quicksight_client()
 
         analysis_source_entity = SourceEntity(
-            self.data_sets,
-            analysis.arn,
-            self.config_data,
-            source_entity_type='SourceAnalysis'
+            self.data_sets, analysis.arn, self.config_data, source_entity_type="SourceAnalysis"
         )
 
         response = quicksight_client.create_template(
@@ -64,12 +59,11 @@ class Template(QuickSightResource):
             Name=self.name,
             Permissions=self._get_permissions(),
             SourceEntity=analysis_source_entity.get_source_entity(),
-            VersionDescription="1"
+            VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from analysis "
-                    f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from analysis " f"response: {response}")
 
-        self.arn = response['Arn']
+        self.arn = response["Arn"]
         return response
 
     def create_from_dashboard(self, dashboard):
@@ -78,10 +72,7 @@ class Template(QuickSightResource):
         quicksight_client = get_quicksight_client()
 
         analysis_source_entity = SourceEntity(
-            self.data_sets,
-            dashboard.arn,
-            self.config_data,
-            source_entity_type='SourceAnalysis'
+            self.data_sets, dashboard.arn, self.config_data, source_entity_type="SourceAnalysis"
         )
 
         response = quicksight_client.create_template(
@@ -90,12 +81,11 @@ class Template(QuickSightResource):
             Name=self.name,
             Permissions=self._get_permissions(),
             SourceEntity=analysis_source_entity.get_source_entity(),
-            VersionDescription="1"
+            VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from analysis "
-                    f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from analysis " f"response: {response}")
 
-        self.arn = response['Arn']
+        self.arn = response["Arn"]
         return response
 
     def create_from_template(self, source_template_arn):
@@ -109,30 +99,23 @@ class Template(QuickSightResource):
             Name=self.name,
             Permissions=self._get_permissions(),
             SourceEntity=source_entity,
-            VersionDescription="1"
+            VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from template "
-                    f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from template " f"response: {response}")
 
-        self.arn = response['Arn']
+        self.arn = response["Arn"]
         return response
 
     def delete(self):
         quicksight_client = get_quicksight_client()
 
         logger.info(f"requesting quicksight delete_template id:{self.id}")
-        response = quicksight_client.delete_template(
-            AwsAccountId=self.aws_account_id,
-            TemplateId=self.id
-        )
-        logger.info(f"finished quicksight delete_template for id:{self.id} "
-                    f"response: {response}")
+        response = quicksight_client.delete_template(AwsAccountId=self.aws_account_id, TemplateId=self.id)
+        logger.info(f"finished quicksight delete_template for id:{self.id} " f"response: {response}")
         return response
 
     def update_template_permissions(
-        self,
-        permission:TemplatePermissionType = TemplatePermissionType.PUBLIC,
-        principal=None
+        self, permission: TemplatePermissionType = TemplatePermissionType.PUBLIC, principal=None
     ):
         quicksight_client = get_quicksight_client()
 
@@ -144,17 +127,11 @@ class Template(QuickSightResource):
         response = quicksight_client.update_template_permissions(
             AwsAccountId=self.aws_account_id,
             TemplateId=self.id,
-            GrantPermissions=[
-                {
-                    "Principal": principal,
-                    "Actions": [
-                        "quicksight:DescribeTemplate"
-                    ]
-                }
-            ]
+            GrantPermissions=[{"Principal": principal, "Actions": ["quicksight:DescribeTemplate"]}],
         )
-        logger.info(f"finished quicksight update_template_permissions for id:{self.id} from template "
-                    f"response: {response}")
+        logger.info(
+            f"finished quicksight update_template_permissions for id:{self.id} from template " f"response: {response}"
+        )
         return response
 
     def _get_permissions(self):
@@ -168,16 +145,12 @@ class Template(QuickSightResource):
                     "quicksight:UpdateTemplatePermissions",
                     "quicksight:UpdateTemplate",
                     "quicksight:DeleteTemplate",
-                    "quicksight:DescribeTemplatePermissions"
-                ]
+                    "quicksight:DescribeTemplatePermissions",
+                ],
             }
         ]
         return permissions
 
     def _get_source_entity_using_template(self, source_template_arn):
-        source_entity = {
-            "SourceTemplate": {
-                "Arn": source_template_arn
-            }
-        }
+        source_entity = {"SourceTemplate": {"Arn": source_template_arn}}
         return source_entity

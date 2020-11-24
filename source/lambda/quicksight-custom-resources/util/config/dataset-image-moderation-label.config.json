@@ -1,0 +1,219 @@
+{
+    "PhysicalTableMap": {
+        "95476c2e-8591-44ed-807b-7397ca28695a": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "sentiment",
+                "InputColumns": [
+                    {
+                        "Name": "sentimentmixscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "sentiment",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "translated_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "sentimentnegscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentimentposscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "search_query",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentimentneuscore",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        },
+        "be461235-ef5f-4be1-9910-e12769781bf3": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "moderationlabels",
+                "InputColumns": [
+                    {
+                        "Name": "image_url",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "confidence",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "search_query",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "label_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        }
+    },
+    "LogicalTableMap": {
+        "0c93ee4f-3e27-455c-88e8-e0d9f38e9c9d": {
+            "Alias": "sentiment",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "created_at",
+                        "NewColumnName": "created_at[sentiment]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "id_str",
+                        "NewColumnName": "id_str[sentiment]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "search_query",
+                        "NewColumnName": "search_query[sentiment]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "platform",
+                        "NewColumnName": "platform[sentiment]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "account_name",
+                        "NewColumnName": "account_name[sentiment]"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "95476c2e-8591-44ed-807b-7397ca28695a"
+            }
+        },
+        "1aad2b4a-195a-46b2-a578-290094804a8e": {
+            "Alias": "moderationlabels",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "created_at",
+                        "NewColumnName": "created_at[moderationlabels]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "id_str",
+                        "NewColumnName": "id_str[moderationlabels]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "search_query",
+                        "NewColumnName": "search_query[moderationlabels]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "platform",
+                        "NewColumnName": "platform[moderationlabels]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "account_name",
+                        "NewColumnName": "account_name[moderationlabels]"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "be461235-ef5f-4be1-9910-e12769781bf3"
+            }
+        },
+        "28a9d39a-548b-42ce-aa1e-88c3001b53ec": {
+            "Alias": "Intermediate Table",
+            "DataTransforms": [
+                {
+                    "ProjectOperation": {
+                        "ProjectedColumns": [
+                            "account_name[sentiment]",
+                            "platform[sentiment]",
+                            "search_query[sentiment]",
+                            "id_str[sentiment]",
+                            "text",
+                            "translated_text",
+                            "sentiment",
+                            "sentimentposscore",
+                            "sentimentnegscore",
+                            "sentimentneuscore",
+                            "sentimentmixscore",
+                            "created_at[sentiment]",
+                            "account_name[moderationlabels]",
+                            "platform[moderationlabels]",
+                            "search_query[moderationlabels]",
+                            "id_str[moderationlabels]",
+                            "image_url",
+                            "label_name",
+                            "confidence",
+                            "created_at[moderationlabels]"
+                        ]
+                    }
+                }
+            ],
+            "Source": {
+                "JoinInstruction": {
+                    "LeftOperand": "0c93ee4f-3e27-455c-88e8-e0d9f38e9c9d",
+                    "RightOperand": "1aad2b4a-195a-46b2-a578-290094804a8e",
+                    "Type": "INNER",
+                    "OnClause": "{id_str[sentiment]} = {id_str[moderationlabels]}"
+                }
+            }
+        }
+    }
+}

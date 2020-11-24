@@ -3,63 +3,20 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dArtifactHash4664B1A4": Object {
-      "Description": "Artifact hash for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
+    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294ArtifactHashE7225949": Object {
+      "Description": "Artifact hash for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
       "Type": "String",
     },
-    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100": Object {
-      "Description": "S3 bucket for asset \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
+    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669": Object {
+      "Description": "S3 bucket for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
       "Type": "String",
     },
-    "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E": Object {
-      "Description": "S3 key for asset version \\"20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868d\\"",
+    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6": Object {
+      "Description": "S3 key for asset version \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "MappingsFirehosePolicyF3B1EED5": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "MappingsfirehoseloggroupCF9E1FCA",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "Mappingsfirehoseloggroupfirehoselogstream61B84C13",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "MappingsFirehosePolicyF3B1EED5",
-        "Roles": Array [
-          Object {
-            "Ref": "MappingsFirehoseRoleC66C52FA",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "MappingsFirehoseRoleC66C52FA": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -126,7 +83,11 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "MappingsKinesisFirehose86BFD1FA": Object {
+    "MappingsKinesisFirehose5E0D6FFA": Object {
+      "DependsOn": Array [
+        "MappingsFirehoseRoleDefaultPolicy997DCB56",
+        "MappingsFirehoseRoleC66C52FA",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -142,13 +103,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "MappingsfirehoseloggroupCF9E1FCA",
+              "Ref": "MappingsKinesisFirehosefirehoseloggroupBE9AD2E0",
             },
             "LogStreamName": Object {
-              "Ref": "Mappingsfirehoseloggroupfirehoselogstream61B84C13",
+              "Ref": "MappingsKinesisFirehosefirehoseloggroupfirehoselogstreamD2508995",
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "ErrorOutputPrefix": "/mappingserror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
           "Prefix": "/mappingscreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
@@ -161,16 +146,113 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "MappingsfirehoseloggroupCF9E1FCA": Object {
+    "MappingsKinesisFirehoseKinesisFirehosePolicy68E53706": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "mappingsbucket4AF7BD5E",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "mappingsbucket4AF7BD5E",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "MappingsKinesisFirehosefirehoseloggroupBE9AD2E0",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "MappingsKinesisFirehosefirehoseloggroupfirehoselogstreamD2508995",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MappingsKinesisFirehoseKinesisFirehosePolicy68E53706",
+        "Roles": Array [
+          Object {
+            "Ref": "MappingsKinesisFirehoseKinesisFirehoseRole4C9908D7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MappingsKinesisFirehoseKinesisFirehoseRole4C9908D7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MappingsKinesisFirehosefirehoseloggroupBE9AD2E0": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "Mappingsfirehoseloggroupfirehoselogstream61B84C13": Object {
+    "MappingsKinesisFirehosefirehoseloggroupfirehoselogstreamD2508995": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "LogGroupName": Object {
-          "Ref": "MappingsfirehoseloggroupCF9E1FCA",
+          "Ref": "MappingsKinesisFirehosefirehoseloggroupBE9AD2E0",
         },
       },
       "Type": "AWS::Logs::LogStream",
@@ -194,7 +276,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3BucketC5ADC100",
+            "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -207,7 +289,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
+                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
                         },
                       ],
                     },
@@ -220,7 +302,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters20faa1ca015cd2d173bb96d86639e4989206a738b13ee0f8f76b40742d67868dS3VersionKeyA9919E3E",
+                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
                         },
                       ],
                     },
@@ -233,11 +315,11 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "TOPICS_FIREHOSE": Object {
-              "Ref": "TopicKinesisFirehoseCA492B95",
+              "Ref": "TopicKinesisFirehose8F663708",
             },
             "TOPICS_NS": "com.analyze.inference.mapping",
             "TOPIC_MAPPINGS_FIREHOSE": Object {
-              "Ref": "MappingsKinesisFirehose86BFD1FA",
+              "Ref": "MappingsKinesisFirehose5E0D6FFA",
             },
             "TOPIC_MAPPINGS_NS": "com.analyze.inferece.topic",
           },
@@ -360,7 +442,7 @@ Object {
                       },
                       ":deliverystream/",
                       Object {
-                        "Ref": "TopicKinesisFirehoseCA492B95",
+                        "Ref": "TopicKinesisFirehose8F663708",
                       },
                     ],
                   ],
@@ -383,7 +465,7 @@ Object {
                       },
                       ":deliverystream/",
                       Object {
-                        "Ref": "MappingsKinesisFirehose86BFD1FA",
+                        "Ref": "MappingsKinesisFirehose5E0D6FFA",
                       },
                     ],
                   ],
@@ -397,49 +479,6 @@ Object {
         "Roles": Array [
           Object {
             "Ref": "TestTAProxyLambdaFunctionServiceRole1AE0D1E2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "TopicFirehosePolicyC7A4CC0A": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "Topicfirehoseloggroup89670CE0",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "Topicfirehoseloggroupfirehoselogstream6A1DEF25",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "TopicFirehosePolicyC7A4CC0A",
-        "Roles": Array [
-          Object {
-            "Ref": "TopicFirehoseRoleCE52DEAF",
           },
         ],
       },
@@ -511,7 +550,11 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "TopicKinesisFirehoseCA492B95": Object {
+    "TopicKinesisFirehose8F663708": Object {
+      "DependsOn": Array [
+        "TopicFirehoseRoleDefaultPolicyD8DD6E87",
+        "TopicFirehoseRoleCE52DEAF",
+      ],
       "Properties": Object {
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
@@ -527,13 +570,37 @@ Object {
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
             "LogGroupName": Object {
-              "Ref": "Topicfirehoseloggroup89670CE0",
+              "Ref": "TopicKinesisFirehosefirehoseloggroupAA816077",
             },
             "LogStreamName": Object {
-              "Ref": "Topicfirehoseloggroupfirehoselogstream6A1DEF25",
+              "Ref": "TopicKinesisFirehosefirehoseloggroupfirehoselogstreamB6B49275",
             },
           },
           "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
           "ErrorOutputPrefix": "/topicerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
           "Prefix": "/topiccreated_at=!{timestamp:yyyy-MM-dd}/",
           "RoleARN": Object {
@@ -546,16 +613,113 @@ Object {
       },
       "Type": "AWS::KinesisFirehose::DeliveryStream",
     },
-    "Topicfirehoseloggroup89670CE0": Object {
+    "TopicKinesisFirehoseKinesisFirehosePolicyEC75E12A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "topics8661C816",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "topics8661C816",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "TopicKinesisFirehosefirehoseloggroupAA816077",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "TopicKinesisFirehosefirehoseloggroupfirehoselogstreamB6B49275",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TopicKinesisFirehoseKinesisFirehosePolicyEC75E12A",
+        "Roles": Array [
+          Object {
+            "Ref": "TopicKinesisFirehoseKinesisFirehoseRoleA113EEB3",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TopicKinesisFirehoseKinesisFirehoseRoleA113EEB3": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TopicKinesisFirehosefirehoseloggroupAA816077": Object {
       "DeletionPolicy": "Retain",
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "Topicfirehoseloggroupfirehoselogstream6A1DEF25": Object {
+    "TopicKinesisFirehosefirehoseloggroupfirehoselogstreamB6B49275": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "LogGroupName": Object {
-          "Ref": "Topicfirehoseloggroup89670CE0",
+          "Ref": "TopicKinesisFirehosefirehoseloggroupAA816077",
         },
       },
       "Type": "AWS::Logs::LogStream",
