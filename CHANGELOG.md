@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Implementation to refactor to reuse the following architecture patterns from [AWS Solutions Constructs](https://aws.amazon.com/solutions/constructs/)
+-   Implementation to refactor and to reuse the following architecture patterns from [AWS Solutions Constructs](https://aws.amazon.com/solutions/constructs/)
     -   aws-kinesisfirehose-s3
     -   aws-kinesisstreams-lambda
     -   aws-lambda-step-function

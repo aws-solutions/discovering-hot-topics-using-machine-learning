@@ -55,7 +55,7 @@ After you deploy the solution, use the included Amazon QuickSight dashboard to v
 
 ## Deployment
 
-The solution is deployed using a CloudFormation template with a lambda backed custom resource that builds the Amazon QuickSight Analaysis and Dashboards. For details on deploying the solution please see the details on the solution home page: [Discovering Hot Topics Using Machine Learning](aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning/)
+The solution is deployed using a CloudFormation template with a lambda backed custom resource that builds the Amazon QuickSight Analaysis and Dashboards. For details on deploying the solution please see the details on the solution home page: [Discovering Hot Topics Using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning/)
 
 ## Source Code
 
@@ -92,7 +92,7 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
 
 ## Creating a custom build
 
-The solution can be deployed through the CloudFormation template available on the solution home page: [Discovering Hot Topics Using Machine Learning](aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning/). To make changes to the solution, using the below steps download or clone this repo, update the source code and then run the deployment/build-s3-dist.sh script to deploy the updated Lambda code to an Amazon S3 bucket in your account.
+The solution can be deployed through the CloudFormation template available on the solution home page: [Discovering Hot Topics Using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning/). To make changes to the solution, using the below steps download or clone this repo, update the source code and then run the deployment/build-s3-dist.sh script to deploy the updated Lambda code to an Amazon S3 bucket in your account.
 
 ### 1. Clone the repository
 
