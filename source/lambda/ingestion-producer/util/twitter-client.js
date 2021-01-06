@@ -60,14 +60,14 @@ class TwitterClient {
         } catch (error) {
             if ('errors' in error) {
                 // Twitter API errors
-                if (e.errors[0].code === 88) {
-                    console.warn(`Rate limit will reset on: ${new Date(e._headers.get("x-rate-limit-reset") * 1000)}`);
-                    console.warn(`The headers from the API call are: ${JSON.stringify(e._headers)}`);
+                if (error.errors[0].code === 88) {
+                    console.warn(`Rate limit will reset on: ${new Date(error._headers.get("x-rate-limit-reset") * 1000)}`);
+                    console.warn(`The headers from the API call are: ${JSON.stringify(error._headers)}`);
                 } else {
-                    console.error('Twitter API throw error: ', e);
+                    console.error('Twitter API throw error: ', error);
                 }
             } else {
-                console.error('Generic error when calling Twitter API: ', e);
+                console.error('Generic error when calling Twitter API: ', error);
                 throw error;
             }
         }
