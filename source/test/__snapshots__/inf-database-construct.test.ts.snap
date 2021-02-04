@@ -3,16 +3,16 @@
 exports[`test workflow stack 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529ArtifactHash27C67F5C": Object {
-      "Description": "Artifact hash for asset \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38ArtifactHash164AE178": Object {
+      "Description": "Artifact hash for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3BucketC579C769": Object {
-      "Description": "S3 bucket for asset \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D": Object {
+      "Description": "S3 bucket for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637": Object {
-      "Description": "S3 key for asset version \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F": Object {
+      "Description": "S3 key for asset version \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
   },
@@ -38,82 +38,6 @@ Object {
         },
       },
       "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "GlueCloudWatch69956C56": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "EnableKeyRotation": true,
-        "KeyPolicy": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "logs.",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ".amazonaws.com",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::KMS::Key",
       "UpdateReplacePolicy": "Retain",
     },
     "TestBucket560B80BC": Object {
@@ -220,9 +144,46 @@ Object {
           "CloudWatchEncryption": Object {
             "CloudWatchEncryptionMode": "SSE-KMS",
             "KmsKeyArn": Object {
-              "Fn::GetAtt": Array [
-                "GlueCloudWatch69956C56",
-                "Arn",
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:",
+                  Object {
+                    "Ref": "AWS::Partition",
+                  },
+                  ":kms:",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ":",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":alias/aws/glue",
+                ],
+              ],
+            },
+          },
+          "JobBookmarksEncryption": Object {
+            "JobBookmarksEncryptionMode": "CSE-KMS",
+            "KmsKeyArn": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:",
+                  Object {
+                    "Ref": "AWS::Partition",
+                  },
+                  ":kms:",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ":",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":alias/aws/glue",
+                ],
               ],
             },
           },
@@ -238,6 +199,17 @@ Object {
     },
     "TestDBHotTopicsDBCustomResource25466B42": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+      ],
       "Properties": Object {
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -251,9 +223,18 @@ Object {
     },
     "TestDBHotTopicsDBLambdaFunction06F2B747": Object {
       "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
         "TestDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicyDBF96BAD",
         "TestDBHotTopicsDBLambdaFunctionServiceRole6D366CAF",
         "TestDBHotTopicsDBLambdaGlue19D3D9B1",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -268,7 +249,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3BucketC579C769",
+            "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -281,7 +262,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637",
+                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
                         },
                       ],
                     },
@@ -294,7 +275,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637",
+                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
                         },
                       ],
                     },
@@ -331,7 +312,16 @@ Object {
     },
     "TestDBHotTopicsDBLambdaFunctionLambdaInvokePermission3FCCE8FD": Object {
       "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
         "TestDBHotTopicsDBLambdaGlue19D3D9B1",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
       ],
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
@@ -352,6 +342,17 @@ Object {
       "Type": "AWS::Lambda::Permission",
     },
     "TestDBHotTopicsDBLambdaFunctionServiceRole6D366CAF": Object {
+      "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+      ],
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -407,12 +408,23 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "TestDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicyDBF96BAD": Object {
+      "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+      ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -474,6 +486,17 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "TestDBHotTopicsDBLambdaGlue19D3D9B1": Object {
+      "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+      ],
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -558,9 +581,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -605,6 +642,17 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "TestDBHotTopicsDBNightlyCreateParitionEventsRule5A6F3369": Object {
+      "DependsOn": Array [
+        "TestDBEntityTable4DC8B26D",
+        "TestDBKeyPhraseTable22CDC136",
+        "TestDBModerationLabelsTable30B5D54D",
+        "TestDBTopicMappingsTopicsTable184F8511",
+        "TestDBTopicsTable8087CEDA",
+        "TestDBTwitterTwitterRecord12D303B8",
+        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
+        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
+        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+      ],
       "Properties": Object {
         "ScheduleExpression": "cron(1 0 * * ? *)",
         "State": "ENABLED",
@@ -1034,10 +1082,155 @@ Object {
         "DataCatalogEncryptionSettings": Object {
           "EncryptionAtRest": Object {
             "CatalogEncryptionMode": "SSE-KMS",
+            "SseAwsKmsKeyId": "alias/aws/glue",
           },
         },
       },
       "Type": "AWS::Glue::DataCatalogEncryptionSettings",
+    },
+    "TestDBTwitterTwitterRecord12D303B8": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "TestDBTweetDBAFCEF20F",
+        },
+        "TableInput": Object {
+          "Description": "Store Twitter Records",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "db_created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "coordinates",
+                "Type": "struct<type:string,coordinates:array<double>>",
+              },
+              Object {
+                "Name": "retweeted",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "source",
+                "Type": "string",
+              },
+              Object {
+                "Name": "entities",
+                "Type": "struct<hashtags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
+              },
+              Object {
+                "Name": "reply_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "favorite_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "geo",
+                "Type": "struct<type:string,coordinates:array<double>>",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "truncated",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "retweet_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "possibly_sensitive",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "filter_level",
+                "Type": "string",
+              },
+              Object {
+                "Name": "created_at",
+                "Type": "string",
+              },
+              Object {
+                "Name": "place",
+                "Type": "struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>",
+              },
+              Object {
+                "Name": "favorited",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "lang",
+                "Type": "string",
+              },
+              Object {
+                "Name": "in_reply_to_screen_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "is_quote_status",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "in_reply_to_user_id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "user",
+                "Type": "struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verified:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:string,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
+              },
+              Object {
+                "Name": "quote_count",
+                "Type": "bigint",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "TestBucket560B80BC",
+                  },
+                  "/undefined/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
     },
     "TestDBTxtInImgEntityImgTxtEntityTableA67792FB": Object {
       "Properties": Object {

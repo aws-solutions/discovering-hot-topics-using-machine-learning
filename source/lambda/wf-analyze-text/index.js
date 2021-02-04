@@ -16,8 +16,6 @@
 const AWS = require('aws-sdk');
 
 exports.handler = async (event) => {
-    const comprehend = new AWS.Comprehend({region: process.env.AWS_REGION});
-
     await analyzeText(event, event.feed);
 
     if (event.text_in_images !== undefined && event.text_in_images.length > 0) {

@@ -5,7 +5,7 @@
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                    #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -35,22 +35,23 @@ def handler(event, context):
     file_name = os.path.basename(key)
     logger.debug("File name is " + file_name)
     try:
-        s3.download_file(bucket, key, "/tmp/" + file_name)
+        TMP_DIR = "/tmp/"
+        s3.download_file(bucket, key, TMP_DIR + file_name)
         # TODO - how to handle larger files
         logger.debug(file_name + " downloaded from S3 bucket")
-        if tarfile.is_tarfile("/tmp/" + file_name):
-            archive_file = tarfile.open("/tmp/" + file_name)
-            archive_file.extractall("/tmp/")
+        if tarfile.is_tarfile(TMP_DIR + file_name):
+            archive_file = tarfile.open(TMP_DIR + file_name)
+            archive_file.extractall(TMP_DIR)
         archive_file.close()
         # logger.debug('Extraction complete. Files in the directory are '+os.path.listdir('/tmp'))
 
         # get job ID and timestamp details
-        jobID = event["JobId"]
+        job_id = event["JobId"]
         timestamp = event["SubmitTime"]
 
-        publish_topics(jobID, timestamp, topic_terms_file_name="/tmp/topic-terms.csv")
-        publish_topic_id_mapping(jobID, timestamp, doc_topics_file_name="/tmp/doc-topics.csv")
+        publish_topics(job_id, timestamp, topic_terms_file_name=TMP_DIR + "topic-terms.csv")
+        publish_topic_id_mapping(job_id, timestamp, doc_topics_file_name=TMP_DIR + "doc-topics.csv")
         logger.debug("Publishing topics and mappings complete")
     except Exception as e:
+        logger.error("Error occured when processing topics")
         raise e
-    return

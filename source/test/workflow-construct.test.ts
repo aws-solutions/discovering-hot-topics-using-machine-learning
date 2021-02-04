@@ -25,7 +25,8 @@ test('test standard workflow stack', () => {
         chain: Chain.start(new Wait(stack, 'WaitState', {
                         time: WaitTime.duration(Duration.minutes(1)),
                     }))
-                    .next(new Succeed(stack, 'Success'))
+                    .next(new Succeed(stack, 'Success')),
+        uuid: 'fakerandomstring'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
@@ -37,7 +38,8 @@ test('test express workflow stack', () => {
         chain: Chain.start(new Wait(stack, 'WaitState', {
                         time: WaitTime.duration(Duration.minutes(1)),
                     }))
-                    .next(new Succeed(stack, 'Success'))
+                    .next(new Succeed(stack, 'Success')),
+        uuid: 'fakerandomstring'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

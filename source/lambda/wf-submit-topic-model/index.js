@@ -57,7 +57,7 @@ exports.handler = async (event) => {
     //number of topics to see in topic modeling
 
     const comprehend = new AWS.Comprehend();
-    var params = {
+    var topicJobParams = {
         DataAccessRoleArn: process.env.DATA_ACCESS_ARN,
         InputDataConfig: {
             S3Uri: `s3://${process.env.INGESTION_S3_BUCKET_NAME}`,
@@ -70,5 +70,5 @@ exports.handler = async (event) => {
         JobName: `${process.env.STACK_NAME}-${Date.now()}`
     };
 
-    return await comprehend.startTopicsDetectionJob(params).promise();
+    return await comprehend.startTopicsDetectionJob(topicJobParams).promise();
 }

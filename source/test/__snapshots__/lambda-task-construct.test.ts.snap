@@ -3,16 +3,16 @@
 exports[`test lambda task construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aArtifactHashCB06F386": Object {
-      "Description": "Artifact hash for asset \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
+    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6ArtifactHash0C84E848": Object {
+      "Description": "Artifact hash for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
       "Type": "String",
     },
-    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3Bucket66F7D124": Object {
-      "Description": "S3 bucket for asset \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
+    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05": Object {
+      "Description": "S3 bucket for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
       "Type": "String",
     },
-    "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA": Object {
-      "Description": "S3 key for asset version \\"19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447a\\"",
+    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31": Object {
+      "Description": "S3 key for asset version \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
       "Type": "String",
     },
   },
@@ -35,7 +35,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3Bucket66F7D124",
+            "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -48,7 +48,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA",
+                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
                         },
                       ],
                     },
@@ -61,7 +61,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters19e5586c081b38e9eca5946ab576bd2bc81edd3495382f002e1b08c84ced447aS3VersionKey226B62EA",
+                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
                         },
                       ],
                     },
@@ -151,7 +151,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },

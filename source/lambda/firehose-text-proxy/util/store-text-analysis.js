@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -15,20 +15,29 @@
 
 const AWS = require('aws-sdk');
 const moment = require('moment');
+const TwFeedStorage = require('./tw-feedstorage');
+const timeformat = require('./time-stamp-format');
 
 class TextAnalysis {
     static storeText = async (data) => {
-        const kinesisFireshose = new AWS.Firehose();
 
-        const twitterTimestampFormat = 'ddd MMM DD HH:mm:ss Z YYYY';
-        const dbTimestampFormat = 'YYYY-MM-DD HH:mm:ss';
+        switch(data.platform) {
+            case 'twitter':
+                TwFeedStorage.storeTweets(data);
+                break;
+            default:
+                console.error(`Received platform type as ${data.platform} which is not supported`);
+                throw Error(`Received unsupported platform ${data.platform}`);
+        }
+
+        const kinesisFireshose = new AWS.Firehose();
 
         const sentimentRecord = {
             account_name: data.account_name,
             platform: data.platform,
             search_query: data.search_query,
             id_str: data.feed.id_str,
-            created_at: moment.utc(data.feed.created_at, twitterTimestampFormat).format(dbTimestampFormat),
+            created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
             text: data.feed.text,
             translated_text: data.feed._translated_text,
             sentiment: data.Sentiment,
@@ -54,7 +63,7 @@ class TextAnalysis {
                     platform: data.platform,
                     search_query: data.search_query,
                     id_str: data.feed.id_str,
-                    created_at: moment.utc(data.feed.created_at, twitterTimestampFormat).format(dbTimestampFormat),
+                    created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
                     text: data.feed.text,
                     translated_text: data.feed._translated_text,
                     entity_text: entity.Text,
@@ -64,7 +73,7 @@ class TextAnalysis {
                     entity_end_offset: entity.EndOffset
                 })}\n`
             });
-        };
+        }
 
         if (entitiesRecord.length > 0) {
             await kinesisFireshose.putRecordBatch({
@@ -82,7 +91,7 @@ class TextAnalysis {
                     platform: data.platform,
                     search_query: data.search_query,
                     id_str: data.feed.id_str,
-                    created_at: moment.utc(data.feed.created_at, twitterTimestampFormat).format(dbTimestampFormat),
+                    created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
                     text: data.feed.text,
                     translated_text: data.feed._translated_text,
                     phrase: keyPhrase.Text,
@@ -91,7 +100,7 @@ class TextAnalysis {
                     phrase_end_offset: keyPhrase.EndOffset
                 })}\n`
             })
-        };
+        }
 
         if (keyPhrasesRecord.length > 0) {
             await kinesisFireshose.putRecordBatch({
@@ -102,4 +111,4 @@ class TextAnalysis {
     }
 }
 
-module.exports = TextAnalysis
+module.exports = TextAnalysis;

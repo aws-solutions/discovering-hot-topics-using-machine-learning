@@ -1,32 +1,33 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
+import { CfnPolicy, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct, Duration } from '@aws-cdk/core';
 import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 import { EventStorage } from '../storage/event-storage-construct';
 
 export interface TextAnalysisProxyProps {
-    readonly sentimentStorage: EventStorage,
-    readonly entityStorage: EventStorage,
-    readonly keyPhraseStorage: EventStorage,
-    readonly txtInImgSentimentStorage: EventStorage,
-    readonly txtInImgEntityStorage: EventStorage,
-    readonly txtInImgKeyPhraseStorage: EventStorage,
-    readonly moderationLabelStorage: EventStorage
-    readonly textAnalysisInfNS: string
+    readonly sentimentStorage: EventStorage;
+    readonly entityStorage: EventStorage;
+    readonly keyPhraseStorage: EventStorage;
+    readonly txtInImgSentimentStorage: EventStorage;
+    readonly txtInImgEntityStorage: EventStorage;
+    readonly txtInImgKeyPhraseStorage: EventStorage;
+    readonly moderationLabelStorage: EventStorage;
+    readonly feedStorage: EventStorage;
+    readonly textAnalysisInfNS: string;
 }
 
 export class TextAnalysisProxy extends Construct {
@@ -48,6 +49,7 @@ export class TextAnalysisProxy extends Construct {
                     TXT_IN_IMG_ENTITY_FIREHOSE: props.txtInImgEntityStorage.deliveryStreamName,
                     TXT_IN_IMG_KEYPHRASE_FIREHOSE: props.txtInImgKeyPhraseStorage.deliveryStreamName,
                     MODERATION_LABELS_FIREHOSE: props.moderationLabelStorage.deliveryStreamName,
+                    TW_FEED_STORAGE: props.feedStorage.deliveryStreamName,
                     TEXT_ANALYSIS_NS: props.textAnalysisInfNS,
                 },
                 timeout: Duration.minutes(15)
@@ -63,10 +65,21 @@ export class TextAnalysisProxy extends Construct {
                 props.txtInImgSentimentStorage.deliveryStreamArn,
                 props.txtInImgEntityStorage.deliveryStreamArn,
                 props.txtInImgKeyPhraseStorage.deliveryStreamArn,
-                props.moderationLabelStorage.deliveryStreamArn
+                props.moderationLabelStorage.deliveryStreamArn,
+                props.feedStorage.deliveryStreamArn
             ],
             actions: [ 'firehose:PutRecord', 'firehose:PutRecordBatch' ]
         }));
+
+        (this.textAnalysisLambda.role?.node.tryFindChild('DefaultPolicy')?.node.findChild('Resource') as CfnPolicy).addMetadata('cfn_nag', {
+            rules_to_suppress: [{
+                id: 'W76',
+                reason: 'The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SCPM rule'
+            }, {
+                id: 'W12',
+                reason: 'Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.'
+            }]
+        });
     }
 
     public get lambdaFunction(): Function {

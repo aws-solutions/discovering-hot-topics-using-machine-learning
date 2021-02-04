@@ -54,6 +54,6 @@ class StreamAnalyzer {
 
         return mediaUrl;
     }
-};
+}
 
 module.exports = StreamAnalyzer;

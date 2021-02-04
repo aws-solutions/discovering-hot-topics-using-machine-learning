@@ -23,7 +23,6 @@ AWS.config.region = process.env.AWS_REGION;
 
 exports.handler = async (event) => {
     const rek = new AWS.Rekognition({region: process.env.AWS_REGION});
-    const s3 = new AWS.S3();
 
     if (event.feed.entities !== undefined) {
         const bucketName = process.env.S3_BUCKET_NAME;

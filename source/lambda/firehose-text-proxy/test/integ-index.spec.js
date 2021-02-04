@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -33,7 +33,10 @@ describe ('When firehose-text-proxy processor is called', () => {
         process.env.ENTITIES_FIREHOSE = 'entity_stream';
         process.env.KEYPHRASE_FIREHOSE = 'keyphrase_stream';
         process.env.MODERATION_LABELS_FIREHOSE = 'moderation_label_fireshose';
-
+        process.env.TW_FEED_STORAGE = 'twitter_feed_storage';
+        process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE = 'txt_in_image_sentiment_fireshose';
+        process.env.TXT_IN_IMG_ENTITY_FIREHOSE = 'txt_in_image_entity_firehose';
+        process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE = 'txt_in_image_keyphrase_firehose';
 
         process.env.REGION = 'us-east-1';
 
@@ -63,7 +66,7 @@ describe ('When firehose-text-proxy processor is called', () => {
     });
 
     it ('should throw an error', async() => {
-        lambda.handler({
+        await lambda.handler({
             source: 'abc',
             detail: 'meant for failure'
         }).catch ((error) => {
@@ -74,6 +77,25 @@ describe ('When firehose-text-proxy processor is called', () => {
         });
     });
 
+    it ('a unhandled platform type should throw an error', async () => {
+        await lambda.handler(__test_data__.wrong_platform_event).catch((error) => {
+            if (error instanceof assert.AssertionError) {
+                assert.fail();
+            }
+            assert.equal(error.message, 'Received unsupported platform not_supported');
+        });
+    });
+
+    it ('should call putRecords and not the batch api', async () => {
+        if (! lambdaSpy.threw()) expect.fail;
+        expect(await lambda.handler(__test_data__.event_no_entity_keyphrase)).to.be.undefined;
+    });
+
+    it ('should call putRecords and not the batch api for image analysis', async () => {
+        if (! lambdaSpy.threw()) expect.fail;
+        expect(await lambda.handler(__test_data__.event_no_entity_keyphrase_in_img)).to.be.undefined;
+    });
+
     afterEach(() => {
         lambdaSpy.restore();
         delete process.env.TEXT_ANALYSIS_NS;
@@ -81,6 +103,10 @@ describe ('When firehose-text-proxy processor is called', () => {
         delete process.env.ENTITIES_FIREHOSE;
         delete process.env.KEYPHRASE_FIREHOSE;
         delete process.env.MODERATION_LABELS_FIREHOSE;
+        delete process.env.TW_FEED_STORAGE;
+        delete process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE;
+        delete process.env.TXT_IN_IMG_ENTITY_FIREHOSE;
+        delete process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE;
 
         AWSMock.restore('Firehose');
     });

@@ -3,28 +3,28 @@
 exports[`Event Bus creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fArtifactHashE806D2E9": Object {
-      "Description": "Artifact hash for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
+    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99ArtifactHashF26D0C90": Object {
+      "Description": "Artifact hash for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
       "Type": "String",
     },
-    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0": Object {
-      "Description": "S3 bucket for asset \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
+    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3": Object {
+      "Description": "S3 bucket for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
       "Type": "String",
     },
-    "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD": Object {
-      "Description": "S3 key for asset version \\"454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46f\\"",
+    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96": Object {
+      "Description": "S3 key for asset version \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
       "Type": "String",
     },
-    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7ArtifactHash7BD648D2": Object {
-      "Description": "Artifact hash for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
+    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fArtifactHashA0AD976E": Object {
+      "Description": "Artifact hash for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
       "Type": "String",
     },
-    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74": Object {
-      "Description": "S3 bucket for asset \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
+    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D": Object {
+      "Description": "S3 bucket for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
       "Type": "String",
     },
-    "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB": Object {
-      "Description": "S3 key for asset version \\"b3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7\\"",
+    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840": Object {
+      "Description": "S3 key for asset version \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
       "Type": "String",
     },
   },
@@ -84,7 +84,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3BucketDAAD0FD0",
+            "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -97,7 +97,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
+                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
                         },
                       ],
                     },
@@ -110,7 +110,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters454b4ce58b9dde2142db9a02a805d1d1ae7d4ee5e74771da3fcca82fbad3b46fS3VersionKey0B065DDD",
+                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
                         },
                       ],
                     },
@@ -229,7 +229,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -428,7 +428,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3Bucket05C40F74",
+            "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -441,7 +441,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
+                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
                         },
                       ],
                     },
@@ -454,7 +454,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb3e6cc1355048ca26f5af63b97ef696d7a1b6f844b119b69a171b0ea7bb6c0a7S3VersionKey69B30ECB",
+                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
                         },
                       ],
                     },
@@ -473,6 +473,7 @@ Object {
               "Ref": "IngestionFeedProducerConstructLambdaDDBDynamoTable52EB3FCC",
             },
             "QUERY_PARAM": "Health",
+            "QUERY_RESULT_TYPE": "mixed",
             "SOLUTION_NAME": "test-solution",
             "STACK_NAME": Object {
               "Ref": "AWS::StackName",
@@ -559,7 +560,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },

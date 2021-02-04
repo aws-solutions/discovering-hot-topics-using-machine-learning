@@ -67,5 +67,9 @@ class SourceEntity:
             raise ValueError(f"Unknown sub type {sub_type}.")
         sub_type_config = self.config_data[sub_type]
         if map_type not in sub_type_config:
-            raise ValueError(f"Missing {map_type} in config of data set type {sub_type}.")
-        return sub_type_config[map_type]
+            if map_type in ["ColumnGroups"]:
+                return None
+            else:
+                raise ValueError(f"Missing {map_type} in config of data set type {sub_type}.")
+        else:
+            return sub_type_config[map_type]

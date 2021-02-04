@@ -14,17 +14,16 @@
 
 import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 import { Function } from '@aws-cdk/aws-lambda';
-import { LogGroup } from '@aws-cdk/aws-logs';
-import { CfnStateMachine, Chain, LogLevel, StateMachine, StateMachineType } from '@aws-cdk/aws-stepfunctions';
+import { CfnLogGroup, LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
+import { Chain, LogLevel, StateMachine, StateMachineType } from '@aws-cdk/aws-stepfunctions';
 import { Aws, Construct } from '@aws-cdk/core';
 import { LambdaToStepFunction } from '@aws-solutions-constructs/aws-lambda-step-function';
-import { DefaultLogGroupProps } from '@aws-solutions-constructs/core';
-
 
 export interface WorkflowProps {
     readonly stateMachineType?: StateMachineType;
     readonly chain: Chain,
-    readonly lambdaFunc?: Function
+    readonly lambdaFunc?: Function,
+    readonly uuid: string
 }
 
 export class Workflow extends Construct {
@@ -33,6 +32,25 @@ export class Workflow extends Construct {
     constructor (scope: Construct, id: string, props: WorkflowProps) {
         super(scope, id);
 
+        const logGroup = new LogGroup(scope, 'StMacLogGroup', {
+            logGroupName: `/aws/vendedlogs/${this.node.id}-${props.uuid}/`,
+            retention: RetentionDays.INFINITE,
+        });
+
+        (logGroup.node.defaultChild as CfnLogGroup).cfnOptions.metadata = {
+            cfn_nag: {
+                rules_to_suppress: [{
+                    id: 'W84',
+                    reason: 'Log group data is always encrypted in CloudWatch Logs using AWS Managed KMS Key. For customers wanting to us CMK for \
+                    CloudWatchLogs should customize the solution further to add encryption options'
+                }, {
+                    id: 'W86',
+                    reason: 'Log Groups are set to \'Never Expire\'. Customers should customize the retention policy based on their organization\'s \
+                    retention policies'
+                }]
+            }
+        }
+
         if (props.lambdaFunc != null && props.lambdaFunc != undefined) {
             const lambdaStepFunction = new LambdaToStepFunction(this, 'WorkflowEngine', {
                 existingLambdaObj: props.lambdaFunc,
@@ -40,7 +58,12 @@ export class Workflow extends Construct {
                     definition: props.chain,
                     ...(props.stateMachineType === StateMachineType.EXPRESS && {
                         stateMachineType: props.stateMachineType
-                    })
+                    }),
+                    logs: {
+                        destination: logGroup,
+                        level: LogLevel.ERROR,
+                        includeExecutionData: false
+                    }
                 }
             });
             this._stMachine = lambdaStepFunction.stateMachine;
@@ -54,64 +77,49 @@ export class Workflow extends Construct {
                     SPCM violation as this policy is required to monitor as well as invoke specific tasks'
                 }, {
                     id: 'W12',
-                    reason: `The 'LogDelivery' actions do not support resource-level authorizations`
+                    reason: "The 'LogDelivery' actions do not support resource-level authorizations"
                 }]
             });
         } else {
-            const logGroup = new LogGroup(this, 'statemachine-log-group', DefaultLogGroupProps());
-            logGroup.addStream('statemachine-log-stream');
-
             const _stateMachineRole = new Role(this, 'StateMachineRole', {
-                assumedBy: new ServicePrincipal(`states.${Aws.REGION}.amazonaws.com`)
+                assumedBy: new ServicePrincipal(`states.${Aws.REGION}.amazonaws.com`),
             });
 
-            const stateMachineLogPolicy = new Policy(this, 'StateMachineLogPolicy');
-            stateMachineLogPolicy.addStatements(new PolicyStatement({
-                actions: [
-                    "logs:CreateLogDelivery",
-                    "logs:GetLogDelivery",
-                    "logs:UpdateLogDelivery",
-                    "logs:DeleteLogDelivery",
-                    "logs:ListLogDeliveries",
-                    "logs:PutResourcePolicy",
-                    "logs:DescribeResourcePolicies",
-                    "logs:DescribeLogGroups"
-                ],
-                resources: [ '*' ],
-                effect: Effect.ALLOW
-            }));
+            const stateMachineLogPolicy = new Policy(this, 'StateMachineLogPolicy', {
+                statements: [
+                    new PolicyStatement({
+                        actions: [
+                            "logs:CreateLogDelivery",
+                            "logs:GetLogDelivery",
+                            "logs:UpdateLogDelivery",
+                            "logs:DeleteLogDelivery",
+                            "logs:ListLogDeliveries",
+                            "logs:PutResourcePolicy",
+                            "logs:DescribeResourcePolicies",
+                            "logs:DescribeLogGroups"
+                        ],
+                        resources: [ `arn:${Aws.PARTITION}:logs:${Aws.REGION}:${Aws.ACCOUNT_ID}:*` ],
+                        effect: Effect.ALLOW
+                    })
+                ]
+            });
 
-            stateMachineLogPolicy.attachToRole(_stateMachineRole);
-            (stateMachineLogPolicy.node.defaultChild as CfnPolicy).cfnOptions.metadata = {
-                cfn_nag: {
-                    rules_to_suppress: [{
-                        id: 'W12',
-                        reason: 'The stepfunction log policy requires that resources be "*"'
-                    }]
-                }
-            }
+            _stateMachineRole.attachInlinePolicy(stateMachineLogPolicy);
+
             this._stMachine = new StateMachine(this, 'WorkflowEngine', {
                 definition: props.chain,
                 ...(props.stateMachineType === StateMachineType.EXPRESS && {
                     stateMachineType: props.stateMachineType,
-                    role: _stateMachineRole!
+                    role: _stateMachineRole,
+                    logs: {
+                        destination: logGroup,
+                        level: LogLevel.ERROR,
+                        includeExecutionData: false
+                    }
                 })
             });
 
-            const cfnStateMachine = this._stMachine.node.defaultChild as CfnStateMachine;
-            if (props.stateMachineType === StateMachineType.EXPRESS) {
-                cfnStateMachine.addPropertyOverride(
-                    'LoggingConfiguration', {
-                        Destinations: [{
-                            CloudWatchLogsLogGroup: {
-                                LogGroupArn: logGroup!.logGroupArn
-                            }
-                        }],
-                        IncludeExecutionData: true,
-                        Level: LogLevel.ALL
-                    }
-                );
-            }
+            this._stMachine.node.addDependency(_stateMachineRole);
         }
     }
 

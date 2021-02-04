@@ -23,7 +23,6 @@ const ImageExtractor = require('./util/extract-image');
 AWS.config.region = process.env.AWS_REGION;
 
 exports.handler = async (event) => {
-    const s3 = new AWS.S3();
     const rek = new AWS.Rekognition({region: process.env.AWS_REGION});
 
     const sentences = [];
@@ -61,7 +60,7 @@ exports.handler = async (event) => {
                             if (textDetections[detectionIndex].Type === 'LINE' && textDetections[detectionIndex].DetectedText !== '' ) {
                                 lines.push(textDetections[detectionIndex].DetectedText);
                             }
-                        };
+                        }
 
                         const sentence = lines.join(' ');
                         console.debug(`The line is ${sentence}`);
@@ -72,7 +71,7 @@ exports.handler = async (event) => {
                                 text: sentence
                             });
                         }
-                    };
+                    }
                     console.debug(`The sentence is ${JSON.stringify(sentences)}`);
                 } catch(error) {
                     console.error('error in extracting text', JSON.stringify(error));

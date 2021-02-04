@@ -1,20 +1,18 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-
 import { AnyPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Key } from '@aws-cdk/aws-kms';
 import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption, CfnBucket } from '@aws-cdk/aws-s3';
 import { Aws, CfnOutput, CfnParameter, Construct, RemovalPolicy, Stack, StackProps, Token } from '@aws-cdk/core';
 import { Ingestion } from './ingestion/ingestion-construct';
@@ -46,24 +44,24 @@ export class DiscoveringHotTopicsStack extends Stack {
             description: 'The query you would like to execute on twitter. For details of how write a query and use operators, please go to https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators',
             minLength: 3,
             maxLength: 500,
-            default:'health'
+            default:'entertainment'
         });
 
         const supportedLang = new CfnParameter(this, 'SupportedLanguages', {
-            default: 'de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw',
+            default: 'en,es',
             description: 'The list of languages to support. The super set of languages supported is driven by Amazon Translate. For an latest list of languages, please refer to the Comprehend documentation at this location https://docs.aws.amazon.com/translate/latest/dg/what-is.html#language-pairs',
             maxLength: 43,
             minLength: 2,
             allowedPattern: '([a-z]{2}-[a-z]{2}|[a-z]{2})(,([a-z]{2}-[a-z]{2}|[a-z]{2}))*',
-            constraintDescription: 'Provide a list of comma separated language iso-code values e.g. de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw (no spaces after the comma). The input did not match the validation pattern.'
+            constraintDescription: 'Provide a list of comma separated language iso-code values, Example: de,en,es,it,pt,fr,ja,ko,zh-cn (no spaces after the comma). The input did not match the validation pattern.'
         });
 
         const topicSchedule = new CfnParameter(this, 'TopicAnalysisFrequency', {
             type: 'String',
-            default: 'cron(5 0 * * ? *)',
+            default: 'cron(10 0 * * ? *)',
             allowedPattern: 'cron(\\S+\\s){5}\\S+',
             description: 'The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour',
-            constraintDescription: 'Please provide a valid cron expression of the format \'cron(5 0 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+            constraintDescription: 'Please provide a valid cron expression of the format \'cron(10 0 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
         });
 
         const numberOfTopics = new CfnParameter(this, 'NumberOfTopics', {
@@ -90,11 +88,7 @@ export class DiscoveringHotTopicsStack extends Stack {
             constraintDescription: 'Provide an arn matching an Amazon Quicksight User ARN. The input did not match the validation pattern.'
         });
 
-        new SolutionHelper(this, 'SolutionHelper', { solutionId: props.solutionID, searchQuery: queryParam.valueAsString, langFilter: supportedLang.valueAsString });
-
-        const glueKMSKey = new Key(this, 'GlueCatalogKMSKey', {
-            enableKeyRotation: true
-        });
+        const solutionHelper = new SolutionHelper(this, 'SolutionHelper', { solutionId: props.solutionID, searchQuery: queryParam.valueAsString, langFilter: supportedLang.valueAsString });
 
         const s3AccessLoggingBucket = new Bucket(this, 'AccessLog', {
             versioned: false,
@@ -133,13 +127,13 @@ export class DiscoveringHotTopicsStack extends Stack {
             parameters: {
                 "QuickSightSourceTemplateArn": this.node.tryGetContext('quicksight_source_template_arn'),
                 "QuickSightPrincipalArn": quickSightPrincipalArn.valueAsString,
-                "S3AccessLogBucket": s3AccessLoggingBucket.bucketArn,
                 "SolutionID": props.solutionID,
                 "SolutionName": props.solutionName,
                 "ParentStackName": Aws.STACK_NAME
             }
         });
-        qsNestedTemplate.nestedStackResource?.addMetadata('nestedStackFileName', qsNestedTemplate.templateFile.slice(0, -5));
+
+        qsNestedTemplate.nestedStackResource!.addMetadata('nestedStackFileName', qsNestedTemplate.templateFile.slice(0, -5));
 
         const storageCofig: Map<string, string> = new Map();
         storageCofig.set('Sentiment', 'sentiment');
@@ -151,6 +145,7 @@ export class DiscoveringHotTopicsStack extends Stack {
         storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
         storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
         storageCofig.set('ModerationLabels', 'moderationlabels');
+        storageCofig.set('TwFeedStorage', 'twfeedstorage');
 
         // start of workflow -> storage integration
         const textInferenceNameSpace = 'com.analyze.text.inference';
@@ -161,7 +156,6 @@ export class DiscoveringHotTopicsStack extends Stack {
             topicsAnalysisInfNS: topicsAnalysisInfNameSpace,
             topicMappingsInfNS: topicMappingsInfNameSpace,
             tableMappings: storageCofig,
-            glueKMSKey: glueKMSKey,
             s3LoggingBucket: s3AccessLoggingBucket
         });
         appIntegration.node.addDependency(qsNestedTemplate);
@@ -183,7 +177,8 @@ export class DiscoveringHotTopicsStack extends Stack {
             eventBus: appIntegration.eventManager.eventBus,
             textAnalysisNameSpace: textInferenceNameSpace,
             s3LoggingBucket: s3AccessLoggingBucket,
-            lambdaTriggerFunc: ingestionConstruct.consumerLambdaFunc
+            lambdaTriggerFunc: ingestionConstruct.consumerLambdaFunc,
+            uuid: solutionHelper.UUIDCustomResource.getAttString('UUID')
         });
         textWorkflowEngine.node.addDependency(qsNestedTemplate);
 
@@ -195,7 +190,8 @@ export class DiscoveringHotTopicsStack extends Stack {
             ingestionWindow: '2', // number of days
             numberofTopics: Token.asString(numberOfTopics.value),
             topicSchedule: topicSchedule.valueAsString,
-            s3LoggingBucket: s3AccessLoggingBucket
+            s3LoggingBucket: s3AccessLoggingBucket,
+            uuid: solutionHelper.UUIDCustomResource.getAttString('UUID')
         });
 
         topicWorkflowEngine.node.addDependency(qsNestedTemplate);

@@ -39,7 +39,8 @@ test('test orchestration construct', () => {
             runtime: Runtime.PYTHON_3_8,
             code: Code.fromAsset(`${__dirname}/../lambda/ingestion-consumer/`),
             handler: 'index.handler'
-        })
+        }),
+        uuid: 'fakerandomstring'
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

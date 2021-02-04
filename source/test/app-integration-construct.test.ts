@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,7 +13,6 @@
 
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
-import { Key } from '@aws-cdk/aws-kms';
 import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
 import { App, Stack } from '@aws-cdk/core';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
@@ -34,6 +33,7 @@ test('test App Integration Construct', () => {
     tableMappings.set('TxtInImgSentiment', 'txtinimgsentiment');
     tableMappings.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
     tableMappings.set('ModerationLabels', 'moderationlabels');
+    tableMappings.set('TwFeedStorage', 'twfeedstorage');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
@@ -48,9 +48,6 @@ test('test App Integration Construct', () => {
         topicsAnalysisInfNS: 'com.topic',
         topicMappingsInfNS: 'com.topic.mappings',
         tableMappings: tableMappings,
-        glueKMSKey: new Key(stack, 'GlueCloudWatch', {
-            enableKeyRotation: true
-        }),
         s3LoggingBucket: s3AccessLoggingBucket
     });
 

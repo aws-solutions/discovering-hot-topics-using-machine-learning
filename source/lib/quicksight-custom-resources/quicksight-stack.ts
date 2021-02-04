@@ -53,16 +53,6 @@ export class QuickSightStack extends NestedStack {
         });
 
         /**
-         * Use the provided access logging bucket for any S3 bucket creation
-         */
-        const s3AccessLogging = new CfnParameter(this, 'S3AccessLogBucket', {
-            type: 'String',
-            description: 'The S3 Access Log bucket arn',
-            allowedPattern: 'arn:\\S+:s3:::\\S+$',
-            constraintDescription: 'Please provide a valid S3 bucket arn to store S3 access logs'
-        });
-
-        /**
          * The Solution ID with which the nested stack is associated with
          */
         const solutionID = new CfnParameter(this, 'SolutionID', {

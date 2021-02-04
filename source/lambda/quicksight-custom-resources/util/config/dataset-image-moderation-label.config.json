@@ -1,6 +1,115 @@
 {
     "PhysicalTableMap": {
-        "95476c2e-8591-44ed-807b-7397ca28695a": {
+        "10e7acf0-6ce3-4b52-b70e-1eb8d1841945": {
+            "RelationalTable": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Schema": "socialmediadb",
+                "Name": "twfeedstorage",
+                "InputColumns": [
+                    {
+                        "Name": "created_at",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "in_reply_to_user_id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "source",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "retweet_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "retweeted",
+                        "Type": "BOOLEAN"
+                    },
+                    {
+                        "Name": "geo",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "filter_level",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "in_reply_to_screen_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "is_quote_status",
+                        "Type": "BOOLEAN"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "favorite_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "place",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "lang",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "quote_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "favorited",
+                        "Type": "BOOLEAN"
+                    },
+                    {
+                        "Name": "possibly_sensitive",
+                        "Type": "BOOLEAN"
+                    },
+                    {
+                        "Name": "coordinates",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "truncated",
+                        "Type": "BOOLEAN"
+                    },
+                    {
+                        "Name": "reply_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "entities",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "db_created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "user",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        },
+        "39da0ca9-ffbc-44ae-9bc7-b53520b029ae": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
                 "Schema": "socialmediadb",
@@ -57,7 +166,7 @@
                 ]
             }
         },
-        "be461235-ef5f-4be1-9910-e12769781bf3": {
+        "864c4535-eeb3-40e8-bf7e-61124718c8e8": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
                 "Schema": "socialmediadb",
@@ -135,7 +244,18 @@
                 }
             ],
             "Source": {
-                "PhysicalTableId": "95476c2e-8591-44ed-807b-7397ca28695a"
+                "PhysicalTableId": "39da0ca9-ffbc-44ae-9bc7-b53520b029ae"
+            }
+        },
+        "0f71e14c-2864-42e3-a3c0-d24065c34436": {
+            "Alias": "sentiment-twfeedstorage",
+            "Source": {
+                "JoinInstruction": {
+                    "LeftOperand": "0c93ee4f-3e27-455c-88e8-e0d9f38e9c9d",
+                    "RightOperand": "7080cd07-4b8c-4d18-9de3-46a0257e141c",
+                    "Type": "INNER",
+                    "OnClause": "{id_str[sentiment]} = {id_str[twfeedstorage]}"
+                }
             }
         },
         "1aad2b4a-195a-46b2-a578-290094804a8e": {
@@ -173,11 +293,79 @@
                 }
             ],
             "Source": {
-                "PhysicalTableId": "be461235-ef5f-4be1-9910-e12769781bf3"
+                "PhysicalTableId": "864c4535-eeb3-40e8-bf7e-61124718c8e8"
             }
         },
-        "28a9d39a-548b-42ce-aa1e-88c3001b53ec": {
-            "Alias": "Intermediate Table",
+        "7080cd07-4b8c-4d18-9de3-46a0257e141c": {
+            "Alias": "twfeedstorage",
+            "DataTransforms": [
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "created_at",
+                        "NewColumnName": "created_at[twfeedstorage]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "text",
+                        "NewColumnName": "text[twfeedstorage]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "id_str",
+                        "NewColumnName": "id_str[twfeedstorage]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "platform",
+                        "NewColumnName": "platform[twfeedstorage]"
+                    }
+                },
+                {
+                    "RenameColumnOperation": {
+                        "ColumnName": "account_name",
+                        "NewColumnName": "account_name[twfeedstorage]"
+                    }
+                },
+                {
+                    "CastColumnTypeOperation": {
+                        "ColumnName": "retweeted",
+                        "NewColumnType": "INTEGER"
+                    }
+                },
+                {
+                    "CastColumnTypeOperation": {
+                        "ColumnName": "truncated",
+                        "NewColumnType": "INTEGER"
+                    }
+                },
+                {
+                    "CastColumnTypeOperation": {
+                        "ColumnName": "possibly_sensitive",
+                        "NewColumnType": "INTEGER"
+                    }
+                },
+                {
+                    "CastColumnTypeOperation": {
+                        "ColumnName": "favorited",
+                        "NewColumnType": "INTEGER"
+                    }
+                },
+                {
+                    "CastColumnTypeOperation": {
+                        "ColumnName": "is_quote_status",
+                        "NewColumnType": "INTEGER"
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "10e7acf0-6ce3-4b52-b70e-1eb8d1841945"
+            }
+        },
+        "9cd6ea43-1920-4e25-b4ee-84a65f730b36": {
+            "Alias": "twfeedstorage-moderationlabels",
             "DataTransforms": [
                 {
                     "ProjectOperation": {
@@ -194,6 +382,31 @@
                             "sentimentneuscore",
                             "sentimentmixscore",
                             "created_at[sentiment]",
+                            "account_name[twfeedstorage]",
+                            "platform[twfeedstorage]",
+                            "coordinates",
+                            "retweeted",
+                            "source",
+                            "entities",
+                            "reply_count",
+                            "favorite_count",
+                            "geo",
+                            "id_str[twfeedstorage]",
+                            "truncated",
+                            "text[twfeedstorage]",
+                            "retweet_count",
+                            "possibly_sensitive",
+                            "filter_level",
+                            "created_at[twfeedstorage]",
+                            "place",
+                            "favorited",
+                            "lang",
+                            "in_reply_to_screen_name",
+                            "is_quote_status",
+                            "in_reply_to_user_id_str",
+                            "user",
+                            "quote_count",
+                            "db_created_at",
                             "account_name[moderationlabels]",
                             "platform[moderationlabels]",
                             "search_query[moderationlabels]",
@@ -208,10 +421,10 @@
             ],
             "Source": {
                 "JoinInstruction": {
-                    "LeftOperand": "0c93ee4f-3e27-455c-88e8-e0d9f38e9c9d",
+                    "LeftOperand": "0f71e14c-2864-42e3-a3c0-d24065c34436",
                     "RightOperand": "1aad2b4a-195a-46b2-a578-290094804a8e",
                     "Type": "INNER",
-                    "OnClause": "{id_str[sentiment]} = {id_str[moderationlabels]}"
+                    "OnClause": "{id_str[twfeedstorage]} = {id_str[moderationlabels]}"
                 }
             }
         }

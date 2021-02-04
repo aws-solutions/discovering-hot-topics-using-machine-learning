@@ -13,7 +13,6 @@
 
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
-import { Key } from '@aws-cdk/aws-kms';
 import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import { InferenceDatabase } from '../lib/visualization/inf-database-construct';
@@ -45,9 +44,6 @@ test('test workflow stack', () => {
     new InferenceDatabase(stack, 'TestDB', {
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
         tablePrefixMappings: storageCofig,
-        glueKMSKey: new Key(stack, 'GlueCloudWatch', {
-            enableKeyRotation: true
-        }),
         s3LoggingBucket: s3AccessLoggingBucket
     });
 

@@ -3,28 +3,16 @@
 exports[`test App Integration Construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529ArtifactHash27C67F5C": Object {
-      "Description": "Artifact hash for asset \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38ArtifactHash164AE178": Object {
+      "Description": "Artifact hash for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3BucketC579C769": Object {
-      "Description": "S3 bucket for asset \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D": Object {
+      "Description": "S3 bucket for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
-    "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637": Object {
-      "Description": "S3 key for asset version \\"53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529\\"",
-      "Type": "String",
-    },
-    "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abArtifactHashA0A04444": Object {
-      "Description": "Artifact hash for asset \\"acc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298ab\\"",
-      "Type": "String",
-    },
-    "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abS3BucketBEB08CC8": Object {
-      "Description": "S3 bucket for asset \\"acc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298ab\\"",
-      "Type": "String",
-    },
-    "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abS3VersionKeyE0BD3428": Object {
-      "Description": "S3 key for asset version \\"acc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298ab\\"",
+    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F": Object {
+      "Description": "S3 key for asset version \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
       "Type": "String",
     },
     "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294ArtifactHashE7225949": Object {
@@ -37,6 +25,18 @@ Object {
     },
     "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6": Object {
       "Description": "S3 key for asset version \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+      "Type": "String",
+    },
+    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbArtifactHashF488CEF6": Object {
+      "Description": "Artifact hash for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+      "Type": "String",
+    },
+    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1": Object {
+      "Description": "S3 bucket for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+      "Type": "String",
+    },
+    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F": Object {
+      "Description": "S3 key for asset version \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
       "Type": "String",
     },
   },
@@ -64,82 +64,6 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "GlueCloudWatch69956C56": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "EnableKeyRotation": true,
-        "KeyPolicy": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "logs.",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ".amazonaws.com",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::KMS::Key",
-      "UpdateReplacePolicy": "Retain",
-    },
     "IntegrationEntityFirehoseGlueKmsFB7BE402": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -148,9 +72,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -506,6 +444,20 @@ Object {
     },
     "IntegrationEntityKinesisFirehosefirehoseloggroup7C26E1E6": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -733,9 +685,46 @@ Object {
           "CloudWatchEncryption": Object {
             "CloudWatchEncryptionMode": "SSE-KMS",
             "KmsKeyArn": Object {
-              "Fn::GetAtt": Array [
-                "GlueCloudWatch69956C56",
-                "Arn",
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:",
+                  Object {
+                    "Ref": "AWS::Partition",
+                  },
+                  ":kms:",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ":",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":alias/aws/glue",
+                ],
+              ],
+            },
+          },
+          "JobBookmarksEncryption": Object {
+            "JobBookmarksEncryptionMode": "CSE-KMS",
+            "KmsKeyArn": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:",
+                  Object {
+                    "Ref": "AWS::Partition",
+                  },
+                  ":kms:",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ":",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":alias/aws/glue",
+                ],
               ],
             },
           },
@@ -751,6 +740,17 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBCustomResource0E51A003": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+      ],
       "Properties": Object {
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -764,9 +764,18 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0": Object {
       "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
         "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490",
         "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
         "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -781,7 +790,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3BucketC579C769",
+            "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -794,7 +803,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637",
+                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
                         },
                       ],
                     },
@@ -807,7 +816,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters53b3d6bd9b1a6c0426d2d61d72b98e21f39d8fd769ba87b10b62e1ee17910529S3VersionKey7C229637",
+                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
                         },
                       ],
                     },
@@ -824,7 +833,7 @@ Object {
             "DATABASE_NAME": Object {
               "Ref": "IntegrationInfDBTweetDBF81EA9E5",
             },
-            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels",
+            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels,twfeedstorage",
           },
         },
         "Handler": "index.handler",
@@ -844,7 +853,16 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBLambdaFunctionLambdaInvokePermission09A3A412": Object {
       "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
         "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
       ],
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
@@ -865,6 +883,17 @@ Object {
       "Type": "AWS::Lambda::Permission",
     },
     "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA": Object {
+      "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+      ],
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -920,12 +949,23 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490": Object {
+      "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+      ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -987,6 +1027,17 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997": Object {
+      "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+      ],
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1071,9 +1122,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -1118,6 +1183,17 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "IntegrationInfDBHotTopicsDBNightlyCreateParitionEventsRuleD0BAEF25": Object {
+      "DependsOn": Array [
+        "IntegrationInfDBEntityTableB43A6185",
+        "IntegrationInfDBKeyPhraseTable589018E8",
+        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+      ],
       "Properties": Object {
         "ScheduleExpression": "cron(1 0 * * ? *)",
         "State": "ENABLED",
@@ -1536,6 +1612,7 @@ Object {
         "DataCatalogEncryptionSettings": Object {
           "EncryptionAtRest": Object {
             "CatalogEncryptionMode": "SSE-KMS",
+            "SseAwsKmsKeyId": "alias/aws/glue",
           },
         },
       },
@@ -1551,6 +1628,151 @@ Object {
         },
       },
       "Type": "AWS::Glue::Database",
+    },
+    "IntegrationInfDBTwitterTwitterRecordB6E69351": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "Store Twitter Records",
+          "Name": "twfeedstorage",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "db_created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "coordinates",
+                "Type": "struct<type:string,coordinates:array<double>>",
+              },
+              Object {
+                "Name": "retweeted",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "source",
+                "Type": "string",
+              },
+              Object {
+                "Name": "entities",
+                "Type": "struct<hashtags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
+              },
+              Object {
+                "Name": "reply_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "favorite_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "geo",
+                "Type": "struct<type:string,coordinates:array<double>>",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "truncated",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "retweet_count",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "possibly_sensitive",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "filter_level",
+                "Type": "string",
+              },
+              Object {
+                "Name": "created_at",
+                "Type": "string",
+              },
+              Object {
+                "Name": "place",
+                "Type": "struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>",
+              },
+              Object {
+                "Name": "favorited",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "lang",
+                "Type": "string",
+              },
+              Object {
+                "Name": "in_reply_to_screen_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "is_quote_status",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "in_reply_to_user_id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "user",
+                "Type": "struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verified:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:string,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
+              },
+              Object {
+                "Name": "quote_count",
+                "Type": "bigint",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/twfeedstorage/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
     },
     "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB": Object {
       "Properties": Object {
@@ -1835,9 +2057,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -2193,6 +2429,20 @@ Object {
     },
     "IntegrationKeyPhraseKinesisFirehosefirehoseloggroup5FE853F3": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -2214,9 +2464,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -2572,6 +2836,20 @@ Object {
     },
     "IntegrationModerationLabelsKinesisFirehosefirehoseloggroup82FAD98E": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -2669,9 +2947,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -3027,6 +3319,20 @@ Object {
     },
     "IntegrationSentimentKinesisFirehosefirehoseloggroup2FEBE358": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -3058,7 +3364,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abS3BucketBEB08CC8",
+            "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -3071,7 +3377,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abS3VersionKeyE0BD3428",
+                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
                         },
                       ],
                     },
@@ -3084,7 +3390,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersacc9ce37bc46cce3c6f33f373a1219cca80e127613b2ef1f0b80693746a298abS3VersionKeyE0BD3428",
+                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
                         },
                       ],
                     },
@@ -3110,6 +3416,9 @@ Object {
               "Ref": "IntegrationSentimentKinesisFirehose1B0D197F",
             },
             "TEXT_ANALYSIS_NS": "com.test",
+            "TW_FEED_STORAGE": Object {
+              "Ref": "IntegrationTwFeedStorageKinesisFirehose2717DCB9",
+            },
             "TXT_IN_IMG_ENTITY_FIREHOSE": Object {
               "Ref": "IntegrationTxtInImgEntityKinesisFirehose9B2B792F",
             },
@@ -3196,8 +3505,12 @@ Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
+              "id": "W76",
+              "reason": "The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SCPM rule",
+            },
+            Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -3259,6 +3572,12 @@ Object {
                 Object {
                   "Fn::GetAtt": Array [
                     "IntegrationModerationLabelsKinesisFirehoseB9DCFAE5",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationTwFeedStorageKinesisFirehose2717DCB9",
                     "Arn",
                   ],
                 },
@@ -3419,7 +3738,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -3510,9 +3829,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -3868,6 +4201,20 @@ Object {
     },
     "IntegrationTopicMappingsKinesisFirehosefirehoseloggroupDAF73689": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -3889,9 +4236,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -4247,6 +4608,20 @@ Object {
     },
     "IntegrationTopicsKinesisFirehosefirehoseloggroup07A1FEDB": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -4260,6 +4635,455 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "IntegrationTwFeedStorageFirehoseGlueKms82D47141": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationTwFeedStorageFirehoseGlueKms82D47141",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationTwFeedStorageFirehoseGlueTablePolicy53C5060D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Fn::Select": Array [
+                          1,
+                          Object {
+                            "Fn::Split": Array [
+                              "/",
+                              Object {
+                                "Fn::Join": Array [
+                                  "",
+                                  Array [
+                                    Object {
+                                      "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                                    },
+                                    "/",
+                                    Object {
+                                      "Ref": "IntegrationInfDBTwitterTwitterRecordB6E69351",
+                                    },
+                                  ],
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationTwFeedStorageFirehoseGlueTablePolicy53C5060D",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationTwFeedStorageFirehoseRoleBDA1E404": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationTwFeedStorageFirehoseRoleDefaultPolicyB6532B5F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationTwFeedStorageFirehoseRoleDefaultPolicyB6532B5F",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationTwFeedStorageKinesisFirehose2717DCB9": Object {
+      "DependsOn": Array [
+        "IntegrationTwFeedStorageFirehoseGlueKms82D47141",
+        "IntegrationTwFeedStorageFirehoseGlueTablePolicy53C5060D",
+        "IntegrationTwFeedStorageFirehoseRoleDefaultPolicyB6532B5F",
+        "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+      ],
+      "Properties": Object {
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroup945A718C",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstream797FAE95",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "/",
+                      Object {
+                        "Fn::Join": Array [
+                          "",
+                          Array [
+                            Object {
+                              "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                            },
+                            "/",
+                            Object {
+                              "Ref": "IntegrationInfDBTwitterTwitterRecordB6E69351",
+                            },
+                          ],
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "twfeedstorage/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "twfeedstorage/created_at=!{timestamp:yyyy-MM-dd}/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationTwFeedStorageKinesisFirehoseKinesisFirehosePolicyDED01CB7": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroup945A718C",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstream797FAE95",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationTwFeedStorageKinesisFirehoseKinesisFirehosePolicyDED01CB7",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationTwFeedStorageKinesisFirehoseKinesisFirehoseRole8ACF28E6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationTwFeedStorageKinesisFirehoseKinesisFirehoseRole8ACF28E6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroup945A718C": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstream797FAE95": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationTwFeedStorageKinesisFirehosefirehoseloggroup945A718C",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "IntegrationTxtInImgEntityFirehoseGlueKms13C70E5E": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -4268,9 +5092,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -4626,6 +5464,20 @@ Object {
     },
     "IntegrationTxtInImgEntityKinesisFirehosefirehoseloggroup4DE3574A": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -4647,9 +5499,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -5005,6 +5871,20 @@ Object {
     },
     "IntegrationTxtInImgKeyPhraseKinesisFirehosefirehoseloggroup990C7C5B": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -5026,9 +5906,23 @@ Object {
               "Action": "kms:Decrypt",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GlueCloudWatch69956C56",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
                 ],
               },
             },
@@ -5384,6 +6278,20 @@ Object {
     },
     "IntegrationTxtInImgSentimentKinesisFirehosefirehoseloggroup4E278475": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },

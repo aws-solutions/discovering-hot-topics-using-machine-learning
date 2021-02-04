@@ -147,6 +147,10 @@ class DataSetStubber:
             "PhysicalTableMap": ANY,
             "Permissions": ANY,
         }
+
+        if name in ["tweet", "text"]:
+            api_params.update({"ColumnGroups": ANY})
+
         stubber.add_response(operation, minimal_mock_reponse, api_params)
         logger.debug(f"Stubber: added response for {operation} for name:{name}")
 
@@ -232,6 +236,10 @@ class DataSetStubber:
             "PhysicalTableMap": ANY,
             "Permissions": ANY,
         }
+
+        if name in ["tweet", "text"]:
+            api_params.update({"ColumnGroups": ANY})
+
         stubber.add_client_error(
             operation,
             service_error_code,

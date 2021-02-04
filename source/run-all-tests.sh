@@ -1,11 +1,11 @@
 #!/bin/bash
 ######################################################################################################################
-#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           #
+#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      #
 #                                                                                                                    #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                    #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -67,6 +67,7 @@ run_python_lambda_test() {
 		echo "(source/run-all-tests.sh) ERROR: there is likely output above." 1>&2
 		exit 1
 	fi
+	sed -i -e "s,<source>$source_dir,<source>source,g" $coverage_report_path
 	echo "deactivate virtual environment"
 	deactivate
 
@@ -92,23 +93,36 @@ run_javascript_lambda_test() {
 		echo "(source/run-all-tests.sh) ERROR: there is likely output above." 1>&2
 		exit 1
 	fi
-	[ "${CLEAN:-true}" = "true" ] && rm -fr coverage
+    [ "${CLEAN:-true}" = "true" ] && rm -rf coverage/lcov-report
+    mkdir -p $source_dir/test/coverage-reports/jest
+    coverage_report_path=$source_dir/test/coverage-reports/jest/$lambda_name
+    rm -fr $coverage_report_path
+    mv coverage $coverage_report_path
 }
 
 run_cdk_project_test() {
 	component_description=$1
+    component_name=solutions-constructs
 	echo "------------------------------------------------------------------------------"
 	echo "[Test] $component_description"
 	echo "------------------------------------------------------------------------------"
 	[ "${CLEAN:-true}" = "true" ] && npm run clean
 	npm ci
 	npm run build
+
+	## Option to suppress the Override Warning messages while synthesizing using CDK
+	# export overrideWarningsEnabled=false
+
 	npm run test -- -u
 	if [ "$?" = "1" ]; then
 		echo "(source/run-all-tests.sh) ERROR: there is likely output above." 1>&2
 		exit 1
 	fi
-	[ "${CLEAN:-true}" = "true" ] && rm -fr coverage
+    [ "${CLEAN:-true}" = "true" ] && rm -rf coverage/lcov-report
+    mkdir -p $source_dir/test/coverage-reports/jest
+    coverage_report_path=$source_dir/test/coverage-reports/jest/$component_name
+    rm -fr $coverage_report_path
+    mv coverage $coverage_report_path
 }
 
 
@@ -131,6 +145,8 @@ run_cdk_project_test "CDK - Discovering Hot Topics using Machine Learning App"
 #
 # Test the attached Lambda functions
 #
+run_javascript_lambda_test create-partition "create-partition"
+
 run_python_lambda_test firehose_topic_proxy "EventBridge - Firehose Topic Proxy"
 
 run_javascript_lambda_test firehose-text-proxy "Storage - Firehose Text Proxy"

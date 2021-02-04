@@ -29,7 +29,7 @@ exports.create = async() => {
         console.debug(`Processing table name ${tableNames[index]}`);
 
         try {
-            let result = await glue.getPartition({
+            await glue.getPartition({
                 DatabaseName: process.env.DATABASE_NAME,
                 TableName: tableNames[index],
                 PartitionValues: [ partitionValue ]

@@ -33,8 +33,8 @@ to the eventbridge for storage and visualization
 """
 
 
-def publish_topic_id_mapping(jobID, timestamp, doc_topics_file_name="/tmp/output/doc-topics.csv"):
-    topic_id_mapping = parse_csv_for_mapping(jobID, timestamp, doc_topics_file_name)
+def publish_topic_id_mapping(job_id, timestamp, doc_topics_file_name="/tmp/output/doc-topics.csv"):
+    topic_id_mapping = parse_csv_for_mapping(job_id, timestamp, doc_topics_file_name)
     try:
         for topic in topic_id_mapping:
             data = json.dumps(topic)
@@ -54,7 +54,7 @@ def publish_topic_id_mapping(jobID, timestamp, doc_topics_file_name="/tmp/output
         raise e
 
 
-def parse_csv_for_mapping(jobID, timestamp, doc_topics_file_name="/tmp/output/doc-topics.csv"):
+def parse_csv_for_mapping(job_id, timestamp, doc_topics_file_name="/tmp/output/doc-topics.csv"):
     topic_content_dict = defaultdict(list)
 
     with open(doc_topics_file_name) as csvfile:
@@ -83,7 +83,7 @@ def parse_csv_for_mapping(jobID, timestamp, doc_topics_file_name="/tmp/output/do
             if len(id) > 0:
                 mapping_record = {}
                 mapping_record["id_str"] = id
-                mapping_record["job_id"] = jobID
+                mapping_record["job_id"] = job_id
                 mapping_record["job_timestamp"] = timestamp
                 mapping_record["topic"] = record["topic"]
                 topic_id_mapping.append(mapping_record)
@@ -97,9 +97,9 @@ This method gets all the topics and publishes them to an eventbridge for storage
 """
 
 
-def publish_topics(jobID, timestamp, topic_terms_file_name="/tmp/output/topic-terms.csv"):
+def publish_topics(job_id, timestamp, topic_terms_file_name="/tmp/output/topic-terms.csv"):
     try:
-        data = json.dumps(parse_csv_for_topics(jobID, timestamp, topic_terms_file_name))
+        data = json.dumps(parse_csv_for_topics(job_id, timestamp, topic_terms_file_name))
         logger.debug("Topics to be published are " + data)
         event_bridge_client.put_events(
             Entries=[
@@ -116,15 +116,14 @@ def publish_topics(jobID, timestamp, topic_terms_file_name="/tmp/output/topic-te
         raise e
 
 
-def parse_csv_for_topics(jobID, timestamp, topic_terms_file_name="/tmp//output/topic-terms.csv"):
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+def parse_csv_for_topics(job_id, timestamp, topic_terms_file_name="/tmp//output/topic-terms.csv"):
     topic_word_dict = defaultdict(list)
 
     with open(topic_terms_file_name) as csvfile:
         csv_reader = csv.DictReader(csvfile, fieldnames=("topic", "term", "weight"))
         next(csv_reader)  # skip the header row
         for row in csv_reader:
-            row["job_id"] = jobID
+            row["job_id"] = job_id
             row["job_timestamp"] = timestamp
             topic_word_dict[row["topic"]].append(row)
             logger.debug("Updated row value is " + json.dumps(row))

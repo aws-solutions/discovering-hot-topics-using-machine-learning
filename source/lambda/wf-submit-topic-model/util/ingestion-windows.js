@@ -27,7 +27,7 @@ class IngestionWindow {
         }
 
         return bucketPrefixArray;
-    };
-};
+    }
+}
 
 module.exports = IngestionWindow;

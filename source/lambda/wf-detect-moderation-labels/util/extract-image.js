@@ -75,6 +75,6 @@ class ImageExtractor {
 
         return 'Success';
     }
-};
+}
 
 module.exports = ImageExtractor;

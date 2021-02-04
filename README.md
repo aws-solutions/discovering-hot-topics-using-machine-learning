@@ -11,7 +11,7 @@ The solution performs the following key features:
 -   **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
 -   **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
 
-For an overview and solution deployment guide, please visit [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
+For a detailed solution deployment guide, refer to [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
 ## On this Page
 
@@ -145,7 +145,7 @@ aws s3 cp ./regional-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot
 
 ---
 
-Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

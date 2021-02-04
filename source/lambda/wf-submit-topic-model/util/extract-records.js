@@ -80,6 +80,6 @@ class RecordExtractor {
 
         return 'Success';
     }
-};
+}
 
 module.exports = RecordExtractor;

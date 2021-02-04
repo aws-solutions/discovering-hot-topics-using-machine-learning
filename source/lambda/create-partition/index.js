@@ -19,9 +19,8 @@ const cfn = require('./util/cfn');
 exports.handler = async(event, context) => {
     console.debug(`Event received is ${JSON.stringify(event)}`);
     try {
-        let result;
         if (event.RequestType === undefined || event.RequestType !== 'Delete') {
-            result = await parition.create();
+            await parition.create();
         }
 
         if (event.RequestType === 'Create' || event.RequestType === 'Update' || event.RequestType == 'Delete') {

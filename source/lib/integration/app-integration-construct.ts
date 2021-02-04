@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,7 +13,6 @@
  *********************************************************************************************************************/
 
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Key } from '@aws-cdk/aws-kms';
 import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
 import { Construct } from '@aws-cdk/core';
 import { buildS3Bucket } from '@aws-solutions-constructs/core';
@@ -29,14 +28,12 @@ export interface AppIntegrationProps {
     readonly topicsAnalysisInfNS: string,
     readonly topicMappingsInfNS: string
     readonly tableMappings: Map<string, string>,
-    readonly glueKMSKey: Key,
     readonly s3LoggingBucket: Bucket
 }
 
 export class AppIntegration extends Construct {
     private eventRule: EventRule;
     private _s3Bucket: Bucket;
-    // private _s3LoggingBucket?: Bucket
 
     constructor(scope: Construct, id: string, props: AppIntegrationProps) {
 
@@ -67,7 +64,6 @@ export class AppIntegration extends Construct {
         const infDatabase = new InferenceDatabase(this, 'InfDB', {
             s3InputDataBucket: this._s3Bucket,
             tablePrefixMappings: props.tableMappings,
-            glueKMSKey: props.glueKMSKey,
             s3LoggingBucket: props.s3LoggingBucket
         });
         // end of storage and visualization
@@ -82,7 +78,7 @@ export class AppIntegration extends Construct {
                 database: infDatabase.database,
                 tableName: infDatabase.tableMap.get(key)!.tableName,
                 s3Bucket: this._s3Bucket,
-                keyArn: props.glueKMSKey.keyArn
+                keyArn: infDatabase.glueKMSKeyArn
             }));
         });
 
@@ -94,6 +90,7 @@ export class AppIntegration extends Construct {
             txtInImgSentimentStorage: eventStorageMap.get('TxtInImgSentiment')!,
             txtInImgKeyPhraseStorage: eventStorageMap.get('TxtInImgKeyPhrase')!,
             moderationLabelStorage: eventStorageMap.get('ModerationLabels')!,
+            feedStorage: eventStorageMap.get('TwFeedStorage')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
         });
 

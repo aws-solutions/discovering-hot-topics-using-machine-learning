@@ -77,6 +77,14 @@ def test_source_entity_get_map_invalid_sub_type(quicksight_application_stub, min
                             "DataSetPlaceholder": "image-moderation-label",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-moderation-label",
                         },
+                        {
+                            "DataSetPlaceholder": "tweet",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet",
+                        },
+                        {
+                            "DataSetPlaceholder": "tweet-topic",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet-topic",
+                        },
                     ],
                     "Arn": "{self.source_template_arn}",
                 }
@@ -124,6 +132,14 @@ def test_source_entity_get_map_missing_source_entity(quicksight_application_stub
                         {
                             "DataSetPlaceholder": "image-moderation-label",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-moderation-label",
+                        },
+                        {
+                            "DataSetPlaceholder": "tweet",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet",
+                        },
+                        {
+                            "DataSetPlaceholder": "tweet-topic",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet-topic",
                         },
                     ],
                     "Arn": "{self.source_template_arn}",

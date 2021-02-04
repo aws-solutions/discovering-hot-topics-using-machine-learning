@@ -23,6 +23,8 @@ export interface SolutionHelperProps {
 }
 
 export class SolutionHelper extends cdk.Construct {
+    private readonly _UuidCustomResource: cdk.CustomResource;
+
     constructor(scope: cdk.Construct, id: string, props: SolutionHelperProps) {
         super(scope, id);
 
@@ -53,7 +55,7 @@ export class SolutionHelper extends cdk.Construct {
             }
         });
 
-        const createIdFunction = new cdk.CustomResource(this, 'CreateUniqueID', {
+        this._UuidCustomResource = new cdk.CustomResource(this, 'CreateUniqueID', {
             serviceToken: helperFunction.functionArn,
             properties: {
                 'Resource': 'UUID'
@@ -66,14 +68,17 @@ export class SolutionHelper extends cdk.Construct {
             properties: {
                 'Resource': 'AnonymousMetric',
                 'SolutionId': props.solutionId,
-                'UUID': createIdFunction.getAttString('UUID'),
+                'UUID': this._UuidCustomResource.getAttString('UUID'),
                 'Region': cdk.Aws.REGION
             },
             resourceType: 'Custom::AnonymousData'
         });
-
-        (helperFunction.node.defaultChild as lambda.CfnFunction).cfnOptions.condition = metricsCondition;
-        (createIdFunction.node.defaultChild as lambda.CfnFunction).cfnOptions.condition = metricsCondition;
+        // the send data custom resource to be enabled under metrics condition
+        // the lambda and UUID resource still deployed as the UUID is used for other features in the solution
         (sendDataFunction.node.defaultChild as lambda.CfnFunction).cfnOptions.condition = metricsCondition;
+    }
+
+    public get UUIDCustomResource(): cdk.CustomResource {
+        return this._UuidCustomResource;
     }
 }

@@ -161,8 +161,12 @@ class QuickSightResource:
             raise ResourceSubTypeError(f"Unknown sub type {sub_type}, valid types are {self.config_data.keys()}.")
         sub_type_config = self.config_data[sub_type]
         if map_type not in sub_type_config:
-            raise ValueError(f"Missing {map_type} in config of data set type {sub_type}.")
-        return sub_type_config[map_type]
+            if map_type not in ["ColumnGroups"]:  # not throw an error for optional attributes
+                raise ValueError(f"Missing {map_type} in config of data set type {sub_type}.")
+            else:
+                return None
+        else:
+            return sub_type_config[map_type]
 
     def _get_type_for_boto3_call(self, obj_type):
         call_type_map = {

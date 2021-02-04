@@ -27,7 +27,8 @@ export interface TextOrchestrationProps {
     readonly eventBus: EventBus
     readonly textAnalysisNameSpace: string,
     readonly s3LoggingBucket: Bucket,
-    readonly lambdaTriggerFunc: Function
+    readonly lambdaTriggerFunc: Function,
+    readonly uuid: string
 }
 
 export class TextOrchestration extends Construct {
@@ -275,18 +276,9 @@ export class TextOrchestration extends Construct {
 
         this._stateMachine = new Workflow(this, 'StateMachine', {
             chain: workflowChain,
-            lambdaFunc: props.lambdaTriggerFunc
+            lambdaFunc: props.lambdaTriggerFunc,
+            uuid: props.uuid
         }).stateMachine;
-
-        // const stateMachinePolicy = this._stateMachine.node.findChild('StateMachine').node.findChild('WorkflowEngine').node.findChild('StateMachine').node.findChild('Role').node.findChild('DefaultPolicy') as CfnPolicy;
-        // stateMachinePolicy.cfnOptions.metadata = {
-        //     cfn_nag: {
-        //         rules_to_suppress: [{
-        //           id: 'W76',
-        //           reason: `The statemachine policy is to allow different lambda function tasks to be invoked from the state machine`
-        //         }]
-        //     }
-        // };
     }
 
     public get stateMachine(): StateMachine {

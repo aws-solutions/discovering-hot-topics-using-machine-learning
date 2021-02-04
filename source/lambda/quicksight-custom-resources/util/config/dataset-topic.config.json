@@ -1,6 +1,6 @@
 {
     "PhysicalTableMap": {
-        "3c218ed2-47a1-437d-b383-d5b74bd8410a": {
+        "78430f07-66b3-4ee5-a83c-872be5e5d28b": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
                 "Schema": "socialmediadb",
@@ -29,7 +29,7 @@
                 ]
             }
         },
-        "62c2af00-76ee-43d5-b996-9ca7f94036e7": {
+        "03dff1d3-ac32-40b7-9fe6-63d005ec4d20": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
                 "Schema": "socialmediadb",
@@ -86,7 +86,7 @@
                 ]
             }
         },
-        "e1086a1c-c6c0-41de-9ecf-61c6c6e4d82f": {
+        "b40e516c-0750-4be3-b49a-15a6bf8cf72f": {
             "RelationalTable": {
                 "DataSourceArn": "{self.data_source.arn}",
                 "Schema": "socialmediadb",
@@ -123,16 +123,19 @@
     "LogicalTableMap": {
         "19824c6c-11e9-4c9f-9fed-349c4970b3db": {
             "Alias": "sentiment",
-            "DataTransforms": [
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "id_str",
-                        "NewColumnName": "id_str[sentiment]"
-                    }
-                }
-            ],
             "Source": {
-                "PhysicalTableId": "62c2af00-76ee-43d5-b996-9ca7f94036e7"
+                "PhysicalTableId": "03dff1d3-ac32-40b7-9fe6-63d005ec4d20"
+            }
+        },
+        "344c6f5f-8833-433b-a8c8-f4b1cb3aa184": {
+            "Alias": "tweet-topicmappings",
+            "Source": {
+                "JoinInstruction": {
+                    "LeftOperand": "19824c6c-11e9-4c9f-9fed-349c4970b3db",
+                    "RightOperand": "e4bd4a71-0eef-4ca7-b7c9-9f2cf0e658f0",
+                    "Type": "LEFT",
+                    "OnClause": "{id_str} = {id_str[topicmappings]}"
+                }
             }
         },
         "5483b18d-5b27-4612-814c-0af9ccb06b4d": {
@@ -164,18 +167,7 @@
                 }
             ],
             "Source": {
-                "PhysicalTableId": "e1086a1c-c6c0-41de-9ecf-61c6c6e4d82f"
-            }
-        },
-        "6c49c1b7-a98e-414f-9d85-d6dd323477c5": {
-            "Alias": "Intermediate Table",
-            "Source": {
-                "JoinInstruction": {
-                    "LeftOperand": "19824c6c-11e9-4c9f-9fed-349c4970b3db",
-                    "RightOperand": "e4bd4a71-0eef-4ca7-b7c9-9f2cf0e658f0",
-                    "Type": "LEFT",
-                    "OnClause": "{id_str[sentiment]} = {id_str[topicmappings]}"
-                }
+                "PhysicalTableId": "b40e516c-0750-4be3-b49a-15a6bf8cf72f"
             }
         },
         "e4bd4a71-0eef-4ca7-b7c9-9f2cf0e658f0": {
@@ -213,11 +205,11 @@
                 }
             ],
             "Source": {
-                "PhysicalTableId": "3c218ed2-47a1-437d-b383-d5b74bd8410a"
+                "PhysicalTableId": "78430f07-66b3-4ee5-a83c-872be5e5d28b"
             }
         },
-        "f8ac4010-101a-454c-b5c9-77bf98340689": {
-            "Alias": "Intermediate Table (2)",
+        "332d0bfa-121e-4231-987e-d8002024d00c": {
+            "Alias": "topic-topicmappings",
             "DataTransforms": [
                 {
                     "CreateColumnsOperation": {
@@ -241,7 +233,7 @@
                             "account_name",
                             "platform",
                             "search_query",
-                            "id_str[sentiment]",
+                            "id_str",
                             "text",
                             "translated_text",
                             "sentiment",
@@ -268,7 +260,7 @@
             ],
             "Source": {
                 "JoinInstruction": {
-                    "LeftOperand": "6c49c1b7-a98e-414f-9d85-d6dd323477c5",
+                    "LeftOperand": "344c6f5f-8833-433b-a8c8-f4b1cb3aa184",
                     "RightOperand": "5483b18d-5b27-4612-814c-0af9ccb06b4d",
                     "Type": "INNER",
                     "OnClause": "{topic[topicmappings]} = {topic[topics]} AND {job_id[topicmappings]} = {job_id[topics]}"

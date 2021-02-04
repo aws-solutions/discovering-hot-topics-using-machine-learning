@@ -81,7 +81,7 @@ export class StorageCrawler extends Construct {
         props.s3Bucket.grantReadWrite(createParitionLambda.lambdaFunction.role!);
         lambdaGluePolicy.attachToRole(createParitionLambda.lambdaFunction.role!);
 
-        const createPartitionCustomResource = new CustomResource(this, 'CustomResource', {
+        new CustomResource(this, 'CustomResource', {
             serviceToken: lambdaFunc.functionArn,
             resourceType: 'Custom::CreatePartition'
         });

@@ -3,16 +3,16 @@
 exports[`Event Storage Construct with Lambda processor 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471ArtifactHashCE593F19": Object {
-      "Description": "Artifact hash for asset \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
+    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cArtifactHashF82E2EFB": Object {
+      "Description": "Artifact hash for asset \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
       "Type": "String",
     },
-    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3BucketCD9EF05A": Object {
-      "Description": "S3 bucket for asset \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
+    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3BucketC485D79A": Object {
+      "Description": "S3 bucket for asset \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
       "Type": "String",
     },
-    "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20": Object {
-      "Description": "S3 key for asset version \\"f8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471\\"",
+    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114": Object {
+      "Description": "S3 key for asset version \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
       "Type": "String",
     },
   },
@@ -264,6 +264,20 @@ Object {
     },
     "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -295,7 +309,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3BucketCD9EF05A",
+            "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3BucketC485D79A",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -308,7 +322,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20",
+                          "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114",
                         },
                       ],
                     },
@@ -321,7 +335,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersf8a3799217a6c16c814c8b1f77b27c7816ab4260ca3284f59ada59e8bff99471S3VersionKeyB68D5A20",
+                          "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114",
                         },
                       ],
                     },
@@ -411,7 +425,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray.",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
@@ -708,6 +722,20 @@ Object {
     },
     "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
@@ -959,6 +987,20 @@ Object {
     },
     "EventStorageTestKinesisFirehosefirehoseloggroup0CD5B15F": Object {
       "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },

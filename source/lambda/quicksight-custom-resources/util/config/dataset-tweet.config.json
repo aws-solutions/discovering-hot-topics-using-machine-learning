@@ -1,0 +1,199 @@
+{
+    "PhysicalTableMap": {
+        "63f4021e-17e0-4c40-bdad-89f40361db75": {
+            "CustomSql": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Name": "tweet-geo-sentiment-entity-phrase",
+                "SqlQuery": "SELECT \n    s.id_str,\n    s.text,\n    s.translated_text,\n    s.account_name,\n    s.platform,\n    s.search_query,\n    s.sentiment,\n    k.phrase,\n    e.entity_text,\n    e.entity_type,\n    tw.coordinates.coordinates[1] as lon,\n    tw.coordinates.coordinates[2] as lat,\n    tw.place.name as place_name,\n    tw.place.place_type,\n    tw.place.country,\n    tw.retweet_count,\n    tw.quote_count,\n    tw.favorite_count,\n    tw.reply_count,\n    s.created_at,\n    tm.topic,\n    tm.job_timestamp\nFROM socialmediadb.twfeedstorage tw \nJOIN socialmediadb.sentiment s\n    ON (tw.id_str = s.id_str)\nLEFT JOIN socialmediadb.entity e\n    ON (tw.id_str = e.id_str)\nLEFT JOIN socialmediadb.keyphrase k\n    ON (tw.id_str = k.id_str)\nLEFT JOIN socialmediadb.topicmappings tm\n    ON(tw.id_str = tm.id_str)",
+                "Columns": [
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "translated_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "search_query",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentiment",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "phrase",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "entity_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "entity_type",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "lon",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "lat",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "place_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "place_type",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "country",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "retweet_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "quote_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "favorite_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "reply_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "topic",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_timestamp",
+                        "Type": "DATETIME"
+                    }
+                ]
+            }
+        }
+    },
+    "LogicalTableMap": {
+        "63f4021e-17e0-4c40-bdad-89f40361db75": {
+            "Alias": "tweet-geo-sentiment-entity-phrase",
+            "DataTransforms": [
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lon",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LONGITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lat",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LATITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "place_name",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "CITY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "country",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "COUNTRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "ProjectOperation": {
+                        "ProjectedColumns": [
+                            "id_str",
+                            "text",
+                            "translated_text",
+                            "account_name",
+                            "platform",
+                            "search_query",
+                            "sentiment",
+                            "phrase",
+                            "entity_text",
+                            "entity_type",
+                            "lon",
+                            "lat",
+                            "place_name",
+                            "place_type",
+                            "country",
+                            "retweet_count",
+                            "quote_count",
+                            "favorite_count",
+                            "reply_count",
+                            "created_at",
+                            "topic",
+                            "job_timestamp"
+                        ]
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "63f4021e-17e0-4c40-bdad-89f40361db75"
+            }
+        }
+    },
+    "ColumnGroups": [{
+        "GeoSpatialColumnGroup": {
+            "Name": "geo-coord",
+            "CountryCode": "US",
+            "Columns": [
+                "lat",
+                "lon"
+            ]
+        }
+    },
+    {
+        "GeoSpatialColumnGroup": {
+            "Name": "place",
+            "CountryCode":"US",
+            "Columns": [
+                "country",
+                "place_name"
+            ]
+        }
+    }]
+}

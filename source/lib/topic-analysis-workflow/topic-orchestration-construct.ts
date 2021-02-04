@@ -30,7 +30,8 @@ export interface TopicOrchestrationProps {
     readonly topicsAnalaysisNameSpace: string,
     readonly topicMappingsNameSpace: string,
     readonly topicSchedule: string,
-    readonly s3LoggingBucket: Bucket
+    readonly s3LoggingBucket: Bucket,
+    readonly uuid: string
 }
 
 export class TopicOrchestration extends Construct {
@@ -203,7 +204,8 @@ export class TopicOrchestration extends Construct {
 
         const topicWorkflow = new Workflow(this, 'TopicModelWF', {
             stateMachineType: StateMachineType.STANDARD,
-            chain: chain
+            chain: chain,
+            uuid: props.uuid
         });
         topicScheduleRule.addTarget(new SfnStateMachine(topicWorkflow.stateMachine));
     }

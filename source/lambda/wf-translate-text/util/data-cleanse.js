@@ -22,7 +22,7 @@ class DataCleanse {
                 )
             )
         );
-    };
+    }
 
     /**
      * Remove new line/ carriage return

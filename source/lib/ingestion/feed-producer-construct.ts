@@ -60,6 +60,7 @@ export class FeedProducer extends Construct {
                     SUPPORTED_LANG: props.supportedLang,
                     QUERY_PARAM: props.queryParameter,
                     CAP_NUM_RECORD: '25',
+                    QUERY_RESULT_TYPE: 'mixed', //options are mixed, recent or popular
                     CREDENTIAL_KEY_PATH: props.credentialKeyPath
                 }
             },

@@ -1,14 +1,54 @@
 {
     "PhysicalTableMap": {
-        "37f68ba4-9cda-4f18-9295-0cff97707307": {
-            "RelationalTable": {
+        "74b4367e-99af-4656-a770-e92e054bbbd8": {
+            "CustomSql": {
                 "DataSourceArn": "{self.data_source.arn}",
-                "Schema": "socialmediadb",
-                "Name": "sentiment",
-                "InputColumns": [
+                "Name": "text-sentiment-entity-phrase",
+                "SqlQuery": "SELECT\n    tw.id_str,\n    tw.text,\n    tw.coordinates.coordinates[1] AS lon,\n    tw.coordinates.coordinates[2] AS lat,\n    tw.place.name AS place_name,\n    tw.place.place_type,\n    tw.place.country,\n    tw.retweet_count,\n    tw.quote_count,\n    tw.favorite_count,\n    tw.reply_count,\n    s.sentiment,\n    s.translated_text,\n    s.account_name,\n    s.platform,\n    s.search_query,\n    e.entity_text,\n    e.entity_type,\n    k.phrase,\n    s.created_at\nFROM socialmediadb.twfeedstorage tw\nJOIN socialmediadb.sentiment s\n    ON (tw.id_str = s.id_str)\nLEFT JOIN socialmediadb.entity e\n    ON (tw.id_str = e.id_str)\nLEFT JOIN socialmediadb.keyphrase k\n    ON (tw.id_str = k.id_str)",
+                "Columns": [
                     {
-                        "Name": "sentimentmixscore",
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "lon",
                         "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "lat",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "place_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "place_type",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "country",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "retweet_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "quote_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "favorite_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "reply_count",
+                        "Type": "INTEGER"
                     },
                     {
                         "Name": "sentiment",
@@ -23,134 +63,8 @@
                         "Type": "STRING"
                     },
                     {
-                        "Name": "id_str",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "created_at",
-                        "Type": "DATETIME"
-                    },
-                    {
-                        "Name": "sentimentnegscore",
-                        "Type": "DECIMAL"
-                    },
-                    {
-                        "Name": "text",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "sentimentposscore",
-                        "Type": "DECIMAL"
-                    },
-                    {
-                        "Name": "search_query",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "sentimentneuscore",
-                        "Type": "DECIMAL"
-                    },
-                    {
                         "Name": "platform",
                         "Type": "STRING"
-                    }
-                ]
-            }
-        },
-        "aaba7bc7-c73c-4285-a5d5-dcb18692e780": {
-            "RelationalTable": {
-                "DataSourceArn": "{self.data_source.arn}",
-                "Schema": "socialmediadb",
-                "Name": "keyphrase",
-                "InputColumns": [
-                    {
-                        "Name": "phrase_score",
-                        "Type": "DECIMAL"
-                    },
-                    {
-                        "Name": "phrase",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "phrase_begin_offset",
-                        "Type": "INTEGER"
-                    },
-                    {
-                        "Name": "translated_text",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "account_name",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "id_str",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "created_at",
-                        "Type": "DATETIME"
-                    },
-                    {
-                        "Name": "text",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "search_query",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "phrase_end_offset",
-                        "Type": "INTEGER"
-                    },
-                    {
-                        "Name": "platform",
-                        "Type": "STRING"
-                    }
-                ]
-            }
-        },
-        "f860dccb-0763-416b-bba8-484f2a99f3f7": {
-            "RelationalTable": {
-                "DataSourceArn": "{self.data_source.arn}",
-                "Schema": "socialmediadb",
-                "Name": "entity",
-                "InputColumns": [
-                    {
-                        "Name": "entity_type",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "entity_begin_offset",
-                        "Type": "INTEGER"
-                    },
-                    {
-                        "Name": "translated_text",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "account_name",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "id_str",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "created_at",
-                        "Type": "DATETIME"
-                    },
-                    {
-                        "Name": "text",
-                        "Type": "STRING"
-                    },
-                    {
-                        "Name": "entity_score",
-                        "Type": "DECIMAL"
-                    },
-                    {
-                        "Name": "entity_end_offset",
-                        "Type": "INTEGER"
                     },
                     {
                         "Name": "search_query",
@@ -161,228 +75,117 @@
                         "Type": "STRING"
                     },
                     {
-                        "Name": "platform",
+                        "Name": "entity_type",
                         "Type": "STRING"
+                    },
+                    {
+                        "Name": "phrase",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
                     }
                 ]
             }
         }
     },
     "LogicalTableMap": {
-        "1d62622b-da1d-45dd-8f19-a1535521a60b": {
-            "Alias": "Intermediate Table (2)",
+        "74b4367e-99af-4656-a770-e92e054bbbd8": {
+            "Alias": "text-sentiment-entity-phrase",
             "DataTransforms": [
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lon",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LONGITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lat",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LATITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "place_name",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "CITY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "country",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "COUNTRY"
+                            }
+                        ]
+                    }
+                },
                 {
                     "ProjectOperation": {
                         "ProjectedColumns": [
-                            "account_name[entity]",
-                            "platform[entity]",
-                            "search_query[entity]",
-                            "id_str[entity]",
-                            "text[entity]",
-                            "translated_text[entity]",
+                            "id_str",
+                            "text",
+                            "lon",
+                            "lat",
+                            "place_name",
+                            "place_type",
+                            "country",
+                            "retweet_count",
+                            "quote_count",
+                            "favorite_count",
+                            "reply_count",
+                            "sentiment",
+                            "translated_text",
+                            "account_name",
+                            "platform",
+                            "search_query",
                             "entity_text",
                             "entity_type",
-                            "entity_score",
-                            "entity_begin_offset",
-                            "entity_end_offset",
-                            "created_at[entity]",
-                            "account_name[sentiment]",
-                            "platform[sentiment]",
-                            "search_query[sentiment]",
-                            "id_str[sentiment]",
-                            "text[sentiment]",
-                            "translated_text[sentiment]",
-                            "sentiment",
-                            "sentimentposscore",
-                            "sentimentnegscore",
-                            "sentimentneuscore",
-                            "sentimentmixscore",
-                            "created_at[sentiment]",
-                            "account_name[keyphrase]",
-                            "platform[keyphrase]",
-                            "search_query[keyphrase]",
-                            "id_str[keyphrase]",
-                            "text[keyphrase]",
-                            "translated_text[keyphrase]",
                             "phrase",
-                            "phrase_score",
-                            "phrase_begin_offset",
-                            "phrase_end_offset",
-                            "created_at[keyphrase]"
+                            "created_at"
                         ]
                     }
                 }
             ],
             "Source": {
-                "JoinInstruction": {
-                    "LeftOperand": "47babf9a-e127-40d2-b85c-ab9f0bb20bc0",
-                    "RightOperand": "9b91e8c7-e737-4464-b8c2-f39ff9078aef",
-                    "Type": "LEFT",
-                    "OnClause": "{id_str[sentiment]} = {id_str[keyphrase]}"
-                }
-            }
-        },
-        "47babf9a-e127-40d2-b85c-ab9f0bb20bc0": {
-            "Alias": "Intermediate Table",
-            "Source": {
-                "JoinInstruction": {
-                    "LeftOperand": "f7e7d79f-f44d-4657-83ab-4f3b8c17bca2",
-                    "RightOperand": "a2d8e556-170e-4db7-a024-e92deed81d8f",
-                    "Type": "RIGHT",
-                    "OnClause": "{id_str[entity]} = {id_str[sentiment]}"
-                }
-            }
-        },
-        "9b91e8c7-e737-4464-b8c2-f39ff9078aef": {
-            "Alias": "keyphrase",
-            "DataTransforms": [
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "created_at",
-                        "NewColumnName": "created_at[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "translated_text",
-                        "NewColumnName": "translated_text[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "text",
-                        "NewColumnName": "text[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "id_str",
-                        "NewColumnName": "id_str[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "search_query",
-                        "NewColumnName": "search_query[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "platform",
-                        "NewColumnName": "platform[keyphrase]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "account_name",
-                        "NewColumnName": "account_name[keyphrase]"
-                    }
-                }
-            ],
-            "Source": {
-                "PhysicalTableId": "aaba7bc7-c73c-4285-a5d5-dcb18692e780"
-            }
-        },
-        "a2d8e556-170e-4db7-a024-e92deed81d8f": {
-            "Alias": "sentiment",
-            "DataTransforms": [
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "created_at",
-                        "NewColumnName": "created_at[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "translated_text",
-                        "NewColumnName": "translated_text[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "text",
-                        "NewColumnName": "text[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "id_str",
-                        "NewColumnName": "id_str[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "search_query",
-                        "NewColumnName": "search_query[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "platform",
-                        "NewColumnName": "platform[sentiment]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "account_name",
-                        "NewColumnName": "account_name[sentiment]"
-                    }
-                }
-            ],
-            "Source": {
-                "PhysicalTableId": "37f68ba4-9cda-4f18-9295-0cff97707307"
-            }
-        },
-        "f7e7d79f-f44d-4657-83ab-4f3b8c17bca2": {
-            "Alias": "entity",
-            "DataTransforms": [
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "created_at",
-                        "NewColumnName": "created_at[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "translated_text",
-                        "NewColumnName": "translated_text[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "text",
-                        "NewColumnName": "text[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "id_str",
-                        "NewColumnName": "id_str[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "search_query",
-                        "NewColumnName": "search_query[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "platform",
-                        "NewColumnName": "platform[entity]"
-                    }
-                },
-                {
-                    "RenameColumnOperation": {
-                        "ColumnName": "account_name",
-                        "NewColumnName": "account_name[entity]"
-                    }
-                }
-            ],
-            "Source": {
-                "PhysicalTableId": "f860dccb-0763-416b-bba8-484f2a99f3f7"
+                "PhysicalTableId": "74b4367e-99af-4656-a770-e92e054bbbd8"
             }
         }
-    }
+    },
+    "ColumnGroups": [
+        {
+            "GeoSpatialColumnGroup": {
+                "Name": "geo-coordinates",
+                "CountryCode": "US",
+                "Columns": [
+                    "lat",
+                    "lon"
+                ]
+            }
+        },
+        {
+            "GeoSpatialColumnGroup": {
+                "Name": "country",
+                "CountryCode": "US",
+                "Columns": [
+                    "country",
+                    "place_name"
+                ]
+            }
+        }
+    ]
 }

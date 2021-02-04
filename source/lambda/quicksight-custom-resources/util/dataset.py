@@ -20,10 +20,10 @@ logger = get_logger(__name__)
 
 
 class DataSet(QuickSightResource):
-    def __init__(
-        self, quicksight_application=None, data_source=None, data_set_sub_type=None, props=None
-    ):
-        super().__init__(quicksight_application=quicksight_application, type = "dataset", sub_type=data_set_sub_type, props=props)
+    def __init__(self, quicksight_application=None, data_source=None, data_set_sub_type=None, props=None):
+        super().__init__(
+            quicksight_application=quicksight_application, type="dataset", sub_type=data_set_sub_type, props=props
+        )
         self.use_props(props)
 
         self.data_source = data_source
@@ -41,7 +41,8 @@ class DataSet(QuickSightResource):
         logger.info(f"creating quicksight dataset id:{self.id}")
         physical_table_map = self._get_map(self.sub_type, "PhysicalTableMap")
         logical_table_map = self._get_map(self.sub_type, "LogicalTableMap")
-        response = self._create_data_set(physical_table_map, logical_table_map)
+        column_groups_map = self._get_map(self.sub_type, "ColumnGroups")
+        response = self._create_data_set(physical_table_map, logical_table_map, column_groups_map)
         return response
 
     def delete(self):
@@ -55,22 +56,27 @@ class DataSet(QuickSightResource):
         return response
 
     @retry(retry=retry_if_exception_type(QuickSightFailure), stop=stop_after_attempt(3))
-    def _create_data_set(self, physical_table_map, logical_table_map):
+    def _create_data_set(self, physical_table_map, logical_table_map, column_groups_map):
         quicksight_client = get_quicksight_client()
 
         self._update_data_source_arn(physical_table_map)
         self._update_schema(physical_table_map)
 
+        params = dict(
+            AwsAccountId=self.aws_account_id,
+            DataSetId=self.id,
+            Name=self.name,
+            Permissions=self._get_permissions(),
+            PhysicalTableMap=physical_table_map,
+            LogicalTableMap=logical_table_map,
+            ImportMode="DIRECT_QUERY",
+        )
+
+        if self.sub_type in ["text", "tweet"]:
+            params.update({"ColumnGroups": column_groups_map})
         try:
-            response = quicksight_client.create_data_set(
-                AwsAccountId=self.aws_account_id,
-                DataSetId=self.id,
-                Name=self.name,
-                Permissions=self._get_permissions(),
-                PhysicalTableMap=physical_table_map,
-                LogicalTableMap=logical_table_map,
-                ImportMode="DIRECT_QUERY",
-            )
+            logger.info(f"Params for creating the dataset for id:{self.id}:: {params}")
+            response = quicksight_client.create_data_set(**params)
             logger.info(f"finished creating quicksight create_data_set id:{self.id}, " f"response:{response}")
         except quicksight_client.exceptions.ResourceExistsException:
             logger.info(f"dataset for id:{self.id} already exists")
@@ -104,16 +110,24 @@ class DataSet(QuickSightResource):
         ]
         return permissions
 
-
     def _update_schema(self, obj):
         if not self.schema:
-            logger.debug(f"Schema name is not set in object. Using the ones from config file as is in RelationalTable[].Schema in PhysicalTableMap")
+            logger.debug(
+                f"Schema name is not set in object. Using the ones from config file as is in RelationalTable[].Schema in PhysicalTableMap"
+            )
             return
         for (key, value) in obj.items():
-            logger.debug(f"Updating schema arn value of RelationalTable.Schema in {key} PhysicalTableMap")
-            value["RelationalTable"]["Schema"] = self.schema
+            if "RelationalTable" in value:
+                logger.debug(f"Updating schema arn value of RelationalTable.Schema in {key} PhysicalTableMap")
+                value["RelationalTable"]["Schema"] = self.schema
 
     def _update_data_source_arn(self, obj):
         for (key, value) in obj.items():
-            logger.debug(f"Updating datasource arn value of RelationalTable.DataSourceArn in {key} PhysicalTableMap")
-            value["RelationalTable"]["DataSourceArn"] = self.data_source.arn
+            if "RelationalTable" in value:
+                logger.debug(
+                    f"Updating datasource arn value of RelationalTable.DataSourceArn in {key} PhysicalTableMap"
+                )
+                value["RelationalTable"]["DataSourceArn"] = self.data_source.arn
+            elif "CustomSql" in value:
+                logger.debug(f"Updating datasource arn value of CustomSql.DataSourceArn in {key} PhysicalTableMap")
+                value["CustomSql"]["DataSourceArn"] = self.data_source.arn

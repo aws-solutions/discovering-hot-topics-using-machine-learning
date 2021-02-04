@@ -39,7 +39,8 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         topicsAnalaysisNameSpace: 'com.test.topic',
         topicMappingsNameSpace: 'com.test.mappings',
         topicSchedule: '(5 */2 * * ? *)',
-        s3LoggingBucket: s3AccessLoggingBucket
+        s3LoggingBucket: s3AccessLoggingBucket,
+        uuid: 'fakerandomstring'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

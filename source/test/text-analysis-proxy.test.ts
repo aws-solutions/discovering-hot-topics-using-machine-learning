@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -65,7 +65,14 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         moderationLabelStorage: new EventStorage(stack, 'ModerationLabels', {
             compressionFormat: 'UNCOMPRESSED',
             prefix: 'moderationLabel',
-            s3Bucket: new Bucket(stack, 'moderationLabel', {
+            s3Bucket: new Bucket(stack, 'moderationlabel', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
+        feedStorage: new EventStorage(stack, 'TwFeedStorage', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'feedStorage',
+            s3Bucket: new Bucket(stack, 'twfeedstorage', {
                 encryption: BucketEncryption.S3_MANAGED
             })
         }),
