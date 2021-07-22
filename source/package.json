@@ -33,7 +33,7 @@
     "@aws-cdk/aws-kms": "1.110.1",
     "@aws-cdk/aws-lambda": "1.110.1",
     "@aws-cdk/aws-lambda-event-sources": "1.110.1",
-    "@aws-cdk/aws-lambda-nodejs": "^1.110.1",
+    "@aws-cdk/aws-lambda-nodejs": "1.110.1",
     "@aws-cdk/aws-lambda-python": "1.110.1",
     "@aws-cdk/aws-logs": "1.110.1",
     "@aws-cdk/aws-s3": "1.110.1",
