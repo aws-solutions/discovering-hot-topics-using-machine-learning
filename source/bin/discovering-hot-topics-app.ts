@@ -14,11 +14,12 @@
 
 
 import * as cdk from '@aws-cdk/core';
+import { ApplytoLambda } from '../lib/aspects/apply-to-lambda';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 
 const app = new cdk.App();
-new DiscoveringHotTopicsStack(app, 'discovering-hot-topics-using-machine-learning', {
-    description: '(SO0122) - Discovering Hot Topics using Machine Learning. Version %%VERSION%%',
-    solutionID: 'SO0122',
-    solutionName: 'discovering-hot-topics-using-machine-learning'
+const dht = new DiscoveringHotTopicsStack(app, 'discovering-hot-topics-using-machine-learning', {
+    description: `(${app.node.tryGetContext('solution_id')}) - Discovering Hot Topics using Machine Learning. Version %%VERSION%%`
 });
+
+app.node.applyAspect(new ApplytoLambda(dht, 'CustomConfig'));

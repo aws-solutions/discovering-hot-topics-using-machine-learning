@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -13,8 +13,21 @@
 
 const TwitterClient = require('./util/twitter-client');
 const FeedProducer = require('./util/feed-producer');
+const FeedTracker = require('./util/feed-tracker');
 
 exports.handler = async (event) => {
+    if (event.source === "aws.events"){
+        await processCloudWatchEvent(event);
+    } else if (event.Records?.length > 0) {
+        await processActivityEvents(event);
+    } else if (event.source === 'dht' && event.action === 'resetdb') {
+        await (new FeedTracker('twitter')).deleteAllItems();
+    } else {
+        console.error(`Received event but did not match any processor, Event: ${JSON.stringify(event)}`);
+    }
+};
+
+const processCloudWatchEvent = async (event) => {
     try {
         // twitter client initialization
         //TODO - use the account name from the event object
@@ -31,23 +44,23 @@ exports.handler = async (event) => {
 
                 //TODO change the tweet search query to use event object
                 //const twitterClient = await twitterClient.searchTweets(event.body.query);
-                const twitSearchParams = {
+                const tweetSearchParams = {
                     q: process.env.QUERY_PARAM,
-                    geocode: process.env.LOCATION_GEOCODE,
                     count: parseInt(process.env.CAP_NUM_RECORD),
                     ...(process.env.LOCATION_GEOCODE !== undefined ? {geocode: process.env.LOCATION_GEOCODE}: undefined),
                     include_entities: true,
                     result_type: process.env.QUERY_RESULT_TYPE,
+                    tweet_mode: process.env.TWEET_MODE,
                     lang: languages[index]
                 };
-                console.debug(`Search API Params: ${JSON.stringify(twitSearchParams)}`);
-                const response = await twitterClient.searchTweets(twitSearchParams);
+                console.debug(`Search API Params: ${JSON.stringify(tweetSearchParams)}`);
+                const response = await twitterClient.searchTweets(tweetSearchParams, tweetSearchParams.lang);
 
                 // if the response.length is 0 which means no tweets were returned by the search API
                 if (response.length > 0) {
                     //TODO - use name from event object
                     //const feedProducer = new FeedProcuder(event.body.accountName);
-                    await (new FeedProducer('twitter')).writeToStream(response, {
+                    await (new FeedProducer()).writeToStream(response, {
                         accountName: 'twitter', //TODO replace with event.body.accountName
                         platform: 'twitter',
                         query: process.env.QUERY_PARAM

@@ -438,9 +438,23 @@ exports.entities_feed_http = {
 };
 
 exports.event_with_entities = {
-    feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}
+  Records: [{
+    body: JSON.stringify({
+      input: {
+        feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}
+      },
+      taskToken: 'fakeToken'
+    })
+  }]
 };
 
 exports.event_with_entities_for_no_rek_labels = {
-  feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed_http}
+  Records: [{
+    body: JSON.stringify({
+      input: {
+        feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed_http}
+      },
+      taskToken: 'fakeToken'
+    })
+  }]
 };

@@ -49,7 +49,7 @@ class TestHelper:
     @staticmethod
     def get_supported_data_set_sub_types():
         # ENHANCEMENT: Should we use the config data / file for test to figure out the supported_data_set_types?
-        return ["sentiment", "image-text", "text", "topic", "image-moderation-label", "tweet", "tweet-topic"]
+        return ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
 
     @staticmethod
     def get_resource_properties():
@@ -110,7 +110,7 @@ def quicksight_application_stub():
             self.athena_workgroup = "mock-WorkGroup"
 
         def get_supported_data_set_sub_types(self):
-            return ["sentiment", "image-text", "text", "topic", "image-moderation-label", "tweet", "tweet-topic"]
+            return ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
 
     return QuicksightApplicationStub()
 
@@ -138,10 +138,10 @@ def quicksight_state_all():
                 "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:datasource/DHTUT_DataSource",
             },
             "dataset": {
-                "sentiment": {
-                    "id": "DHTUT_sentiment_DataSet",
-                    "name": "DHTUT_sentiment_DataSet",
-                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_sentiment_DataSet",
+                "feed": {
+                    "id": "DHTUT_feed_DataSet",
+                    "name": "DHTUT_feed_DataSet",
+                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_feed_DataSet",
                 },
                 "image-text": {
                     "id": "DHTUT_image-text_DataSet",
@@ -149,9 +149,9 @@ def quicksight_state_all():
                     "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_image-text_DataSet",
                 },
                 "text": {
-                    "id": "DHTUT_text_DataSet",
-                    "name": "DHTUT_text_DataSet",
-                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_text_DataSet",
+                    "id": "DHTUT_geo_DataSet",
+                    "name": "DHTUT_geo_DataSet",
+                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_geo_DataSet",
                 },
                 "topic": {
                     "id": "DHTUT_topic_DataSet",
@@ -164,14 +164,9 @@ def quicksight_state_all():
                     "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_image-moderation-label_DataSet",
                 },
                 "tweet": {
-                    "id": "DHTUT_tweet_DataSet",
-                    "name": "DHTUT_tweet_DataSet",
-                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_tweet_DataSet",
-                },
-                "tweet-topic": {
-                    "id": "DHTUT_tweet-topic_DataSet",
-                    "name": "DHTUT_tweet-topic_DataSet",
-                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_tweet-topic_DataSet",
+                    "id": "DHTUT_topic-mapping_DataSet",
+                    "name": "DHTUT_topic-mapping_DataSet",
+                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_topic-mapping_DataSet",
                 },
             },
         }

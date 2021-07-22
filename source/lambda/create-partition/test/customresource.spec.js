@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -13,7 +13,6 @@
 
 "use strict"
 
-const AWS = require('aws-sdk');
 const axios = require('axios');
 const expect = require('chai').expect;
 const AWSMock = require('aws-sdk-mock');
@@ -27,6 +26,7 @@ describe('When cloudformation triggers lambda', () => {
     beforeEach(() => {
         process.env.TABLE_NAMES = 'table1,table2,table3';
         process.env.DATABASE_NAME = 'testdb';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
         const mock = new MockAdapter(axios);
         mock.onPut().reply(200, {});
@@ -73,7 +73,7 @@ describe('When cloudformation triggers lambda', () => {
         });
 
         AWSMock.mock('Glue', 'createPartition', (error, callback) => {
-            callback(null, {});
+            callback(null, {StatusCode:200});
         });
 
         expect(await lambda.handler(_event_data.cfn_event, _event_data.context)).to.equal(200);
@@ -142,5 +142,6 @@ describe('When cloudformation triggers lambda', () => {
     afterEach(() => {
         delete process.env.TABLE_NAMES;
         delete process.env.DATABASE_NAME;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });

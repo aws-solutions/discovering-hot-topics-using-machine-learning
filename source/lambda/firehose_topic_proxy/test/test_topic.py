@@ -175,6 +175,7 @@ def test_mappings_topics():
         "region": "us-west-2",
         "resources": [],
         "detail": {
+            "platform": "twitter",
             "job_id": "1234567890123456789012345",
             "job_timestamp": "2020-06-26T19:05:16.785Z",
             "id_str": "1274349265528057858",

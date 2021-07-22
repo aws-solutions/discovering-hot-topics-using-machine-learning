@@ -3,16 +3,16 @@
 exports[`Test Lambda with Kinesis 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99ArtifactHashF26D0C90": Object {
-      "Description": "Artifact hash for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
+      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3": Object {
-      "Description": "S3 bucket for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
+      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96": Object {
-      "Description": "S3 key for asset version \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
+      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
   },
@@ -64,7 +64,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -72,7 +80,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3",
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -85,7 +93,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
+                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
                         },
                       ],
                     },
@@ -98,7 +106,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
+                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
                         },
                       ],
                     },
@@ -121,7 +129,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -137,7 +145,7 @@ Object {
           "OnFailure": Object {
             "Destination": Object {
               "Fn::GetAtt": Array [
-                "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+                "FeedConsumerConstructSqsDlqQueue666B1B7B",
                 "Arn",
               ],
             },
@@ -213,6 +221,10 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "FeedConsumerConstructIngestionStreamLambdaFunctionServiceRoleDefaultPolicy014923F5": Object {
+      "DependsOn": Array [
+        "FeedConsumerConstructSqsDlqQueuePolicy7AA74739",
+        "FeedConsumerConstructSqsDlqQueue666B1B7B",
+      ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -259,7 +271,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+                  "FeedConsumerConstructSqsDlqQueue666B1B7B",
                   "Arn",
                 ],
               },
@@ -287,10 +299,12 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
     },
     "FeedConsumerConstructIngestionStreamSqsDlqQueuePolicy59698F47": Object {
       "Properties": Object {
@@ -356,6 +370,83 @@ Object {
         "Queues": Array [
           Object {
             "Ref": "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "FeedConsumerConstructSqsDlqQueue666B1B7B": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "FeedConsumerConstructSqsDlqQueuePolicy7AA74739": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructSqsDlqQueue666B1B7B",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FeedConsumerConstructSqsDlqQueue666B1B7B",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "FeedConsumerConstructSqsDlqQueue666B1B7B",
           },
         ],
       },

@@ -25,3 +25,4 @@ def aws_credentials():
     os.environ["AWS_REGION"] = "us-east-1"  # must be a valid region
     os.environ["TOPICS_FIREHOSE"] = "Topics"
     os.environ["TOPIC_MAPPINGS_FIREHOSE"] = "TopicMappings"
+    os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'

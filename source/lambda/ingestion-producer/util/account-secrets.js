@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -14,17 +14,18 @@
 "use strict"
 
 const AWS = require('aws-sdk');
-
+const CustomConfig = require('aws-nodesdk-custom-config');
 class AccountSecrets{
 
     constructor() {
+        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
         this.parameterStore = new AWS.SSM();
     }
 
-    async getSecretValue(parameterName) {
-        let keyName = process.env.CREDENTIAL_KEY_PATH;
-        if (keyName === undefined || process.env.CREDENTIAL_KEY_PATH === '')  {
-            keyName = `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/${parameterName}`;
+    async getTwitterSecret() {
+        let keyName = process.env.TWITTER_CREDENTIAL_KEY_PATH;
+        if (keyName === undefined || process.env.TWITTER_CREDENTIAL_KEY_PATH === '')  {
+            keyName = `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/twitter`;
             console.error(`Key name does not exists. Creating an SSM key name in the following path -> ${keyName}. Please insert the bearer_token in the SSM parameter store at that path`);
             await this.parameterStore.putParameter({
                 Name: keyName,

@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -48,7 +48,10 @@ class DataCleanse {
      * @param {string} text
      */
     static removePunctuation(text) {
-        return text.replace(/[.,\/#!$%\^&\*;{}=\-_`~()?]/g, ''); //removed ':' from the list since we wanted to keep timestamp as is
+        //removed ':' from the list since we wanted to keep timestamp as is
+        // This regular expression is to remove certain non-alphabetic characters. hence
+        // supressing the SONAR rule
+        return text.replace(/[.,\/#!$%\^&\*;{}=\-_`~()?]/g, ''); // NOSONAR (javascript:S4784)
     }
 
     /**
@@ -57,7 +60,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeRTWithUserTag(text) {
-        return text.replace (/RT\s*@\S+/g, '');
+        return text.replace (/RT\s*@\S+/g, ''); // NOSONAR (javascript:S4784)
     }
 
     /**

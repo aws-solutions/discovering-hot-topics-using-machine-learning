@@ -58,18 +58,6 @@ def test_source_entity_get_map_invalid_sub_type(quicksight_application_stub, min
                 "SourceTemplate": {
                     "DataSetReferences": [
                         {
-                            "DataSetPlaceholder": "sentiment",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/sentiment",
-                        },
-                        {
-                            "DataSetPlaceholder": "topic",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
-                        },
-                        {
-                            "DataSetPlaceholder": "text",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/text",
-                        },
-                        {
                             "DataSetPlaceholder": "image-text",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-text",
                         },
@@ -78,12 +66,20 @@ def test_source_entity_get_map_invalid_sub_type(quicksight_application_stub, min
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-moderation-label",
                         },
                         {
-                            "DataSetPlaceholder": "tweet",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet",
+                            "DataSetPlaceholder": "topic",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
                         },
                         {
-                            "DataSetPlaceholder": "tweet-topic",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet-topic",
+                            "DataSetPlaceholder": "geo",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/geo",
+                        },
+                        {
+                            "DataSetPlaceholder": "topic-mapping",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic-mapping",
+                        },
+                        {
+                            "DataSetPlaceholder": "feed",
+                            "DataSetArn": "arn:aws:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/feed",
                         },
                     ],
                     "Arn": "{self.source_template_arn}",
@@ -114,18 +110,6 @@ def test_source_entity_get_map_missing_source_entity(quicksight_application_stub
                 "SourceTemplate": {
                     "DataSetReferences": [
                         {
-                            "DataSetPlaceholder": "sentiment",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/sentiment",
-                        },
-                        {
-                            "DataSetPlaceholder": "topic",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
-                        },
-                        {
-                            "DataSetPlaceholder": "text",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/text",
-                        },
-                        {
                             "DataSetPlaceholder": "image-text",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-text",
                         },
@@ -134,12 +118,20 @@ def test_source_entity_get_map_missing_source_entity(quicksight_application_stub
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/image-moderation-label",
                         },
                         {
-                            "DataSetPlaceholder": "tweet",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet",
+                            "DataSetPlaceholder": "topic",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
                         },
                         {
-                            "DataSetPlaceholder": "tweet-topic",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/tweet-topic",
+                            "DataSetPlaceholder": "geo",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/geo",
+                        },
+                        {
+                            "DataSetPlaceholder": "topic-mapping",
+                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic-mapping",
+                        },
+                        {
+                            "DataSetPlaceholder": "feed",
+                            "DataSetArn": "arn:aws:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/feed",
                         },
                     ],
                     "Arn": "{self.source_template_arn}",

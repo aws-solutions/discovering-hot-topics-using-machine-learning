@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -12,6 +12,9 @@
  *********************************************************************************************************************/
 
 module.exports = {
+  modulePaths: [
+    "<rootDir>/../layers/"
+  ],
   testEnvironment: 'node',
   testMatch: [ "test/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ],
   collectCoverageFrom: [
@@ -19,9 +22,9 @@ module.exports = {
     'util/*.js',
     '!test/*.js',
     '!jest.config.js'
-    ],
-    coverageReporters: [
-      "text",
-      ["lcov", {"projectRoot": "../../../"}]
-    ],
+  ],
+  coverageReporters: [
+    "text",
+    ["lcov", {"projectRoot": "../../../"}]
+  ],
 }

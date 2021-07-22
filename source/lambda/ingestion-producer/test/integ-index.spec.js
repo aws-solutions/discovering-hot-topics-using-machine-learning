@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -30,9 +30,10 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
         process.env.STACK_NAME = 'DiscoveringHotTopicsUsingMachineLearning';
-        process.env.CREDENTIAL_KEY_PATH = `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/twitter`;
+        process.env.TWITTER_CREDENTIAL_KEY_PATH = `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/twitter`;
         process.env.SUPPORTED_LANG = 'de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw';
         process.env.STREAM_NAME = 'testStream';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
         // stub AWS services
         AWSMock.mock('SSM', 'getParameter', (params, callback) => {
@@ -186,8 +187,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
         if (! lambdaSpy.threw()) expect.fail;
@@ -211,8 +211,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -299,8 +298,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -387,8 +385,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -420,8 +417,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -453,8 +449,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -486,8 +481,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -519,8 +513,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -552,8 +545,7 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
+            "source": "aws.events",
             "awsRegion": "us-east-1"
         };
 
@@ -574,9 +566,11 @@ describe('Lambda Integration Test AWS SDK and Twitter API', () => {
         delete process.env.STACK_NAME;
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
-        delete process.env.CREDENTIAL_KEY_PATH;
+        delete process.env.TWITTER_CREDENTIAL_KEY_PATH;
         delete process.env.SUPPORTED_LANG;
         delete process.env.STREAM_NAME;
+        delete process.env.AWS_SDK_USER_AGENT
+
         AWSMock.restore('DynamoDB');
         AWSMock.restore('SSM');
         AWSMock.restore('Kinesis');

@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -27,6 +27,10 @@ describe('When workflow->translate text is called', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+        process.env.AWS_REGION = 'us-east-1';
+        process.env.KINESIS_FIREHOSE_FOR_SOURCE = 'TestArn';
+
         lambdaSpy = sinon.spy(lambda, 'handler');
 
         AWSMock.mock('Translate', 'translateText', (error, callback) => {
@@ -44,26 +48,36 @@ describe('When workflow->translate text is called', () => {
             });
         });
 
-        process.env.KINESIS_FIREHOSE_NAME = 'TestArn';
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     it ('should receive event correctly', async () => {
         if (! lambdaSpy.threw()) expect.fail;
-        expect((await lambda.handler(__test_event__.event)).account_name).to.equal('twitter');
+        expect((await lambda.handler(__test_event__.event))[0].account_name).to.equal('twitter');
     });
 
     it ('should translate text correctly', async() => {
-        expect((await lambda.handler(__test_event__.event)).feed._translated_text).to.equal('This is a sample tweet');
+        expect((await lambda.handler(__test_event__.event))[0].feed._translated_text).to.equal('This is a sample tweet');
     });
 
     it ('should translate text correctly', async() => {
-        expect((await lambda.handler(__test_event__.event_fr)).feed._translated_text).to.equal('Success');
+        expect((await lambda.handler(__test_event__.event_fr))[0].feed._translated_text).to.equal('Success');
     });
 
     it (' should stream data to Firehose', async () => {
         const firehose = AWS.Firehose();
         const response = await firehose.putRecord({
-            DeliveryStreamName: process.env.KINESIS_FIREHOSE_NAME,
+            DeliveryStreamName: process.env.KINESIS_FIREHOSE_FOR_SOURCE,
             Record: {
                 Data: `${JSON.stringify(__test_event__.event._translated_text)}\n`
             }
@@ -71,23 +85,30 @@ describe('When workflow->translate text is called', () => {
     });
 
     it ('should translate text correctly', async() => {
-        expect((await lambda.handler(__test_event__.event_zh_cn)).feed._translated_text).to.equal('Success');
+        expect((await lambda.handler(__test_event__.event_zh_cn))[0].feed._translated_text).to.equal('Success');
     });
 
     it ('should translate text correctly', async() => {
-        expect((await lambda.handler(__test_event__.event_zh_tw)).feed._translated_text).to.equal('Success');
+        expect((await lambda.handler(__test_event__.event_zh_tw))[0].feed._translated_text).to.equal('Success');
     });
 
     afterEach(() => {
         AWSMock.restore('Translate');
         AWSMock.restore('Firehose');
+        AWSMock.restore('StepFunctions');
         lambdaSpy.restore();
-        delete process.env.KINESIS_FIREHOSE_NAME;
+        delete process.env.AWS_SDK_USER_AGENT;
+        delete process.env.KINESIS_FIREHOSE_FOR_SOURCE;
+        delete process.env.AWS_REGION;
     });
 });
 
 describe('translate throws an error', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+        process.env.KINESIS_FIREHOSE_FOR_SOURCE = 'TestArn';
+        process.env.AWS_REGION = 'us-east-1';
+
         AWSMock.mock('Translate', 'translateText', (error, callback) => {
             callback(error, null);
         });
@@ -99,7 +120,17 @@ describe('translate throws an error', () => {
             });
         });
 
-        process.env.KINESIS_FIREHOSE_NAME = 'TestArn';
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     it ('lambda function should throw an error', async () => {
@@ -109,12 +140,19 @@ describe('translate throws an error', () => {
     afterEach(() => {
         AWSMock.restore('Translate');
         AWSMock.restore('Firehose');
-        delete process.env.KINESIS_FIREHOSE_NAME;
+        AWSMock.restore('StepFunctions');
+        delete process.env.KINESIS_FIREHOSE_FOR_SOURCE;
+        delete process.env.AWS_SDK_USER_AGENT;
+        delete process.env.AWS_REGION;
     });
 });
 
 describe('Firehose throws an error', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+        process.env.KINESIS_FIREHOSE_FOR_TWITTER = 'TestArn';
+        process.env.AWS_REGION = 'us-east-1';
+
         AWSMock.mock('Translate', 'translateText', (error, callback) => {
             callback(null, {
                 TranslatedText: 'Success',
@@ -127,7 +165,17 @@ describe('Firehose throws an error', () => {
             callback(new Error('Firehose mock error'), null);
         });
 
-        process.env.KINESIS_FIREHOSE_NAME = 'TestArn';
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     it ('lambda function should throw an error', async () => {
@@ -145,13 +193,20 @@ describe('Firehose throws an error', () => {
     afterEach(() => {
         AWSMock.restore('Translate');
         AWSMock.restore('Firehose');
-        delete process.env.KINESIS_FIREHOSE_NAME;
+        AWSMock.restore('StepFunctions');
+        delete process.env.KINESIS_FIREHOSE_FOR_TWITTER;
+        delete process.env.AWS_SDK_USER_AGENT;
+        delete process.env.AWS_REGION;
     });
 });
 
 
 describe('Test feed with embedded text', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+        process.env.KINESIS_FIREHOSE_FOR_SOURCE = 'TestArn';
+        process.env.AWS_REGION = 'us-east-1';
+
         AWSMock.mock('Translate', 'translateText', (error, callback) => {
             callback(null, {
                 TranslatedText: 'Success',
@@ -167,17 +222,30 @@ describe('Test feed with embedded text', () => {
             });
         });
 
-        process.env.KINESIS_FIREHOSE_NAME = 'TestArn';
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     it ('lambda function should throw an error', async () => {
         const response = await lambda.handler(__test_event__.event_with_embedded_text);
-        expect(response.text_in_images[0]._cleansed_text).to.equal('It\'s monday keep similing');
+        expect(response[0].text_in_images[0]._cleansed_text).to.equal('It\'s monday keep similing');
     });
 
     afterEach(() => {
         AWSMock.restore('Translate');
         AWSMock.restore('Firehose');
-        delete process.env.KINESIS_FIREHOSE_NAME;
+        AWSMock.restore('StepFuntions');
+        delete process.env.KINESIS_FIREHOSE_FOR_SOURCE;
+        delete process.env.AWS_SDK_USER_AGENT;
+        delete process.env.AWS_REGION;
     });
 });

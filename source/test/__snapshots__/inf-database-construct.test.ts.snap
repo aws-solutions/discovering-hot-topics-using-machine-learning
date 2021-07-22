@@ -3,16 +3,16 @@
 exports[`test workflow stack 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38ArtifactHash164AE178": Object {
-      "Description": "Artifact hash for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192ArtifactHash17A06B7A": Object {
+      "Description": "Artifact hash for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D": Object {
-      "Description": "S3 bucket for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D": Object {
+      "Description": "S3 bucket for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F": Object {
-      "Description": "S3 key for asset version \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09": Object {
+      "Description": "S3 key for asset version \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
   },
@@ -45,7 +45,7 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestDBEntityTable4DC8B26D": Object {
+    "TestDBEntityentityTable7F93378D": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -200,15 +200,16 @@ Object {
     "TestDBHotTopicsDBCustomResource25466B42": Object {
       "DeletionPolicy": "Delete",
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBEntityentityTable7F93378D",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Properties": Object {
         "ServiceToken": Object {
@@ -223,25 +224,34 @@ Object {
     },
     "TestDBHotTopicsDBLambdaFunction06F2B747": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
+        "TestDBEntityentityTable7F93378D",
         "TestDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicyDBF96BAD",
         "TestDBHotTopicsDBLambdaFunctionServiceRole6D366CAF",
         "TestDBHotTopicsDBLambdaGlue19D3D9B1",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -249,7 +259,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D",
+            "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -262,7 +272,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
                         },
                       ],
                     },
@@ -275,7 +285,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
                         },
                       ],
                     },
@@ -292,7 +302,7 @@ Object {
             "DATABASE_NAME": Object {
               "Ref": "TestDBTweetDBAFCEF20F",
             },
-            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels",
+            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,newsfeedstorage,moderationlabels",
           },
         },
         "Handler": "index.handler",
@@ -302,7 +312,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -310,18 +320,19 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "TestDBHotTopicsDBLambdaFunctionLambdaInvokePermission3FCCE8FD": Object {
+    "TestDBHotTopicsDBLambdaFunctionAwsEventsLambdaInvokePermission13473B79A": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
+        "TestDBEntityentityTable7F93378D",
         "TestDBHotTopicsDBLambdaGlue19D3D9B1",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
@@ -343,15 +354,16 @@ Object {
     },
     "TestDBHotTopicsDBLambdaFunctionServiceRole6D366CAF": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBEntityentityTable7F93378D",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -409,15 +421,16 @@ Object {
     },
     "TestDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicyDBF96BAD": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBEntityentityTable7F93378D",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -487,15 +500,16 @@ Object {
     },
     "TestDBHotTopicsDBLambdaGlue19D3D9B1": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBEntityentityTable7F93378D",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Properties": Object {
         "PolicyDocument": Object {
@@ -643,15 +657,16 @@ Object {
     },
     "TestDBHotTopicsDBNightlyCreateParitionEventsRule5A6F3369": Object {
       "DependsOn": Array [
-        "TestDBEntityTable4DC8B26D",
-        "TestDBKeyPhraseTable22CDC136",
-        "TestDBModerationLabelsTable30B5D54D",
-        "TestDBTopicMappingsTopicsTable184F8511",
-        "TestDBTopicsTable8087CEDA",
+        "TestDBEntityentityTable7F93378D",
+        "TestDBKeyPhrasekeyphraseTable303D107B",
+        "TestDBModerationLabelsmoderationlabelsTable17D02605",
+        "TestDBNewsFeednewsfeedstorageTableF8E80A21",
+        "TestDBTopicMappingstopicmappingsTableE4B24E54",
+        "TestDBTopicstopicsTable747B41DD",
         "TestDBTwitterTwitterRecord12D303B8",
-        "TestDBTxtInImgEntityImgTxtEntityTableA67792FB",
-        "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B",
-        "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93",
+        "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028",
+        "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D",
+        "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836",
       ],
       "Properties": Object {
         "ScheduleExpression": "cron(1 0 * * ? *)",
@@ -670,7 +685,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "TestDBKeyPhraseTable22CDC136": Object {
+    "TestDBKeyPhrasekeyphraseTable303D107B": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -759,7 +774,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBModerationLabelsTable30B5D54D": Object {
+    "TestDBModerationLabelsmoderationlabelsTable17D02605": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -836,7 +851,92 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBSentimentTableEBBAA891": Object {
+    "TestDBNewsFeednewsfeedstorageTableF8E80A21": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "TestDBTweetDBAFCEF20F",
+        },
+        "TableInput": Object {
+          "Description": "newsfeedstorage generated by CDK",
+          "Name": "newsfeedstorage",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "search_query",
+                "Type": "string",
+              },
+              Object {
+                "Name": "entities",
+                "Type": "struct<urls:array<struct<expanded_url:string>>,media:array<struct<media_url:string>>>",
+              },
+              Object {
+                "Name": "metadata",
+                "Type": "struct<website:string,country:string,topic:string>",
+              },
+              Object {
+                "Name": "lang",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "translated_text",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "TestBucket560B80BC",
+                  },
+                  "/newsfeedstorage/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "TestDBSentimentsentimentTable2ACA93C4": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -929,7 +1029,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTopicMappingsTopicsTable184F8511": Object {
+    "TestDBTopicMappingstopicmappingsTableE4B24E54": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -952,6 +1052,10 @@ Object {
           ],
           "StorageDescriptor": Object {
             "Columns": Array [
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
               Object {
                 "Name": "job_id",
                 "Type": "string",
@@ -994,7 +1098,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTopicsTable8087CEDA": Object {
+    "TestDBTopicstopicsTable747B41DD": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1232,7 +1336,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgEntityImgTxtEntityTableA67792FB": Object {
+    "TestDBTxtInImgEntitytxtinimgentityTable6D7E9028": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1325,7 +1429,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgKeyPhraseImgTxtKeyPhraseTable1BD0A14B": Object {
+    "TestDBTxtInImgKeyPhrasetxtinimgkeyphraseTableF9A0FD5D": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1414,7 +1518,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgSentimentImgTxtSentimentTable1F146A93": Object {
+    "TestDBTxtInImgSentimenttxtinimgsentimentTable08B87836": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",

@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -19,6 +19,8 @@ const RecordExtractor = require('../util/extract-records');
 
 describe('Test Record Extractor', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'copyObject', (error, callback) => {
             callback(null, 'Success');
         });
@@ -65,12 +67,15 @@ describe('Test Record Extractor', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });
 
 describe ('Some error scenarios', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'copyObject', (error, callback) => {
             callback(null, 'Success');
         });
@@ -114,12 +119,15 @@ describe ('Some error scenarios', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });
 
 describe('When Content length is 0 bucket is empty', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'copyObject', (error, callback) => {
             callback(null, 'Success');
         });
@@ -149,6 +157,7 @@ describe('When Content length is 0 bucket is empty', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });

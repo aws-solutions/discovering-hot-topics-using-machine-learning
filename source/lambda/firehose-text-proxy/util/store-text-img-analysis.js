@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -16,14 +16,16 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const timeformat = require('./time-stamp-format');
+const CustomConfig = require('aws-nodesdk-custom-config');
 
 class ImageAnalysis {
     static storeTextFromImage = async(data) => {
 
         if (data.text_in_images !== undefined && data.text_in_images.length > 0) {
+            new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
             const kinesisFireshose = new AWS.Firehose();
 
-            const txtInImgs = data.text_in_images;
+            const txtInImgs = data.text_in_images? data.text_in_images : []; // empty array if the data feed does not have the array
             const txtInImgSentimentRecords = [];
             const txtInImgEntityRecords = [];
             const txtInImgKeyPhrasesRecords = [];

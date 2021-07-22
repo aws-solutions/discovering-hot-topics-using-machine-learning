@@ -2,33 +2,252 @@
 
 exports[`Event Bus creation 1`] = `
 Object {
+  "Conditions": Object {
+    "IngestionDeployRSSFeeds0E648DA1": Object {
+      "Fn::And": Array [
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "DeployRSSFeeds",
+            },
+            "Yes",
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "RSSNewsFeedIngestFrequency",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    "IngestionDeployTwitterIngestion4D7DE3EB": Object {
+      "Fn::And": Array [
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "DeployTwitter",
+            },
+            "Yes",
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "TwitterSearchQuery",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "TwitterIngestQueryFrequency",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "TwitterSSMPathForBearerToken",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   "Parameters": Object {
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99ArtifactHashF26D0C90": Object {
-      "Description": "Artifact hash for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8ArtifactHash8EF11F5D": Object {
+      "Description": "Artifact hash for asset \\"15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3": Object {
-      "Description": "S3 bucket for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8S3BucketB053DF24": Object {
+      "Description": "S3 bucket for asset \\"15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96": Object {
-      "Description": "S3 key for asset version \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8S3VersionKeyBC574655": Object {
+      "Description": "S3 key for asset version \\"15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fArtifactHashA0AD976E": Object {
-      "Description": "Artifact hash for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
+      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D": Object {
-      "Description": "S3 bucket for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
+      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840": Object {
-      "Description": "S3 key for asset version \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
+      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+      "Type": "String",
+    },
+    "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5ArtifactHash616CA65F": Object {
+      "Description": "Artifact hash for asset \\"69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5\\"",
+      "Type": "String",
+    },
+    "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5S3BucketF8BF2D25": Object {
+      "Description": "S3 bucket for asset \\"69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5\\"",
+      "Type": "String",
+    },
+    "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5S3VersionKey0201AB31": Object {
+      "Description": "S3 key for asset version \\"69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5\\"",
+      "Type": "String",
+    },
+    "AssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140ArtifactHashA1B5DDD1": Object {
+      "Description": "Artifact hash for asset \\"73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140\\"",
+      "Type": "String",
+    },
+    "AssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3Bucket7FC85A24": Object {
+      "Description": "S3 bucket for asset \\"73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140\\"",
+      "Type": "String",
+    },
+    "AssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3VersionKey033E88A1": Object {
+      "Description": "S3 key for asset version \\"73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140\\"",
+      "Type": "String",
+    },
+    "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fArtifactHash6867739F": Object {
+      "Description": "Artifact hash for asset \\"a084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226f\\"",
+      "Type": "String",
+    },
+    "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fS3Bucket3DBFB9B8": Object {
+      "Description": "S3 bucket for asset \\"a084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226f\\"",
+      "Type": "String",
+    },
+    "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fS3VersionKeyECE9C38D": Object {
+      "Description": "S3 key for asset version \\"a084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226f\\"",
+      "Type": "String",
+    },
+    "Config": Object {
+      "Default": "{\\"country\\":\\"ALL\\", \\"language\\":\\"ALL\\", \\"topic\\":\\"ALL\\"}",
+      "Description": "Provide configuration for RSS feeds. This parameter should be configured as a JSON string. Here is a sample configuration {\\"country\\":\\"ALL\\", \\"language\\":\\"ALL\\", \\"topic\\":\\"ALL\\"}. For Country and language use ISO code. The list of superset of all supported topics is: \\"tech\\", \\"news\\", \\"business\\", \\"science\\", \\"finance\\", \\"food\\", \\"politics\\", \\"economics\\", \\"travel\\", \\"entertainment\\", \\"music\\", \\"sport\\", \\"world\\".Note: not all topics are supported for each RSS provider. Setting the value as \\"ALL\\", is treated as a wild character search",
+      "Type": "String",
+    },
+    "DeployRSSFeeds": Object {
+      "AllowedValues": Array [
+        "Yes",
+        "No",
+      ],
+      "Default": "Yes",
+      "Description": "Would you like to deploy Twitter Ingestion mechanism",
+      "Type": "String",
+    },
+    "DeployTwitter": Object {
+      "AllowedValues": Array [
+        "Yes",
+        "No",
+      ],
+      "Default": "Yes",
+      "Description": "Would you like to deploy Twitter Ingestion mechanism",
+      "Type": "String",
+    },
+    "NewsSearchQuery": Object {
+      "ConstraintDescription": "Please enter the keyword to use to filter RSS news feed",
+      "Description": "Provide comma separated list of keywords (optional) to filter news feeds. Only feeds containing atleast one of the keywords from the list will be processed. If no keyword is provided, feeds will not be filtered and all RSS feeds will be processed",
+      "Type": "String",
+    },
+    "NumberOfTopics": Object {
+      "ConstraintDescription": "Please verify if the value entered for number of topics to be discovered is between 1 and 100 (both inclusive).",
+      "Default": "10",
+      "Description": "The number of topics to be discovered by Topic analysis. The min value is 1 and maximum value is 100",
+      "MaxValue": 100,
+      "MinValue": 1,
+      "Type": "Number",
+    },
+    "RSSNewsFeedIngestFrequency": Object {
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Default": "cron(0 23 * * ? *)",
+      "Description": "The frequency at which RSS Feeds should be pulled. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Type": "String",
+    },
+    "SupportedLanguages": Object {
+      "AllowedPattern": "^$|([a-z]{2}-[a-z]{2}|[a-z]{2})(,([a-z]{2}-[a-z]{2}|[a-z]{2}))*",
+      "ConstraintDescription": "Provide a list of comma separated language iso-code values, Example: de,en,es,it,pt,fr,ja,ko,zh-cn (no spaces after the comma). The input did not match the validation pattern.",
+      "Default": "en,es",
+      "Description": "The list of languages to query the Search API with. The super set of languages supported is driven by Amazon Translate. For the latest list of languages, please refer to the Comprehend documentation at this location https://docs.aws.amazon.com/translate/latest/dg/what-is.html#language-pairs",
+      "MaxLength": 43,
+      "MinLength": 2,
+      "Type": "String",
+    },
+    "TopicAnalysisFrequency": Object {
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(10 0 * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Default": "cron(10 0 * * ? *)",
+      "Description": "The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour",
+      "Type": "String",
+    },
+    "TwitterIngestQueryFrequency": Object {
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Default": "cron(0/5 * * * ? *)",
+      "Description": "The frequency at which API calls will be made to twitter in a cron expression format. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Type": "String",
+    },
+    "TwitterSSMPathForBearerToken": Object {
+      "AllowedPattern": "^(?!\\\\s*$).+",
+      "ConstraintDescription": "The SSM parameter store path cannot be empty",
+      "Default": "/discovering-hot-topics-using-machine-learning/discovering-hot-topics-using-machine-learning/twitter",
+      "Description": "The SSM parameter store path of key where the credentials are stored as encrypted string",
+      "Type": "String",
+    },
+    "TwitterSearchQuery": Object {
+      "Default": "entertainment",
+      "Description": "The query you would like to execute on twitter. For details of how write a query and use operators, please go to https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators",
+      "MaxLength": 500,
+      "MinLength": 3,
       "Type": "String",
     },
   },
   "Resources": Object {
+    "AccessLogD598EBE9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IngestionBus3E30EA7C": Object {
+      "Properties": Object {
+        "Name": "IngestionBus83B8D656",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
     "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644": Object {
       "Properties": Object {
         "RetentionPeriodHours": 24,
@@ -76,7 +295,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -84,7 +311,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D",
+            "Ref": "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8S3BucketB053DF24",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -97,7 +324,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
+                          "Ref": "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8S3VersionKeyBC574655",
                         },
                       ],
                     },
@@ -110,7 +337,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
+                          "Ref": "AssetParameters15a444c6321006e3ccd0febd642a0f08fe4f6b2a19c680208c792258655724e8S3VersionKeyBC574655",
                         },
                       ],
                     },
@@ -126,13 +353,14 @@ Object {
           },
         },
         "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 1,
         "Role": Object {
           "Fn::GetAtt": Array [
             "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -148,7 +376,7 @@ Object {
           "OnFailure": Object {
             "Destination": Object {
               "Fn::GetAtt": Array [
-                "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+                "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                 "Arn",
               ],
             },
@@ -224,6 +452,10 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D": Object {
+      "DependsOn": Array [
+        "IngestionFeedConsumerSqsDlqQueuePolicyA7D9DB43",
+        "IngestionFeedConsumerSqsDlqQueue3A707A4B",
+      ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -270,7 +502,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
+                  "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                   "Arn",
                 ],
               },
@@ -298,10 +530,12 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
     },
     "IngestionFeedConsumerIngestionStreamSqsDlqQueuePolicy74C5C73B": Object {
       "Properties": Object {
@@ -372,325 +606,251 @@ Object {
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "IngestionFeedProducerConstructLambdaDDBDynamoTable52EB3FCC": Object {
-      "DeletionPolicy": "Retain",
+    "IngestionFeedConsumerSqsDlqQueue3A707A4B": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
-            "AttributeName": "ACCOUNT_IDENTIFIER",
-            "AttributeType": "S",
-          },
-          Object {
-            "AttributeName": "CREATED_TIMESTAMP",
-            "AttributeType": "S",
-          },
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
-            "AttributeName": "ACCOUNT_IDENTIFIER",
-            "KeyType": "HASH",
-          },
-          Object {
-            "AttributeName": "CREATED_TIMESTAMP",
-            "KeyType": "RANGE",
-          },
-        ],
-        "PointInTimeRecoverySpecification": Object {
-          "PointInTimeRecoveryEnabled": true,
-        },
-        "SSESpecification": Object {
-          "SSEEnabled": true,
-        },
-        "TimeToLiveSpecification": Object {
-          "AttributeName": "EXP_DATE",
-          "Enabled": true,
-        },
+        "KmsMasterKeyId": "alias/aws/sqs",
       },
-      "Type": "AWS::DynamoDB::Table",
-      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
     },
-    "IngestionFeedProducerConstructLambdaDDBLambdaFunctionADC081FB": Object {
-      "DependsOn": Array [
-        "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy1206E2B8",
-        "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRole17CBC38F",
-      ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Environment": Object {
-          "Variables": Object {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "CAP_NUM_RECORD": "25",
-            "CREDENTIAL_KEY_PATH": "/some/dummy/path/test",
-            "DDB_TABLE_NAME": Object {
-              "Ref": "IngestionFeedProducerConstructLambdaDDBDynamoTable52EB3FCC",
-            },
-            "QUERY_PARAM": "Health",
-            "QUERY_RESULT_TYPE": "mixed",
-            "SOLUTION_NAME": "test-solution",
-            "STACK_NAME": Object {
-              "Ref": "AWS::StackName",
-            },
-            "STREAM_NAME": Object {
-              "Ref": "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
-            },
-            "SUPPORTED_LANG": "de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw",
-          },
-        },
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRole17CBC38F",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs12.x",
-        "Timeout": 300,
-        "TracingConfig": Object {
-          "Mode": "Active",
-        },
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRole17CBC38F": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":logs:",
-                        Object {
-                          "Ref": "AWS::Region",
-                        },
-                        ":",
-                        Object {
-                          "Ref": "AWS::AccountId",
-                        },
-                        ":log-group:/aws/lambda/*",
-                      ],
-                    ],
-                  },
-                },
-              ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "LambdaFunctionServiceRolePolicy",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy1206E2B8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
-            },
-          ],
-        },
-      },
+    "IngestionFeedConsumerSqsDlqQueuePolicyA7D9DB43": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": Array [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:Query",
-                "dynamodb:GetItem",
-                "dynamodb:Scan",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "IngestionFeedProducerConstructLambdaDDBDynamoTable52EB3FCC",
-                    "Arn",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
                   ],
                 },
-                Object {
-                  "Ref": "AWS::NoValue",
-                },
-              ],
-            },
-            Object {
-              "Action": Array [
-                "kinesis:ListShards",
-                "kinesis:PutRecord",
-                "kinesis:PutRecords",
-              ],
-              "Effect": "Allow",
+              },
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
+                  "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                   "Arn",
                 ],
               },
+              "Sid": "QueueOwnerOnlyAccess",
             },
             Object {
-              "Action": Array [
-                "ssm:GetParameter",
-                "ssm:PutParameter",
-              ],
-              "Effect": "Allow",
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
               "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/some/dummy/path/test",
-                  ],
+                "Fn::GetAtt": Array [
+                  "IngestionFeedConsumerSqsDlqQueue3A707A4B",
+                  "Arn",
                 ],
               },
+              "Sid": "HttpsOnly",
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy1206E2B8",
-        "Roles": Array [
+        "Queues": Array [
           Object {
-            "Ref": "IngestionFeedProducerConstructLambdaDDBLambdaFunctionServiceRole17CBC38F",
+            "Ref": "IngestionFeedConsumerSqsDlqQueue3A707A4B",
           },
         ],
       },
-      "Type": "AWS::IAM::Policy",
+      "Type": "AWS::SQS::QueuePolicy",
     },
-    "IngestionFeedProducerConstructPollFrequency5D26B899": Object {
+    "IngestionNewsCatcherNestedStackNewsCatcherNestedStackResourceD666324A": Object {
+      "Condition": "IngestionDeployRSSFeeds0E648DA1",
+      "DeletionPolicy": "Delete",
+      "Metadata": Object {
+        "nestedStackFileName": "IngestionNewsCatcher50494FBF.nested.template",
+      },
       "Properties": Object {
-        "ScheduleExpression": "(0/2 * * * ? *)",
-        "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
-                "IngestionFeedProducerConstructLambdaDDBLambdaFunctionADC081FB",
-                "Arn",
-              ],
-            },
-            "Id": "Target0",
+        "Parameters": Object {
+          "Config": Object {
+            "Ref": "Config",
           },
-        ],
+          "EventBus": Object {
+            "Fn::GetAtt": Array [
+              "IngestionBus3E30EA7C",
+              "Arn",
+            ],
+          },
+          "IngestFrequency": Object {
+            "Ref": "RSSNewsFeedIngestFrequency",
+          },
+          "NewsSearchQuery": Object {
+            "Ref": "NewsSearchQuery",
+          },
+          "StreamARN": Object {
+            "Fn::GetAtt": Array [
+              "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
+              "Arn",
+            ],
+          },
+          "referencetoAssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3Bucket7FC85A24Ref": Object {
+            "Ref": "AssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3Bucket7FC85A24",
+          },
+          "referencetoAssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3VersionKey033E88A1Ref": Object {
+            "Ref": "AssetParameters73745f287c9c0b5cb38346ce59c1324058e18f80b95405692b99a3655ca18140S3VersionKey033E88A1",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fS3Bucket3DBFB9B8",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fS3VersionKeyECE9C38D",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParametersa084b5bcced49dd8ee04304a3abd2f76d733910eb52831117dba718346b5226fS3VersionKeyECE9C38D",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
       },
-      "Type": "AWS::Events::Rule",
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
     },
-    "IngestionFeedProducerConstructPollFrequencyAllowEventRuleIngestionFeedProducerConstructPollFrequencyA0B6F1DBC0E0A1BC": Object {
+    "IngestionTwitterSearchNestedStackTwitterSearchNestedStackResource3B8C7F8F": Object {
+      "Condition": "IngestionDeployTwitterIngestion4D7DE3EB",
+      "DeletionPolicy": "Delete",
+      "Metadata": Object {
+        "nestedStackFileName": "IngestionTwitterSearch21AEAF91.nested.template",
+      },
       "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "IngestionFeedProducerConstructLambdaDDBLambdaFunctionADC081FB",
-            "Arn",
-          ],
+        "Parameters": Object {
+          "IngestQueryFrequency": Object {
+            "Ref": "TwitterIngestQueryFrequency",
+          },
+          "QueryParameter": Object {
+            "Ref": "TwitterSearchQuery",
+          },
+          "SSMPathForCredentials": Object {
+            "Ref": "TwitterSSMPathForBearerToken",
+          },
+          "StreamARN": Object {
+            "Fn::GetAtt": Array [
+              "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
+              "Arn",
+            ],
+          },
+          "SupportedLang": Object {
+            "Ref": "SupportedLanguages",
+          },
+          "referencetoAssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392Ref": Object {
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+          },
+          "referencetoAssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119Ref": Object {
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+          },
         },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "IngestionFeedProducerConstructPollFrequency5D26B899",
-            "Arn",
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5S3BucketF8BF2D25",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5S3VersionKey0201AB31",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters69de260ea51ad2e05b5fd360c2d71c5a60abcbea2198bc6b08ec5fbaae8e4df5S3VersionKey0201AB31",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
           ],
         },
       },
-      "Type": "AWS::Lambda::Permission",
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
     },
   },
 }

@@ -1,0 +1,22 @@
+{
+  "name": "wf-detect-language",
+  "version": "1.5.0",
+  "description": "The lambda function to detect language of the text content, when not available.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --silent --verbose",
+    "test-debug": "jest --coverage",
+    "clean": "rm -rf node_modules"
+  },
+  "author": "aws-solution-builder@",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.945.0"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.2.1",
+    "chai": "^4.3.4",
+    "jest": "^27.0.4",
+    "sinon": "^11.1.1"
+  }
+}

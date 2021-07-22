@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294ArtifactHashE7225949": Object {
-      "Description": "Artifact hash for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96ArtifactHash3736DC82": Object {
+      "Description": "Artifact hash for asset \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669": Object {
-      "Description": "S3 bucket for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3BucketF9F6818C": Object {
+      "Description": "S3 bucket for asset \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6": Object {
-      "Description": "S3 key for asset version \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0": Object {
+      "Description": "S3 key for asset version \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
   },
@@ -89,6 +89,10 @@ Object {
         "MappingsFirehoseRoleC66C52FA",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -134,8 +138,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "/mappingserror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "/mappingscreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "/mappings",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "MappingsFirehoseRoleC66C52FA",
@@ -282,7 +285,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -290,7 +301,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669",
+            "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3BucketF9F6818C",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -303,7 +314,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
+                          "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0",
                         },
                       ],
                     },
@@ -316,7 +327,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
+                          "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0",
                         },
                       ],
                     },
@@ -570,6 +581,10 @@ Object {
         "TopicFirehoseRoleCE52DEAF",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -615,8 +630,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "/topicerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "/topiccreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "/topic",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TopicFirehoseRoleCE52DEAF",

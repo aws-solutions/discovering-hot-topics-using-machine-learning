@@ -24,6 +24,7 @@ const __test_event__ = require('./event-test-data');
 describe('Test Image analysis', () => {
     beforeEach(() => {
         process.env.REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
         process.env.MODERATION_LABELS_FIREHOSE = 'sentiment_stream';
 
@@ -31,14 +32,14 @@ describe('Test Image analysis', () => {
             callback(null, {
                 "Encrypted": true,
                 "RecordId": "49607933892580429045866716038015163261214518926441971714"
-             });
+            });
         });
 
         AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
             callback(null, {
                 "Encrypted": true,
                 "FailedPutCount": 0,
-             });
+            });
         });
     });
 
@@ -47,6 +48,7 @@ describe('Test Image analysis', () => {
 
         delete process.env.REGION;
         delete process.env.MODERATION_LABELS_FIREHOSE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 
     it ('should store the image analyzed information', async () => {

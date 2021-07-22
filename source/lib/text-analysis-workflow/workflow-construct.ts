@@ -13,17 +13,15 @@
 
 
 import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
-import { Function } from '@aws-cdk/aws-lambda';
-import { CfnLogGroup, LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
-import { Chain, LogLevel, StateMachine, StateMachineType } from '@aws-cdk/aws-stepfunctions';
+import { Function, IFunction } from '@aws-cdk/aws-lambda';
+import { Chain, StateMachine, StateMachineType } from '@aws-cdk/aws-stepfunctions';
 import { Aws, Construct } from '@aws-cdk/core';
 import { LambdaToStepFunction } from '@aws-solutions-constructs/aws-lambda-step-function';
 
 export interface WorkflowProps {
     readonly stateMachineType?: StateMachineType;
     readonly chain: Chain,
-    readonly lambdaFunc?: Function,
-    readonly uuid: string
+    readonly lambdaFunc?: IFunction,
 }
 
 export class Workflow extends Construct {
@@ -32,38 +30,14 @@ export class Workflow extends Construct {
     constructor (scope: Construct, id: string, props: WorkflowProps) {
         super(scope, id);
 
-        const logGroup = new LogGroup(scope, 'StMacLogGroup', {
-            logGroupName: `/aws/vendedlogs/${this.node.id}-${props.uuid}/`,
-            retention: RetentionDays.INFINITE,
-        });
-
-        (logGroup.node.defaultChild as CfnLogGroup).cfnOptions.metadata = {
-            cfn_nag: {
-                rules_to_suppress: [{
-                    id: 'W84',
-                    reason: 'Log group data is always encrypted in CloudWatch Logs using AWS Managed KMS Key. For customers wanting to us CMK for \
-                    CloudWatchLogs should customize the solution further to add encryption options'
-                }, {
-                    id: 'W86',
-                    reason: 'Log Groups are set to \'Never Expire\'. Customers should customize the retention policy based on their organization\'s \
-                    retention policies'
-                }]
-            }
-        }
-
         if (props.lambdaFunc != null && props.lambdaFunc != undefined) {
             const lambdaStepFunction = new LambdaToStepFunction(this, 'WorkflowEngine', {
-                existingLambdaObj: props.lambdaFunc,
+                existingLambdaObj: props.lambdaFunc as Function,
                 stateMachineProps: {
                     definition: props.chain,
                     ...(props.stateMachineType === StateMachineType.EXPRESS && {
                         stateMachineType: props.stateMachineType
-                    }),
-                    logs: {
-                        destination: logGroup,
-                        level: LogLevel.ERROR,
-                        includeExecutionData: false
-                    }
+                    })
                 }
             });
             this._stMachine = lambdaStepFunction.stateMachine;
@@ -73,8 +47,8 @@ export class Workflow extends Construct {
             cfnDefaultPolicy.addMetadata('cfn_nag', {
                 rules_to_suppress: [{
                     id: 'W76',
-                    reason: 'The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the \
-                    SPCM violation as this policy is required to monitor as well as invoke specific tasks'
+                    reason: 'The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the '+
+                        'SPCM violation as this policy is required to monitor as well as invoke specific tasks'
                 }, {
                     id: 'W12',
                     reason: "The 'LogDelivery' actions do not support resource-level authorizations"
@@ -111,11 +85,6 @@ export class Workflow extends Construct {
                 ...(props.stateMachineType === StateMachineType.EXPRESS && {
                     stateMachineType: props.stateMachineType,
                     role: _stateMachineRole,
-                    logs: {
-                        destination: logGroup,
-                        level: LogLevel.ERROR,
-                        includeExecutionData: false
-                    }
                 })
             });
 

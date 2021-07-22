@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -15,21 +15,29 @@
 
 const AWS = require('aws-sdk');
 const moment = require('moment');
-const TwFeedStorage = require('./tw-feedstorage');
+const TwFeedStorage = require('./tw-feed-storage');
 const timeformat = require('./time-stamp-format');
+const CustomConfig = require('aws-nodesdk-custom-config');
+const RawDataStorage = require('./raw-data-storage');
 
 class TextAnalysis {
     static storeText = async (data) => {
-
-        switch(data.platform) {
+        // SONAR Rule: switch statements are useful when there are many different cases depending
+        // on the value of the same expression. Plans to put in additional types in the future and
+        // hence inserting a suppress rule
+        switch(data.platform) { // NOSONAR (javascript:S1301), more platform types are to be added
             case 'twitter':
                 TwFeedStorage.storeTweets(data);
+                break;
+            case 'newsfeeds':
+                RawDataStorage.storeFeed(data);
                 break;
             default:
                 console.error(`Received platform type as ${data.platform} which is not supported`);
                 throw Error(`Received unsupported platform ${data.platform}`);
         }
 
+        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
         const kinesisFireshose = new AWS.Firehose();
 
         const sentimentRecord = {

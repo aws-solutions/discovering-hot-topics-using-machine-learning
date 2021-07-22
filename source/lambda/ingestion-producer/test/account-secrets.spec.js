@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -23,6 +23,8 @@ describe ('Error scenarios in account-secrets getSecretValue tests', () => {
     beforeEach (() => {
         process.env.SOLUTION_NAME = 'discovering-hot-topics-using-machine-learning';
         process.env.STACK_NAME = 'DiscoveringHotTopicsUsingMachineLearning';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('SSM', 'getParameter', (params, callback) => {
             if (params.Name == `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/twitter` && params.WithDecryption) {
                 let response = {
@@ -59,12 +61,13 @@ describe ('Error scenarios in account-secrets getSecretValue tests', () => {
     afterEach(() => {
         delete process.env.SOLUTION_NAME;
         delete process.env.STACK_NAME;
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('SSM');
     });
 
     it ('should retrieve create a key with dummy value', async() => {
         const accountSecrets = new AccountSecrets();
-        await accountSecrets.getSecretValue('twitter').catch((error) => {
+        await accountSecrets.getTwitterSecret().catch((error) => {
             if (error instanceof assert.AssertionError) {
                 assert.fail();
             }
@@ -77,7 +80,9 @@ describe ('Error scenarios in account-secrets getSecretValue tests', () => {
 describe ('account-secrets getSecretValue successful tests', () => {
 
     beforeEach (() => {
-        process.env.CREDENTIAL_KEY_PATH = '/fake/key/value';
+        process.env.TWITTER_CREDENTIAL_KEY_PATH = '/fake/key/value';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('SSM', 'getParameter', (params, callback) => {
             if (params.Name == '/fake/key/value' && params.WithDecryption) {
                 let response = {
@@ -104,13 +109,14 @@ describe ('account-secrets getSecretValue successful tests', () => {
     });
 
     afterEach(() => {
-        delete process.env.CREDENTIAL_KEY_PATH;
+        delete process.env.TWITTER_CREDENTIAL_KEY_PATH;
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('SSM');
     });
 
     it ('should retrieve create a key with dummy value', async() => {
         const accountSecrets = new AccountSecrets();
-        const response = await accountSecrets.getSecretValue('twitter');
+        const response = await accountSecrets.getTwitterSecret();
         expect(response).to.equal('SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ');
     });
 });

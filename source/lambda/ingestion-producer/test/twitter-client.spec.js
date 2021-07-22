@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-20201 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                     *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -32,8 +32,10 @@ describe('When testing the twitter-client', () => {
         process.env.SOLUTION_NAME = 'discovering-hot-topics-using-machine-learning';
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        ssmStub = sinon.stub(AccountSecrets.prototype, 'getSecretValue').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
+
+        ssmStub = sinon.stub(AccountSecrets.prototype, 'getTwitterSecret').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
 
         let headerMap = new Map();
         headerMap.set('status', '200 OK');
@@ -127,6 +129,7 @@ describe('When testing the twitter-client', () => {
         delete process.env.SOLUTION_NAME;
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('DynamoDB');
     });
 });
@@ -137,7 +140,9 @@ describe('Test for hasLimit', () => {
     let ssmStub;
 
     beforeEach(() => {
-        ssmStub = sinon.stub(AccountSecrets.prototype, 'getSecretValue').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
+        ssmStub = sinon.stub(AccountSecrets.prototype, 'getTwitterSecret').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
 
         twitStub = sinon.stub(Twit.prototype, 'get').returns({
             "rate_limit_context": {
@@ -163,6 +168,7 @@ describe('Test for hasLimit', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         twitStub.restore();
         ssmStub.restore();
     });
@@ -177,8 +183,9 @@ describe('When Twitter API throttles', () => {
         process.env.SOLUTION_NAME = 'discovering-hot-topics-using-machine-learning';
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        ssmStub = sinon.stub(AccountSecrets.prototype, 'getSecretValue').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
+        ssmStub = sinon.stub(AccountSecrets.prototype, 'getTwitterSecret').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
 
         // create throttle error
         var customError = new Error();
@@ -230,6 +237,7 @@ describe('When Twitter API throttles', () => {
         delete process.env.SOLUTION_NAME;
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('DynamoDB');
     });
 });
@@ -243,8 +251,9 @@ describe('When Twitter API throws an error', () => {
         process.env.SOLUTION_NAME = 'discovering-hot-topics-using-machine-learning';
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        ssmStub = sinon.stub(AccountSecrets.prototype, 'getSecretValue').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
+        ssmStub = sinon.stub(AccountSecrets.prototype, 'getTwitterSecret').returns("SomeFakeBearerTokenValueWithAAAAAAndZZZZZZ");
 
         twitStub = sinon.stub(Twit.prototype, 'get').throws('TwitterFailure', 'Failure');
 
@@ -284,6 +293,7 @@ describe('When Twitter API throws an error', () => {
         delete process.env.SOLUTION_NAME;
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('DynamoDB');
     });
 });

@@ -11,11 +11,12 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from util.logging import get_logger
+from dht_config import custom_logging
+
 from util.quicksight_application import QuicksightApplication
 from util.template import TemplatePermissionType
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class QuicksightApi:
@@ -177,4 +178,3 @@ class QuicksightApi:
         qs_resource = self.quicksight_application.get_dashboard()
         response = qs_resource.describe()
         return response
-

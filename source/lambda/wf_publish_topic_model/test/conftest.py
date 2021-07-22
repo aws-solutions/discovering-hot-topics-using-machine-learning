@@ -27,3 +27,4 @@ def aws_credentials():
     os.environ["TOPICS_EVENT_NAMESPACE"] = "com.analyze.inference.topic"
     os.environ["RAW_DATA_FEED"] = "raw-feed"
     os.environ["TOPIC_MAPPINGS_EVENT_NAMESPACE"] = "com.analyze.inference.mapping"
+    os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'

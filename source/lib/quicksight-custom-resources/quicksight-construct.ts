@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { CfnPolicy, Effect, IRole, Policy, PolicyStatement } from '@aws-cdk/aws-iam';
+import { Effect, IRole, Policy, PolicyStatement } from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as cdk from '@aws-cdk/core';
 
@@ -77,14 +77,6 @@ export class QuickSight extends cdk.Construct {
                 })
             ]
         });
-        (customResourcePolicy.node.defaultChild as CfnPolicy).cfnOptions.metadata = {
-            cfn_nag: {
-                rules_to_suppress: [{
-                    id: 'W12',
-                    reason: 'The DescribeTemplate API call requires the resource to \'*\' in us-east-1.'
-                }]
-            }
-        };
 
         customResourcePolicy.attachToRole(props.role);
 
@@ -96,6 +88,16 @@ export class QuickSight extends cdk.Construct {
             timeout: cdk.Duration.seconds(30)
         });
         customResourceFunction.node.addDependency(customResourcePolicy);
+
+        (customResourceFunction.node.defaultChild as lambda.CfnFunction).addMetadata('cfn_nag', {
+            rules_to_suppress: [{
+                "id": "W89",
+                "reason": "This is not a rule for the general case, just for specific use cases/industries"
+            }, {
+                "id": "W92",
+                "reason": "Impossible for us to define the correct concurrency for clients"
+            }]
+        });
 
         const customResource = new cdk.CustomResource(this, 'QuickSightResources', {
             serviceToken: customResourceFunction.functionArn,

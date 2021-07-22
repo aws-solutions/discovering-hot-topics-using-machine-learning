@@ -1,0 +1,19 @@
+# exclude python 3rd party modules
+feedparser.py
+requests_file.py
+*.dist-info/
+bin
+newscatcher/
+certifi/
+chardet/
+crhelper/
+idna/
+requests/
+## crhelper tests directory
+tests/
+urllib3/
+_yaml.cpython-*.so
+yaml
+tldextract/
+charset_normalizer/
+six.py

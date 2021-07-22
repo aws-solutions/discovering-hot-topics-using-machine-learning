@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -17,20 +17,15 @@ import { Rule, Schedule } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { Effect, PolicyStatement, Role } from '@aws-cdk/aws-iam';
 import { IStream } from '@aws-cdk/aws-kinesis';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Aws, Construct, Duration } from '@aws-cdk/core';
+import { Function, FunctionProps } from '@aws-cdk/aws-lambda';
+import { Aws, Construct } from '@aws-cdk/core';
 import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
 
 export interface FeedProducerProps {
-    readonly timeout: Duration,
-    readonly stream: IStream,
-    readonly runtime: Runtime,
-    readonly code: Code,
-    readonly solutionName: string,
-    readonly supportedLang: string,
-    readonly ingestFrequency: string,
-    readonly queryParameter: string,
-    readonly credentialKeyPath: string
+    readonly functionProps: FunctionProps;
+    readonly stream: IStream;
+    readonly ingestFrequency: string;
+    readonly credentialKeyPath: string;
 }
 
 export class FeedProducer extends Construct {
@@ -42,28 +37,12 @@ export class FeedProducer extends Construct {
 
         const lambdaSSMPolicy = new PolicyStatement({
             effect: Effect.ALLOW,
-            resources: [ props.credentialKeyPath? `arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter${props.credentialKeyPath}`:
-                `arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter/${props.solutionName}/${Aws.STACK_NAME}/*` ],
+            resources: [ `arn:${Aws.PARTITION}:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter${props.credentialKeyPath}` ],
             actions: [ 'ssm:GetParameter', 'ssm:PutParameter' ]
         });
 
         const dynamoDBTable = new LambdaToDynamoDB(this, 'LambdaDDB', {
-            lambdaFunctionProps: {
-                runtime: props.runtime,
-                handler: 'index.handler',
-                code: props.code,
-                timeout: props.timeout,
-                environment: {
-                    SOLUTION_NAME: props.solutionName,
-                    STACK_NAME: Aws.STACK_NAME,
-                    STREAM_NAME: props.stream.streamName,
-                    SUPPORTED_LANG: props.supportedLang,
-                    QUERY_PARAM: props.queryParameter,
-                    CAP_NUM_RECORD: '25',
-                    QUERY_RESULT_TYPE: 'mixed', //options are mixed, recent or popular
-                    CREDENTIAL_KEY_PATH: props.credentialKeyPath
-                }
-            },
+            lambdaFunctionProps: props.functionProps,
             dynamoTableProps: {
                 partitionKey: {
                     name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key

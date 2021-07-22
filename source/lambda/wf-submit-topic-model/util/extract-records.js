@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -15,10 +15,12 @@
 
 const AWS = require('aws-sdk');
 var path = require('path');
+const CustomConfig = require('aws-nodesdk-custom-config');
 
 class RecordExtractor {
 
     constructor () {
+        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
         this.s3 = new AWS.S3();
     }
 
@@ -29,7 +31,7 @@ class RecordExtractor {
             response = await this.s3.copyObject({
                 CopySource: sourceBucket,
                 Bucket: destinationBucket,
-                Key: 'input/'+sourceBucket.split('/').splice(1).join('/')
+                Key: 'input/'+sourceBucket.split('/').splice(1).join('/') //remove bucket name and regenerating key prefix
             }).promise();
         } catch (error) {
             console.error('Error in copying object', error);
@@ -46,7 +48,7 @@ class RecordExtractor {
         while(true) {
             const objectList = await this.s3.listObjectsV2(params).promise();
 
-            if (objectList.Contents.length == 0) {
+            if (objectList.Contents.length === 0) {
                 console.debug('Bucket is empty');
                 break;
             }

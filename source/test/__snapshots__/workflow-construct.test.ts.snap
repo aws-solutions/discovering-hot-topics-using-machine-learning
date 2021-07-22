@@ -3,28 +3,6 @@
 exports[`test express workflow stack 1`] = `
 Object {
   "Resources": Object {
-    "StMacLogGroup953451E8": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W84",
-              "reason": "Log group data is always encrypted in CloudWatch Logs using AWS Managed KMS Key. For customers wanting to us CMK for                     CloudWatchLogs should customize the solution further to add encryption options",
-            },
-            Object {
-              "id": "W86",
-              "reason": "Log Groups are set to 'Never Expire'. Customers should customize the retention policy based on their organization's                     retention policies",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "LogGroupName": "/aws/vendedlogs/WorkflowStack-fakerandomstring/",
-      },
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
-    },
     "WorkflowStackStateMachineLogPolicyB222B557": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -102,59 +80,12 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "WorkflowStackStateMachineRoleDefaultPolicy25244020": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "logs:CreateLogDelivery",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "WorkflowStackStateMachineRoleDefaultPolicy25244020",
-        "Roles": Array [
-          Object {
-            "Ref": "WorkflowStackStateMachineRole56AD52FB",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "WorkflowStackWorkflowEngine48A8BD9B": Object {
       "DependsOn": Array [
-        "WorkflowStackStateMachineRoleDefaultPolicy25244020",
         "WorkflowStackStateMachineRole56AD52FB",
       ],
       "Properties": Object {
         "DefinitionString": "{\\"StartAt\\":\\"WaitState\\",\\"States\\":{\\"WaitState\\":{\\"Type\\":\\"Wait\\",\\"Seconds\\":60,\\"Next\\":\\"Success\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
-        "LoggingConfiguration": Object {
-          "Destinations": Array [
-            Object {
-              "CloudWatchLogsLogGroup": Object {
-                "LogGroupArn": Object {
-                  "Fn::GetAtt": Array [
-                    "StMacLogGroup953451E8",
-                    "Arn",
-                  ],
-                },
-              },
-            },
-          ],
-          "IncludeExecutionData": false,
-          "Level": "ERROR",
-        },
         "RoleArn": Object {
           "Fn::GetAtt": Array [
             "WorkflowStackStateMachineRole56AD52FB",
@@ -172,28 +103,6 @@ Object {
 exports[`test standard workflow stack 1`] = `
 Object {
   "Resources": Object {
-    "StMacLogGroup953451E8": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W84",
-              "reason": "Log group data is always encrypted in CloudWatch Logs using AWS Managed KMS Key. For customers wanting to us CMK for                     CloudWatchLogs should customize the solution further to add encryption options",
-            },
-            Object {
-              "id": "W86",
-              "reason": "Log Groups are set to 'Never Expire'. Customers should customize the retention policy based on their organization's                     retention policies",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "LogGroupName": "/aws/vendedlogs/WorkflowStack-fakerandomstring/",
-      },
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
-    },
     "WorkflowStackStateMachineLogPolicyB222B557": Object {
       "Properties": Object {
         "PolicyDocument": Object {

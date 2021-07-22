@@ -1,0 +1,13 @@
+{
+  "name": "aws-nodesdk-custom-config",
+  "version": "1.5.0",
+  "description": "AWS Nodejs SDK Config intialization layer",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --silent --verbose",
+    "test-debug": "jest --coverage",
+    "clean": "rm -rf node_modules"
+  },
+  "author": "aws-solutions-builder@",
+  "license": "Apache-2.0"
+}

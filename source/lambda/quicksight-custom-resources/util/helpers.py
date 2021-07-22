@@ -1,5 +1,5 @@
 # #####################################################################################################################
-#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                            #
+#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                       #
 #                                                                                                                     #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance     #
 #  with the License. A copy of the License is located at                                                              #
@@ -15,11 +15,9 @@ import json
 from os import environ
 
 import boto3
-import botocore.config
+from dht_config import custom_boto_config, custom_logging
 
-from util.logging import get_logger
-
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 # Glogbal boto3 clients to help with initializa_hion and performance
 _helpers_service_clients = dict()
@@ -33,9 +31,8 @@ def get_service_client(service_name, arguments):
     """Get the global service boto3 client"""
     global _helpers_service_clients
     if service_name not in _helpers_service_clients:
-        config = botocore.config.Config(retries=dict(max_attempts=3))
         logger.debug(f"Initializing global boto3 client for {service_name}")
-        _helpers_service_clients[service_name] = boto3.client(service_name, config=config, region_name=get_aws_region())
+        _helpers_service_clients[service_name] = boto3.client(service_name, config=custom_boto_config.init())
     return _helpers_service_clients[service_name]
 
 

@@ -35,12 +35,15 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         ingestionWindow: '2',
         numberofTopics: '10',
         rawBucket: new Bucket(stack, 'RawBucket'),
+        platformTypes: [{
+            name: 'TWITTER',
+            topicModelling: true
+        }],
         eventBus: new EventBus(stack, 'EventBus'),
         topicsAnalaysisNameSpace: 'com.test.topic',
         topicMappingsNameSpace: 'com.test.mappings',
         topicSchedule: '(5 */2 * * ? *)',
-        s3LoggingBucket: s3AccessLoggingBucket,
-        uuid: 'fakerandomstring'
+        s3LoggingBucket: s3AccessLoggingBucket
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

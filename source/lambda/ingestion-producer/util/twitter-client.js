@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -26,27 +26,25 @@ class TwitterClient {
     async init() {
         //retrieve secrets
         const accountSecrets = new AccountSecrets();
-        const secretString = await accountSecrets.getSecretValue(this.accountName);
+        const secretString = await accountSecrets.getTwitterSecret();
 
         // initialize the twitter client
-        const twitterClient = new Twit({
+        return new Twit({
             subdomain: 'api',
             version: '1.1',
             bearer_token: secretString
         });
-
-        return twitterClient;
     }
 
-    async searchTweets(twitParams) {
+    async searchTweets(tweetParams, trackerID) {
         const twit = await this.init();
 
-        twitParams.since_id = await this.feedTracker.getIDFromTracker(twitParams.lang);
-        console.debug(`Tweet search parameters is ${JSON.stringify(twitParams)}`);
+        tweetParams.since_id = await this.feedTracker.getIDFromTracker(trackerID);
+        console.debug(`Tweet search parameters is ${JSON.stringify(tweetParams)}`);
 
         let response = null;
         try {
-            response = await twit.get("search/tweets", twitParams);
+            response = await twit.get("search/tweets", tweetParams);
             console.debug(`HTTP Status Code: ${response._headers.get('status')} Rate: ${response._headers.get('x-rate-limit-remaining')} / ${response._headers.get('x-rate-limit-limit')}`);
         } catch (error) {
             if ('errors' in error) {
@@ -70,7 +68,7 @@ class TwitterClient {
         // if max_id_str is undefined that means there are no further tweets available and hence tracker is not updated
         // max_id_str is a pagination counter for the search query
         if (response.search_metadata.max_id_str !== undefined) {
-            await this.feedTracker.updateTracker(response.search_metadata, jsonData.length, twitParams.lang);
+            await this.feedTracker.updateTracker(response.search_metadata, jsonData.length, trackerID);
         }
 
         return jsonData;
@@ -81,10 +79,20 @@ class TwitterClient {
      * If the limit has exceeded it will return 0.
      */
     async hasLimit(resources) {
+        console.debug('Checking for twitter rate limit');
         const twit = await this.init();
-        const limitResponse = (await twit.get('application/rate_limit_status', {
-            resources: resources
-        })).resources.search['/search/tweets'];
+        let limitResponse = null;
+        try {
+            limitResponse = (await twit.get('application/rate_limit_status', {
+                resources: resources
+            })).resources.search['/search/tweets'];
+            console.debug(JSON.stringify(`limit response received is ${JSON.stringify(limitResponse)}`));
+        } catch (error) {
+            console.error('Error occured when processing resource limits', error);
+            if (error.errors[0].code === 130) {
+                throw error; // Twitter is over capacity and hence not making the call.
+            }
+        }
         console.debug(`Rate: ${limitResponse.remaining}/${limitResponse.limit} - Reset:${Math.ceil(((limitResponse.reset * 1000) - Date.now())/1000/60)} minutes`);
         return limitResponse.remaining;
     }

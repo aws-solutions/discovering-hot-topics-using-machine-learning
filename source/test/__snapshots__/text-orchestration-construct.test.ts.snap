@@ -3,76 +3,76 @@
 exports[`test orchestration construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9ArtifactHashED6782C7": Object {
-      "Description": "Artifact hash for asset \\"041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9\\"",
+    "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926ArtifactHashDF8D22EC": Object {
+      "Description": "Artifact hash for asset \\"02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926\\"",
       "Type": "String",
     },
-    "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9S3BucketBF0DC36C": Object {
-      "Description": "S3 bucket for asset \\"041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9\\"",
+    "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3Bucket596D8E57": Object {
+      "Description": "S3 bucket for asset \\"02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926\\"",
       "Type": "String",
     },
-    "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9S3VersionKey8BBC34FA": Object {
-      "Description": "S3 key for asset version \\"041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9\\"",
+    "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3VersionKey20C99F97": Object {
+      "Description": "S3 key for asset version \\"02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926\\"",
       "Type": "String",
     },
-    "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3ArtifactHashAF4D4558": Object {
-      "Description": "Artifact hash for asset \\"04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3\\"",
+    "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974ArtifactHash6979B94C": Object {
+      "Description": "Artifact hash for asset \\"acd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974\\"",
       "Type": "String",
     },
-    "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3S3Bucket3B1B5535": Object {
-      "Description": "S3 bucket for asset \\"04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3\\"",
+    "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974S3BucketF728F7F4": Object {
+      "Description": "S3 bucket for asset \\"acd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974\\"",
       "Type": "String",
     },
-    "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3S3VersionKeyA2B0343F": Object {
-      "Description": "S3 key for asset version \\"04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3\\"",
+    "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974S3VersionKeyAA48D62E": Object {
+      "Description": "S3 key for asset version \\"acd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fArtifactHashA0AD976E": Object {
-      "Description": "Artifact hash for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8ArtifactHashAC91932A": Object {
+      "Description": "Artifact hash for asset \\"b7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D": Object {
-      "Description": "S3 bucket for asset \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8S3Bucket14210AD2": Object {
+      "Description": "S3 bucket for asset \\"b7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8\\"",
       "Type": "String",
     },
-    "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840": Object {
-      "Description": "S3 key for asset version \\"28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992f\\"",
+    "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8S3VersionKey8F13A64B": Object {
+      "Description": "S3 key for asset version \\"b7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8\\"",
       "Type": "String",
     },
-    "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aArtifactHashFA91B6F1": Object {
-      "Description": "Artifact hash for asset \\"7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3a\\"",
+    "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827ArtifactHashFBA689D7": Object {
+      "Description": "Artifact hash for asset \\"cc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827\\"",
       "Type": "String",
     },
-    "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aS3BucketBFA9559B": Object {
-      "Description": "S3 bucket for asset \\"7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3a\\"",
+    "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827S3BucketC96C488B": Object {
+      "Description": "S3 bucket for asset \\"cc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827\\"",
       "Type": "String",
     },
-    "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aS3VersionKey9C2CEDBC": Object {
-      "Description": "S3 key for asset version \\"7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3a\\"",
+    "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827S3VersionKey18ABE81D": Object {
+      "Description": "S3 key for asset version \\"cc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827\\"",
       "Type": "String",
     },
-    "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07ArtifactHash38D3F123": Object {
-      "Description": "Artifact hash for asset \\"af1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07\\"",
+    "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fArtifactHash25A33385": Object {
+      "Description": "Artifact hash for asset \\"d56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82f\\"",
       "Type": "String",
     },
-    "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07S3Bucket63CA74C7": Object {
-      "Description": "S3 bucket for asset \\"af1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07\\"",
+    "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fS3Bucket74BBF58E": Object {
+      "Description": "S3 bucket for asset \\"d56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82f\\"",
       "Type": "String",
     },
-    "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07S3VersionKeyF76CB0B6": Object {
-      "Description": "S3 key for asset version \\"af1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07\\"",
+    "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fS3VersionKey5869DD4C": Object {
+      "Description": "S3 key for asset version \\"d56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82f\\"",
       "Type": "String",
     },
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6ArtifactHash0C84E848": Object {
-      "Description": "Artifact hash for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283ArtifactHash9BE75073": Object {
+      "Description": "Artifact hash for asset \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05": Object {
-      "Description": "S3 bucket for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3Bucket720825A0": Object {
+      "Description": "S3 bucket for asset \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31": Object {
-      "Description": "S3 key for asset version \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD": Object {
+      "Description": "S3 key for asset version \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
   },
@@ -100,17 +100,60 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD": Object {
+    "OrchestrationConstructDetectLangLambdaStateMachineTaskD76F5818": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "states:SendTaskSuccess",
+                "states:sendTaskFailure",
+                "states:SendTaskHeartbeat",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructDetectLangLambdaStateMachineTaskD76F5818",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructDetectLangTaskLambdaFunctionA1732E57": Object {
       "DependsOn": Array [
-        "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347",
-        "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+        "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRoleDefaultPolicy2E7A77EC",
+        "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -118,7 +161,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07S3Bucket63CA74C7",
+            "Ref": "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974S3BucketF728F7F4",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -131,7 +174,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07S3VersionKeyF76CB0B6",
+                          "Ref": "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974S3VersionKeyAA48D62E",
                         },
                       ],
                     },
@@ -144,7 +187,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersaf1fcbb8f253939552f092804eebabb0945cb4a0c4acdf9f2c184aded89bbc07S3VersionKeyF76CB0B6",
+                          "Ref": "AssetParametersacd01d4f2e0acf02e2195c3ef74aeba60005b9c715388d70a25cfe37a4b48974S3VersionKeyAA48D62E",
                         },
                       ],
                     },
@@ -157,27 +200,25 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "S3_BUCKET_NAME": Object {
-              "Ref": "OrchestrationConstructImageBucketS3Bucket20418E23",
-            },
+            "DEFAULT_LANGAUGE": "en",
           },
         },
         "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 15,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+            "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD",
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
-        "Timeout": 600,
+        "Runtime": "nodejs14.x",
         "TracingConfig": Object {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70": Object {
+    "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -232,7 +273,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347": Object {
+    "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRoleDefaultPolicy2E7A77EC": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -253,6 +294,428 @@ Object {
               ],
               "Effect": "Allow",
               "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskqueue7F10D52E",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRoleDefaultPolicy2E7A77EC",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructDetectLangTaskLambdaFunctionSqsEventSourceOrchestrationConstructDetectLangTaskqueue72BE2B80C7EA3FD7": Object {
+      "Properties": Object {
+        "BatchSize": 1,
+        "Enabled": true,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructDetectLangTaskqueue7F10D52E",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "OrchestrationConstructDetectLangTaskLambdaFunctionA1732E57",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "OrchestrationConstructDetectLangTaskdeadLetterQueueE78FDBEF": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructDetectLangTaskdeadLetterQueuePolicyEB453143": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskdeadLetterQueueE78FDBEF",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskdeadLetterQueueE78FDBEF",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructDetectLangTaskdeadLetterQueueE78FDBEF",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructDetectLangTaskqueue7F10D52E": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructDetectLangTaskdeadLetterQueueE78FDBEF",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 15,
+        },
+        "VisibilityTimeout": 3600,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructDetectLangTaskqueuePolicyD611F169": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskqueue7F10D52E",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskqueue7F10D52E",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructDetectLangTaskqueue7F10D52E",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructImageAnalysisLambdaStateMachineTask2428A01B": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "states:SendTaskSuccess",
+                "states:sendTaskFailure",
+                "states:SendTaskHeartbeat",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructImageAnalysisLambdaStateMachineTask2428A01B",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructImageAnalysisTaskLambdaFunction683EE119": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy001FDAC9",
+        "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3Bucket596D8E57",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3VersionKey20C99F97",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3VersionKey20C99F97",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "S3_BUCKET_NAME": Object {
+              "Ref": "OrchestrationConstructImageBucketS3Bucket20418E23",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 15,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy001FDAC9": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+                  "Arn",
+                ],
+              },
             },
             Object {
               "Action": Array [
@@ -290,14 +753,194 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRoleDefaultPolicy5CFD3347",
+        "PolicyName": "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy001FDAC9",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+            "Ref": "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructImageAnalysisTaskLambdaFunctionSqsEventSourceOrchestrationConstructImageAnalysisTaskqueue3AE3A2A312A31520": Object {
+      "Properties": Object {
+        "BatchSize": 1,
+        "Enabled": true,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "OrchestrationConstructImageAnalysisTaskLambdaFunction683EE119",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "OrchestrationConstructImageAnalysisTaskdeadLetterQueue1BC38F55": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructImageAnalysisTaskdeadLetterQueuePolicy14893B98": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisTaskdeadLetterQueue1BC38F55",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisTaskdeadLetterQueue1BC38F55",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructImageAnalysisTaskdeadLetterQueue1BC38F55",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructImageAnalysisTaskqueue25D79D1F": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructImageAnalysisTaskdeadLetterQueue1BC38F55",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 15,
+        },
+        "VisibilityTimeout": 3600,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructImageAnalysisTaskqueuePolicyA1A79F51": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
     },
     "OrchestrationConstructImageBucketS3Bucket20418E23": Object {
       "DeletionPolicy": "Retain",
@@ -404,7 +1047,7 @@ Object {
             Object {
               "id": "W12",
               "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
-                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+                        This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
             },
           ],
         },
@@ -423,7 +1066,7 @@ Object {
         "PolicyName": "OrchestrationConstructLabelsRekAnalyzeC2C4DA03",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+            "Ref": "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097",
           },
         ],
       },
@@ -436,8 +1079,8 @@ Object {
             Object {
               "id": "W12",
               "reason": "The * resource allows lambda function to access Amazon Comprehend services.
-                  The comprehend services not have a resource arn. This permission is retricted to
-                   the lambda function responsible for accessing the Amazon Comprehend service",
+                    The comprehend services not have a resource arn. This permission is retricted to
+                    the lambda function responsible for accessing the Amazon Comprehend service",
             },
           ],
         },
@@ -460,7 +1103,40 @@ Object {
         "PolicyName": "OrchestrationConstructLambdaComprehendPolicy140F9123",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+            "Ref": "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructLambdaDetectLangPolicy011B8203": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "The * resource allows lambda function to access Amazon Comprehend services.
+                        The comprehend services not have a resource arn. This permission is retricted to
+                        the lambda function responsible for accessing the Amazon Comprehend service",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "comprehend:DetectDominantLanguage",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructLambdaDetectLangPolicy011B8203",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructDetectLangTaskLambdaFunctionServiceRole190A36AD",
           },
         ],
       },
@@ -492,17 +1168,60 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructModerationLabelsLambdaFunction299A68E1": Object {
+    "OrchestrationConstructModerationLabelsLambdaStateMachineTask677FB728": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "states:SendTaskSuccess",
+                "states:sendTaskFailure",
+                "states:SendTaskHeartbeat",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructModerationLabelsLambdaStateMachineTask677FB728",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructModerationLabelsTaskLambdaFunction5DCF7649": Object {
       "DependsOn": Array [
-        "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99",
-        "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+        "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRoleDefaultPolicyB7910F2E",
+        "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -510,7 +1229,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aS3BucketBFA9559B",
+            "Ref": "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8S3Bucket14210AD2",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -523,7 +1242,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aS3VersionKey9C2CEDBC",
+                          "Ref": "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8S3VersionKey8F13A64B",
                         },
                       ],
                     },
@@ -536,7 +1255,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters7a2f02a07155b80b50b151a049c438d21e98a5f99239fd807bd4b79b69efcc3aS3VersionKey9C2CEDBC",
+                          "Ref": "AssetParametersb7fa070d5e1a197357628c2d0608a011e606c7efc5179fd9cec40aea4d481bd8S3VersionKey8F13A64B",
                         },
                       ],
                     },
@@ -555,13 +1274,14 @@ Object {
           },
         },
         "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 15,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
+            "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097",
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -569,74 +1289,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "OrchestrationConstructImageBucketS3Bucket20418E23",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "OrchestrationConstructImageBucketS3Bucket20418E23",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleDefaultPolicy93642C99",
-        "Roles": Array [
-          Object {
-            "Ref": "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "OrchestrationConstructModerationLabelsLambdaFunctionServiceRoleF7ACBAFD": Object {
+    "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -691,6 +1344,527 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
+    "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRoleDefaultPolicyB7910F2E": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructImageBucketS3Bucket20418E23",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructImageBucketS3Bucket20418E23",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRoleDefaultPolicyB7910F2E",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsTaskLambdaFunctionServiceRole93530097",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructModerationLabelsTaskLambdaFunctionSqsEventSourceOrchestrationConstructModerationLabelsTaskqueue7A8DECA2C5E887A0": Object {
+      "Properties": Object {
+        "BatchSize": 1,
+        "Enabled": true,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "OrchestrationConstructModerationLabelsTaskLambdaFunction5DCF7649",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "OrchestrationConstructModerationLabelsTaskdeadLetterQueue2881344E": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructModerationLabelsTaskdeadLetterQueuePolicyDAB7CA39": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsTaskdeadLetterQueue2881344E",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsTaskdeadLetterQueue2881344E",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsTaskdeadLetterQueue2881344E",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructModerationLabelsTaskdeadLetterQueue2881344E",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 15,
+        },
+        "VisibilityTimeout": 3600,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructModerationLabelsTaskqueuePolicy33E02C08": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRole5CC2062D": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRoleDefaultPolicy6D304A4C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructS3Bucket2727DF68",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructS3Bucket2727DF68",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRoleDefaultPolicy6D304A4C",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRole5CC2062D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehose020698CF": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRoleDefaultPolicy6D304A4C",
+        "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRole5CC2062D",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructS3Bucket2727DF68",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroup0BA96DC5",
+            },
+            "LogStreamName": Object {
+              "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroupfirehoselogstreamAFB30C3B",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "Prefix": "newsfeeds/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructNEWSFEEDSRawForTAFirehoseRole5CC2062D",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehoseKinesisFirehosePolicy532D1803": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructS3Bucket2727DF68",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructS3Bucket2727DF68",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroup0BA96DC5",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroupfirehoselogstreamAFB30C3B",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehoseKinesisFirehosePolicy532D1803",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehoseKinesisFirehoseRoleDE2C9E27",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehoseKinesisFirehoseRoleDE2C9E27": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroup0BA96DC5": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroupfirehoselogstreamAFB30C3B": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehosefirehoseloggroup0BA96DC5",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "OrchestrationConstructPublishEventsLambdaFunctionE1376EA6": Object {
       "DependsOn": Array [
         "OrchestrationConstructPublishEventsLambdaFunctionServiceRoleDefaultPolicy320C691C",
@@ -701,7 +1875,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -709,7 +1891,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9S3BucketBF0DC36C",
+            "Ref": "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827S3BucketC96C488B",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -722,7 +1904,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9S3VersionKey8BBC34FA",
+                          "Ref": "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827S3VersionKey18ABE81D",
                         },
                       ],
                     },
@@ -735,7 +1917,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters041c7c667f2d52bd843e0b26060aa7ee700757c3d4c9c13dbe6258009c682dc9S3VersionKey8BBC34FA",
+                          "Ref": "AssetParameterscc5a7541c3f0e8b79f135e3a8ce2ade9b1ad7773a4e7d0ac9e0ac4142c870827S3VersionKey18ABE81D",
                         },
                       ],
                     },
@@ -762,7 +1944,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -859,259 +2041,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "OrchestrationConstructS3Bucket2727DF68",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "OrchestrationConstructS3Bucket2727DF68",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E",
-        "Roles": Array [
-          Object {
-            "Ref": "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "OrchestrationConstructRawForTAFirehoseRoleF2BBC200": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "firehose.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA": Object {
-      "DependsOn": Array [
-        "OrchestrationConstructRawForTAFirehoseRoleDefaultPolicyFC48CB0E",
-        "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
-      ],
-      "Properties": Object {
-        "ExtendedS3DestinationConfiguration": Object {
-          "BucketARN": Object {
-            "Fn::GetAtt": Array [
-              "OrchestrationConstructS3Bucket2727DF68",
-              "Arn",
-            ],
-          },
-          "BufferingHints": Object {
-            "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
-          },
-          "CloudWatchLoggingOptions": Object {
-            "Enabled": true,
-            "LogGroupName": Object {
-              "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
-            },
-            "LogStreamName": Object {
-              "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257",
-            },
-          },
-          "CompressionFormat": "UNCOMPRESSED",
-          "EncryptionConfiguration": Object {
-            "KMSEncryptionConfig": Object {
-              "AWSKMSKeyARN": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":kms:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":alias/aws/s3",
-                  ],
-                ],
-              },
-            },
-          },
-          "RoleARN": Object {
-            "Fn::GetAtt": Array [
-              "OrchestrationConstructRawForTAFirehoseRoleF2BBC200",
-              "Arn",
-            ],
-          },
-        },
-      },
-      "Type": "AWS::KinesisFirehose::DeliveryStream",
-    },
-    "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehosePolicyFEB8F134": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "s3:AbortMultipartUpload",
-                "s3:GetBucketLocation",
-                "s3:GetObject",
-                "s3:ListBucket",
-                "s3:ListBucketMultipartUploads",
-                "s3:PutObject",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "OrchestrationConstructS3Bucket2727DF68",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "OrchestrationConstructS3Bucket2727DF68",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-            Object {
-              "Action": "logs:PutLogEvents",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":log-group:",
-                    Object {
-                      "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
-                    },
-                    ":log-stream:",
-                    Object {
-                      "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehosePolicyFEB8F134",
-        "Roles": Array [
-          Object {
-            "Ref": "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehoseRole7BE1E3D7",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "OrchestrationConstructRawForTAKinesisFirehoseKinesisFirehoseRole7BE1E3D7": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "firehose.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W86",
-              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
-            },
-            Object {
-              "id": "W84",
-              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
-            },
-          ],
-        },
-      },
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream88E0B257": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "LogGroupName": Object {
-          "Ref": "OrchestrationConstructRawForTAKinesisFirehosefirehoseloggroupF92AB0AD",
-        },
-      },
-      "Type": "AWS::Logs::LogStream",
-      "UpdateReplacePolicy": "Retain",
-    },
     "OrchestrationConstructS3Bucket2727DF68": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
@@ -1177,28 +2106,6 @@ Object {
         },
       },
       "Type": "AWS::S3::BucketPolicy",
-    },
-    "OrchestrationConstructStMacLogGroup86FAB25D": Object {
-      "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W84",
-              "reason": "Log group data is always encrypted in CloudWatch Logs using AWS Managed KMS Key. For customers wanting to us CMK for                     CloudWatchLogs should customize the solution further to add encryption options",
-            },
-            Object {
-              "id": "W86",
-              "reason": "Log Groups are set to 'Never Expire'. Customers should customize the retention policy based on their organization's                     retention policies",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "LogGroupName": "/aws/vendedlogs/StateMachine-fakerandomstring/",
-      },
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
     },
     "OrchestrationConstructStateMachineWorkflowEngineExecutionAbortedAlarmFA7A72F2": Object {
       "Properties": Object {
@@ -1273,42 +2180,58 @@ Object {
           "Fn::Join": Array [
             "",
             Array [
-              "{\\"StartAt\\":\\"AnalyzeImage\\",\\"States\\":{\\"AnalyzeImage\\":{\\"Next\\":\\"TextImageSplitProcess\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              "{\\"StartAt\\":\\"LanguageAvailable?\\",\\"States\\":{\\"LanguageAvailable?\\":{\\"Type\\":\\"Choice\\",\\"Comment\\":\\"Check if the language is available\\",\\"InputPath\\":\\"$\\",\\"Choices\\":[{\\"Variable\\":\\"$.feed.lang\\",\\"IsPresent\\":false,\\"Next\\":\\"DetectLangSendMessage\\"},{\\"Variable\\":\\"$.feed.lang\\",\\"StringEquals\\":\\"und\\",\\"Next\\":\\"DetectLangSendMessage\\"},{\\"Variable\\":\\"$.feed.lang\\",\\"StringEquals\\":\\"None\\",\\"Next\\":\\"DetectLangSendMessage\\"}],\\"Default\\":\\"ImageAnalysisSendMessage\\"},\\"ImageAnalysisSendMessage\\":{\\"Next\\":\\"TextImageSplitProcess\\",\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":3,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"ImageAnalysisTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"TimeoutSeconds\\":86400,\\"HeartbeatSeconds\\":43200,\\"OutputPath\\":\\"$\\",\\"Resource\\":\\"arn:",
               Object {
-                "Fn::GetAtt": Array [
-                  "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD",
-                  "Arn",
-                ],
+                "Ref": "AWS::Partition",
               },
-              "\\"},\\"TextImageSplitProcess\\":{\\"Type\\":\\"Parallel\\",\\"Comment\\":\\"Parallely process Text and Image\\",\\"Next\\":\\"MergeJson\\",\\"InputPath\\":\\"$\\",\\"OutputPath\\":\\"$\\",\\"Branches\\":[{\\"StartAt\\":\\"DetectModerationLabels\\",\\"States\\":{\\"DetectModerationLabels\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              ":states:::sqs:sendMessage.waitForTaskToken\\",\\"Parameters\\":{\\"QueueUrl\\":\\"",
               Object {
-                "Fn::GetAtt": Array [
-                  "OrchestrationConstructModerationLabelsLambdaFunction299A68E1",
-                  "Arn",
-                ],
+                "Ref": "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
               },
-              "\\"}}},{\\"StartAt\\":\\"Translate\\",\\"States\\":{\\"Translate\\":{\\"Next\\":\\"AnalyzeText\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              "\\",\\"MessageBody\\":{\\"input.$\\":\\"$\\",\\"taskToken.$\\":\\"$$.Task.Token\\"}}},\\"DetectLangSendMessage\\":{\\"Next\\":\\"ImageAnalysisSendMessage\\",\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":3,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"DetectLangTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"TimeoutSeconds\\":86400,\\"HeartbeatSeconds\\":43200,\\"OutputPath\\":\\"$\\",\\"Resource\\":\\"arn:",
               Object {
-                "Fn::GetAtt": Array [
-                  "OrchestrationConstructTranslateLambdaFunctionE2F10F5D",
-                  "Arn",
-                ],
+                "Ref": "AWS::Partition",
               },
-              "\\"},\\"AnalyzeText\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              ":states:::sqs:sendMessage.waitForTaskToken\\",\\"Parameters\\":{\\"QueueUrl\\":\\"",
               Object {
-                "Fn::GetAtt": Array [
-                  "OrchestrationConstructTextAnalysisLambdaFunction4FD55606",
-                  "Arn",
-                ],
+                "Ref": "OrchestrationConstructDetectLangTaskqueue7F10D52E",
               },
-              "\\"}}}]},\\"MergeJson\\":{\\"Type\\":\\"Pass\\",\\"Parameters\\":{\\"account_name.$\\":\\"$[1].account_name\\",\\"platform.$\\":\\"$[1].platform\\",\\"search_query.$\\":\\"$[1].search_query\\",\\"feed.$\\":\\"$[1].feed\\",\\"Sentiment.$\\":\\"$[1].Sentiment\\",\\"SentimentScore.$\\":\\"$[1].SentimentScore\\",\\"KeyPhrases.$\\":\\"$[1].KeyPhrases\\",\\"Entities.$\\":\\"$[1].Entities\\",\\"moderation_labels_in_imgs.$\\":\\"$[0].moderation_labels_in_imgs\\",\\"text_in_images.$\\":\\"$[1].text_in_images\\"},\\"Next\\":\\"PublishEvent\\"},\\"PublishEvent\\":{\\"Next\\":\\"Success\\",\\"Type\\":\\"Task\\",\\"Resource\\":\\"",
+              "\\",\\"MessageBody\\":{\\"input.$\\":\\"$\\",\\"taskToken.$\\":\\"$$.Task.Token\\"}}},\\"DetectLangTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"},\\"TextImageSplitProcess\\":{\\"Type\\":\\"Parallel\\",\\"Comment\\":\\"Parallely process Text and Image\\",\\"Next\\":\\"MergeJson\\",\\"InputPath\\":\\"$\\",\\"OutputPath\\":\\"$\\",\\"Branches\\":[{\\"StartAt\\":\\"ModerationLabelsSendMessage\\",\\"States\\":{\\"ModerationLabelsSendMessage\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":3,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"ModerationLabelsTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"TimeoutSeconds\\":86400,\\"HeartbeatSeconds\\":43200,\\"OutputPath\\":\\"$.moderation_labels_in_imgs\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::sqs:sendMessage.waitForTaskToken\\",\\"Parameters\\":{\\"QueueUrl\\":\\"",
+              Object {
+                "Ref": "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
+              },
+              "\\",\\"MessageBody\\":{\\"input.$\\":\\"$\\",\\"taskToken.$\\":\\"$$.Task.Token\\"}}},\\"ModerationLabelsTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"}}},{\\"StartAt\\":\\"TranslateSendMessage\\",\\"States\\":{\\"TranslateSendMessage\\":{\\"Next\\":\\"TextAnalysisSendMessage\\",\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":3,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"TranslateTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"TimeoutSeconds\\":86400,\\"HeartbeatSeconds\\":43200,\\"OutputPath\\":\\"$\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::sqs:sendMessage.waitForTaskToken\\",\\"Parameters\\":{\\"QueueUrl\\":\\"",
+              Object {
+                "Ref": "OrchestrationConstructTranslateTaskqueueA95723A7",
+              },
+              "\\",\\"MessageBody\\":{\\"input.$\\":\\"$\\",\\"taskToken.$\\":\\"$$.Task.Token\\"}}},\\"TextAnalysisSendMessage\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"IntervalSeconds\\":3,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"TextAnalysisTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"TimeoutSeconds\\":86400,\\"HeartbeatSeconds\\":43200,\\"OutputPath\\":\\"$\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::sqs:sendMessage.waitForTaskToken\\",\\"Parameters\\":{\\"QueueUrl\\":\\"",
+              Object {
+                "Ref": "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+              },
+              "\\",\\"MessageBody\\":{\\"input.$\\":\\"$\\",\\"taskToken.$\\":\\"$$.Task.Token\\"}}},\\"TextAnalysisTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"},\\"TranslateTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"}}}]},\\"MergeJson\\":{\\"Type\\":\\"Pass\\",\\"Parameters\\":{\\"account_name.$\\":\\"$[1].account_name\\",\\"platform.$\\":\\"$[1].platform\\",\\"search_query.$\\":\\"$[1].search_query\\",\\"feed.$\\":\\"$[1].feed\\",\\"Sentiment.$\\":\\"$[1].Sentiment\\",\\"SentimentScore.$\\":\\"$[1].SentimentScore\\",\\"KeyPhrases.$\\":\\"$[1].KeyPhrases\\",\\"Entities.$\\":\\"$[1].Entities\\",\\"moderation_labels_in_imgs.$\\":\\"$[0]\\",\\"text_in_images.$\\":\\"$[1].text_in_images\\"},\\"Next\\":\\"PublishEvents\\"},\\"PublishEvents\\":{\\"Next\\":\\"Success\\",\\"Retry\\":[{\\"ErrorEquals\\":[\\"Lambda.ServiceException\\",\\"Lambda.AWSLambdaException\\",\\"Lambda.SdkClientException\\"],\\"IntervalSeconds\\":2,\\"MaxAttempts\\":6,\\"BackoffRate\\":2}],\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"Next\\":\\"PublishEventsTaskFailed\\"}],\\"Type\\":\\"Task\\",\\"HeartbeatSeconds\\":900,\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::lambda:invoke\\",\\"Parameters\\":{\\"FunctionName\\":\\"",
               Object {
                 "Fn::GetAtt": Array [
                   "OrchestrationConstructPublishEventsLambdaFunctionE1376EA6",
                   "Arn",
                 ],
               },
-              "\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
+              "\\",\\"Payload.$\\":\\"$\\"}},\\"Success\\":{\\"Type\\":\\"Succeed\\"},\\"PublishEventsTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"},\\"ImageAnalysisTaskFailed\\":{\\"Type\\":\\"Fail\\",\\"Cause\\":\\"$.cause\\"}}}",
             ],
           ],
         },
@@ -1318,14 +2241,13 @@ Object {
               "CloudWatchLogsLogGroup": Object {
                 "LogGroupArn": Object {
                   "Fn::GetAtt": Array [
-                    "OrchestrationConstructStMacLogGroup86FAB25D",
+                    "OrchestrationConstructStateMachineWorkflowEngineStateMachineLogGroup1C3FDDB1",
                     "Arn",
                   ],
                 },
               },
             },
           ],
-          "IncludeExecutionData": false,
           "Level": "ERROR",
         },
         "RoleArn": Object {
@@ -1352,6 +2274,9 @@ Object {
             },
           ],
         },
+      },
+      "Properties": Object {
+        "LogGroupName": "/aws/vendedlogs/states/defaultworkflowenginestatemachinelogcc4dc486d166",
       },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
@@ -1390,11 +2315,11 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W76",
-              "reason": "The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the                     SPCM violation as this policy is required to monitor as well as invoke specific tasks",
+              "reason": "The statemachine invokes multiple lambdas and the policy is narrowed down to the specific lambda resource arn. Hence it has multiple policy statements resulting in a higher SPCM value",
             },
             Object {
               "id": "W12",
-              "reason": "The 'LogDelivery' actions do not support resource-level authorizations",
+              "reason": "The \\"LogDelivery\\" actions do not support resource-level authorization",
             },
           ],
         },
@@ -1414,11 +2339,21 @@ Object {
               "Resource": "*",
             },
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": "sqs:SendMessage",
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "OrchestrationConstructImageAnalysisLambdaFunctionB2EC65DD",
+                  "OrchestrationConstructImageAnalysisTaskqueue25D79D1F",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "sqs:SendMessage",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructDetectLangTaskqueue7F10D52E",
                   "Arn",
                 ],
               },
@@ -1434,31 +2369,31 @@ Object {
               },
             },
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": "sqs:SendMessage",
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "OrchestrationConstructModerationLabelsLambdaFunction299A68E1",
+                  "OrchestrationConstructModerationLabelsTaskqueueEFF25AE6",
                   "Arn",
                 ],
               },
             },
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": "sqs:SendMessage",
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "OrchestrationConstructTranslateLambdaFunctionE2F10F5D",
+                  "OrchestrationConstructTranslateTaskqueueA95723A7",
                   "Arn",
                 ],
               },
             },
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": "sqs:SendMessage",
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "OrchestrationConstructTextAnalysisLambdaFunction4FD55606",
+                  "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
                   "Arn",
                 ],
               },
@@ -1503,17 +2438,318 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructTextAnalysisLambdaFunction4FD55606": Object {
+    "OrchestrationConstructTWITTERRawForTAFirehoseRoleDefaultPolicy7D44D56C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructS3Bucket2727DF68",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructS3Bucket2727DF68",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTWITTERRawForTAFirehoseRoleDefaultPolicy7D44D56C",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTWITTERRawForTAFirehoseRoleEB1640D9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTWITTERRawForTAFirehoseRoleEB1640D9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructTWITTERRawForTAKinesisFirehose7EC25066": Object {
       "DependsOn": Array [
-        "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleDefaultPolicy1788CF27",
-        "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+        "OrchestrationConstructTWITTERRawForTAFirehoseRoleDefaultPolicy7D44D56C",
+        "OrchestrationConstructTWITTERRawForTAFirehoseRoleEB1640D9",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructS3Bucket2727DF68",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupD86A6349",
+            },
+            "LogStreamName": Object {
+              "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream70339ABC",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "Prefix": "twitter/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructTWITTERRawForTAFirehoseRoleEB1640D9",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "OrchestrationConstructTWITTERRawForTAKinesisFirehoseKinesisFirehosePolicy8191D081": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructS3Bucket2727DF68",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "OrchestrationConstructS3Bucket2727DF68",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupD86A6349",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream70339ABC",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTWITTERRawForTAKinesisFirehoseKinesisFirehosePolicy8191D081",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehoseKinesisFirehoseRoleB89EAC4F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTWITTERRawForTAKinesisFirehoseKinesisFirehoseRoleB89EAC4F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupD86A6349": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupfirehoselogstream70339ABC": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehosefirehoseloggroupD86A6349",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "OrchestrationConstructTextAnalysisLambdaStateMachineTaskD87DC9CC": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "states:SendTaskSuccess",
+                "states:sendTaskFailure",
+                "states:SendTaskHeartbeat",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTextAnalysisLambdaStateMachineTaskD87DC9CC",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTextAnalysisTaskLambdaFunctionDEF36561": Object {
+      "DependsOn": Array [
+        "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy2664BA58",
+        "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -1521,7 +2757,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05",
+            "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3Bucket720825A0",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1534,7 +2770,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
+                          "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD",
                         },
                       ],
                     },
@@ -1547,7 +2783,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
+                          "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD",
                         },
                       ],
                     },
@@ -1563,13 +2799,14 @@ Object {
           },
         },
         "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 15,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+            "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291",
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -1577,7 +2814,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleDefaultPolicy1788CF27": Object {
+    "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy2664BA58": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -1599,19 +2836,35 @@ Object {
               "Effect": "Allow",
               "Resource": "*",
             },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleDefaultPolicy1788CF27",
+        "PolicyName": "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleDefaultPolicy2664BA58",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC",
+            "Ref": "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructTextAnalysisLambdaFunctionServiceRoleE828FCCC": Object {
+    "OrchestrationConstructTextAnalysisTaskLambdaFunctionServiceRoleF3C02291": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1666,6 +2919,186 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
+    "OrchestrationConstructTextAnalysisTaskLambdaFunctionSqsEventSourceOrchestrationConstructTextAnalysisTaskqueue8C431D71CAE99670": Object {
+      "Properties": Object {
+        "BatchSize": 1,
+        "Enabled": true,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "OrchestrationConstructTextAnalysisTaskLambdaFunctionDEF36561",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "OrchestrationConstructTextAnalysisTaskdeadLetterQueueAA58BD95": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructTextAnalysisTaskdeadLetterQueuePolicy730FE874": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisTaskdeadLetterQueueAA58BD95",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisTaskdeadLetterQueueAA58BD95",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructTextAnalysisTaskdeadLetterQueueAA58BD95",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructTextAnalysisTaskqueueDF7049B0": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructTextAnalysisTaskdeadLetterQueueAA58BD95",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 15,
+        },
+        "VisibilityTimeout": 3600,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructTextAnalysisTaskqueuePolicy6CBE94D6": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructTextAnalysisTaskqueueDF7049B0",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
     "OrchestrationConstructTextRekAnalyze15062BBD": Object {
       "Metadata": Object {
         "cfn_nag": Object {
@@ -1673,7 +3106,7 @@ Object {
             Object {
               "id": "W12",
               "reason": "The * resource allows lambda function to access Amazon Rekognition services. The Rekognition services do not have a resource arn.
-                  This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
+                        This permission is retricted to the lambda function responsible for accessing the Amazon Rekognition service",
             },
           ],
         },
@@ -1692,7 +3125,7 @@ Object {
         "PolicyName": "OrchestrationConstructTextRekAnalyze15062BBD",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructImageAnalysisLambdaFunctionServiceRole8D0CDC70",
+            "Ref": "OrchestrationConstructImageAnalysisTaskLambdaFunctionServiceRole9751CC46",
           },
         ],
       },
@@ -1705,7 +3138,7 @@ Object {
             Object {
               "id": "W12",
               "reason": "The * resource allows lambda function to access Amazon Translate services. The translate services do not have a resource arn.
-                  This permission is retricted to the lambda function responsible for accessing the Amazon Translate service",
+                        This permission is retricted to the lambda function responsible for accessing the Amazon Translate service",
             },
           ],
         },
@@ -1724,12 +3157,20 @@ Object {
                 "firehose:PutRecordBatch",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA",
-                  "Arn",
-                ],
-              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructTWITTERRawForTAKinesisFirehose7EC25066",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehose020698CF",
+                    "Arn",
+                  ],
+                },
+              ],
             },
           ],
           "Version": "2012-10-17",
@@ -1737,23 +3178,66 @@ Object {
         "PolicyName": "OrchestrationConstructTranslateLambdaAED204A7",
         "Roles": Array [
           Object {
-            "Ref": "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+            "Ref": "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "OrchestrationConstructTranslateLambdaFunctionE2F10F5D": Object {
+    "OrchestrationConstructTranslateLambdaStateMachineTask4781921E": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "states:SendTaskSuccess",
+                "states:sendTaskFailure",
+                "states:SendTaskHeartbeat",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTranslateLambdaStateMachineTask4781921E",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTranslateTaskLambdaFunction88C60D75": Object {
       "DependsOn": Array [
-        "OrchestrationConstructTranslateLambdaFunctionServiceRoleDefaultPolicyBC54445D",
-        "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+        "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleDefaultPolicy8A260F88",
+        "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -1761,7 +3245,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3S3Bucket3B1B5535",
+            "Ref": "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fS3Bucket74BBF58E",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1774,7 +3258,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3S3VersionKeyA2B0343F",
+                          "Ref": "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fS3VersionKey5869DD4C",
                         },
                       ],
                     },
@@ -1787,7 +3271,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters04c68ec6d4e54d79334221fc91626149f55c8b373bdee7663c97e2eaeba683e3S3VersionKeyA2B0343F",
+                          "Ref": "AssetParametersd56c3099e4e60d9d1a202e4b121d2b1294e29acd329c59de6e16e9e95ae6b82fS3VersionKey5869DD4C",
                         },
                       ],
                     },
@@ -1800,19 +3284,23 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "KINESIS_FIREHOSE_NAME": Object {
-              "Ref": "OrchestrationConstructRawForTAKinesisFirehoseE86C4BDA",
+            "KINESIS_FIREHOSE_FOR_NEWSFEEDS": Object {
+              "Ref": "OrchestrationConstructNEWSFEEDSRawForTAKinesisFirehose020698CF",
+            },
+            "KINESIS_FIREHOSE_FOR_TWITTER": Object {
+              "Ref": "OrchestrationConstructTWITTERRawForTAKinesisFirehose7EC25066",
             },
           },
         },
         "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 7,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+            "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170",
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -1820,7 +3308,57 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A": Object {
+    "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleDefaultPolicy8A260F88": Object {
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W12",
+              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateTaskqueueA95723A7",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleDefaultPolicy8A260F88",
+        "Roles": Array [
+          Object {
+            "Ref": "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "OrchestrationConstructTranslateTaskLambdaFunctionServiceRoleF1213170": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1875,39 +3413,185 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "OrchestrationConstructTranslateLambdaFunctionServiceRoleDefaultPolicyBC54445D": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
-            },
+    "OrchestrationConstructTranslateTaskLambdaFunctionSqsEventSourceOrchestrationConstructTranslateTaskqueue010D1DDB1D774C1E": Object {
+      "Properties": Object {
+        "BatchSize": 1,
+        "Enabled": true,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "OrchestrationConstructTranslateTaskqueueA95723A7",
+            "Arn",
           ],
         },
+        "FunctionName": Object {
+          "Ref": "OrchestrationConstructTranslateTaskLambdaFunction88C60D75",
+        },
       },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "OrchestrationConstructTranslateTaskdeadLetterQueue7F36E302": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructTranslateTaskdeadLetterQueuePolicy44E11384": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": Array [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Resource": "*",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateTaskdeadLetterQueue7F36E302",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateTaskdeadLetterQueue7F36E302",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "OrchestrationConstructTranslateLambdaFunctionServiceRoleDefaultPolicyBC54445D",
-        "Roles": Array [
+        "Queues": Array [
           Object {
-            "Ref": "OrchestrationConstructTranslateLambdaFunctionServiceRole9FDC386A",
+            "Ref": "OrchestrationConstructTranslateTaskdeadLetterQueue7F36E302",
           },
         ],
       },
-      "Type": "AWS::IAM::Policy",
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "OrchestrationConstructTranslateTaskqueueA95723A7": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "OrchestrationConstructTranslateTaskdeadLetterQueue7F36E302",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 15,
+        },
+        "VisibilityTimeout": 36000,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "OrchestrationConstructTranslateTaskqueuePolicy1BB3190D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "sqs:DeleteMessage",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:RemovePermission",
+                "sqs:AddPermission",
+                "sqs:SetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateTaskqueueA95723A7",
+                  "Arn",
+                ],
+              },
+              "Sid": "QueueOwnerOnlyAccess",
+            },
+            Object {
+              "Action": "SQS:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "OrchestrationConstructTranslateTaskqueueA95723A7",
+                  "Arn",
+                ],
+              },
+              "Sid": "HttpsOnly",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "OrchestrationConstructTranslateTaskqueueA95723A7",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
     },
     "TestEventBus12626D66": Object {
       "Properties": Object {
@@ -1923,7 +3607,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3BucketD992FB4D",
+            "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3Bucket596D8E57",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1936,7 +3620,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
+                          "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3VersionKey20C99F97",
                         },
                       ],
                     },
@@ -1949,7 +3633,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters28cc63ca49ab1c9776cdd7794f42eb3f0d0f9c2c3c0f6cf5bb1243b2a62d992fS3VersionKey995B9840",
+                          "Ref": "AssetParameters02f024d167d4e73174b58eeae4676de5edde4cfc95046e7969572ca3ad52d926S3VersionKey20C99F97",
                         },
                       ],
                     },

@@ -19,7 +19,7 @@ Object {
       },
       "Type": "AWS::Glue::Database",
     },
-    "TextInImgSentimentTableImgTxtSentimentTable35C3F536": Object {
+    "TextInImgSentimentTabletextinimgsentimentTableA9BD3045": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",

@@ -148,7 +148,7 @@ class DataSetStubber:
             "Permissions": ANY,
         }
 
-        if name in ["tweet", "text"]:
+        if name in ["geo", "feed"]:
             api_params.update({"ColumnGroups": ANY})
 
         stubber.add_response(operation, minimal_mock_reponse, api_params)
@@ -237,7 +237,7 @@ class DataSetStubber:
             "Permissions": ANY,
         }
 
-        if name in ["tweet", "text"]:
+        if name in ["geo", "feed"]:
             api_params.update({"ColumnGroups": ANY})
 
         stubber.add_client_error(

@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################################################################################
-#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      #
+#  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      			 #
 #                                                                                                                    #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
@@ -11,7 +11,8 @@
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
-#
+
+
 # This script runs all tests for the root CDK project, as well as any microservices, Lambda functions, or dependency
 # source code packages. These include unit tests, integration tests, and snapshot tests.
 #
@@ -37,6 +38,7 @@ setup_python_env() {
 	echo "Installing python packages"
 	pip3 install -r requirements.txt --target .
 	pip3 install -r requirements-dev.txt
+	pip3 install ../shared # This is required so that libraries under lambda layers are available to unit test lambda functions
 	echo "deactivate virtual environment"
 	deactivate
 }
@@ -86,6 +88,7 @@ run_javascript_lambda_test() {
 	echo "[Test] Javascript Lambda: $lambda_name, $lambda_description"
 	echo "------------------------------------------------------------------------------"
 	cd $source_dir/lambda/$lambda_name
+
 	[ "${CLEAN:-true}" = "true" ] && npm run clean
 	npm ci
 	npm test
@@ -111,7 +114,9 @@ run_cdk_project_test() {
 	npm run build
 
 	## Option to suppress the Override Warning messages while synthesizing using CDK
-	# export overrideWarningsEnabled=false
+	# Suppressing this as the warnings do not handle cdk.Duration type well and throw an exception
+	export overrideWarningsEnabled=false
+	echo "setting override warning to $overrideWarningsEnabled"
 
 	npm run test -- -u
 	if [ "$?" = "1" ]; then
@@ -123,6 +128,9 @@ run_cdk_project_test() {
     coverage_report_path=$source_dir/test/coverage-reports/jest/$component_name
     rm -fr $coverage_report_path
     mv coverage $coverage_report_path
+
+	# Unsetting the set variable to suppress warnings
+	unset overrideWarningsEnabled
 }
 
 
@@ -145,6 +153,8 @@ run_cdk_project_test "CDK - Discovering Hot Topics using Machine Learning App"
 #
 # Test the attached Lambda functions
 #
+run_python_lambda_test shared "Lambda Layer - Custom botocore config Initiatlization"
+
 run_javascript_lambda_test create-partition "create-partition"
 
 run_python_lambda_test firehose_topic_proxy "EventBridge - Firehose Topic Proxy"
@@ -179,6 +189,9 @@ run_javascript_lambda_test wf-translate-text "Workflow - Transate Text"
 
 run_python_lambda_test quicksight-custom-resources "Quicksight - Custom Resources"
 
+run_python_lambda_test capture_news_feed "Ingestion - newscatcher"
+
+run_javascript_lambda_test wf-detect-language "Workflow - Detect Language"
 
 # Return to the source/ level where we started
 cd $source_dir

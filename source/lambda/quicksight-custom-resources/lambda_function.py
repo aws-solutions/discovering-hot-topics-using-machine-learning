@@ -15,11 +15,11 @@
 import logging
 
 from crhelper import CfnResource
+from dht_config import custom_logging
 
-from util.logging import get_logger
 from util.quicksight import QuicksightApi
 
-logger = logging.getLogger(__name__)
+logger = custom_logging.get_logger(__name__)
 helper = CfnResource(json_logging=False, log_level="INFO")
 
 

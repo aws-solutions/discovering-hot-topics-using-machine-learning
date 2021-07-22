@@ -11,9 +11,9 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from util.logging import get_logger
+from dht_config import custom_logging
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class SourceEntity:

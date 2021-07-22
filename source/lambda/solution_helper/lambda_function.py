@@ -13,6 +13,7 @@
 
 import logging
 import os
+import re
 import uuid
 from copy import copy
 from datetime import datetime
@@ -32,6 +33,7 @@ def _sanitize_data(resource_properties):
     # Solution ID and unique ID are sent separately
     resource_properties.pop("SolutionId", None)
     resource_properties.pop("UUID", None)
+    resource_properties.pop("Version", None)
 
     return resource_properties
 
@@ -51,13 +53,24 @@ def custom_resource(event, _):
         try:
             metrics_data = _sanitize_data(copy(resource_properties))
             metrics_data["RequestType"] = request_type
-            metrics_data["SearchQuery"] = os.environ["SEARCH_QUERY"]
-            metrics_data["LangFilter"] = os.environ["LANG_FILTER"]
+            # determine query complexity, actual query not posted
+            metrics_data["TwitterSearchQueryComplexity"] = len(
+                re.split(" OR  | + ", os.environ.get("TWITTER_SEARCH_QUERY", ""))
+            )
+            metrics_data["TwitterSearchQueryLength"] = len(os.environ.get("TWITTER_SEARCH_QUERY", ""))
+            metrics_data["TwitterLangFilter"] = os.environ.get("TWITTER_LANG_FILTER", "")
+            metrics_data["TwitterIngestionFreq"] = os.environ.get("TWITTER_INGEST_FREQ", "")
+            metrics_data["TopicJobFreq"] = os.environ["TOPIC_JOB_FREQ"]
+            # determine query complexity, actual query not posted
+            metrics_data["NewsFeedsSearchComplexity"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", "").split(","))
+            metrics_data["NewsFeedsSearchQueryLength"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", ""))
+            metrics_data["NewsFeedsIngestionFreq"] = os.environ.get("NEWSFEEDS_INGESTION_FREQ", "")
 
             headers = {"Content-Type": "application/json"}
             payload = {
                 "Solution": resource_properties["SolutionId"],
                 "UUID": resource_properties["UUID"],
+                "Version": resource_properties["Version"],
                 "TimeStamp": datetime.utcnow().isoformat(),
                 "Data": metrics_data,
             }

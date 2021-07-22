@@ -11,12 +11,13 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
+from dht_config import custom_logging
+
 from util.helpers import get_quicksight_client
-from util.logging import get_logger
 from util.quicksight_resource import QuickSightResource
 from util.source_entity import SourceEntity
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class Dashboard(QuickSightResource):
@@ -28,7 +29,7 @@ class Dashboard(QuickSightResource):
         data_source=None,
         props=None,
     ):
-        super().__init__(quicksight_application=quicksight_application, type = "dashboard", props=props)
+        super().__init__(quicksight_application=quicksight_application, type="dashboard", props=props)
         self.use_props(props)
 
         self.data_sets = data_sets

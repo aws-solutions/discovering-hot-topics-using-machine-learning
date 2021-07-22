@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -24,6 +24,7 @@
     beforeEach(() => {
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
         AWSMock.mock('DynamoDB', 'query', (error, callback) => {
             callback(null, {
@@ -38,7 +39,7 @@
             callback(null, 'Success');
         });
 
-        feedTracker = new FeedTracker('twitter');
+        feedTracker = new FeedTracker();
     })
 
     it ('insert item in the tracker', async() => {
@@ -105,6 +106,8 @@
     afterEach(() => {
         delete process.env.DDB_TABLE_NAME;
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
+
         AWSMock.restore('DynamoDB');
     });
  });

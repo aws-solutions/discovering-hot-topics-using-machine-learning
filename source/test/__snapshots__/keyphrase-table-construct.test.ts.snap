@@ -3,7 +3,7 @@
 exports[`test workflow stack 1`] = `
 Object {
   "Resources": Object {
-    "KeyPhraseTableKeyPhraseTable1BD56D08": Object {
+    "KeyPhraseTablekeyphraseTableEE388B7F": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",

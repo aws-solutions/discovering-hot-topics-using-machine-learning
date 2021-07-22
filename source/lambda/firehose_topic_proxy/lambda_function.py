@@ -14,17 +14,19 @@
 
 import os
 
-from util.logging import get_logger
+from dht_config import custom_logging
+
 from util.topic import store_mappings, store_topics
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
+
 
 def handler(event, context):
-    if (event['source'] == os.environ['TOPICS_NS']):
-        logger.debug('Event namespace is '+os.environ['TOPICS_NS'])
-        store_topics(event['detail'])
-    elif (event['source'] == os.environ['TOPIC_MAPPINGS_NS']):
-        logger.debug('Event namespace is '+os.environ['TOPIC_MAPPINGS_NS'])
-        store_mappings(event['detail'])
+    if event["source"] == os.environ["TOPICS_NS"]:
+        logger.debug("Event namespace is " + os.environ["TOPICS_NS"])
+        store_topics(event["detail"])
+    elif event["source"] == os.environ["TOPIC_MAPPINGS_NS"]:
+        logger.debug("Event namespace is " + os.environ["TOPIC_MAPPINGS_NS"])
+        store_mappings(event["detail"])
     else:
-        logger.warn('Event source matched no namespace')
+        logger.warn("Event source matched no namespace")

@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -37,6 +37,8 @@ describe ('When firehose-text-proxy processor is called', () => {
         process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE = 'txt_in_image_sentiment_fireshose';
         process.env.TXT_IN_IMG_ENTITY_FIREHOSE = 'txt_in_image_entity_firehose';
         process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE = 'txt_in_image_keyphrase_firehose';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
 
         process.env.REGION = 'us-east-1';
 
@@ -44,14 +46,14 @@ describe ('When firehose-text-proxy processor is called', () => {
             callback(null, {
                 "Encrypted": true,
                 "RecordId": "49607933892580429045866716038015163261214518926441971714"
-             });
+            });
         });
 
         AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
             callback(null, {
                 "Encrypted": true,
                 "FailedPutCount": 0,
-             });
+            });
         });
     });
 
@@ -107,6 +109,7 @@ describe ('When firehose-text-proxy processor is called', () => {
         delete process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE;
         delete process.env.TXT_IN_IMG_ENTITY_FIREHOSE;
         delete process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE;
+        delete process.env.AWS_SDK_USER_AGENT;
 
         AWSMock.restore('Firehose');
     });

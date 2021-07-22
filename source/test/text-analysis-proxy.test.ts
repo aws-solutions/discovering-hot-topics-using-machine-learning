@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -69,15 +69,21 @@ test('test Text Analysis Fireshose Stream Creation', () => {
                 encryption: BucketEncryption.S3_MANAGED
             })
         }),
-        feedStorage: new EventStorage(stack, 'TwFeedStorage', {
+        twFeedStorage: new EventStorage(stack, 'TwFeedStorage', {
             compressionFormat: 'UNCOMPRESSED',
             prefix: 'feedStorage',
             s3Bucket: new Bucket(stack, 'twfeedstorage', {
                 encryption: BucketEncryption.S3_MANAGED
             })
         }),
+        newsFeedStorage: new EventStorage(stack, 'NewsFeedStorage', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'newsfeedStorage',
+            s3Bucket: new Bucket(stack, 'newsFeedStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
         textAnalysisInfNS: 'com.analyze.inference.text'
-
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

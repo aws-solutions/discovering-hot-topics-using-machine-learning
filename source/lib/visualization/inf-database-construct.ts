@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -19,6 +19,7 @@ import { StorageCrawler } from '../storage/storage-crawler-construct';
 import { EntityTable } from './entity-table-construct';
 import { KeyPhraseTable } from './keyphrase-table-construct';
 import { ModerationLabelsTable } from './moderation-labels-table-construct';
+import { NewsFeedTable } from './newsfeed-table-construct';
 import { SentimentTable } from './sentiment-table-construct';
 import { TextInImgEntityTable } from './text-in-image-entities-table-construct';
 import { TextInImgKeyPhraseTable } from './text-in-img-keyphrase-table-construct';
@@ -154,6 +155,14 @@ export class InferenceDatabase extends Construct {
         });
         this._tableMap.set('TwFeedStorage', twitterTable.table);
 
+        const newsFeedTable = new NewsFeedTable(this, 'NewsFeed', {
+            s3InputDataBucket: props.s3InputDataBucket,
+            s3BucketPrefix: `${props.tablePrefixMappings.get('NewsFeedStorage')!}/`,
+            tableName: props.tablePrefixMappings.get('NewsFeedStorage')!,
+            database: this._database
+        });
+        this._tableMap.set('NewsFeedStorage', newsFeedTable.table);
+
         const storageCrawler = new StorageCrawler(this, 'HotTopicsDB', {
             s3Bucket: props.s3InputDataBucket,
             databaseName: this._database.databaseName,
@@ -170,6 +179,7 @@ export class InferenceDatabase extends Construct {
         storageCrawler.node.addDependency(txtInImgSentiment);
         storageCrawler.node.addDependency(moderationLabelsTable);
         storageCrawler.node.addDependency(twitterTable);
+        storageCrawler.node.addDependency(newsFeedTable);
     }
 
     public get database(): Database {

@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -13,3 +13,4 @@
 
 module.exports.twitterTimestampFormat = 'ddd MMM DD HH:mm:ss Z YYYY';
 module.exports.dbTimestampFormat = 'YYYY-MM-DD HH:mm:ss';
+module.exports.newsFeedsTimeFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ' // 2021-06-23T02:30:06+00:00

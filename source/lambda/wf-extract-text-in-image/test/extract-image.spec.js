@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -25,6 +25,8 @@ const ImageExtractor = require('../util/extract-image');
 
 describe('Test retrieveIamageAndS3Upload', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'upload', (error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
@@ -39,20 +41,22 @@ describe('Test retrieveIamageAndS3Upload', () => {
         });
     });
 
-    it ('should execute succesfully', async(done) => {
+    it ('should execute succesfully', async() => {
         const spy = sinon.spy(ImageExtractor, 'retrieveImageAndS3Upload');
         await ImageExtractor.retrieveImageAndS3Upload('https://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg', 'TestBucket', 'RandomKey');
         assert(spy.calledOnce);
-        done();
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });
 
 describe('Test S3 Upload', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'upload', (error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
@@ -67,24 +71,25 @@ describe('Test S3 Upload', () => {
         });
     });
 
-    it ('should successfully mock S3 upload', async (done) => {
+    it ('should successfully mock S3 upload', async () => {
         const s3 = new AWS.S3();
         await s3.upload({
             Bucket: 'TestBucket',
             Key: 'RandomKey',
             Body: fs.createReadStream(`${__dirname}/text.png`)
-        }).promise().then((result) => {
-            done();
-        });
+        }).promise();
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });
 
 describe('Test Error scenario', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'upload', (error, callback) => {
             callback(new Error('S3 upload failed'), null);
         });
@@ -105,12 +110,15 @@ describe('Test Error scenario', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
     });
 });
 
 describe('Test mock axios with S3 upload mock', () => {
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('S3', 'upload', (error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
@@ -126,11 +134,12 @@ describe('Test mock axios with S3 upload mock', () => {
     });
 
     afterEach(() => {
+        delete process.env.AWS_SDK_USER_AGENT;
         AWSMock.restore('S3');
 
     });
 
-    it ('return a readstream and successfully uploads', async (done) => {
+    it ('return a readstream and successfully uploads', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return { status: 200, data: fs.createReadStream(`${__dirname}/text.png`) };
         });
@@ -145,9 +154,7 @@ describe('Test mock axios with S3 upload mock', () => {
             Bucket: 'TestBucket',
             Key: 'RandomKey',
             Body: passThrough
-        }).promise().then((result) => {
-            done();
-        });
+        }).promise();
 
         axiosStub.restore();
     });

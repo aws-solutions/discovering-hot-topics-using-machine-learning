@@ -11,14 +11,14 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
+from dht_config import custom_logging
 from tenacity import retry, retry_if_exception_type, stop_after_attempt
 
 from util.helpers import get_quicksight_client
-from util.logging import get_logger
 from util.quicksight_resource import QuickSightFailure, QuickSightResource
 from util.source_entity import SourceEntity
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class Analysis(QuickSightResource):

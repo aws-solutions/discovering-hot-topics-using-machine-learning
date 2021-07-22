@@ -2,7 +2,7 @@
 
 The Discovering Hot Topics Using Machine Learning solution helps you identify the most dominant topics associated with your products, policies, events, and brands. Implementing this solution helps you react quickly to new growth opportunities, address negative brand associations, and deliver higher levels of customer satisfaction.
 
-The solution uses machine learning algorithms to automate digital asset (text and image) ingestion and perform near real-time topic modeling, sentiment analysis, and image detection. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions to building a dashboard that provides you with the context and insights necessary to identify trends that help or harm you brand.
+The solution automates digital asset (text and image) ingestion from twitter and RSS news feeds to provide near-real-time inferences using machine learning algorithms through Amazon Comprehend, Amazon Translate, and Amazon Rekognition to perform topic modeling, sentiment analysis, entity and key phrase detection, and detect any unsafe images. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions for deploying this solution including a pre-built dashboard that provides you with the context and insights necessary to identify trends that help or harm your brand.
 
 The solution performs the following key features:
 
@@ -10,6 +10,8 @@ The solution performs the following key features:
 -   **Identifies the sentiment of what customers are saying**: uses contextual semantic search to understand the nature of online discussions
 -   **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
 -   **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
+
+This solution deploys an AWS CloudFormation template that supports both Twitter and RSS feeds as data source options for ingestion, but the solution can be customized to aggregate other social media platforms and internal enterprise systems.
 
 For a detailed solution deployment guide, refer to [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
@@ -52,6 +54,7 @@ After you deploy the solution, use the included Amazon QuickSight dashboard to v
 -   aws-lambda-dynamodb
 -   aws-lambda-s3
 -   aws-lambda-step-function
+-   aws-sqs-lambda
 
 ## Deployment
 
@@ -64,17 +67,25 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
 ```
 ├── deployment                          [folder containing build scripts]
 │   ├── cdk-solution-helper             [A helper function to help deploy lambda function code through S3 buckets]
+│   ├── build-s3-dist.sh                [Build script to build the solution]
 └── source                              [source code containing CDK App and lambda functions]
     ├── bin                             [entrypoint of the CDK application]
     ├── lambda                          [folder containing source code the lambda functions]
-    │   ├── firehose-text-proxy         [lambda function to write text analysis output to Amazon Kinesis Firehose]
+    │   ├── capture_news_feed           [lambda function to ingest news feeds]
     │   ├── firehose_topic_proxy        [lambda function to write topic analysis output to Amazon Kinesis Firehose]
+    │   ├── firehose-text-proxy         [lambda function to write text analysis output to Amazon Kinesis Firehose]
     │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Stream]
     │   ├── ingestion-producer          [lambda function that makes Twitter API call and pushes data to Amazon Kinesis Data Stream]
     │   ├── integration                 [lambda function that publishes inference outputs to Amazon Events Bridge]
+    │   ├── layers                      [lambda layer function library]
+    │   │   ├── aws-nodesk-custom-config
+    │   ├── quicksight-custom-resources [lambda function to create Amazon QuickSight resources, example: data source, data sets, analysis and dashboards]
+    │   ├── shared                      [lambda layer function library (specific to python lambda runtimes)]
+    │   ├── solution_helper             [lambda function that allows capturing metrics for this solution]
     │   ├── storage-firehose-processor  [lambda function that writes data to S3 buckets to build a relational model]
     │   ├── wf-analyze-text             [lambda function to detect sentiments, key phrases and entities using Amazon Comprehend]
     │   ├── wf-check-topic-model        [lambda function to check status of topic modeling jobs on Amazon Comprehend]
+    │   ├── wf-detect-language          [lambda function to detect language of ingested text content using Amazon Comprehend]
     │   ├── wf-detect-moderation-labels [lambda function to detect content moderation using Amazon Rekognition]
     │   ├── wf-extract-text-in-image    [lambda function to extract text content from images using Amazon Rekognition]
     │   ├── wf-publish-text-inference   [lambda function to publish Amazon Comprehend inferences]
@@ -82,8 +93,11 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     │   ├── wf-translate-text           [lambda function to translate non-english text using Amazon Translate]
     │   └── wf_publish_topic_model      [lambda function to publish topic modeling inferences from Amazon Comprehend]
     ├── lib
+    │   ├── aspects                     [CDK Aspects definitions to inject attributes during the prepare phase]
+    │   ├── awsnodejs-lambda-layer      [Lambda layer construct for lambda functions that run on Nodejs runtime]
     │   ├── ingestion                   [CDK constructs for data ingestion]
     │   ├── integration                 [CDK constructs for Amazon Events Bridge]
+    │   ├── quicksight-custom-resources [CDK construct that invokes custom resources to create Amazon QuickSight resources]
     │   ├── storage                     [CDK constructs that define storage of the inference events]
     │   ├── text-analysis-workflow      [CDK constructs for text analysis of ingested data]
     │   ├── topic-analysis-workflow     [CDK constructs for topic visualization of ingested data]
@@ -136,12 +150,22 @@ $CF_TEMPLATE_BUCKET_NAME - The name of the S3 bucket where the CloudFormation te
 $QS_TEMPLATE_ACCOUNT - The account from which the Amazon QuickSight templates should be sourced for Amazon QuickSight Analysis and Dashboard creation
 ```
 
+-   When creating and using buckets it is recommeded to:
+
+    -   Use randomized names or uuid as part of your bucket naming strategy.
+    -   Ensure buckets are not public.
+    -   Verify bucket ownership prior to uploading templates or code artifacts.
+
 -   Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
 
 ```
 aws s3 cp ./global-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot-topics-using-machine-learning/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
 aws s3 cp ./regional-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot-topics-using-machine-learning/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
 ```
+
+## Collection of operational metrics
+
+This solution collects anonymous operational metrics to help AWS improve the quality and features of the solution. For more information, including how to disable this capability, please see the [implementation guide](https://docs.aws.amazon.com/solutions/latest/discovering-hot-topics-using-machine-learning/operational-metrics.html).
 
 ---
 

@@ -3,16 +3,16 @@
 exports[`Test Lambda with role and scheduler 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99ArtifactHashF26D0C90": Object {
-      "Description": "Artifact hash for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
+      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3": Object {
-      "Description": "S3 bucket for asset \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
+      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
-    "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96": Object {
-      "Description": "S3 key for asset version \\"2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99\\"",
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
+      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
       "Type": "String",
     },
   },
@@ -65,7 +65,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -73,7 +81,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3Bucket6CD088D3",
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -86,7 +94,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
+                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
                         },
                       ],
                     },
@@ -99,7 +107,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2533c82a5af83cead90eb68bbe30eafe0aab42301846295f77dc4f6011b9ff99S3VersionKey90770F96",
+                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
                         },
                       ],
                     },
@@ -112,20 +120,11 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "CAP_NUM_RECORD": "25",
-            "CREDENTIAL_KEY_PATH": "/some/dummy/path/test",
             "DDB_TABLE_NAME": Object {
               "Ref": "FeedProducerConstructLambdaDDBDynamoTableAA674720",
             },
             "QUERY_PARAM": "Health",
-            "QUERY_RESULT_TYPE": "mixed",
-            "SOLUTION_NAME": "discovering-hot-topics-using-machine-learning",
-            "STACK_NAME": Object {
-              "Ref": "AWS::StackName",
-            },
-            "STREAM_NAME": Object {
-              "Ref": "TestStreamE6F40222",
-            },
+            "RESULT_TYPE": "mixed",
             "SUPPORTED_LANG": "de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw",
           },
         },
@@ -136,7 +135,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -229,6 +228,7 @@ Object {
                 "dynamodb:Query",
                 "dynamodb:GetItem",
                 "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
                 "dynamodb:BatchWriteItem",
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
@@ -318,7 +318,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "FeedProducerConstructPollFrequencyAllowEventRuleFeedProducerConstructPollFrequencyD3A9EC5A9B4319F0": Object {
+    "FeedProducerConstructPollFrequencyAllowEventRuleFeedProducerConstructLambdaDDBLambdaFunction8E42B6E36960A3DF": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {

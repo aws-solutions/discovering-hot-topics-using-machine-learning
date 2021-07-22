@@ -1,5 +1,5 @@
-/*********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+/**********************************************************************************************************************
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -20,6 +20,11 @@ export interface SolutionHelperProps {
     readonly solutionId: string;
     readonly searchQuery: string;
     readonly langFilter: string;
+    readonly solutionVersion: string;
+    readonly topicModelingFreq: string;
+    readonly twitterIngestionFreq: string;
+    readonly newsFeedIngestionFreq: string;
+    readonly newsFeedsIngestionSearchQuery: string;
 }
 
 export class SolutionHelper extends cdk.Construct {
@@ -50,9 +55,25 @@ export class SolutionHelper extends cdk.Construct {
             code: lambda.Code.fromAsset(`${__dirname}/../../lambda/solution_helper`),
             timeout: cdk.Duration.seconds(30),
             environment: {
-                SEARCH_QUERY: props.searchQuery,
-                LANG_FILTER: props.langFilter
+                // the query is only used to determin query complexity, actually query is not posted for metrics data
+                TWITTER_SEARCH_QUERY: props.searchQuery,
+                TWITTER_LANG_FILTER: props.langFilter,
+                TWITTER_INGEST_FREQ: props.twitterIngestionFreq,
+                TOPIC_JOB_FREQ: props.topicModelingFreq,
+                NEWSFEEDS_INGESTION_FREQ: props.newsFeedIngestionFreq,
+                // the query is only used to determin query complexity, actually query is not posted for metrics data
+                NEWSFEEDS_SEARCH_QUERY: props.newsFeedsIngestionSearchQuery
             }
+        });
+
+        (helperFunction.node.defaultChild as lambda.CfnFunction).addMetadata('cfn_nag', {
+            rules_to_suppress: [{
+                "id": "W89",
+                "reason": "This is not a rule for the general case, just for specific use cases/industries"
+            }, {
+                "id": "W92",
+                "reason": "Impossible for us to define the correct concurrency for clients"
+            }]
         });
 
         this._UuidCustomResource = new cdk.CustomResource(this, 'CreateUniqueID', {
@@ -69,7 +90,8 @@ export class SolutionHelper extends cdk.Construct {
                 'Resource': 'AnonymousMetric',
                 'SolutionId': props.solutionId,
                 'UUID': this._UuidCustomResource.getAttString('UUID'),
-                'Region': cdk.Aws.REGION
+                'Region': cdk.Aws.REGION,
+                'Version': props.solutionVersion
             },
             resourceType: 'Custom::AnonymousData'
         });

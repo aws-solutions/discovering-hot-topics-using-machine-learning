@@ -24,6 +24,7 @@ const __test_event__ = require('./event-test-data');
 describe('Test Image analysis', () => {
     beforeEach(() => {
         process.env.REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
         process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE = 'sentiment_stream';
         process.env.TXT_IN_IMG_ENTITY_FIREHOSE = 'entity_stream';
@@ -51,6 +52,7 @@ describe('Test Image analysis', () => {
         delete process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE;
         delete process.env.TXT_IN_IMG_ENTITY_FIREHOSE;
         delete process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 
     it ('should store the image analyzed information', async () => {

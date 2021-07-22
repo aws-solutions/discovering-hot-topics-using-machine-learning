@@ -21,14 +21,16 @@ from moto import mock_s3
 @mock_s3
 def test_lambda_function():
     event = {
-        "JobId": "12345678901234567890",
-        "JobName": "DiscoveringHotTopicsUsingMachineLearning-1595090521262",
-        "JobStatus": "IN_PROGRESS",
-        "SubmitTime": "2020-07-18T16:42:02.483Z",
-        "InputDataConfig": {"S3Uri": "s3://ingestio-tqsdiegtrmkp", "InputFormat": "ONE_DOC_PER_LINE"},
-        "OutputDataConfig": {"S3Uri": "s3://2305002e803b60a8443cb7dd30/output/output.tar.gz"},
-        "NumberOfTopics": 10,
-        "DataAccessRoleArn": "arn:aws:iam::someaccountid:role/testrolename",
+        "twitter": {
+            "JobId": "12345678901234567890",
+            "JobName": "DiscoveringHotTopicsUsingMachineLearning-1595090521262",
+            "JobStatus": "IN_PROGRESS",
+            "SubmitTime": "2020-07-18T16:42:02.483Z",
+            "InputDataConfig": {"S3Uri": "s3://ingestio-tqsdiegtrmkp", "InputFormat": "ONE_DOC_PER_LINE"},
+            "OutputDataConfig": {"S3Uri": "s3://2305002e803b60a8443cb7dd30/output/output.tar.gz"},
+            "NumberOfTopics": 10,
+            "DataAccessRoleArn": "arn:aws:iam::someaccountid:role/testrolename",
+        }
     }
 
     with mock_s3():

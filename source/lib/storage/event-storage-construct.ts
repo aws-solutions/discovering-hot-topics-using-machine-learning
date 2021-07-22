@@ -23,9 +23,26 @@ import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 
 export interface EventStorageProps {
     readonly compressionFormat: string,
+    /**
+     * Prefix for S3 bucket, all data will be stored with the provided prefix
+     */
     readonly prefix?: string,
+    /**
+     * If this property is set, it will create a prefix 'created_at=YYYY-MM-DD' for records stored in S3.
+     * This property is used in conjunction with the prefix. If the prefix is not set, this property is ignored
+     */
+    readonly aggregateByDay?: boolean,
+    /**
+     * Lambda process if any tranformation is required
+     */
     readonly processor?: boolean,
+    /**
+     * S3 bucket location where data will be stored
+     */
     readonly s3Bucket: Bucket,
+    /**
+     * The KMS key ARN for Glue Tables
+     */
     readonly keyArn?: string,
 
     //below props only required if data format is parquet
@@ -93,9 +110,9 @@ export class EventStorage extends Construct {
         if (props?.processor) {
             this._lambda = buildLambdaFunction(this, {
                 lambdaFunctionProps: {
-                    runtime: Runtime.NODEJS_12_X,
+                    runtime: Runtime.NODEJS_14_X,
                     handler: 'index.handler',
-                    code: Code.fromAsset(`${__dirname}/../../lambda/storage-firehose-processor`),
+                    code: Code.fromAsset(`${__dirname}/../../lambda/storage-firehose-processor`)
                 }
             });
 
@@ -110,8 +127,27 @@ export class EventStorage extends Construct {
             lambdaProcessorPolicy.attachToRole(firehoseRole);
         }
 
+        let bucketPrefix = undefined;
+        if (props.prefix) {
+            if (props.aggregateByDay) {
+                bucketPrefix = {
+                    prefix: `${props?.prefix}created_at=!{timestamp:yyyy-MM-dd}/`,
+                    errorOutputPrefix: `${props.prefix}error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`
+                }
+            } else {
+                bucketPrefix = {
+                    prefix: props.prefix
+                }
+            }
+        }
+
+
         // Setup the default Kinesis Firehose props
         const defaultKinesisFirehoseProps: CfnDeliveryStreamProps = {
+            deliveryStreamType: 'DirectPut',
+            deliveryStreamEncryptionConfigurationInput: {
+                keyType: 'AWS_OWNED_CMK'
+            },
             extendedS3DestinationConfiguration : {
                 bucketArn: props.s3Bucket.bucketArn,
                 bufferingHints: {
@@ -120,10 +156,7 @@ export class EventStorage extends Construct {
                 },
                 compressionFormat: props.compressionFormat,
                 roleArn: firehoseRole.roleArn,
-                ...(props.prefix && {
-                    prefix: `${props?.prefix}created_at=!{timestamp:yyyy-MM-dd}/`,
-                    errorOutputPrefix: `${props.prefix}error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`
-                }),
+                ...bucketPrefix,
                 ...(props?.processor && {
                         processingConfiguration: {
                         enabled: true,

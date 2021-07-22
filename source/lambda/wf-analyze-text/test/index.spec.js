@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.orglicenses/LICENSE-2.0                                                                      *
+ *      http://www.apache.orglicenses/LICENSE-2.0                                                                     *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -26,6 +26,8 @@ describe ('When workflow->analyze text is called', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         lambdaSpy = sinon.spy(lambda, 'handler');
         process.env.AWS_REGION = 'us-east-1';
         AWSMock.mock('Comprehend', 'detectSentiment', (error, callback) => {
@@ -82,21 +84,33 @@ describe ('When workflow->analyze text is called', () => {
                 }]
             });
         });
+
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     it ('should receive event correctly', async () => {
         if (! lambdaSpy.threw()) expect.fail;
-        expect((await lambda.handler(__test_event__.event)).account_name).to.equal('twitter');
+        expect((await lambda.handler(__test_event__.event))[0].account_name).to.equal('twitter');
     });
 
     it ('should analyze embedded text -> post rek', async () => {
         if (! lambdaSpy.threw()) expect.fail;
         const response = await lambda.handler(__test_event__.eventWithRekText);
-        expect(response.account_name).to.equal('twitter');
-        expect(response.text_in_images[0].text).to.equal('It\'s Monday. Have a nice day');
-        expect(response.text_in_images[0].Sentiment).to.equal('NEUTRAL');
-        expect(response.text_in_images[0].Entities[1].Text).to.equal('organization');
-        expect(response.text_in_images[0].KeyPhrases[1].Text).to.equal('Some fake movie name');
+        expect(response[0].account_name).to.equal('twitter');
+        expect(response[0].text_in_images[0].text).to.equal('It\'s Monday. Have a nice day');
+        expect(response[0].text_in_images[0].Sentiment).to.equal('NEUTRAL');
+        expect(response[0].text_in_images[0].Entities[1].Text).to.equal('organization');
+        expect(response[0].text_in_images[0].KeyPhrases[1].Text).to.equal('Some fake movie name');
     });
 
 
@@ -104,7 +118,7 @@ describe ('When workflow->analyze text is called', () => {
     it ('should call comprehend -> detect sentiment', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectSentiment({
-            Text: `${__test_event__.event.feed._cleansed_text}`,
+            Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
             LanguageCode: 'en'
         }).promise();
 
@@ -114,7 +128,7 @@ describe ('When workflow->analyze text is called', () => {
     it ('should call comprehend -> detect sentiment', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectSentiment({
-            Text: `${__test_event__.event.feed._cleansed_text}`,
+            Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
             LanguageCode: 'en'
         }).promise();
 
@@ -125,7 +139,7 @@ describe ('When workflow->analyze text is called', () => {
     it ('should call comprehend -> detect entities', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectEntities({
-            Text: `${__test_event__.event.feed._cleansed_text}`,
+            Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
             LanguageCode: 'en'
         }).promise();
 
@@ -135,7 +149,7 @@ describe ('When workflow->analyze text is called', () => {
     it ('should call comprehend -> key phrases', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectKeyPhrases({
-            Text: `${__test_event__.event.feed._cleansed_text}`,
+            Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
             LanguageCode: 'en'
         }).promise();
 
@@ -144,8 +158,10 @@ describe ('When workflow->analyze text is called', () => {
 
     afterEach(() => {
         AWSMock.restore('Comprehend');
+        AWSMock.restore('StepFunctions');
         lambdaSpy.restore();
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
@@ -156,6 +172,8 @@ describe('Error scenarios', () => {
     beforeEach(() => {
         lambdaSpy = sinon.spy(lambda, 'handler');
         process.env.AWS_REGION = 'us-east-1';
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         AWSMock.mock('Comprehend', 'detectSentiment', (error, callback) => {
             callback(null, {
                 "Sentiment": "NEUTRAL",
@@ -210,10 +228,24 @@ describe('Error scenarios', () => {
                 }]
             });
         });
+
+        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
+
+        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+            if (params.taskToken === 'fakeToken') {
+                callback(null, 'Success');
+            }
+        });
     });
 
     describe('error in sentiment analysis', () => {
         beforeEach(() => {
+            process.env.AWS_SDK_USER_AGENT;
+
             AWSMock.remock('Comprehend', 'detectSentiment', (error, callback) => {
                 callback(new Error('Throttling error'), null);
             });
@@ -232,6 +264,8 @@ describe('Error scenarios', () => {
 
     describe('error in keyphrase detection', () => {
         beforeEach(() => {
+            process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
             AWSMock.remock('Comprehend', 'detectKeyPhrases', (error, callback) => {
                 callback(new Error('Throttling error'), null);
             });
@@ -249,6 +283,8 @@ describe('Error scenarios', () => {
 
     describe('error in entity detection', () => {
         beforeEach(() => {
+            process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
             AWSMock.remock('Comprehend', 'detectEntities', (error, callback) => {
                 callback(new Error('Throttling error'), null);
             });
@@ -266,7 +302,9 @@ describe('Error scenarios', () => {
 
     afterEach(() => {
         AWSMock.restore('Comprehend');
+        AWSMock.restore('StepFunctions');
         lambdaSpy.restore();
         delete process.env.AWS_REGION;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });

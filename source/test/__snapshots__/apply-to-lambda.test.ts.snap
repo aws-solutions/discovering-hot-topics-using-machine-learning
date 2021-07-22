@@ -1,0 +1,596 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test adding custom config 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4ArtifactHashC454615F": Object {
+      "Description": "Artifact hash for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A": Object {
+      "Description": "S3 bucket for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB": Object {
+      "Description": "S3 key for asset version \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcArtifactHash6BAEDCA8": Object {
+      "Description": "Artifact hash for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B": Object {
+      "Description": "S3 bucket for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB": Object {
+      "Description": "S3 key for asset version \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "TestConfigDFE7B72C": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "nodejs14.x",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer configures AWS Node SDK initialization",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "TestConfigPythonLibLayer672F8799": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "python3.8",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer has boto config initialization and logging functions",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+  },
+}
+`;
+
+exports[`visting node lambda runtimes and adding aspects 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192ArtifactHash17A06B7A": Object {
+      "Description": "Artifact hash for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+      "Type": "String",
+    },
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D": Object {
+      "Description": "S3 bucket for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+      "Type": "String",
+    },
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09": Object {
+      "Description": "S3 key for asset version \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4ArtifactHashC454615F": Object {
+      "Description": "Artifact hash for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A": Object {
+      "Description": "S3 bucket for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB": Object {
+      "Description": "S3 key for asset version \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcArtifactHash6BAEDCA8": Object {
+      "Description": "Artifact hash for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B": Object {
+      "Description": "S3 bucket for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB": Object {
+      "Description": "S3 key for asset version \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "testConfigWithNodeDDA76C99": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "nodejs14.x",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer configures AWS Node SDK initialization",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "testConfigWithNodePythonLibLayer75C81C17": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "python3.8",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer has boto config initialization and logging functions",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "testFunction483F4CBE": Object {
+      "DependsOn": Array [
+        "testFunctionServiceRoleFEC29B6F",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_SDK_USER_AGENT": "{ \\"customUserAgent\\": \\"AwsSolution/undefined/undefined\\" }",
+          },
+        },
+        "Handler": "index.handler",
+        "Layers": Array [
+          Object {
+            "Ref": "testConfigWithNodeDDA76C99",
+          },
+        ],
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "testFunctionServiceRoleFEC29B6F",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "testFunctionServiceRoleFEC29B6F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;
+
+exports[`visting node python runtimes and adding aspects 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534ArtifactHashA9C2E72F": Object {
+      "Description": "Artifact hash for asset \\"05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534\\"",
+      "Type": "String",
+    },
+    "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534S3BucketC5F15376": Object {
+      "Description": "S3 bucket for asset \\"05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534\\"",
+      "Type": "String",
+    },
+    "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534S3VersionKeyAF51FA51": Object {
+      "Description": "S3 key for asset version \\"05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4ArtifactHashC454615F": Object {
+      "Description": "Artifact hash for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A": Object {
+      "Description": "S3 bucket for asset \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB": Object {
+      "Description": "S3 key for asset version \\"9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcArtifactHash6BAEDCA8": Object {
+      "Description": "Artifact hash for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B": Object {
+      "Description": "S3 bucket for asset \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+    "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB": Object {
+      "Description": "S3 key for asset version \\"ff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "testConfigWithNodeDDA76C99": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "nodejs14.x",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3Bucket080D123A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9eb936be80cefb9b2df1aba3ea03e568d4ff0469795861fa07139bb7e474d6e4S3VersionKey46629EDB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer configures AWS Node SDK initialization",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "testConfigWithNodePythonLibLayer75C81C17": Object {
+      "Properties": Object {
+        "CompatibleRuntimes": Array [
+          "python3.8",
+        ],
+        "Content": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3Bucket299DCC8B",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersff5c11bdc0d6ed4c0c43415481133ad3ba07f243a712054f9516fd5c243afcdcS3VersionKey3083FEEB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "This layer has boto config initialization and logging functions",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "testFunction483F4CBE": Object {
+      "DependsOn": Array [
+        "testFunctionServiceRoleFEC29B6F",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534S3BucketC5F15376",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534S3VersionKeyAF51FA51",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters05495ece23b8c3696d211f6ff1a5577bee63928152220fd1da15862980a3a534S3VersionKeyAF51FA51",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_SDK_USER_AGENT": "{ \\"user_agent_extra\\": \\"AwsSolution/undefined/undefined\\" }",
+          },
+        },
+        "Handler": "handler",
+        "Layers": Array [
+          Object {
+            "Ref": "testConfigWithNodePythonLibLayer75C81C17",
+          },
+        ],
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "testFunctionServiceRoleFEC29B6F",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "testFunctionServiceRoleFEC29B6F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

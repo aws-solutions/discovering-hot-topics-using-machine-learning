@@ -1,0 +1,4 @@
+# exclude python 3rd party modules
+*.dist-info/
+__pycache__
+config.egg-info/

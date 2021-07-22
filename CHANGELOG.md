@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2021-07-22
+
+### Added
+
+-   Ingest RSS feeds from over ~3000+ news websites across the world
+
+### Updated
+
+-   AWS CDK version to 1.110.1
+-   AWS SDK version to 2.945.0
+-   Updated Nodejs Lambda runtimes to use Nodejs 14.x
+-   Updated Amazon QuickSight analysis and dashboard to reflect the new ingestion source
+-   Updated AWS StepFunction workflows to handle parallel ingestion (tweets from Twitter and RSS feeds from News websites)
+
+### Fixed
+
+-   Truncated tweets through merging [GitHub pull request #26](https://github.com/awslabs/discovering-hot-topics-using-machine-learning/pull/26)
+
 ## [1.4.0] - 2021-02-04
 
 ### Added

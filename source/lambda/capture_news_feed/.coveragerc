@@ -1,0 +1,19 @@
+[run]
+omit =
+    *certifi/*
+    *chardet/*
+    feedparser.py
+    *idna/*
+    *requests/*
+    requests_file.py
+    *tldextract/*
+    *urllib3/*
+    images/*
+    tests/*
+    .venv-*/*
+    test/*
+    */__init__.py
+    setup.py
+    six.py
+source =
+    .

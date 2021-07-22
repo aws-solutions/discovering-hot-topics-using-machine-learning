@@ -3,16 +3,16 @@
 exports[`test lambda task construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6ArtifactHash0C84E848": Object {
-      "Description": "Artifact hash for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283ArtifactHash9BE75073": Object {
+      "Description": "Artifact hash for asset \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05": Object {
-      "Description": "S3 bucket for asset \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3Bucket720825A0": Object {
+      "Description": "S3 bucket for asset \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
-    "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31": Object {
-      "Description": "S3 key for asset version \\"c01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6\\"",
+    "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD": Object {
+      "Description": "S3 key for asset version \\"e589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283\\"",
       "Type": "String",
     },
   },
@@ -27,7 +27,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -35,7 +43,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3Bucket99334E05",
+            "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3Bucket720825A0",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -48,7 +56,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
+                          "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD",
                         },
                       ],
                     },
@@ -61,7 +69,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc01f7f6e74d90c571d41432a61a64b6bc39237b98449b7e79b671588175c8ac6S3VersionKey4EA1BA31",
+                          "Ref": "AssetParameterse589d87abc8c6481eeb10fcba799165c929cbdc5dc76f82ef863098d17f50283S3VersionKeyFB2CADAD",
                         },
                       ],
                     },
@@ -83,7 +91,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "TracingConfig": Object {
           "Mode": "Active",
         },

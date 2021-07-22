@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -23,14 +23,14 @@ const assert = require('assert');
 const lambda = require('../index.js');
 const TwitterClient = require('../util/twitter-client');
 
-AWSMock.setSDK(path.resolve('./node_modules/aws-sdk'));
-
 describe('when producer lambda is invoked', () => {
     let twitterClientStub;
     let checkLimitStub;
     let lambdaSpy;
 
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         twitterClientStub = sinon.stub(TwitterClient.prototype, 'searchTweets').returns({
             _headers: {
                 status: '200 OK',
@@ -40,8 +40,8 @@ describe('when producer lambda is invoked', () => {
             },
             statuses: [{
                 "created_at": "Mon May 06 20:01:29 +0000 2019",
-                "id": 12345678901234567890,
-                "id_str": "12345678901234567890",
+                "id": 'fakeID',
+                "id_str": "fakeID",
                 "text": "This is a sample tweet",
                 "truncated": true,
                 "entities": {
@@ -58,8 +58,8 @@ describe('when producer lambda is invoked', () => {
             },
             {
                 "created_at": "Sat May 04 15:00:33 +0000 2019",
-                "id": 12345678901234567891,
-                "id_str": "12345678901234567891",
+                "id": 'fakeID',
+                "id_str": "fakeID",
                 "text": "This is the 2nd sample tweet",
                 "truncated": true,
                 "entities": {
@@ -96,6 +96,7 @@ describe('when producer lambda is invoked', () => {
         });
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -110,8 +111,6 @@ describe('when producer lambda is invoked', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -127,6 +126,7 @@ describe('when producer lambda is invoked', () => {
         });
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -141,8 +141,6 @@ describe('when producer lambda is invoked', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -161,6 +159,7 @@ describe('when producer lambda is invoked', () => {
         delete process.env.STREAM_NAME;
         delete process.env.SUPPORTED_LANG;
         delete process.env.QUERY_RESULT_TYPE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
@@ -170,6 +169,8 @@ describe('check loop execution based on throttling', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         twitterClientStub = sinon.stub(TwitterClient.prototype, 'searchTweets').returns({
             _headers: {
                 status: '200 OK',
@@ -179,8 +180,8 @@ describe('check loop execution based on throttling', () => {
             },
             statuses: [{
                 "created_at": "Mon May 06 20:01:29 +0000 2019",
-                "id": 12345678901234567890,
-                "id_str": "12345678901234567890",
+                "id": 'fakeID',
+                "id_str": "fakeID",
                 "text": "This is a sample tweet",
                 "truncated": true,
                 "entities": {
@@ -197,8 +198,8 @@ describe('check loop execution based on throttling', () => {
             },
             {
                 "created_at": "Sat May 04 15:00:33 +0000 2019",
-                "id": 12345678901234567891,
-                "id_str": "12345678901234567891",
+                "id": 'fakeID',
+                "id_str": "fakeID",
                 "text": "This is the 2nd sample tweet",
                 "truncated": true,
                 "entities": {
@@ -234,6 +235,7 @@ describe('check loop execution based on throttling', () => {
         });
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -248,8 +250,6 @@ describe('check loop execution based on throttling', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -267,6 +267,7 @@ describe('check loop execution based on throttling', () => {
         delete process.env.STREAM_NAME;
         delete process.env.SUPPORTED_LANG;
         delete process.env.QUERY_RESULT_TYPE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
@@ -276,6 +277,8 @@ describe('No remaining limit', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
         twitterClientStub = sinon.stub(TwitterClient.prototype, 'searchTweets').returns({
             _headers: {
                 status: '200 OK',
@@ -321,6 +324,7 @@ describe('No remaining limit', () => {
         });
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -335,8 +339,6 @@ describe('No remaining limit', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -354,6 +356,7 @@ describe('No remaining limit', () => {
         delete process.env.STREAM_NAME;
         delete process.env.SUPPORTED_LANG;
         delete process.env.QUERY_RESULT_TYPE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
@@ -369,6 +372,8 @@ describe('Failures are logged by lambda and thrown', () => {
         process.env.STREAM_NAME = 'teststream';
         process.env.SUPPORTED_LANG = 'de,en,es,it,pt,fr,ja,ko,hi,ar,zh-cn,zh-tw';
         process.env.QUERY_RESULT_TYPE = 'popular'
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+
     });
 
     it ('should not call the twitter search endpoint', async () => {
@@ -383,6 +388,7 @@ describe('Failures are logged by lambda and thrown', () => {
         );
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -397,8 +403,6 @@ describe('Failures are logged by lambda and thrown', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -424,8 +428,8 @@ describe('Failures are logged by lambda and thrown', () => {
             },
             statuses: [{
                 "created_at": "Mon May 06 20:01:29 +0000 2019",
-                "id": 12345678901234567890,
-                "id_str": "12345678901234567890",
+                "id": 'fakeID',
+                "id_str": "fakeID",
                 "text": "This is a sample tweet",
                 "truncated": true,
                 "entities": {
@@ -445,6 +449,7 @@ describe('Failures are logged by lambda and thrown', () => {
         checkLimitStub = sinon.stub(TwitterClient.prototype, 'hasLimit').throws('HasCount', 'Failure');
 
         const event = {
+            "source": "aws.events",
             "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
             "receiptHandle": "MessageReceiptHandle",
             "body": {
@@ -459,8 +464,6 @@ describe('Failures are logged by lambda and thrown', () => {
             },
             "messageAttributes": {},
             "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
-            "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-east-1:FAKEACCOUNT:MyQueue",
             "awsRegion": "us-east-1"
         };
 
@@ -481,5 +484,6 @@ describe('Failures are logged by lambda and thrown', () => {
         delete process.env.STREAM_NAME;
         delete process.env.SUPPORTED_LANG;
         delete process.env.QUERY_RESULT_TYPE;
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });

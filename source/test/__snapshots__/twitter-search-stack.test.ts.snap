@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Bus creation 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
+      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+      "Type": "String",
+    },
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
+      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+      "Type": "String",
+    },
+    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
+      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+      "Type": "String",
+    },
+    "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baArtifactHash22CE2583": Object {
+      "Description": "Artifact hash for asset \\"6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3ba\\"",
+      "Type": "String",
+    },
+    "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baS3Bucket8D6A5412": Object {
+      "Description": "S3 bucket for asset \\"6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3ba\\"",
+      "Type": "String",
+    },
+    "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baS3VersionKey04720E5A": Object {
+      "Description": "S3 key for asset version \\"6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3ba\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "TwitterSearchNestedStackTwitterSearchNestedStackResource6905E30B": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "EventBus": Object {
+            "Fn::GetAtt": Array [
+              "testBus07EAAD3A",
+              "Arn",
+            ],
+          },
+          "IngestQueryFrequency": "cron(0 5 * * ? *)",
+          "QueryParameter": "fakequery",
+          "SSMPathForCredentials": "/discovering-hot-topics-using-machine-learning/discovering-hot-topics-using-machine-learning/twitter",
+          "SuppertedLang": "en,es,fr",
+          "referencetoAssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392Ref": Object {
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+          },
+          "referencetoAssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119Ref": Object {
+            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baS3Bucket8D6A5412",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baS3VersionKey04720E5A",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters6987151e7fd676235ad57fe599fef4275044784af6bbc0b156f951a4856bf3baS3VersionKey04720E5A",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "testBus07EAAD3A": Object {
+      "Properties": Object {
+        "Name": "testBus",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+  },
+}
+`;

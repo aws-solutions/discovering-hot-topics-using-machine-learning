@@ -1,0 +1,233 @@
+{
+    "PhysicalTableMap": {
+        "ca723c8a-4345-40ad-897f-68e1c5d056d8": {
+            "CustomSql": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Name": "tweet-geo-sentiment",
+                "SqlQuery": "with feed as (\n    select \n        distinct\n        tw.db_created_at as created_at,\n        tw.id_str,\n        tw.platform,\n        tw.account_name,\n        tw.user.id_str as source,\n        tw.user.name as name,\n        tw.in_reply_to_screen_name,\n        tw.coordinates.coordinates[1] AS lon,\n        tw.coordinates.coordinates[2] AS lat,\n        tw.place.name AS place_name,\n        tw.place.place_type,\n        tw.place.country,\n        tw.retweet_count,\n        tw.quote_count,\n        tw.favorite_count,\n        tw.reply_count        \n    from socialmediadb.twfeedstorage tw\n    where tw.db_created_at > current_timestamp - interval '15' day    \n), sentiment as (\n    select distinct\n        sentiment,\n        created_at,\n        id_str,\n        text,\n        translated_text,\n        platform,\n        account_name\n    from socialmediadb.sentiment\n    where created_at > current_timestamp - interval '15' day\n), entity as (\n    select distinct\n        id_str,\n        entity_text,\n        platform,\n        account_name\n    from socialmediadb.entity\n    where created_at > current_timestamp - interval '15' day\n), phrase as (\n    select distinct\n        id_str,\n        phrase,\n        platform,\n        account_name\n    from socialmediadb.keyphrase\n    where created_at > current_timestamp - interval '15' day\n), tm as (\n    select distinct\n        id_str,\n        job_id,\n        job_timestamp,\n        platform,\n        topic\n    from socialmediadb.topicmappings\n    where created_at > current_timestamp - interval '15' day\n), term as (\n    select distinct\n        job_id,\n        topic,\n        term\n    from socialmediadb.topics\n    where created_at > current_timestamp - interval '15' day\n) select distinct\n    feed.id_str,\n    feed.created_at,\n    feed.platform,\n    feed.account_name,\n    feed.source,\n    feed.name,\n    feed.in_reply_to_screen_name,\n    feed.lon,\n    feed.lat,\n    feed.place_name,\n    feed.place_type,\n    feed.country,\n    feed.retweet_count,\n    feed.quote_count,\n    feed.favorite_count,\n    feed.reply_count,\n    s.sentiment,\n    s.text,\n    s.translated_text,\n    e.entity_text,\n    p.phrase,\n    tm.job_id,\n    tm.job_timestamp,\n    tm.topic,\n    term.term\nfrom feed\njoin sentiment s\n    on (feed.id_str = s.id_str)\nleft join entity e\n    on (feed.id_str = e.id_str)\nleft join phrase p\n    on (feed.id_str = p.id_str)\nleft join tm\n    on (feed.id_str = tm.id_str)\njoin term\n    on (tm.job_id = term.job_id)",
+                "Columns": [
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "source",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "in_reply_to_screen_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "lon",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "lat",
+                        "Type": "DECIMAL"
+                    },
+                    {
+                        "Name": "place_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "place_type",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "country",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "retweet_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "quote_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "favorite_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "reply_count",
+                        "Type": "INTEGER"
+                    },
+                    {
+                        "Name": "sentiment",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "translated_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "entity_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "phrase",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_id",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_timestamp",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "topic",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "term",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        }
+    },
+    "LogicalTableMap": {
+        "ca723c8a-4345-40ad-897f-68e1c5d056d8": {
+            "Alias": "tweet-geo-sentiment",
+            "DataTransforms": [
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lon",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LONGITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "lat",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "LATITUDE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "place_name",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "CITY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TagColumnOperation": {
+                        "ColumnName": "country",
+                        "Tags": [
+                            {
+                                "ColumnGeographicRole": "COUNTRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "CreateColumnsOperation": {
+                        "Columns": [
+                            {
+                                "ColumnName": "isTermPresent",
+                                "ColumnId": "bdf34d79-d602-4c87-b677-178717ad6403",
+                                "Expression": "locate(toLower({translated_text}), {term})"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "FilterOperation": {
+                        "ConditionExpression": "{isTermPresent}>0.0"
+                    }
+                },
+                {
+                    "ProjectOperation": {
+                        "ProjectedColumns": [
+                            "id_str",
+                            "created_at",
+                            "platform",
+                            "account_name",
+                            "source",
+                            "name",
+                            "in_reply_to_screen_name",
+                            "lon",
+                            "lat",
+                            "place_name",
+                            "place_type",
+                            "country",
+                            "retweet_count",
+                            "quote_count",
+                            "favorite_count",
+                            "reply_count",
+                            "sentiment",
+                            "text",
+                            "translated_text",
+                            "entity_text",
+                            "phrase",
+                            "job_id",
+                            "job_timestamp",
+                            "topic",
+                            "term",
+                            "isTermPresent"
+                        ]
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "ca723c8a-4345-40ad-897f-68e1c5d056d8"
+            }
+        }
+    },
+    "ColumnGroups": [
+        {
+            "GeoSpatialColumnGroup": {
+                "CountryCode": "US",
+                "Name": "geo-coordinates",
+                "Columns": [
+                    "lat",
+                    "lon"
+                ]
+            }
+        },
+        {
+            "GeoSpatialColumnGroup": {
+                "CountryCode": "US",
+                "Name": "country",
+                "Columns": [
+                    "country",
+                    "place_name"
+                ]
+            }
+        }
+    ]
+}

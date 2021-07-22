@@ -10,13 +10,13 @@
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions     #
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
+from dht_config import custom_logging
 from tenacity import retry, retry_if_exception_type, stop_after_attempt
 
 from util.helpers import get_quicksight_client
-from util.logging import get_logger
 from util.quicksight_resource import QuickSightFailure, QuickSightResource
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class DataSet(QuickSightResource):
@@ -72,7 +72,7 @@ class DataSet(QuickSightResource):
             ImportMode="DIRECT_QUERY",
         )
 
-        if self.sub_type in ["text", "tweet"]:
+        if self.sub_type in ["geo", "feed"]:
             params.update({"ColumnGroups": column_groups_map})
         try:
             logger.info(f"Params for creating the dataset for id:{self.id}:: {params}")

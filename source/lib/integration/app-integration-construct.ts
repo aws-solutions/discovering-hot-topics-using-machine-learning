@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -74,6 +74,7 @@ export class AppIntegration extends Construct {
             eventStorageMap.set(key, new EventStorage(this, key, {
                 compressionFormat: 'UNCOMPRESSED',
                 prefix: `${value}/`,
+                aggregateByDay: true,
                 convertData: true,
                 database: infDatabase.database,
                 tableName: infDatabase.tableMap.get(key)!.tableName,
@@ -90,7 +91,8 @@ export class AppIntegration extends Construct {
             txtInImgSentimentStorage: eventStorageMap.get('TxtInImgSentiment')!,
             txtInImgKeyPhraseStorage: eventStorageMap.get('TxtInImgKeyPhrase')!,
             moderationLabelStorage: eventStorageMap.get('ModerationLabels')!,
-            feedStorage: eventStorageMap.get('TwFeedStorage')!,
+            twFeedStorage: eventStorageMap.get('TwFeedStorage')!,
+            newsFeedStorage: eventStorageMap.get('NewsFeedStorage')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
         });
 

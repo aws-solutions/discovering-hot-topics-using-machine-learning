@@ -1,43 +1,43 @@
-#!/usr/bin/env python
 ######################################################################################################################
-#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           #
+#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      #
 #                                                                                                                    #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                    #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
-import logging
+import json
 import os
+import unittest
 
-DEFAULT_LEVEL = "WARNING"
-
-
-def get_level():
-    valid_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-    requested_level = os.environ.get("LOG_LEVEL", DEFAULT_LEVEL)
-    if requested_level and requested_level in valid_levels:
-        return requested_level
-    return DEFAULT_LEVEL
+import mock
+import pytest
+from botocore import config
+from dht_config import custom_boto_config
 
 
-def get_logger(name):
-    logger = None
-    # first case: running as a lambda function or in pytest with conftest
-    # second case: running a single test or locally under test
-    if len(logging.getLogger().handlers) > 0:
-        logger = logging.getLogger()
-        logger.setLevel(get_level())
-        # overrides
-        logging.getLogger("boto3").setLevel(logging.WARNING)
-        logging.getLogger("botocore").setLevel(logging.WARNING)
-        logging.getLogger("urllib3").setLevel(logging.WARNING)
-    else:
-        logging.basicConfig(level=get_level())
-        logger = logging.getLogger(name)
-    return logger
+class CustomConfigTestCase(unittest.TestCase):
+    def test_custom_config(self):
+        custom_config = custom_boto_config.init()
+        self.assertIsNotNone(custom_config)
+        self.assertIsInstance(custom_config, config.Config)
+
+    @mock.patch("botocore.config.Config")
+    def test_function_param_validation(self, mocked):
+        custom_boto_config.init()
+        mocked.assert_called_once_with(
+            region_name="us-east-1",
+            retries={"max_attempts": 10, "mode": "standard"},
+            user_agent_extra="solution/fakeID/fakeVersion",
+        )
+
+    @mock.patch("botocore.config.Config")
+    def test_min_sdk_usr_agent_set(self, mocked):
+        custom_boto_config.init()
+        args, kwargs = mocked.call_args
+        self.assertTrue(kwargs["user_agent_extra"], "solution/fakeID/fakeVersion")

@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -33,6 +33,7 @@ test('test App Integration Construct', () => {
     tableMappings.set('TxtInImgSentiment', 'txtinimgsentiment');
     tableMappings.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
     tableMappings.set('ModerationLabels', 'moderationlabels');
+    tableMappings.set('NewsFeedStorage', 'newsfeedstorage');
     tableMappings.set('TwFeedStorage', 'twfeedstorage');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {

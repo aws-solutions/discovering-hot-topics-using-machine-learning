@@ -28,6 +28,7 @@ crhelper - Apache-2.0
 jest - MIT license
 momentjs - MIT license
 moto - Apache-2.0
+newscatcher - MIT license
 nock - MIT license
 node - MIT license
 pytest-cov - MIT license

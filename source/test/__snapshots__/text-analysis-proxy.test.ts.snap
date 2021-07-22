@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbArtifactHashF488CEF6": Object {
-      "Description": "Artifact hash for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6ArtifactHash6603FE43": Object {
+      "Description": "Artifact hash for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1": Object {
-      "Description": "S3 bucket for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B": Object {
+      "Description": "S3 bucket for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F": Object {
-      "Description": "S3 key for asset version \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523": Object {
+      "Description": "S3 key for asset version \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
   },
@@ -89,6 +89,10 @@ Object {
         "EntityFirehoseRole67127AB0",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -134,8 +138,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "entity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "entity/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "entity/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "EntityFirehoseRole67127AB0",
@@ -344,6 +347,10 @@ Object {
         "KeyPhraseFirehoseRoleDCB50F6B",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -389,8 +396,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "keyphrase/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "keyphrase/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "keyphrase/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "KeyPhraseFirehoseRoleDCB50F6B",
@@ -599,6 +605,10 @@ Object {
         "ModerationLabelsFirehoseRole7FC3CF11",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -644,8 +654,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "moderationLabelerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "moderationLabelcreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "moderationLabel",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "ModerationLabelsFirehoseRole7FC3CF11",
@@ -782,6 +791,264 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "NewsFeedStorageFirehoseRoleAFA1640E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "NewsFeedStorageFirehoseRoleDefaultPolicyDF66A977": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "newsFeedStorage0BFF378B",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "newsFeedStorage0BFF378B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "NewsFeedStorageFirehoseRoleDefaultPolicyDF66A977",
+        "Roles": Array [
+          Object {
+            "Ref": "NewsFeedStorageFirehoseRoleAFA1640E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "NewsFeedStorageKinesisFirehoseF48B61B2": Object {
+      "DependsOn": Array [
+        "NewsFeedStorageFirehoseRoleDefaultPolicyDF66A977",
+        "NewsFeedStorageFirehoseRoleAFA1640E",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "newsFeedStorage0BFF378B",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "NewsFeedStorageKinesisFirehosefirehoseloggroup13015849",
+            },
+            "LogStreamName": Object {
+              "Ref": "NewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamB80D4B4E",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "Prefix": "newsfeedStorage",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "NewsFeedStorageFirehoseRoleAFA1640E",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "NewsFeedStorageKinesisFirehoseKinesisFirehosePolicyC4F0CF1E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "newsFeedStorage0BFF378B",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "newsFeedStorage0BFF378B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "NewsFeedStorageKinesisFirehosefirehoseloggroup13015849",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "NewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamB80D4B4E",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "NewsFeedStorageKinesisFirehoseKinesisFirehosePolicyC4F0CF1E",
+        "Roles": Array [
+          Object {
+            "Ref": "NewsFeedStorageKinesisFirehoseKinesisFirehoseRoleBC9560DF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "NewsFeedStorageKinesisFirehoseKinesisFirehoseRoleBC9560DF": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "NewsFeedStorageKinesisFirehosefirehoseloggroup13015849": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "NewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamB80D4B4E": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "NewsFeedStorageKinesisFirehosefirehoseloggroup13015849",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "SentimentFirehoseRole8C82670C": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -854,6 +1121,10 @@ Object {
         "SentimentFirehoseRole8C82670C",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -899,8 +1170,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "/sentimenterror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "/sentimentcreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "/sentiment",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "SentimentFirehoseRole8C82670C",
@@ -1047,7 +1317,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -1055,7 +1333,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1",
+            "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1068,7 +1346,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
+                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
                         },
                       ],
                     },
@@ -1081,7 +1359,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
+                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
                         },
                       ],
                     },
@@ -1102,6 +1380,9 @@ Object {
             },
             "MODERATION_LABELS_FIREHOSE": Object {
               "Ref": "ModerationLabelsKinesisFirehose6FCD594B",
+            },
+            "NEWSFEEDS_FEED_STORAGE": Object {
+              "Ref": "NewsFeedStorageKinesisFirehoseF48B61B2",
             },
             "SENTIMENT_FIREHOSE": Object {
               "Ref": "SentimentKinesisFirehose490D8CD7",
@@ -1128,7 +1409,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 900,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -1272,6 +1553,12 @@ Object {
                     "Arn",
                   ],
                 },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "NewsFeedStorageKinesisFirehoseF48B61B2",
+                    "Arn",
+                  ],
+                },
               ],
             },
           ],
@@ -1358,6 +1645,10 @@ Object {
         "TwFeedStorageFirehoseRole9A5B798C",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -1403,8 +1694,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "feedStorageerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "feedStoragecreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "feedStorage",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TwFeedStorageFirehoseRole9A5B798C",
@@ -1613,6 +1903,10 @@ Object {
         "TxtImgSentimentFirehoseRoleFBEB2611",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -1658,8 +1952,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgsentimenterror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgsentimentcreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgsentiment",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtImgSentimentFirehoseRoleFBEB2611",
@@ -1868,6 +2161,10 @@ Object {
         "TxtInImgEntityFirehoseRole053C9DE7",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -1913,8 +2210,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgentity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgentity/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgentity/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtInImgEntityFirehoseRole053C9DE7",
@@ -2123,6 +2419,10 @@ Object {
         "TxtInImgKeyPhraseFirehoseRoleCD623422",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -2168,8 +2468,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgkeyphraseerror/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgkeyphrasecreated_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgkeyphrase",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "TxtInImgKeyPhraseFirehoseRoleCD623422",
@@ -2339,6 +2638,22 @@ Object {
       "UpdateReplacePolicy": "Retain",
     },
     "moderationlabelFADE9E84": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "newsFeedStorage0BFF378B": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "BucketEncryption": Object {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -26,7 +26,8 @@ export interface TextAnalysisProxyProps {
     readonly txtInImgEntityStorage: EventStorage;
     readonly txtInImgKeyPhraseStorage: EventStorage;
     readonly moderationLabelStorage: EventStorage;
-    readonly feedStorage: EventStorage;
+    readonly twFeedStorage: EventStorage;
+    readonly newsFeedStorage: EventStorage
     readonly textAnalysisInfNS: string;
 }
 
@@ -38,7 +39,7 @@ export class TextAnalysisProxy extends Construct {
 
         this.textAnalysisLambda = buildLambdaFunction(this,  {
             lambdaFunctionProps: {
-                runtime: Runtime.NODEJS_12_X,
+                runtime: Runtime.NODEJS_14_X,
                 handler: 'index.handler',
                 code: Code.fromAsset(`${__dirname}/../../lambda/firehose-text-proxy`),
                 environment: {
@@ -49,25 +50,29 @@ export class TextAnalysisProxy extends Construct {
                     TXT_IN_IMG_ENTITY_FIREHOSE: props.txtInImgEntityStorage.deliveryStreamName,
                     TXT_IN_IMG_KEYPHRASE_FIREHOSE: props.txtInImgKeyPhraseStorage.deliveryStreamName,
                     MODERATION_LABELS_FIREHOSE: props.moderationLabelStorage.deliveryStreamName,
-                    TW_FEED_STORAGE: props.feedStorage.deliveryStreamName,
-                    TEXT_ANALYSIS_NS: props.textAnalysisInfNS,
+                    TW_FEED_STORAGE: props.twFeedStorage.deliveryStreamName,
+                    NEWSFEEDS_FEED_STORAGE: props.newsFeedStorage.deliveryStreamName,
+                    TEXT_ANALYSIS_NS: props.textAnalysisInfNS
                 },
                 timeout: Duration.minutes(15)
             }
         });
 
+        const resourceList = [
+            props.sentimentStorage.deliveryStreamArn,
+            props.entityStorage.deliveryStreamArn,
+            props.keyPhraseStorage.deliveryStreamArn,
+            props.txtInImgSentimentStorage.deliveryStreamArn,
+            props.txtInImgEntityStorage.deliveryStreamArn,
+            props.txtInImgKeyPhraseStorage.deliveryStreamArn,
+            props.moderationLabelStorage.deliveryStreamArn,
+            props.twFeedStorage.deliveryStreamArn,
+            props.newsFeedStorage.deliveryStreamArn
+        ];
+
         this.textAnalysisLambda.addToRolePolicy(new PolicyStatement({
             effect: Effect.ALLOW,
-            resources: [
-                props.sentimentStorage.deliveryStreamArn,
-                props.entityStorage.deliveryStreamArn,
-                props.keyPhraseStorage.deliveryStreamArn,
-                props.txtInImgSentimentStorage.deliveryStreamArn,
-                props.txtInImgEntityStorage.deliveryStreamArn,
-                props.txtInImgKeyPhraseStorage.deliveryStreamArn,
-                props.moderationLabelStorage.deliveryStreamArn,
-                props.feedStorage.deliveryStreamArn
-            ],
+            resources: resourceList,
             actions: [ 'firehose:PutRecord', 'firehose:PutRecordBatch' ]
         }));
 

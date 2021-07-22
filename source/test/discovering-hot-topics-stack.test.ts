@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -21,8 +21,7 @@ import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 test('test ingestion stack', () => {
     const stack = new Stack();
     new DiscoveringHotTopicsStack (stack, 'discoveringhottopicsusingmachinelearning', {
-        solutionID: 'SO0122',
-        solutionName: 'UnitTestExecution'
+        description: 'Some fake description to test'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

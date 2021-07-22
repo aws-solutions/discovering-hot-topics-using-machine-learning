@@ -14,6 +14,7 @@ node_modules
 cdk.out
 
 !**/cdk-solution-helper/index.js
+!get-cdk-version.js
 
 deployment/global-s3-assets
 deployment/regional-s3-assets

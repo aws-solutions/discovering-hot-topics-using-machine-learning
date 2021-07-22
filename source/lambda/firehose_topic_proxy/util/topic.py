@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 ######################################################################################################################
-#  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           #
+#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      #
 #                                                                                                                    #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
 #                                                                                                                    #
-#      http://www.apache.org/licenses/LICENSE-2.0                                                                     #
+#      http://www.apache.org/licenses/LICENSE-2.0                                                                    #
 #                                                                                                                    #
 #  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES #
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    #
@@ -18,12 +18,12 @@ import os
 from datetime import datetime
 
 import boto3
+from botocore import config
+from dht_config import custom_boto_config, custom_logging
 
-from util.logging import get_logger
+logger = custom_logging.get_logger(__name__)
 
-logger = get_logger(__name__)
-
-firehose = boto3.client("firehose", region_name=os.environ["AWS_REGION"])
+firehose = boto3.client("firehose", config=custom_boto_config.init())
 
 
 def store_topics(data):
@@ -58,6 +58,7 @@ def store_mappings(data):
         Record={
             "Data": json.dumps(
                 {
+                    "platform": data["platform"],
                     "job_id": data["job_id"],
                     "job_timestamp": datetime.strftime(
                         datetime.strptime(data["job_timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"), "%Y-%m-%d %H:%M:%S.%f"
@@ -71,7 +72,7 @@ def store_mappings(data):
     )
     logger.debug(
         "Response for record "
-        + json.dumps({"topic": data["topic"], "id_str": data["id_str"]})
+        + json.dumps({"platform": data["platform"], "topic": data["topic"], "id_str": data["id_str"]})
         + "is "
         + json.dumps(response)
     )

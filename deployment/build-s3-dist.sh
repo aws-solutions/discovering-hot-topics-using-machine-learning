@@ -25,9 +25,6 @@
 [ "$DEBUG" == 'true' ] && set -x
 set -e
 
-# Important: CDK global version number
-cdk_version=1.78.0
-
 # Check to see if input has been provided:
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ] || [ -z "$6" ]; then
     echo "Please provide all required parameters for the build script"
@@ -100,10 +97,18 @@ echo "[Synth] CDK Project"
 echo "------------------------------------------------------------------------------"
 cd $source_dir
 
+# Important: CDK global version number
+cdk_version=$(node ../deployment/get-cdk-version.js) # Note: grabs from node_modules/aws-cdk/package.json
+
+echo "------------------------------------------------------------------------------"
+echo "[Install] Installing CDK $cdk_version"
+echo "------------------------------------------------------------------------------"
+
 npm install aws-cdk@$cdk_version
 
 ## Option to suppress the Override Warning messages while synthesizing using CDK
-# export overrideWarningsEnabled=false
+export overrideWarningsEnabled=false
+echo "setting override warning to $overrideWarningsEnabled"
 
 node_modules/aws-cdk/bin/cdk synth --output=$staging_dist_dir
 

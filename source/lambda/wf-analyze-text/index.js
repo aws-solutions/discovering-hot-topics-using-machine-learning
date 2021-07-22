@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -14,21 +14,52 @@
 "use strict"
 
 const AWS = require('aws-sdk');
+const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-    await analyzeText(event, event.feed);
+    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
+    const stepfunctions = new AWS.StepFunctions();
 
-    if (event.text_in_images !== undefined && event.text_in_images.length > 0) {
-        //text_in_images is an array of embedded sentence found in an image. Each index element in the array
-        // corresponds to an image. The cleansed_text element is the complete sentence that was constructed by
-        // using the detectText API of Rek
-        for (let index = 0; index < event.text_in_images.length; ++index) {
-            await analyzeText(event.text_in_images[index], event.text_in_images[index]);
+    const analyzedTextoutputs = [];
+
+    for (const record of event.Records) {
+        const message = JSON.parse(record.body);
+        const input = message.input;
+
+        try {
+            await analyzeText(input, input.feed);
+
+            if (input.text_in_images !== undefined && input.text_in_images.length > 0) {
+                //text_in_images is an array of embedded sentence found in an image. Each index element in the array
+                // corresponds to an image. The cleansed_text element is the complete sentence that was constructed by
+                // using the detectText API of Rek
+                for (let index = 0; index < input.text_in_images.length; ++index) {
+                    await analyzeText(input.text_in_images[index], input.text_in_images[index]);
+                }
+            }
+
+            console.debug(`Analyzed event with id_str ${JSON.stringify(input.feed.id_str)}`);
+            const params = {
+                output: JSON.stringify(input),
+                taskToken: message.taskToken
+            };
+
+            try {
+                await stepfunctions.sendTaskSuccess(params).promise();
+            } catch(error) {
+                console.error(`Failed to publish successful message, params: ${JSON.stringify(params)}`, error);
+                throw error;
+            }
+
+            analyzedTextoutputs.push(input);
+        } catch(error) {
+            console.error(`Task failed: ${error.message}`, error);
+            await taskFailed(stepfunctions, error, message.taskToken);
+            throw error;
         }
     }
 
-    console.debug(`Analyzed event with id_str ${JSON.stringify(event.feed.id_str)}`);
-    return event;
+    return analyzedTextoutputs;
 };
 
 
@@ -43,34 +74,61 @@ exports.handler = async (event) => {
  * @param {*} targetElement
  */
 const analyzeText = async(targetElement, elementToAnalyze) => {
+    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
     const comprehend = new AWS.Comprehend();
 
     if (elementToAnalyze._cleansed_text.length > 0) {
 
         Promise.all([
-            targetElement = Object.assign(targetElement, await comprehend.detectSentiment({
-                Text: elementToAnalyze._cleansed_text,
-                LanguageCode: 'en'
-            }).promise().catch((error) => {
-                console.error('Error when performing sentiment analysis', error);
-                throw error;
-            })),
+            targetElement = Object.assign(targetElement, await detectSentiment(comprehend, elementToAnalyze._cleansed_text)),
             targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
                 Text: elementToAnalyze._cleansed_text,
                 LanguageCode: 'en'
             }).promise().catch((error) => {
-                console.error('Error when performing keyphrase detection', error);
+                console.error(`Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`, error);
                 throw error;
             })),
             targetElement = Object.assign(targetElement, await comprehend.detectEntities({
                 Text: elementToAnalyze._cleansed_text,
                 LanguageCode: 'en'
             }).promise().catch((error) => {
-                console.error('Error when performing detect entities', error);
+                console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
                 throw error;
             }))
         ]);
     }
 
     return targetElement;
+}
+
+
+const detectSentiment = async (comprehend, text) => {
+    let response;
+    if (text.length > 0) {
+        response = await comprehend.detectSentiment({
+            Text: text,
+            LanguageCode: 'en'
+        }).promise().catch((error) => {
+            console.error(`Error when performing sentiment analysis for ${text}`, error);
+            throw error;
+        });
+    }
+
+    // Step function merge JSON expects that sentiment key should always be present.
+    // creating an empty sentiment to remove step function merge errors.
+    if (response === undefined) {
+        return {
+            Sentiment: '',
+            SentimentScore: {}
+        };
+    }
+
+    return response;
+}
+
+async function taskFailed (stepfunctions, error, taskToken) {
+    await stepfunctions.sendTaskFailure({
+        cause: error.message,
+        taskToken: taskToken
+    }).promise();
 }

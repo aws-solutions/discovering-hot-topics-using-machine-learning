@@ -29,12 +29,22 @@ def mocked_requests_post(*args, **kwargs):
 
 class LambdaTest(unittest.TestCase):
     def setUp(self):
-        os.environ["SEARCH_QUERY"] = "someSearchParam"
-        os.environ["LANG_FILTER"] = "en,fr,es,de,pt"
+        os.environ["TWITTER_SEARCH_QUERY"] = "someSearchParam"
+        os.environ["TWITTER_LANG_FILTER"] = "en,fr,es,de,pt"
+        os.environ["TWITTER_INGEST_FREQ"] = "cron(0/5 * * * ? *)"
+        os.environ["TOPIC_JOB_FREQ"] = "cron(10 0 * * ? *)"
+        os.environ["NEWSFEEDS_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
+        os.environ["NEWSFEEDS_SEARCH_QUERY"] = "somefakesearch"
+        os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'
 
     def tearDown(self):
-        del os.environ["SEARCH_QUERY"]
-        del os.environ["LANG_FILTER"]
+        del os.environ["TWITTER_SEARCH_QUERY"]
+        del os.environ["TWITTER_LANG_FILTER"]
+        del os.environ["TWITTER_INGEST_FREQ"]
+        del os.environ["TOPIC_JOB_FREQ"]
+        del os.environ["NEWSFEEDS_INGESTION_FREQ"]
+        del os.environ["NEWSFEEDS_SEARCH_QUERY"]
+        del os.environ["AWS_SDK_USER_AGENT"]
 
     def test_create_unique_id(self):
         import lambda_function
@@ -53,6 +63,7 @@ class LambdaTest(unittest.TestCase):
                 "SolutionId": "SO1234",
                 "UUID": "some-uuid",
                 "Foo": "Bar",
+                "Version": "fake-version",
             },
         }
 
@@ -72,10 +83,22 @@ class LambdaTest(unittest.TestCase):
         self.assertIn("Solution", actual_payload)
         self.assertIn("UUID", actual_payload)
         self.assertIn("TimeStamp", actual_payload)
+        self.assertIn("Version", actual_payload)
         self.assertIn("Data", actual_payload)
         self.assertEqual(
             actual_payload["Data"],
-            {"Foo": "Bar", "RequestType": "Create", "SearchQuery": "someSearchParam", "LangFilter": "en,fr,es,de,pt"},
+            {
+                "Foo": "Bar",
+                "RequestType": "Create",
+                "TwitterSearchQueryComplexity": 1,
+                "TwitterSearchQueryLength": 15,
+                "TwitterLangFilter": "en,fr,es,de,pt",
+                "TwitterIngestionFreq": "cron(0/5 * * * ? *)",
+                "TopicJobFreq": "cron(10 0 * * ? *)",
+                "NewsFeedsSearchComplexity": 1,
+                "NewsFeedsSearchQueryLength": 14,
+                "NewsFeedsIngestionFreq": "cron(0 23 * * ? *)",
+            },
         )
 
     @mock.patch("requests.post")

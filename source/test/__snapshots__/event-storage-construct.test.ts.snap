@@ -3,16 +3,16 @@
 exports[`Event Storage Construct with Lambda processor 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cArtifactHashF82E2EFB": Object {
-      "Description": "Artifact hash for asset \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
+    "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715ArtifactHash30FF2FF9": Object {
+      "Description": "Artifact hash for asset \\"c90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715\\"",
       "Type": "String",
     },
-    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3BucketC485D79A": Object {
-      "Description": "S3 bucket for asset \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
+    "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715S3BucketFBAA3A4F": Object {
+      "Description": "S3 bucket for asset \\"c90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715\\"",
       "Type": "String",
     },
-    "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114": Object {
-      "Description": "S3 key for asset version \\"11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153c\\"",
+    "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715S3VersionKey16B000B4": Object {
+      "Description": "S3 key for asset version \\"c90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715\\"",
       "Type": "String",
     },
   },
@@ -89,6 +89,10 @@ Object {
         "EventStorageTestFirehoseRole9A5FD08D",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -134,8 +138,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "testPrefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "testPrefix/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "testPrefix/",
           "ProcessingConfiguration": Object {
             "Enabled": true,
             "Processors": Array [
@@ -301,7 +304,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -309,7 +320,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3BucketC485D79A",
+            "Ref": "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715S3BucketFBAA3A4F",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -322,7 +333,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114",
+                          "Ref": "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715S3VersionKey16B000B4",
                         },
                       ],
                     },
@@ -335,7 +346,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters11a1250b061d39ada43ab609700525bdb454afb9a1d71fb571bbc99dc7fa153cS3VersionKey20B1A114",
+                          "Ref": "AssetParametersc90de80dff2e1fcbafec31ef4edbacb8790d64512a9e18cb5fb05caaee536715S3VersionKey16B000B4",
                         },
                       ],
                     },
@@ -357,7 +368,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "TracingConfig": Object {
           "Mode": "Active",
         },
@@ -566,6 +577,10 @@ Object {
         "EventStorageTestFirehoseRole9A5FD08D",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -611,8 +626,7 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "test-prefix/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "test-prefix/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "test-prefix/",
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "EventStorageTestFirehoseRole9A5FD08D",
@@ -833,6 +847,10 @@ Object {
         "EventStorageTestFirehoseRole9A5FD08D",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [

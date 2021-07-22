@@ -3,40 +3,40 @@
 exports[`test App Integration Construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38ArtifactHash164AE178": Object {
-      "Description": "Artifact hash for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192ArtifactHash17A06B7A": Object {
+      "Description": "Artifact hash for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D": Object {
-      "Description": "S3 bucket for asset \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D": Object {
+      "Description": "S3 bucket for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
-    "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F": Object {
-      "Description": "S3 key for asset version \\"226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38\\"",
+    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09": Object {
+      "Description": "S3 key for asset version \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
       "Type": "String",
     },
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294ArtifactHashE7225949": Object {
-      "Description": "Artifact hash for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6ArtifactHash6603FE43": Object {
+      "Description": "Artifact hash for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669": Object {
-      "Description": "S3 bucket for asset \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B": Object {
+      "Description": "S3 bucket for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
-    "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6": Object {
-      "Description": "S3 key for asset version \\"b2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294\\"",
+    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523": Object {
+      "Description": "S3 key for asset version \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
       "Type": "String",
     },
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbArtifactHashF488CEF6": Object {
-      "Description": "Artifact hash for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96ArtifactHash3736DC82": Object {
+      "Description": "Artifact hash for asset \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1": Object {
-      "Description": "S3 bucket for asset \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3BucketF9F6818C": Object {
+      "Description": "S3 bucket for asset \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
-    "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F": Object {
-      "Description": "S3 key for asset version \\"e9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fb\\"",
+    "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0": Object {
+      "Description": "S3 key for asset version \\"c929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96\\"",
       "Type": "String",
     },
   },
@@ -134,7 +134,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBEntityTableB43A6185",
+                        "Ref": "IntegrationInfDBEntityentityTable12F162E4",
                       },
                     ],
                   ],
@@ -262,6 +262,10 @@ Object {
         "IntegrationEntityFirehoseRole6420D932",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -305,7 +309,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBEntityTableB43A6185",
+                "Ref": "IntegrationInfDBEntityentityTable12F162E4",
               },
             },
           },
@@ -471,7 +475,7 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
-    "IntegrationEventRuleEventRule0AllowEventRuletestStackIntegrationEventRuleEventRule01876668CD05A46F2": Object {
+    "IntegrationEventRuleEventRule0AllowEventRuletestStackIntegrationTextAnalysisLambdaFunction4852E2773B5AC7E8": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
@@ -561,7 +565,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "IntegrationEventRuleEventRule1AllowEventRuletestStackIntegrationEventRuleEventRule10DACB6AC6554BFBB": Object {
+    "IntegrationEventRuleEventRule1AllowEventRuletestStackIntegrationTopicAnalysisLambdaFunctionD9660B2D94760C3B": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
@@ -586,7 +590,7 @@ Object {
       },
       "Type": "AWS::Events::EventBus",
     },
-    "IntegrationInfDBEntityTableB43A6185": Object {
+    "IntegrationInfDBEntityentityTable12F162E4": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -741,15 +745,16 @@ Object {
     "IntegrationInfDBHotTopicsDBCustomResource0E51A003": Object {
       "DeletionPolicy": "Delete",
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Properties": Object {
         "ServiceToken": Object {
@@ -762,107 +767,19 @@ Object {
       "Type": "Custom::CreatePartition",
       "UpdateReplacePolicy": "Delete",
     },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0": Object {
+    "IntegrationInfDBHotTopicsDBLambdaFunctionAwsEventsLambdaInvokePermission1A1717D53": Object {
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490",
-        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
+        "IntegrationInfDBEntityentityTable12F162E4",
         "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
-      ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3Bucket8295A74D",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters226db64b7476bf6f3bdc1f3a58e4b7fa8847e6e5b1153700cfe6a1f93914fd38S3VersionKey763B7E1F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "Lambda function to create parition on glue tables",
-        "Environment": Object {
-          "Variables": Object {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "DATABASE_NAME": Object {
-              "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-            },
-            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels,twfeedstorage",
-          },
-        },
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs12.x",
-        "Timeout": 300,
-        "TracingConfig": Object {
-          "Mode": "Active",
-        },
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionLambdaInvokePermission09A3A412": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
@@ -882,17 +799,116 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
+    "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0": Object {
+      "DependsOn": Array [
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490",
+        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
+        "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
+        "IntegrationInfDBTwitterTwitterRecordB6E69351",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
+      ],
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W58",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "Lambda function to create parition on glue tables",
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME": Object {
+              "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+            },
+            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels,newsfeedstorage,twfeedstorage",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 300,
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
     "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA": Object {
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -950,15 +966,16 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490": Object {
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -1028,15 +1045,16 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997": Object {
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Properties": Object {
         "PolicyDocument": Object {
@@ -1184,15 +1202,16 @@ Object {
     },
     "IntegrationInfDBHotTopicsDBNightlyCreateParitionEventsRuleD0BAEF25": Object {
       "DependsOn": Array [
-        "IntegrationInfDBEntityTableB43A6185",
-        "IntegrationInfDBKeyPhraseTable589018E8",
-        "IntegrationInfDBModerationLabelsTable7B3BEA8D",
-        "IntegrationInfDBTopicMappingsTopicsTable3185F278",
-        "IntegrationInfDBTopicsTableCA7F64CA",
+        "IntegrationInfDBEntityentityTable12F162E4",
+        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+        "IntegrationInfDBTopicstopicsTableE352FDCE",
         "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
-        "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
-        "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
       ],
       "Properties": Object {
         "ScheduleExpression": "cron(1 0 * * ? *)",
@@ -1211,7 +1230,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "IntegrationInfDBKeyPhraseTable589018E8": Object {
+    "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1300,7 +1319,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBModerationLabelsTable7B3BEA8D": Object {
+    "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1377,7 +1396,92 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBSentimentTableC7847E7E": Object {
+    "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "newsfeedstorage generated by CDK",
+          "Name": "newsfeedstorage",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encrypted_data": false,
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "search_query",
+                "Type": "string",
+              },
+              Object {
+                "Name": "entities",
+                "Type": "struct<urls:array<struct<expanded_url:string>>,media:array<struct<media_url:string>>>",
+              },
+              Object {
+                "Name": "metadata",
+                "Type": "struct<website:string,country:string,topic:string>",
+              },
+              Object {
+                "Name": "lang",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "translated_text",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/newsfeedstorage/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "IntegrationInfDBSentimentsentimentTable2A4FD6F0": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1470,7 +1574,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTopicMappingsTopicsTable3185F278": Object {
+    "IntegrationInfDBTopicMappingstopicmappingsTableCA762584": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1493,6 +1597,10 @@ Object {
           ],
           "StorageDescriptor": Object {
             "Columns": Array [
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
               Object {
                 "Name": "job_id",
                 "Type": "string",
@@ -1535,7 +1643,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTopicsTableCA7F64CA": Object {
+    "IntegrationInfDBTopicstopicsTableE352FDCE": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1774,7 +1882,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB": Object {
+    "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1867,7 +1975,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D": Object {
+    "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1956,7 +2064,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9": Object {
+    "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -2119,7 +2227,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBKeyPhraseTable589018E8",
+                        "Ref": "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
                       },
                     ],
                   ],
@@ -2247,6 +2355,10 @@ Object {
         "IntegrationKeyPhraseFirehoseRoleFAE5F92E",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -2290,7 +2402,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBKeyPhraseTable589018E8",
+                "Ref": "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
               },
             },
           },
@@ -2526,7 +2638,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+                        "Ref": "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
                       },
                     ],
                   ],
@@ -2654,6 +2766,10 @@ Object {
         "IntegrationModerationLabelsFirehoseRoleCE8DFD78",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -2697,7 +2813,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBModerationLabelsTable7B3BEA8D",
+                "Ref": "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
               },
             },
           },
@@ -2863,6 +2979,417 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "IntegrationNewsFeedStorageFirehoseGlueKms20BC4B5C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationNewsFeedStorageFirehoseGlueKms20BC4B5C",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationNewsFeedStorageFirehoseRole452916A8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationNewsFeedStorageFirehoseGlueTablePolicy02CC5F2F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Ref": "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationNewsFeedStorageFirehoseGlueTablePolicy02CC5F2F",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationNewsFeedStorageFirehoseRole452916A8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationNewsFeedStorageFirehoseRole452916A8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationNewsFeedStorageFirehoseRoleDefaultPolicy51797843": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationNewsFeedStorageFirehoseRoleDefaultPolicy51797843",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationNewsFeedStorageFirehoseRole452916A8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationNewsFeedStorageKinesisFirehose8B6E667E": Object {
+      "DependsOn": Array [
+        "IntegrationNewsFeedStorageFirehoseGlueKms20BC4B5C",
+        "IntegrationNewsFeedStorageFirehoseGlueTablePolicy02CC5F2F",
+        "IntegrationNewsFeedStorageFirehoseRoleDefaultPolicy51797843",
+        "IntegrationNewsFeedStorageFirehoseRole452916A8",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroup25D876B0",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamD343D310",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationNewsFeedStorageFirehoseRole452916A8",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Ref": "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+              },
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "newsfeedstorage/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "newsfeedstorage/created_at=!{timestamp:yyyy-MM-dd}/",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationNewsFeedStorageFirehoseRole452916A8",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationNewsFeedStorageKinesisFirehoseKinesisFirehosePolicyD24D3C7A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroup25D876B0",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamD343D310",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationNewsFeedStorageKinesisFirehoseKinesisFirehosePolicyD24D3C7A",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationNewsFeedStorageKinesisFirehoseKinesisFirehoseRoleC053D6A1",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationNewsFeedStorageKinesisFirehoseKinesisFirehoseRoleC053D6A1": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroup25D876B0": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroupfirehoselogstreamD343D310": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationNewsFeedStorageKinesisFirehosefirehoseloggroup25D876B0",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "IntegrationS3Bucket22BFCA0D": Object {
       "DeletionPolicy": "Retain",
       "Metadata": Object {
@@ -3009,7 +3536,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBSentimentTableC7847E7E",
+                        "Ref": "IntegrationInfDBSentimentsentimentTable2A4FD6F0",
                       },
                     ],
                   ],
@@ -3137,6 +3664,10 @@ Object {
         "IntegrationSentimentFirehoseRoleA51A0692",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -3180,7 +3711,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBSentimentTableC7847E7E",
+                "Ref": "IntegrationInfDBSentimentsentimentTable2A4FD6F0",
               },
             },
           },
@@ -3356,7 +3887,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -3364,7 +3903,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3BucketBBDD00D1",
+            "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -3377,7 +3916,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
+                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
                         },
                       ],
                     },
@@ -3390,7 +3929,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterse9283f67c4c319fdac11cf0716a1d85f41b2addc0778e38b898256a6a8f310fbS3VersionKey7D0F146F",
+                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
                         },
                       ],
                     },
@@ -3411,6 +3950,9 @@ Object {
             },
             "MODERATION_LABELS_FIREHOSE": Object {
               "Ref": "IntegrationModerationLabelsKinesisFirehoseB9DCFAE5",
+            },
+            "NEWSFEEDS_FEED_STORAGE": Object {
+              "Ref": "IntegrationNewsFeedStorageKinesisFirehose8B6E667E",
             },
             "SENTIMENT_FIREHOSE": Object {
               "Ref": "IntegrationSentimentKinesisFirehose1B0D197F",
@@ -3437,7 +3979,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 900,
         "TracingConfig": Object {
           "Mode": "Active",
@@ -3581,6 +4123,12 @@ Object {
                     "Arn",
                   ],
                 },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationNewsFeedStorageKinesisFirehose8B6E667E",
+                    "Arn",
+                  ],
+                },
               ],
             },
           ],
@@ -3605,7 +4153,15 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with more tighter permissions.",
+              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "id": "W89",
+              "reason": "This is not a rule for the general case, just for specific use cases/industries",
+            },
+            Object {
+              "id": "W92",
+              "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
@@ -3613,7 +4169,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3BucketFC2F2669",
+            "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3BucketF9F6818C",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -3626,7 +4182,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
+                          "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0",
                         },
                       ],
                     },
@@ -3639,7 +4195,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersb2cd6abfc452e3b512de7b14878d992c3d284cb0552eae7fc42959f592410294S3VersionKey7CB03CF6",
+                          "Ref": "AssetParametersc929b950c2dbc1eacf9fa5373ee1c62ba1afeb99fcfa3139fe5952bad95e0b96S3VersionKey2AA2E1A0",
                         },
                       ],
                     },
@@ -3891,7 +4447,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+                        "Ref": "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
                       },
                     ],
                   ],
@@ -4019,6 +4575,10 @@ Object {
         "IntegrationTopicMappingsFirehoseRoleD0E34058",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -4062,7 +4622,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTopicMappingsTopicsTable3185F278",
+                "Ref": "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
               },
             },
           },
@@ -4298,7 +4858,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTopicsTableCA7F64CA",
+                        "Ref": "IntegrationInfDBTopicstopicsTableE352FDCE",
                       },
                     ],
                   ],
@@ -4426,6 +4986,10 @@ Object {
         "IntegrationTopicsFirehoseRoleAB51B4DE",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -4469,7 +5033,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTopicsTableCA7F64CA",
+                "Ref": "IntegrationInfDBTopicstopicsTableE352FDCE",
               },
             },
           },
@@ -4854,6 +5418,10 @@ Object {
         "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -5154,7 +5722,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+                        "Ref": "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
                       },
                     ],
                   ],
@@ -5282,6 +5850,10 @@ Object {
         "IntegrationTxtInImgEntityFirehoseRoleF8A843A9",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -5325,7 +5897,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgEntityImgTxtEntityTableE4B4E1EB",
+                "Ref": "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
               },
             },
           },
@@ -5561,7 +6133,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+                        "Ref": "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
                       },
                     ],
                   ],
@@ -5689,6 +6261,10 @@ Object {
         "IntegrationTxtInImgKeyPhraseFirehoseRole7FD100B8",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -5732,7 +6308,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgKeyPhraseImgTxtKeyPhraseTable8D9AF05D",
+                "Ref": "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
               },
             },
           },
@@ -5968,7 +6544,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+                        "Ref": "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
                       },
                     ],
                   ],
@@ -6096,6 +6672,10 @@ Object {
         "IntegrationTxtInImgSentimentFirehoseRole3309E38D",
       ],
       "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
         "ExtendedS3DestinationConfiguration": Object {
           "BucketARN": Object {
             "Fn::GetAtt": Array [
@@ -6139,7 +6719,7 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgSentimentImgTxtSentimentTable0DA72DB9",
+                "Ref": "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
               },
             },
           },

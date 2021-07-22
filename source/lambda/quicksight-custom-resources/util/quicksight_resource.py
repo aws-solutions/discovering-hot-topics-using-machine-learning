@@ -14,10 +14,11 @@
 import json
 import os
 
-from util.helpers import get_aws_account_id, get_aws_partition, get_aws_region, get_quicksight_client
-from util.logging import get_logger
+from dht_config import custom_logging
 
-logger = get_logger(__name__)
+from util.helpers import get_aws_account_id, get_aws_partition, get_aws_region, get_quicksight_client
+
+logger = custom_logging.get_logger(__name__)
 
 
 class ResourceSubTypeError(ValueError):

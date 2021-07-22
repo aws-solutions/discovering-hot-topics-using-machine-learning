@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- *  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
@@ -21,8 +21,7 @@ exports.event = {
         "search_query": "Abc",
         "feed": {
             "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id": 123456789012345678,
-            "id_str": "123456789012345678",
+            "id_str": "fakeID",
             "text": "This is sample tweet from twitter. This is used for test data",
             "truncated": false,
             "entities": {
@@ -96,8 +95,7 @@ exports.event_no_entity_keyphrase = {
         "search_query": "some%20search%query",
         "feed": {
             "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id": 123456789012345678,
-            "id_str": "123456789012345678",
+            "id_str": "fakeID",
             "text": "This is sample tweet from twitter. This is used for test data",
         },
         "Sentiment": "NEUTRAL",
@@ -154,8 +152,7 @@ exports.event_with_moderation_labels = {
         "search_query": "some%20search%query",
         "feed": {
             "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id": 123456789012345678,
-            "id_str": "123456789012345678",
+            "id_str": "fakeID",
             "text": "This is sample tweet from twitter. This is used for test data",
         },
         "moderation_labels_in_imgs": [{
@@ -176,8 +173,7 @@ exports.wrong_platform_event = {
         "search_query": "Abc",
         "feed": {
             "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id": 123456789012345678,
-            "id_str": "123456789012345678",
+            "id_str": "fakeID",
             "text": "This is sample tweet from twitter. This is used for test data",
             "truncated": false,
             "entities": {
@@ -246,8 +242,7 @@ exports.event_no_entity_keyphrase_in_img = {
         "search_query": "some%20search%query",
         "feed": {
             "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id": 123456789012345678,
-            "id_str": "123456789012345678",
+            "id_str": "fakeID",
             "text": "This is sample tweet from twitter. This is used for test data",
         },
         "Sentiment": "NEUTRAL",

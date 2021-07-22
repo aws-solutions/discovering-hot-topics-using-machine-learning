@@ -14,16 +14,16 @@
 import json
 
 import yaml
+from dht_config import custom_logging
 
 from util.analysis import Analysis
 from util.dashboard import Dashboard
 from util.dataset import DataSet
 from util.datasource import DataSource
 from util.helpers import get_aws_account_id, get_quicksight_client
-from util.logging import get_logger
 from util.template import Template
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 # Global state. Keep in execution context of lambda
 _global_state = dict()
@@ -50,15 +50,7 @@ def read_config(file_name):
 class QuicksightApplication:
     def __init__(self, resource_properties):
         # TODO: use the config data / file to figure out the supported_data_set_types
-        supported_data_set_types = [
-            "sentiment",
-            "image-text",
-            "text",
-            "topic",
-            "image-moderation-label",
-            "tweet",
-            "tweet-topic",
-        ]
+        supported_data_set_types = ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
 
         self.resource_properties = resource_properties
         self.global_state = get_global_state()

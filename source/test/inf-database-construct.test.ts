@@ -31,6 +31,7 @@ test('test workflow stack', () => {
     storageCofig.set('TxtInImgEntity', 'txtinimgentity');
     storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
     storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+    storageCofig.set('NewsFeedStorage', 'newsfeedstorage');
     storageCofig.set('ModerationLabels', 'moderationlabels');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {

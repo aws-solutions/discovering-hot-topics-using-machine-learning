@@ -13,12 +13,13 @@
 
 from enum import Enum, auto
 
+from dht_config import custom_logging
+
 from util.helpers import get_quicksight_client
-from util.logging import get_logger
 from util.quicksight_resource import QuickSightResource
 from util.source_entity import SourceEntity
 
-logger = get_logger(__name__)
+logger = custom_logging.get_logger(__name__)
 
 
 class TemplatePermissionType(Enum):

@@ -12,16 +12,19 @@
  *********************************************************************************************************************/
 
 module.exports = {
-    testEnvironment: 'node',
-    testMatch: [ "test/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ],
-    collectCoverage: true,
-    collectCoverageFrom: [
-      '*.js',
-      '!test/*.js',
-      '!jest.config.js'
-      ],
-    coverageReporters: [
-      "text",
-      ["lcov", {"projectRoot": "../../../"}]
-    ],
-  }
+  modulePaths: [
+    "<rootDir>/../layers/"
+  ],
+  testEnvironment: 'node',
+  testMatch: [ "test/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '*.js',
+    '!test/*.js',
+    '!jest.config.js'
+  ],
+  coverageReporters: [
+    "text",
+    ["lcov", {"projectRoot": "../../../"}]
+  ],
+}

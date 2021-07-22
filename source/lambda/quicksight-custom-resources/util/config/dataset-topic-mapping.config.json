@@ -1,0 +1,84 @@
+{
+    "PhysicalTableMap": {
+        "a9106f49-5ec1-4320-8806-a6691cbcff63": {
+            "CustomSql": {
+                "DataSourceArn": "{self.data_source.arn}",
+                "Name": "topic-mapping",
+                "SqlQuery": "select distinct\n    s.platform,\n    s.account_name,\n    s.search_query,\n    s.id_str as id_str,\n    s.text,\n    s.translated_text,\n    s.sentiment,\n    s.created_at,\n    tm.job_id,\n    tm.job_timestamp,\n    tm.topic\nfrom socialmediadb.sentiment s\njoin socialmediadb.topicmappings tm\n    on (s.id_str = tm.id_str and s.platform = tm.platform)\nwhere s.created_at > current_timestamp - interval '30' day",
+                "Columns": [
+                    {
+                        "Name": "platform",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "account_name",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "search_query",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "id_str",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "translated_text",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "sentiment",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "created_at",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "job_id",
+                        "Type": "STRING"
+                    },
+                    {
+                        "Name": "job_timestamp",
+                        "Type": "DATETIME"
+                    },
+                    {
+                        "Name": "topic",
+                        "Type": "STRING"
+                    }
+                ]
+            }
+        }
+    },
+    "LogicalTableMap": {
+        "a9106f49-5ec1-4320-8806-a6691cbcff63": {
+            "Alias": "topic-mapping",
+            "DataTransforms": [
+                {
+                    "ProjectOperation": {
+                        "ProjectedColumns": [
+                            "platform",
+                            "account_name",
+                            "search_query",
+                            "id_str",
+                            "text",
+                            "translated_text",
+                            "sentiment",
+                            "created_at",
+                            "job_id",
+                            "job_timestamp",
+                            "topic"
+                        ]
+                    }
+                }
+            ],
+            "Source": {
+                "PhysicalTableId": "a9106f49-5ec1-4320-8806-a6691cbcff63"
+            }
+        }
+    }
+}

@@ -1,10 +1,10 @@
 /**********************************************************************************************************************
- *  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                           *
+ *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
  *  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    *
  *  with the License. A copy of the License is located at                                                             *
  *                                                                                                                    *
- *      http://www.apache.org/licenses/LICENSE-2.0                                                                     *
+ *      http://www.apache.org/licenses/LICENSE-2.0                                                                    *
  *                                                                                                                    *
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES *
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    *
@@ -438,9 +438,19 @@ exports.entities_feed_http = {
 };
 
 exports.event_with_entities = {
-    feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}
+  Records: [{
+    body: JSON.stringify({
+      input: {feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}},
+      taskToken: 'fakeToken'
+    })
+  }]
 };
 
 exports.event_with_entities_for_no_text = {
-  feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}
+  Records: [{
+    body: JSON.stringify({
+      input: {feed: {...{id_str: '12345678901234567890'}, ...this.entities_feed}},
+      taskToken: 'fakeToken'
+    })
+  }]
 };

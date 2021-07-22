@@ -16,7 +16,7 @@ import logging
 import os
 
 import pytest
-from util.logging import get_level, get_logger
+from dht_config import custom_logging
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -31,22 +31,22 @@ def reset_logging_defaults():
 @pytest.mark.parametrize("level", ["DEBUG", "INFO", "WARNING", "ERROR"])
 def test_valid_levels(level):
     os.environ["LOG_LEVEL"] = level
-    assert get_level() == level
+    assert custom_logging.get_level() == level
 
 
 def test_invalid_level():
     os.environ["LOG_LEVEL"] = "TRACE"
-    assert get_level() == "WARNING"
+    assert custom_logging.get_level() == "WARNING"
     os.environ["LOG_LEVEL"] = "INFO"
 
 
 def test_get_logger():
-    logger = get_logger(__name__)
+    logger = custom_logging.get_logger(__name__)
     assert logger.level == logging.WARNING
 
 
 def test_logger_log(caplog):
-    logger = get_logger(__name__)
+    logger = custom_logging.get_logger(__name__)
     logger.error("This is an error")
     logger.warning("This is a warning")
     logger.info("This is an informational message")
