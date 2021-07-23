@@ -24,18 +24,24 @@ For a detailed solution deployment guide, refer to [Discovering Hot Topics using
 
 ## Architecture Overview
 
-Deploying this solution with the default parameters builds the following environment in the AWS Cloud. The overall architecture of the solution has the following key components. Note that the below diagram represents Twitter as the ingestion feed - there are plans to add other social media platforms in future releases.
+Deploying this solution with the default parameters builds the following environment in the AWS Cloud. The overall architecture of the solution has the following key components. Note that the below diagram represents Twitter and news feeds as ingestion sources - there are plans to add other social media platforms in future releases.
 
 <p align="center">
   <img src="source/images/architecture.png">
   <br/>
 </p>
 
--   Ingestion – Social media feed ingestion using a combination of Lambda functions, Kinesis Data Stream and DynamoDB to manage state
--   Workflow – An AWS Step Function based workflow to orchestrate various services
--   Inference – AWS Cloud’s machine learning capabilities through Amazon Translate, Amazon Comprehend, and Amazon Rekognition
--   Application Integration – Event based architecture approach through the use of AWS Events Bridge
--   Storage and Visualization – A combination of Kinesis Data Firehose, S3 Buckets, Glue, Athena and QuickSight
+The architecture of the solution includes the following key components and workflows:
+
+1. Ingestion – Social media and RSS feed ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler.
+
+2. Data Stream — The data is buffered through Amazon Kinesis Data Streams to provide resiliency and throttle incoming requests. The Data Streams have a configured DLQ to catch any errors in processing feeds.
+
+3. Workflow – Consumer (Lambda function) of the Data Streams initiates a Step Functions workflow that orchestrates Amazon Machine Learning capabilities including: Amazon Translate, Amazon Comprehend, and Amazon Rekognition.
+
+4. Integration – The inference data integrates with the storage components through an event-driven architecture using Amazon EventBridge. EventBridge allows further customization to add additional targets by configuring rules.
+
+5. Storage and Visualization – A combination of Kinesis Data Firehose, Amazon S3 buckets, AWS Glue tables, Amazon Athena, and Amazon QuickSight.
 
 <p align="center">
   <img src="source/images/dashboard.png">
