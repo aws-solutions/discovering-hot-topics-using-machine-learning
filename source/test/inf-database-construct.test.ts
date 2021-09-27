@@ -21,18 +21,20 @@ import { InferenceDatabase } from '../lib/visualization/inf-database-construct';
 test('test workflow stack', () => {
     const stack = new cdk.Stack();
 
-    const storageCofig: Map<string, string> = new Map();
-    storageCofig.set('Sentiment', 'sentiment');
-    storageCofig.set('Entity', 'entity');
-    storageCofig.set('Entity', 'entity');
-    storageCofig.set('KeyPhrase', 'keyphrase');
-    storageCofig.set('Topics', 'topics');
-    storageCofig.set('TopicMappings', 'topic-mappings');
-    storageCofig.set('TxtInImgEntity', 'txtinimgentity');
-    storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
-    storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
-    storageCofig.set('NewsFeedStorage', 'newsfeedstorage');
-    storageCofig.set('ModerationLabels', 'moderationlabels');
+    const storageConfig: Map<string, string> = new Map();
+    storageConfig.set('Sentiment', 'sentiment');
+    storageConfig.set('Entity', 'entity');
+    storageConfig.set('Entity', 'entity');
+    storageConfig.set('KeyPhrase', 'keyphrase');
+    storageConfig.set('Topics', 'topics');
+    storageConfig.set('TopicMappings', 'topic-mappings');
+    storageConfig.set('TxtInImgEntity', 'txtinimgentity');
+    storageConfig.set('TxtInImgSentiment', 'txtinimgsentiment');
+    storageConfig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+    storageConfig.set('NewsFeedStorage', 'newsfeedstorage');
+    storageConfig.set('ModerationLabels', 'moderationlabels');
+    storageConfig.set('YouTubeComments', 'youtubecomments');
+
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
@@ -44,7 +46,7 @@ test('test workflow stack', () => {
 
     new InferenceDatabase(stack, 'TestDB', {
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
-        tablePrefixMappings: storageCofig,
+        tablePrefixMappings: storageConfig,
         s3LoggingBucket: s3AccessLoggingBucket
     });
 

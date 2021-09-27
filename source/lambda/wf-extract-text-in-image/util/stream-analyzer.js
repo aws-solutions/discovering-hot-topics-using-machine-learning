@@ -42,7 +42,6 @@ class StreamAnalyzer {
 
     static getMediaUrl (media) {
         let mediaUrl;
-        // console.debug(`Printing media attribute ${JSON.stringify(media)}`);
         if (media.media_url_https !== undefined || media.media_url !== undefined) {
             // check if https is available use https if not use http
             if (media.media_url_https !== undefined) {

@@ -1,5 +1,5 @@
-moto==2.0.0
 pytest-cov
 pytest-env
 pytest
 pytest-mock
+moto==2.2.2

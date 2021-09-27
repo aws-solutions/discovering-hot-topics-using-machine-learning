@@ -15,7 +15,7 @@
 import logging
 
 from crhelper import CfnResource
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.quicksight import QuicksightApi
 

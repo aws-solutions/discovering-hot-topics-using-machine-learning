@@ -30,8 +30,6 @@ exports.handler = async (event) => {
 const processCloudWatchEvent = async (event) => {
     try {
         // twitter client initialization
-        //TODO - use the account name from the event object
-        //const twitterClient = new TwitterClient(event.body.accountName);
         const twitterClient = new TwitterClient('twitter');
 
         // check if twitter limits not reached
@@ -41,9 +39,6 @@ const processCloudWatchEvent = async (event) => {
 
             const languages = process.env.SUPPORTED_LANG.split(',');
             for (let index = 0; index < languages.length && limitRemaining > 0; ++index){
-
-                //TODO change the tweet search query to use event object
-                //const twitterClient = await twitterClient.searchTweets(event.body.query);
                 const tweetSearchParams = {
                     q: process.env.QUERY_PARAM,
                     count: parseInt(process.env.CAP_NUM_RECORD),
@@ -58,10 +53,8 @@ const processCloudWatchEvent = async (event) => {
 
                 // if the response.length is 0 which means no tweets were returned by the search API
                 if (response.length > 0) {
-                    //TODO - use name from event object
-                    //const feedProducer = new FeedProcuder(event.body.accountName);
                     await (new FeedProducer()).writeToStream(response, {
-                        accountName: 'twitter', //TODO replace with event.body.accountName
+                        accountName: 'twitter',
                         platform: 'twitter',
                         query: process.env.QUERY_PARAM
                     });

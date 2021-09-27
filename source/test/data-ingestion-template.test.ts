@@ -224,8 +224,7 @@ test('fail when neither existing bus nor event bus properties are provided', () 
             }
         });
     } catch(error) {
-        expect(error).toBeInstanceOf(Error);
-        expect(error.message).toEqual('Either ingestionEventBusProps or existingIngestionEventBus has to be set. Both cannot be undefined');
+        expect(error).toEqual(new Error('Either ingestionEventBusProps or existingIngestionEventBus has to be set. Both cannot be undefined'));
     }
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

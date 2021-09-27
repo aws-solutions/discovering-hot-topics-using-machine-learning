@@ -20,8 +20,8 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 
 class TwRawStorage {
     static storeTweets = async (data) => {
-        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-        const kinesisFireshose = new AWS.Firehose();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
         const rawTwFeed = {
             account_name: data.account_name,

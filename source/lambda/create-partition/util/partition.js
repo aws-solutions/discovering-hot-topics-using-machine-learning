@@ -22,8 +22,8 @@ exports.create = async() => {
     const partitionValue = `${date.getUTCFullYear()}-${('0'+(date.getUTCMonth()+1)).slice(-2)}-${('0'+date.getUTCDate()).slice(-2)}`;
     console.debug(`Current UTC date is ${partitionValue}`);
 
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const glue = new AWS.Glue();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const glue = new AWS.Glue(awsCustomConfig);
 
     const tableNames = process.env.TABLE_NAMES.split(',');
 

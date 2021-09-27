@@ -14,7 +14,7 @@
 
 import os
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.topic import store_mappings, store_topics
 

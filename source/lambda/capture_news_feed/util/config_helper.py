@@ -17,7 +17,7 @@ import os
 import re
 
 import newscatcher
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 logger = custom_logging.get_logger(__name__)
 

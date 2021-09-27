@@ -11,12 +11,12 @@
   "author": "aws-solution-builder@",
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-sdk": "^2.945.0"
+    "aws-sdk": "^2.985.0"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^5.2.1",
+    "aws-sdk-mock": "^5.2.2",
     "chai": "^4.3.4",
-    "jest": "^27.0.4",
-    "sinon": "^11.1.1"
+    "jest": "^27.1.1",
+    "sinon": "^11.1.2"
   }
 }

@@ -18,10 +18,10 @@ const DataCleanse = require('./util/data-cleanse');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const translate = new AWS.Translate();
-    const kinesisFirehose = new AWS.Firehose();
-    const stepfunctions = new AWS.StepFunctions();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const translate = new AWS.Translate(awsCustomConfig);
+    const kinesisFirehose = new AWS.Firehose(awsCustomConfig);
+    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
     const translatedOutputs = [];
     for (const record of event.Records) {
@@ -42,20 +42,13 @@ exports.handler = async (event) => {
                     sourceLanguageCode = 'zh-TW';
                 else sourceLanguageCode = feed.lang;
 
-                try {
-                    const response = await translate.translateText({
-                        Text: feed.text,
-                        SourceLanguageCode: sourceLanguageCode,
-                        TargetLanguageCode: 'en'
-                    }).promise();
-
-                    feed._translated_text = response.TranslatedText;
-                } catch (error) {
-                    // added to check for Throttling issues from Translate
-                    console.error (`Error when translating ${feed.text} `, error);
-                    throw error;
-                }
-            } else { // twitter indicated that the text is in english
+                const response = await translate.translateText({
+                    Text: feed.text,
+                    SourceLanguageCode: sourceLanguageCode,
+                    TargetLanguageCode: 'en'
+                }).promise();
+                feed._translated_text = response.TranslatedText;
+            } else { // twitter indicated that the text is in english, save Translate call.
                 feed._translated_text = feed.text
             }
 
@@ -84,16 +77,10 @@ exports.handler = async (event) => {
             for (const key of keys) {
                 if (key.includes('KINESIS_FIREHOSE_FOR_')) {
                     if (key.split('_').pop().toLowerCase() === input.platform.toLowerCase()) {
-                        try {
-                            await kinesisFirehose.putRecordBatch({
-                                DeliveryStreamName: process.env[key],
-                                Records: data
-                            }).promise();
-                        } catch (error) {
-                            // added to check if there are issues publishing to Kinesis Firehose
-                            console.error(`Error when publishing records on Kinesis Firehose ${feed.id_str},${feed._cleansed_text} `, error);
-                            throw error;
-                        }
+                        await kinesisFirehose.putRecordBatch({
+                            DeliveryStreamName: process.env[key],
+                            Records: data
+                        }).promise();
                     }
                 }
             }
@@ -103,27 +90,26 @@ exports.handler = async (event) => {
                 taskToken: message.taskToken
             };
 
-            try {
-                await stepfunctions.sendTaskSuccess(params).promise();
-            } catch(error) {
-                console.error(`Failed to publish successful message, params: ${JSON.stringify(params)}`, error);
-                throw error;
-            }
-
+            await stepfunctions.sendTaskSuccess(params).promise();
             translatedOutputs.push(input);
+            return translatedOutputs;
 
         } catch (error) {
-            console.error(`Task failed: ${error.message}`, error);
+            console.error(`Task failed for platform:${input.platform}, account_name:${input.account_name}, id:${feed.id_str}, with error: ${error.message}`, error);
             await taskFailed(stepfunctions, error, message.taskToken);
-            throw error;
         }
-        return translatedOutputs;
     }
 }
 
 async function taskFailed (stepfunctions, error, taskToken) {
-    await stepfunctions.sendTaskFailure({
-        cause: error.message,
-        taskToken: taskToken
-    }).promise();
+    try {
+        await stepfunctions.sendTaskFailure({
+            taskToken: taskToken,
+            cause: error.message,
+            error: error.code
+        }).promise();
+    } catch(error) {
+        console.error(`Error sending failed status for taskToken ${taskToken}`);
+        throw error;
+    }
 }

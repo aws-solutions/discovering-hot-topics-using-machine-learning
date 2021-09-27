@@ -2,7 +2,7 @@
 
 The Discovering Hot Topics Using Machine Learning solution helps you identify the most dominant topics associated with your products, policies, events, and brands. Implementing this solution helps you react quickly to new growth opportunities, address negative brand associations, and deliver higher levels of customer satisfaction.
 
-The solution automates digital asset (text and image) ingestion from twitter and RSS news feeds to provide near-real-time inferences using machine learning algorithms through Amazon Comprehend, Amazon Translate, and Amazon Rekognition to perform topic modeling, sentiment analysis, entity and key phrase detection, and detect any unsafe images. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions for deploying this solution including a pre-built dashboard that provides you with the context and insights necessary to identify trends that help or harm your brand.
+The solution automates digital asset (text and image) ingestion from twitter, RSS news feeds, and YouTube comments to provide near-real-time inferences using machine learning algorithms through Amazon Comprehend, Amazon Translate, and Amazon Rekognition to perform topic modeling, sentiment analysis, entity and key phrase detection, and detect any unsafe images. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions for deploying this solution including a pre-built dashboard that provides you with the context and insights necessary to identify trends that help or harm your brand.
 
 The solution performs the following key features:
 
@@ -11,7 +11,7 @@ The solution performs the following key features:
 -   **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
 -   **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
 
-This solution deploys an AWS CloudFormation template that supports both Twitter and RSS feeds as data source options for ingestion, but the solution can be customized to aggregate other social media platforms and internal enterprise systems.
+This solution deploys an AWS CloudFormation template that supports Twitter, RSS feeds, and YouTube comments as data source options for ingestion, but the solution can be customized to aggregate other social media platforms and internal enterprise systems.
 
 For a detailed solution deployment guide, refer to [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
@@ -33,7 +33,7 @@ Deploying this solution with the default parameters builds the following environ
 
 The architecture of the solution includes the following key components and workflows:
 
-1. Ingestion – Social media and RSS feed ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler.
+1. Ingestion – Twitter, RSS feed, and YouTube comments ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler.
 
 2. Data Stream — The data is buffered through Amazon Kinesis Data Streams to provide resiliency and throttle incoming requests. The Data Streams have a configured DLQ to catch any errors in processing feeds.
 
@@ -78,15 +78,17 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     ├── bin                             [entrypoint of the CDK application]
     ├── lambda                          [folder containing source code the lambda functions]
     │   ├── capture_news_feed           [lambda function to ingest news feeds]
+    │   ├── create-partition            [lambda function to create glue partitions]
     │   ├── firehose_topic_proxy        [lambda function to write topic analysis output to Amazon Kinesis Firehose]
     │   ├── firehose-text-proxy         [lambda function to write text analysis output to Amazon Kinesis Firehose]
     │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Stream]
     │   ├── ingestion-producer          [lambda function that makes Twitter API call and pushes data to Amazon Kinesis Data Stream]
+    │   ├── ingestion-youtube           [lambda function that ingests comments from YouTube videos and pushes data to Amazon Kinesis Data Stream]
     │   ├── integration                 [lambda function that publishes inference outputs to Amazon Events Bridge]
-    │   ├── layers                      [lambda layer function library]
-    │   │   ├── aws-nodesk-custom-config
+    │   ├── layers                      [lambda layer function library for Node and Python layers]
+    │   │   ├── aws-nodesdk-custom-config
+    │   │   ├── python_lambda_layer
     │   ├── quicksight-custom-resources [lambda function to create Amazon QuickSight resources, example: data source, data sets, analysis and dashboards]
-    │   ├── shared                      [lambda layer function library (specific to python lambda runtimes)]
     │   ├── solution_helper             [lambda function that allows capturing metrics for this solution]
     │   ├── storage-firehose-processor  [lambda function that writes data to S3 buckets to build a relational model]
     │   ├── wf-analyze-text             [lambda function to detect sentiments, key phrases and entities using Amazon Comprehend]

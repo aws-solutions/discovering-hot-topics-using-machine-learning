@@ -17,8 +17,8 @@ import os
 import boto3
 import pytest
 from botocore.stub import Stubber
-from dht_config import custom_boto_config
 from moto.dynamodb2 import mock_dynamodb2
+from shared_util import custom_boto_config
 
 
 @pytest.fixture(autouse=True)

@@ -17,9 +17,8 @@ const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-    //initialize the Global AWS Config with key parameters
-    new AWS.Config(CustomConfig.customAwsConfig());
-    const stepfunctions = new AWS.StepFunctions();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
     const outputs = []
 
@@ -31,7 +30,7 @@ exports.handler = async (event) => {
             const feed = input.feed;
 
             if (! feed.hasOwnProperty('lang') || feed.lang === 'und' || feed.lang === 'None') {
-                const comprehend = new AWS.Comprehend();
+                const comprehend = new AWS.Comprehend(awsCustomConfig);
                 const textToDetectLang = feed.text;
 
                 // Comprehend only supports translation if the length is more than 20 characters
@@ -68,7 +67,6 @@ exports.handler = async (event) => {
         } catch (error) {
             console.error('Error occured in processing task', error);
             taskFailed(stepfunctions, error, message.taskToken);
-            throw error;
         }
     }
 
@@ -77,7 +75,8 @@ exports.handler = async (event) => {
 
 async function taskFailed (stepfunctions, error, taskToken) {
     await stepfunctions.sendTaskFailure({
+        taskToken: taskToken,
         cause: error.message,
-        taskToken: taskToken
+        error: error.code
     }).promise();
 }

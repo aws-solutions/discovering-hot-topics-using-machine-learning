@@ -20,18 +20,24 @@ import * as cdk from '@aws-cdk/core';
 import { FeedConsumer } from './feed-consumer-construct';
 import { NewsCatcher } from './newscatcher-stack';
 import { TwitterSearchIngestion } from './twitter-search-stack';
+import { YoutubeComments } from './youtube-comments-stacks';
 
 export interface IngestionProps {
+    readonly s3LoggingBucket: s3.Bucket;
+    readonly deployTwitter: cdk.CfnParameter;
     readonly ingestFrequency?: cdk.CfnParameter;
     readonly twitterQueryParameter?: cdk.CfnParameter;
     readonly supportedLang?: cdk.CfnParameter; //comma separated values of language codes
     readonly credentialKeyPath?: cdk.CfnParameter;
-    readonly s3LoggingBucket: s3.Bucket;
+    readonly deployRSSNewsFeeds: cdk.CfnParameter;
     readonly rssNewsFeedQueryParameter?: cdk.CfnParameter;
     readonly rssNewsFeedConfig?: cdk.CfnParameter;
     readonly rssNewsFeedIngestFreq?: cdk.CfnParameter;
-    readonly deployTwitter: cdk.CfnParameter;
-    readonly deployRSSNewsFeeds: cdk.CfnParameter;
+    readonly deployYouTubeComments: cdk.CfnParameter;
+    readonly youTubeSearchQuery?: cdk.CfnParameter;
+    readonly youTubeChannel?: cdk.CfnParameter,
+    readonly youTubeSearchFreq?: cdk.CfnParameter;
+    readonly youtTubeApiKey?: cdk.CfnParameter;
 }
 
 export class Ingestion extends cdk.Construct {
@@ -65,7 +71,8 @@ export class Ingestion extends cdk.Construct {
                 "StreamARN": _feedConsumerlambda.kinesisStream.streamArn
             }
         });
-        _twitterSearch.nestedStackResource!.addMetadata('nestedStackFileName', _twitterSearch.templateFile.slice(0, -5));
+        const _JSON_FILE_EXTN_LENGTH = ".json".length;
+        _twitterSearch.nestedStackResource!.addMetadata('nestedStackFileName', _twitterSearch.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
 
         const _deployTwitterIngestionCondition = new cdk.CfnCondition(this, 'DeployTwitterIngestion', {
             expression: cdk.Fn.conditionAnd(
@@ -74,8 +81,7 @@ export class Ingestion extends cdk.Construct {
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.ingestFrequency, "")),
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.credentialKeyPath, ""))
         )});
-        // TODO - This is a temporary patch for Sonarqube, it misinterprets the use of '?' here as a control statement
-        _twitterSearch.nestedStackResource?.addOverride('Condition', _deployTwitterIngestionCondition.logicalId); // NOSONAR - Rule Non-empty statements should change control flow or have at least one side-effect
+        _twitterSearch.nestedStackResource?.addOverride('Condition', _deployTwitterIngestionCondition.logicalId);
 
         const _newsCatcher = new NewsCatcher(this, 'NewsCatcher', {
             parameters: {
@@ -87,15 +93,40 @@ export class Ingestion extends cdk.Construct {
                 "IngestFrequency": props.rssNewsFeedIngestFreq!.valueAsString
             }
         });
-        _newsCatcher.nestedStackResource!.addMetadata('nestedStackFileName', _newsCatcher.templateFile.slice(0, -5));
+        _newsCatcher.nestedStackResource!.addMetadata('nestedStackFileName', _newsCatcher.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
 
         const _deployRSSFeedsIngestionCondition = new cdk.CfnCondition(this, 'DeployRSSFeeds', {
             expression: cdk.Fn.conditionAnd(
                 cdk.Fn.conditionEquals(props.deployRSSNewsFeeds, "Yes"),
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.rssNewsFeedIngestFreq, ""))
             )});
-        // TODO - This is a temporary patch for Sonarqube, it misinterprets the use of '?' here as a control statement
-        _newsCatcher.nestedStackResource?.addOverride('Condition', _deployRSSFeedsIngestionCondition.logicalId); // NOSONAR - Rule Non-empty statements should change control flow or have at least one side-effect
+        _newsCatcher.nestedStackResource?.addOverride('Condition', _deployRSSFeedsIngestionCondition.logicalId);
+
+
+        // YouTube ingestion nested stack
+        const _youTubeComments = new YoutubeComments(this, 'YouTubeCommentsIngestion', {
+            parameters: {
+                "EventBus": _eventBus.eventBusArn,
+                "StreamARN": _feedConsumerlambda.kinesisStream.streamArn,
+                "YoutubeAPIKey": props.youtTubeApiKey?.valueAsString!,
+                "YouTubeSearchIngestionFreq": props.youTubeSearchFreq?.valueAsString!,
+                "YouTubeChannel": props.youTubeChannel?.valueAsString!,
+                "YoutubeSearchQuery": props.youTubeSearchQuery?.valueAsString!
+            }
+        });
+        _youTubeComments.nestedStackResource!.addMetadata('nestedStackFileName', _youTubeComments.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
+
+        const _deployYoutubeCommentsCondition = new cdk.CfnCondition(this, 'DeployYouTubeComments', {
+            expression: cdk.Fn.conditionAnd(
+                cdk.Fn.conditionEquals(props.deployYouTubeComments.valueAsString, "Yes"),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youTubeSearchFreq, "")),
+                cdk.Fn.conditionNot(cdk.Fn.conditionAnd(
+                    cdk.Fn.conditionEquals(props.youTubeSearchQuery,""), cdk.Fn.conditionEquals(props.youTubeChannel, ""))
+                ),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youtTubeApiKey,""))
+            )
+        });
+        _youTubeComments.nestedStackResource?.addOverride('Condition', _deployYoutubeCommentsCondition.logicalId);
     }
 
     public get consumerLambdaFunc(): lambda.Function {

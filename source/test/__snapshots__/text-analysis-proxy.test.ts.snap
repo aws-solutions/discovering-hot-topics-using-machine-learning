@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6ArtifactHash6603FE43": Object {
-      "Description": "Artifact hash for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
+    "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bArtifactHash098AD994": Object {
+      "Description": "Artifact hash for asset \\"3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8b\\"",
       "Type": "String",
     },
-    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B": Object {
-      "Description": "S3 bucket for asset \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
+    "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bS3Bucket608D7E2D": Object {
+      "Description": "S3 bucket for asset \\"3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8b\\"",
       "Type": "String",
     },
-    "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523": Object {
-      "Description": "S3 key for asset version \\"aa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6\\"",
+    "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bS3VersionKey814A5302": Object {
+      "Description": "S3 key for asset version \\"3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8b\\"",
       "Type": "String",
     },
   },
@@ -1333,7 +1333,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3Bucket9EFDFA8B",
+            "Ref": "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bS3Bucket608D7E2D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1346,7 +1346,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
+                          "Ref": "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bS3VersionKey814A5302",
                         },
                       ],
                     },
@@ -1359,7 +1359,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersaa46f314a71aa1544c253c583bee9d5967ed4cf11395f1de9c008d001025b5f6S3VersionKey617EB523",
+                          "Ref": "AssetParameters3003a4d7a4dce054c1b4624f83ce569b470e8a0c8f959443de6cdfdc609e4d8bS3VersionKey814A5302",
                         },
                       ],
                     },
@@ -1399,6 +1399,9 @@ Object {
             },
             "TXT_IN_IMG_SENTIMENT_FIREHOSE": Object {
               "Ref": "TxtImgSentimentKinesisFirehose9E112549",
+            },
+            "YOUTUBECOMMENTS_FEED_STORAGE": Object {
+              "Ref": "YouTubeCommentsKinesisFirehose93E34664",
             },
           },
         },
@@ -1556,6 +1559,12 @@ Object {
                 Object {
                   "Fn::GetAtt": Array [
                     "NewsFeedStorageKinesisFirehoseF48B61B2",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "YouTubeCommentsKinesisFirehose93E34664",
                     "Arn",
                   ],
                 },
@@ -2605,6 +2614,264 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "YouTubeCommentsFirehoseRoleD099E247": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "YouTubeCommentsFirehoseRoleDefaultPolicy19C6E179": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "youTubeCommentsStorage102B80C8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "youTubeCommentsStorage102B80C8",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "YouTubeCommentsFirehoseRoleDefaultPolicy19C6E179",
+        "Roles": Array [
+          Object {
+            "Ref": "YouTubeCommentsFirehoseRoleD099E247",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "YouTubeCommentsKinesisFirehose93E34664": Object {
+      "DependsOn": Array [
+        "YouTubeCommentsFirehoseRoleDefaultPolicy19C6E179",
+        "YouTubeCommentsFirehoseRoleD099E247",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "youTubeCommentsStorage102B80C8",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 64,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "YouTubeCommentsKinesisFirehosefirehoseloggroup3D8F2B5E",
+            },
+            "LogStreamName": Object {
+              "Ref": "YouTubeCommentsKinesisFirehosefirehoseloggroupfirehoselogstream8D5BC661",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "Prefix": "youTubeComments",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "YouTubeCommentsFirehoseRoleD099E247",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "YouTubeCommentsKinesisFirehoseKinesisFirehosePolicy751B98A3": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "youTubeCommentsStorage102B80C8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "youTubeCommentsStorage102B80C8",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "YouTubeCommentsKinesisFirehosefirehoseloggroup3D8F2B5E",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "YouTubeCommentsKinesisFirehosefirehoseloggroupfirehoselogstream8D5BC661",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "YouTubeCommentsKinesisFirehoseKinesisFirehosePolicy751B98A3",
+        "Roles": Array [
+          Object {
+            "Ref": "YouTubeCommentsKinesisFirehoseKinesisFirehoseRoleA83DD013",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "YouTubeCommentsKinesisFirehoseKinesisFirehoseRoleA83DD013": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "YouTubeCommentsKinesisFirehosefirehoseloggroup3D8F2B5E": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "YouTubeCommentsKinesisFirehosefirehoseloggroupfirehoselogstream8D5BC661": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "YouTubeCommentsKinesisFirehosefirehoseloggroup3D8F2B5E",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "entitybucketA094FEBC": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
@@ -2723,6 +2990,22 @@ Object {
       "UpdateReplacePolicy": "Retain",
     },
     "txtinimgsentimentF3FCCBAB": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "youTubeCommentsStorage102B80C8": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "BucketEncryption": Object {

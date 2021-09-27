@@ -35,7 +35,8 @@ export class TopicAnalysisProxy extends Construct {
             lambdaFunctionProps: {
                 runtime: Runtime.PYTHON_3_8,
                 handler: 'lambda_function.handler',
-                code: Code.fromAsset(`${__dirname}/../../lambda/firehose_topic_proxy`/*, { //TODO - for use with docker image to build dependencies
+                code: Code.fromAsset(`${__dirname}/../../lambda/firehose_topic_proxy`
+                /* for use with docker image to build dependencies {
                     bundling:{
                         "image": Runtime.PYTHON_3_7.bundlingDockerImage,
                         "command": ["bash", "-c", "ls /asset-input /asset-output && pip install -r requirements.txt -t /asset-output && ls /asset-output && rsync -r . /asset-output"]

@@ -1,4 +1,5 @@
-moto==2.0.0
-pytest==6.2.2
-pytest-cov==2.11.1
+moto==2.2.2
+pytest==6.2.4
+pytest-cov==2.12.1
 botocore
+mock==4.0.3

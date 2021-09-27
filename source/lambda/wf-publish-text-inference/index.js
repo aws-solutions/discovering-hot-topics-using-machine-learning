@@ -17,8 +17,8 @@
  const CustomConfig = require('aws-nodesdk-custom-config');
 
  exports.handler = async (event) => {
-     new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-     const eventBridge = new AWS.EventBridge();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const eventBridge = new AWS.EventBridge(awsCustomConfig);
 
      try {
          const response = await eventBridge.putEvents({

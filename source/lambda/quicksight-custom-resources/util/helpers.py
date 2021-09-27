@@ -15,35 +15,28 @@ import json
 from os import environ
 
 import boto3
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging, service_helper
 
 logger = custom_logging.get_logger(__name__)
-
-# Glogbal boto3 clients to help with initializa_hion and performance
-_helpers_service_clients = dict()
 
 
 class EnvironmentVariableError(Exception):
     pass
 
 
-def get_service_client(service_name, arguments):
+def get_service_client(service_name):
     """Get the global service boto3 client"""
-    global _helpers_service_clients
-    if service_name not in _helpers_service_clients:
-        logger.debug(f"Initializing global boto3 client for {service_name}")
-        _helpers_service_clients[service_name] = boto3.client(service_name, config=custom_boto_config.init())
-    return _helpers_service_clients[service_name]
+    return service_helper.get_service_client(service_name)
 
 
-def get_quicksight_client(**kwargs):
+def get_quicksight_client():
     """Get the global quicksight boto3 client"""
-    return get_service_client("quicksight", kwargs)
+    return get_service_client("quicksight")
 
 
-def get_sts_client(**kwargs):
+def get_sts_client():
     """Get the global sts boto3 client"""
-    return get_service_client("sts", kwargs)
+    return get_service_client("sts")
 
 
 def get_aws_partition():

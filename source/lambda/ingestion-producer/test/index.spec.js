@@ -16,7 +16,6 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const AWSMock = require('aws-sdk-mock');
-const path = require('path');
 const assert = require('assert');
 
 

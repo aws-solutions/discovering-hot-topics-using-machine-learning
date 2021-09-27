@@ -84,10 +84,10 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             type: 'String',
             default: 'Yes',
             allowedValues: ['Yes', 'No'],
-            description: 'Would you like to deploy News feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory'
+            description: 'Required: Would you like to deploy News feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory'
         });
 
-        const _newsSearchQuery = new cdk.CfnParameter(this, 'NewsSearchQuery', { // TODO - can we supply comma separated values
+        const _newsSearchQuery = new cdk.CfnParameter(this, 'NewsSearchQuery', {
             type: 'String',
             description: 'Provide comma separated list of keywords (optional) to filter news feeds. Only feeds containing atleast one of the keywords from the list will be processed.'+
                 ' If no keyword is provided, feeds will not be filtered and all news feeds will be processed',
@@ -108,14 +108,54 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             default: 'cron(0 18 * * ? *)', // default once a day at GMT 20:00 hours
             description: 'Required: The frequency at which RSS Feeds should be pulled. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html',
             allowedPattern: `^$|${DiscoveringHotTopicsStack.cronRegex}`,
-            constraintDescription: 'Please provide a valid cron expression of the format \'cron(0/5 * * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+            constraintDescription: 'Please provide a valid cron expression of the format \'cron(0 18 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+        });
+
+        const _deployYoutubeCommentsIngestion = new cdk.CfnParameter(this, 'DeployYouTubeCommentsIngestion', {
+            type: 'String',
+            default: 'Yes',
+            allowedValues: ['Yes', 'No'],
+            description: 'Required: Would you like to deploy YouTube comments ingestion mechanism. If you answer yes, YouTubeVideoSearchQuery and YouTubeSearchIngestionFreq parameters are mandatory'
+        });
+
+        const _youtubeVideoSearchFreq = new cdk.CfnParameter(this, 'YouTubeSearchIngestionFreq', {
+            type: 'String',
+            default: 'cron(0 12 * * ? *)',
+            allowedPattern: `^$|${DiscoveringHotTopicsStack.cronRegex}`,
+            description: 'Required: The frequency at which at which YouTube comments should be retrieved',
+            constraintDescription: 'Please provide a valid cron expression of the formation \'cron(0 12 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+        });
+
+        const _youtubeAPIKey = new cdk.CfnParameter(this, 'YoutubeAPIKey', {
+            type: 'String',
+            description: 'The key name where Youtube API credentails are stored',
+            allowedPattern: '^$|^(?!\\s*$).+',
+            default: '/discovering-hot-topics-using-machine-learning/youtube/comments',
+            constraintDescription: 'Please provide the SSM Key for Youtube API'
+        });
+
+        const _youtubeChannelId = new cdk.CfnParameter(this, 'YouTubeChannel', {
+            type: 'String',
+            description: 'Optional parameter to retrieve comments data from videos from a specific channel. At least one parameter from "YouTubeChannel" and "YoutubeSearchQuery" has to be provided.',
+            allowedPattern: '^$|^(?!\\s*$).+',
+            constraintDescription: 'Please provide a valid YouTube Channel ID'
+        });
+
+        const _youtubeVideoSearchQuery = new cdk.CfnParameter(this, 'YoutubeSearchQuery', {
+            type: 'String',
+            description: 'Optional search parameter to specify keywords to search for on Youtube. You can use NOT (-) and OR (|) operators to find videos. '+
+            'Example \'boating|sailing -fishing\'. For details refer API documentation on this link https://developers.google.com/youtube/v3/docs/search/list. At least one parameter from "YouTubeChannel" and "YoutubeSearchQuery" has to be provided.',
+            minLength: 0,
+            maxLength: 500,
+            default: 'movie trailers',
+            constraintDescription: 'Please provide key words for Youtube search query'
         });
 
         const _topicSchedule = new cdk.CfnParameter(this, 'TopicAnalysisFrequency', {
             type: 'String',
             default: 'cron(10 0 * * ? *)',
             allowedPattern: DiscoveringHotTopicsStack.cronRegex,
-            description: 'The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour',
+            description: 'Required: The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour',
             constraintDescription: 'Please provide a valid cron expression of the format \'cron(10 0 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
         });
 
@@ -124,7 +164,7 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             default: '10',
             minValue: 1,
             maxValue: 100,
-            description: 'The number of topics to be discovered by Topic analysis. The min value is 1 and maximum value is 100',
+            description: 'Required: The number of topics to be discovered by Topic analysis. The min value is 1 and maximum value is 100',
             constraintDescription: 'Please verify if the value entered for number of topics to be discovered is between 1 and 100 (both inclusive).'
         });
 
@@ -158,6 +198,15 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                         _newsFeedConfigParam.logicalId,
                     ]
                 }, {
+                    Label: { default: 'YouTubeCommentsSetup' },
+                    Parameters: [
+                        _deployYoutubeCommentsIngestion.logicalId,
+                        _youtubeVideoSearchFreq.logicalId,
+                        _youtubeChannelId.logicalId,
+                        _youtubeVideoSearchQuery.logicalId,
+                        _youtubeAPIKey.logicalId
+                    ]
+                }, {
                     Label: { default: 'General Parameters' },
                     Parameters: [
                         _topicSchedule.logicalId,
@@ -171,16 +220,24 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         new cdk.CfnRule(this, 'TwitterIngestionParamValidation', {
             ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), "No"),
             assertions: [{
-                assert: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), "Yes"),
-                assertDescription: 'If "DeployTwitter" is set to "No", then "DeployNewsFeeds" should be set to "Yes". Either one of the ingestion mechanisms should be selected'
+                assert: cdk.Fn.conditionOr(cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), "Yes"), cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), "Yes")),
+                assertDescription: 'If "DeployTwitter" is set to "No", then "DeployNewsFeeds" or "DeployYouTubeCommentsIngestion" should be set to "Yes". At least one of the ingestion mechanisms should be selected'
             }]
         });
 
         new cdk.CfnRule(this, 'NewsFeedsIngestionParamValidation', {
             ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), "No"),
             assertions: [{
-                assert: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), "Yes"),
-                assertDescription: 'If "DeployNewsFeeds" is set to "No", then "DeployTwitter" should be set to "Yes". Either one of the ingestion mechanisms should be selected'
+                assert: cdk.Fn.conditionOr(cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), "Yes"), cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), "Yes")),
+                assertDescription: 'If "DeployNewsFeeds" is set to "No", then "DeployTwitter" or "DeployYouTubeCommentsIngestion" should be set to "Yes". At least one of the ingestion mechanisms should be selected'
+            }]
+        });
+
+        new cdk.CfnRule(this, 'DeployYouTubeCommentsIngestionValidation', {
+            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), "No"),
+            assertions: [{
+                assert: cdk.Fn.conditionOr(cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), "Yes"), cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), "Yes")),
+                assertDescription: 'If "DeployYouTubeCommentsIngestion" is set to "No", then "DeployTwitter" or "DeployNewsFeeds" should be set to "Yes". At least one of the ingestion mechanisms should be selected'
             }]
         });
 
@@ -206,6 +263,22 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             }]
         });
 
+        new cdk.CfnRule(this, 'ValidateYouTubeCommentsMandatoryParam', {
+            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), "Yes"),
+            assertions: [{
+                assert: cdk.Fn.conditionNot(cdk.Fn.conditionEquals(cdk.Fn.ref(_youtubeVideoSearchFreq.logicalId), "")),
+                assertDescription: 'If "DeployYouTubeCommentsIngestion" is set to "Yes" then "YouTubeSearchIngestionFreq" should be provided. It cannot be blank'
+            }, {
+                assert: cdk.Fn.conditionNot(cdk.Fn.conditionAnd(
+                    cdk.Fn.conditionEquals(cdk.Fn.ref(_youtubeVideoSearchQuery.logicalId), ""),
+                    cdk.Fn.conditionEquals(cdk.Fn.ref(_youtubeChannelId.logicalId), "")), ),
+                assertDescription: 'If "DeployYouTubeCommentsIngestion" is set to "Yes" then atleast one parameter from "YouTubeVideoSearchQuery" and "YouTubeChannel" should be provided. Both cannot be blank'
+            }, {
+                assert: cdk.Fn.conditionNot(cdk.Fn.conditionEquals(cdk.Fn.ref(_youtubeAPIKey.logicalId), "")),
+                assertDescription: 'If "DeployYouTubeCommentsIngestion" is set to "Yes" then "YoutubeAPIKey" should be provided. It cannot be blank'
+            }]
+        });
+
         const solutionID = this.node.tryGetContext('solution_id');
         const solutionName = this.node.tryGetContext('solution_name');
         const solutionVersion = this.node.tryGetContext('solution_version')
@@ -218,7 +291,10 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             newsFeedsIngestionSearchQuery: _newsSearchQuery.valueAsString,
             newsFeedIngestionFreq: _newsFeedIngestFreq? _newsFeedIngestFreq.valueAsString: '',
             twitterIngestionFreq: _twitterIngestFreqParam.valueAsString,
-            topicModelingFreq: _topicSchedule.valueAsString
+            topicModelingFreq: _topicSchedule.valueAsString,
+            youTubeIngestionFreq: _youtubeVideoSearchFreq.valueAsString,
+            youTubeSearchQuery: _youtubeVideoSearchQuery.valueAsString,
+            youTubeChannelID: _youtubeChannelId.valueAsString
         });
 
         const s3AccessLoggingBucket = new s3.Bucket(this, 'AccessLog', {
@@ -269,21 +345,21 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         });
 
         qsNestedTemplate.nestedStackResource!.addMetadata('nestedStackFileName', qsNestedTemplate.templateFile.slice(0, -5));
-        // TODO - This is a temporary patch for Sonarqube, it misinterprets the use of '?' here as a control statement
-        qsNestedTemplate.nestedStackResource?.addOverride('Condition', _deployQuickSightCondition.logicalId); // NOSONAR - Rule Non-empty statements should change control flow or have at least one side-effect
+        qsNestedTemplate.nestedStackResource?.addOverride('Condition', _deployQuickSightCondition.logicalId);
 
-        const storageCofig: Map<string, string> = new Map();
-        storageCofig.set('Sentiment', 'sentiment');
-        storageCofig.set('Entity', 'entity');
-        storageCofig.set('KeyPhrase', 'keyphrase');
-        storageCofig.set('Topics', 'topics');
-        storageCofig.set('TopicMappings', 'topicmappings');
-        storageCofig.set('TxtInImgEntity', 'txtinimgentity');
-        storageCofig.set('TxtInImgSentiment', 'txtinimgsentiment');
-        storageCofig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
-        storageCofig.set('ModerationLabels', 'moderationlabels');
-        storageCofig.set('TwFeedStorage', 'twfeedstorage');
-        storageCofig.set('NewsFeedStorage', 'newsfeedstorage');
+        const storageConfig: Map<string, string> = new Map();
+        storageConfig.set('Sentiment', 'sentiment');
+        storageConfig.set('Entity', 'entity');
+        storageConfig.set('KeyPhrase', 'keyphrase');
+        storageConfig.set('Topics', 'topics');
+        storageConfig.set('TopicMappings', 'topicmappings');
+        storageConfig.set('TxtInImgEntity', 'txtinimgentity');
+        storageConfig.set('TxtInImgSentiment', 'txtinimgsentiment');
+        storageConfig.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
+        storageConfig.set('ModerationLabels', 'moderationlabels');
+        storageConfig.set('TwFeedStorage', 'twfeedstorage');
+        storageConfig.set('NewsFeedStorage', 'newsfeedstorage');
+        storageConfig.set('YouTubeComments', 'youtubecomments');
 
         // start of workflow -> storage integration
         const textInferenceNameSpace = 'com.analyze.text.inference';
@@ -293,24 +369,28 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             textAnalysisInfNS: textInferenceNameSpace,
             topicsAnalysisInfNS: topicsAnalysisInfNameSpace,
             topicMappingsInfNS: topicMappingsInfNameSpace,
-            tableMappings: storageCofig,
+            tableMappings: storageConfig,
             s3LoggingBucket: s3AccessLoggingBucket
         });
-
         // start of workflow -> storage integration
 
         // start creation of Kinesis consumer that invokes state machine
         const _ingestion = new Ingestion(this, 'Ingestion', {
+            s3LoggingBucket: s3AccessLoggingBucket,
+            deployTwitter: _deployTwitter,
             ingestFrequency: _twitterIngestFreqParam,
             twitterQueryParameter: _twitterSearchQueryParam,
             supportedLang: _twitterSupportedLang,
             credentialKeyPath : _twitterCredentialKeyPath,
+            deployRSSNewsFeeds: _deployNewsFeeds,
             rssNewsFeedConfig: _newsFeedConfigParam,
             rssNewsFeedQueryParameter: _newsSearchQuery,
             rssNewsFeedIngestFreq: _newsFeedIngestFreq,
-            s3LoggingBucket: s3AccessLoggingBucket,
-            deployTwitter: _deployTwitter,
-            deployRSSNewsFeeds: _deployNewsFeeds
+            deployYouTubeComments: _deployYoutubeCommentsIngestion,
+            youTubeSearchFreq: _youtubeVideoSearchFreq,
+            youTubeSearchQuery: _youtubeVideoSearchQuery,
+            youTubeChannel: _youtubeChannelId,
+            youtTubeApiKey: _youtubeAPIKey
         });
         // end creation of Lambda Kinesis producer that fetches social media feed
 
@@ -319,6 +399,9 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                 topicModelling: true
             }, {
                 name: 'NEWSFEEDS',
+                topicModelling: true
+            }, {
+                name: 'YOUTUBECOMMENTS',
                 topicModelling: true
             }];
 

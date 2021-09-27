@@ -19,8 +19,8 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 class FeedTracker {
 
     constructor (accountName) {
-        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-        this.ddb = new AWS.DynamoDB();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        this.ddb = new AWS.DynamoDB(awsCustomConfig);
         this.accountName = accountName;
     }
 
@@ -54,8 +54,7 @@ class FeedTracker {
             }
         }
 
-        const response = await this.ddb.query(ddbParams).promise();
-        return response;
+        return this.ddb.query(ddbParams).promise();
     }
 
 
@@ -77,15 +76,12 @@ class FeedTracker {
             'EXP_DATE': { N: Math.floor(date.getTime()/1000.0).toString() }
         };
 
-        // console.debug(`DDB params for updatedTracker ${JSON.stringify(item)}`);
-
         const ddbParams = {
             TableName: process.env.DDB_TABLE_NAME,
             Item: item
         };
 
-        const result = await this.ddb.putItem(ddbParams).promise();
-        return result;
+        return this.ddb.putItem(ddbParams).promise();
     }
 }
 

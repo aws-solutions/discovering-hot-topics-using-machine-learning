@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 ######################################################################################################################
-#  Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.                                      #
+#  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                #
 #                                                                                                                    #
 #  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance    #
 #  with the License. A copy of the License is located at                                                             #
@@ -11,33 +12,28 @@
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
-import json
 import os
-import unittest
 
-import mock
+import boto3
 import pytest
-from botocore import config
-from dht_config import custom_boto_config
+from botocore.stub import Stubber
+from moto.dynamodb2 import mock_dynamodb2
+from shared_util import custom_boto_config
 
 
-class CustomConfigTestCase(unittest.TestCase):
-    def test_custom_config(self):
-        custom_config = custom_boto_config.init()
-        self.assertIsNotNone(custom_config)
-        self.assertIsInstance(custom_config, config.Config)
-
-    @mock.patch("botocore.config.Config")
-    def test_function_param_validation(self, mocked):
-        custom_boto_config.init()
-        mocked.assert_called_once_with(
-            region_name="us-east-1",
-            retries={"max_attempts": 10, "mode": "standard"},
-            user_agent_extra="solution/fakeID/fakeVersion",
-        )
-
-    @mock.patch("botocore.config.Config")
-    def test_min_sdk_usr_agent_set(self, mocked):
-        custom_boto_config.init()
-        args, kwargs = mocked.call_args
-        self.assertTrue(kwargs["user_agent_extra"], "solution/fakeID/fakeVersion")
+@pytest.fixture(autouse=True)
+def aws_environment_variables():
+    """Mocked AWS evivronment variables such as AWS credentials and region"""
+    os.environ["AWS_ACCESS_KEY_ID"] = "mocked-aws-access-key-id"
+    os.environ["AWS_SECRET_ACCESS_KEY"] = "mocked-aws-secret-access-key"
+    os.environ["AWS_SESSION_TOKEN"] = "mocked-aws-session-token"
+    os.environ["AWS_REGION"] = "us-east-1"  # must be a valid region
+    os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'
+    os.environ["TARGET_DDB_TABLE"] = "mockqueryddbtable"
+    os.environ["EVENT_BUS_NAME"] = "fakeeventbus"
+    os.environ["INGESTION_NAMESPACE"] = "com.analyze.news.config"
+    os.environ["STREAM_NAME"] = "fakestream"
+    os.environ["SSM_API_KEY"] = "fakessmapikey"
+    os.environ["QUERY"] = "fakeSearch"
+    os.environ["VIDEO_NAMESPACE"] = "com.youtube.video"
+    os.environ["VIDEO_SEARCH_INGESTION_WINDOW"] = "7"

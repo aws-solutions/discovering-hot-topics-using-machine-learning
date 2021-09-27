@@ -22,9 +22,9 @@ const ImageExtractor = require('./util/extract-image');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const rek = new AWS.Rekognition();
-    const stepfunctions = new AWS.StepFunctions();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const rek = new AWS.Rekognition(awsCustomConfig);
+    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
     const outputs = [];
 
@@ -110,7 +110,6 @@ exports.handler = async (event) => {
         } catch (error) {
             console.error(`Task failed: ${error.message}`, error);
             await taskFailed(stepfunctions, error, message.taskToken);
-            throw error;
         }
     }
 
@@ -119,7 +118,8 @@ exports.handler = async (event) => {
 
 async function taskFailed (stepfunctions, error, taskToken) {
     await stepfunctions.sendTaskFailure({
+        taskToken: taskToken,
         cause: error.message,
-        taskToken: taskToken
+        error: error.code
     }).promise();
 }

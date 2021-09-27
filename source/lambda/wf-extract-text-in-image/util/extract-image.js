@@ -27,8 +27,8 @@ const downloadFile = async (imageUrl) => {
 }
 
 const uploadFromStream = (fileResponse, fileName, destinationBucket) => {
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const s3 = new AWS.S3();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const s3 = new AWS.S3(awsCustomConfig);
     var passThrough = new stream.PassThrough();
     const promise = s3.upload({
         Bucket: destinationBucket,

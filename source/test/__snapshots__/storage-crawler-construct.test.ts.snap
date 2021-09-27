@@ -3,16 +3,16 @@
 exports[`test orchestration construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192ArtifactHash17A06B7A": Object {
-      "Description": "Artifact hash for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+    "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeArtifactHash420791BD": Object {
+      "Description": "Artifact hash for asset \\"f84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61ae\\"",
       "Type": "String",
     },
-    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D": Object {
-      "Description": "S3 bucket for asset \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+    "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeS3Bucket1E85DB03": Object {
+      "Description": "S3 bucket for asset \\"f84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61ae\\"",
       "Type": "String",
     },
-    "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09": Object {
-      "Description": "S3 key for asset version \\"571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192\\"",
+    "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeS3VersionKey83BE7703": Object {
+      "Description": "S3 key for asset version \\"f84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61ae\\"",
       "Type": "String",
     },
   },
@@ -57,7 +57,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3Bucket6E55F62D",
+            "Ref": "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeS3Bucket1E85DB03",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -70,7 +70,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                          "Ref": "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeS3VersionKey83BE7703",
                         },
                       ],
                     },
@@ -83,7 +83,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters571e5fe3dc93f4449f86b354e7629e5091335fc2864d8892ab1fcade344ee192S3VersionKeyEA9DBF09",
+                          "Ref": "AssetParametersf84f8dc310beb2bc257b40eb7d678d51b9af3cf1a3d704bb736adf7ba48c61aeS3VersionKey83BE7703",
                         },
                       ],
                     },
@@ -146,7 +146,7 @@ Object {
         "Principal": "events.amazonaws.com",
         "SourceArn": Object {
           "Fn::GetAtt": Array [
-            "DatabaseCrawlerNightlyCreateParitionEventsRule82FD2B6A",
+            "DatabaseCrawlerNightlyCreateParitionNightlyCreateParitionwrappedEventsRule8DC2379F",
             "Arn",
           ],
         },
@@ -401,7 +401,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "DatabaseCrawlerNightlyCreateParitionEventsRule82FD2B6A": Object {
+    "DatabaseCrawlerNightlyCreateParitionNightlyCreateParitionwrappedEventsRule8DC2379F": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(1 0 * * ? *)",
         "State": "ENABLED",

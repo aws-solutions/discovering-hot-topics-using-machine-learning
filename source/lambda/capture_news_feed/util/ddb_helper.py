@@ -17,9 +17,7 @@ from datetime import datetime, timedelta, timezone
 
 import boto3
 from boto3.dynamodb.conditions import Attr, Key
-from dht_config import custom_boto_config, custom_logging
-
-from util.helper import get_service_resource
+from shared_util import custom_boto_config, custom_logging, service_helper
 
 logger = custom_logging.get_logger(__name__)
 
@@ -27,7 +25,7 @@ logger = custom_logging.get_logger(__name__)
 def get_config(dynamodb=None, **scan_kwargs):
     """ This method retrieves configuration list from DDB which are "enabled = True" """
     if not dynamodb:
-        dynamodb = get_service_resource("dynamodb")
+        dynamodb = service_helper.get_service_resource("dynamodb")
 
     table = dynamodb.Table(os.environ["DDB_CONFIG_TABLE_NAME"])
 
@@ -57,7 +55,7 @@ def update_query(item, **put_item_kwargs):
     This method updates the 'query' (data searched through APIs) details into DDB. THis information
     is used for tracking the last time a jop was run for an account
     """
-    dynamodb = get_service_resource("dynamodb")
+    dynamodb = service_helper.get_service_resource("dynamodb")
 
     # hash key for the item should be account#url#topic#search_query and range key should be timestamp
     logger.info(f"Inserting item: {item}")
@@ -83,7 +81,7 @@ def update_query_tracker(account, url, search_query, topic=None):
 
 
 def get_query_tracker(account, url, search_query, topic=None, **item_kwargs):
-    dynamodb = get_service_resource("dynamodb")
+    dynamodb = service_helper.get_service_resource("dynamodb")
 
     table = dynamodb.Table(os.environ["TARGET_DDB_TABLE"])
     query = "#".join([account, url])

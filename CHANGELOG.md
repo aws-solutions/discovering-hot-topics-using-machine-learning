@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2021-09-27
+
+### Added
+
+-   Ingest YouTube comments
+
+### Updated
+
+-   AWS CDK version to 1.120.0
+-   AWS SDK version to 2.985.0
+-   Updated Amazon QuickSight analysis and dashboard to reflect the new ingestion source
+
 ## [1.5.0] - 2021-07-22
 
 ### Added

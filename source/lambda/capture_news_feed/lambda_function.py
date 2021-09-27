@@ -15,7 +15,7 @@
 import json
 import os
 
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging
 
 from util import config_helper, ddb_helper, event_bus_helper
 from util.ddb_helper import get_query_tracker

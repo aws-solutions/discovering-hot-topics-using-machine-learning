@@ -19,7 +19,7 @@ from datetime import datetime
 
 import boto3
 from botocore import config
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging
 
 logger = custom_logging.get_logger(__name__)
 

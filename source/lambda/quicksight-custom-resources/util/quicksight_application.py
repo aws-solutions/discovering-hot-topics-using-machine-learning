@@ -14,7 +14,7 @@
 import json
 
 import yaml
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.analysis import Analysis
 from util.dashboard import Dashboard

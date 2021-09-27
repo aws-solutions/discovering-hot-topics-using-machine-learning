@@ -3,16 +3,16 @@
 exports[`Test Lambda with Kinesis 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -80,7 +80,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -93,7 +93,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -106,7 +106,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -355,7 +355,9 @@ Object {
                 },
               },
               "Effect": "Deny",
-              "Principal": "*",
+              "Principal": Object {
+                "AWS": "*",
+              },
               "Resource": Object {
                 "Fn::GetAtt": Array [
                   "FeedConsumerConstructIngestionStreamSqsDlqQueueED0A45D7",
@@ -432,7 +434,9 @@ Object {
                 },
               },
               "Effect": "Deny",
-              "Principal": "*",
+              "Principal": Object {
+                "AWS": "*",
+              },
               "Resource": Object {
                 "Fn::GetAtt": Array [
                   "FeedConsumerConstructSqsDlqQueue666B1B7B",

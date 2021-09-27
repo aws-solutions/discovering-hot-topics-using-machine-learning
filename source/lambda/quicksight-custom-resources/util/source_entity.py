@@ -11,7 +11,7 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 logger = custom_logging.get_logger(__name__)
 
@@ -51,14 +51,13 @@ class SourceEntity:
             dsr_placeholder = ds_ref.get("DataSetPlaceholder", None)
             dsr_arn = ds_ref.get("DataSetArn", None)
             logger.debug(
-                f"Initial value of DataSetReferences, " f"DataSetPlaceholder: {dsr_placeholder}, DataSetArn: {dsr_arn}"
+                f"Initial value of DataSetReferences: ", f"DataSetPlaceholder: {dsr_placeholder}, DataSetArn: {dsr_arn}"
             )
             data_set = self.data_sets.get(dsr_placeholder, None)
             assert data_set
             ds_ref["DataSetArn"] = data_set.arn
             logger.debug(
-                f"Updated value of DataSetReferences, "
-                f"DataSetPlaceholder: {ds_ref['DataSetPlaceholder']}, DataSetArn: {ds_ref['DataSetArn']}"
+                f"Updated value of DataSetReferences: DataSetPlaceholder: {ds_ref['DataSetPlaceholder']}, DataSetArn: {ds_ref['DataSetArn']}"
             )
 
     # TODO:RENAME _get_map to something better and add pydoc

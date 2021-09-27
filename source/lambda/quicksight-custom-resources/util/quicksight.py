@@ -11,7 +11,7 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.quicksight_application import QuicksightApplication
 from util.template import TemplatePermissionType

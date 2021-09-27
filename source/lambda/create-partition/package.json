@@ -11,14 +11,14 @@
   "author": "aws-solutions-builder@",
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-sdk": "^2.945.0",
-    "axios": "^0.21.1"
+    "aws-sdk": "^2.985.0",
+    "axios": "^0.21.4"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^5.2.1",
-    "axios-mock-adapter": "^1.19.0",
+    "aws-sdk-mock": "^5.2.2",
+    "axios-mock-adapter": "^1.20.0",
     "chai": "^4.3.4",
-    "jest": "^27.0.6",
-    "sinon": "^11.1.1"
+    "jest": "^27.1.1",
+    "sinon": "^11.1.2"
   }
 }

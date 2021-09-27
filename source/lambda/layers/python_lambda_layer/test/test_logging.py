@@ -12,15 +12,46 @@
 #  and limitations under the License.                                                                                #
 ######################################################################################################################
 
+import logging
 import os
 
 import pytest
+from shared_util import custom_logging
 
 
-@pytest.fixture(autouse=True)
-def aws_credentials():
-    """Mocked AWS Credentials"""
-    os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-    os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-    os.environ["AWS_REGION"] = "us-east-1"  # must be a valid region
-    os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'
+@pytest.fixture(scope="function", autouse=True)
+def reset_logging_defaults():
+    """Remove any logging configuration defaults that might have existed before starting any test"""
+    try:
+        os.environ.pop("LOG_LEVEL")
+    except KeyError:
+        pass
+
+
+@pytest.mark.parametrize("level", ["DEBUG", "INFO", "WARNING", "ERROR"])
+def test_valid_levels(level):
+    os.environ["LOG_LEVEL"] = level
+    assert custom_logging.get_level() == level
+
+
+def test_invalid_level():
+    os.environ["LOG_LEVEL"] = "TRACE"
+    assert custom_logging.get_level() == "WARNING"
+    os.environ["LOG_LEVEL"] = "INFO"
+
+
+def test_get_logger():
+    logger = custom_logging.get_logger(__name__)
+    assert logger.level == logging.WARNING
+
+
+def test_logger_log(caplog):
+    logger = custom_logging.get_logger(__name__)
+    logger.error("This is an error")
+    logger.warning("This is a warning")
+    logger.info("This is an informational message")
+    logger.debug("This is a debug message")
+    assert "This is an error" in caplog.text
+    assert "This is a warning" in caplog.text
+    assert "This is an informational message" not in caplog.text
+    assert "This is a debug message" not in caplog.text

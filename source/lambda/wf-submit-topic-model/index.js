@@ -25,8 +25,8 @@ exports.handler = async (event) => {
     await extractor.emptyBucket(process.env.INGESTION_S3_BUCKET_NAME);
     console.debug(`Got ${datePrefixList.length} in the bucket prefix list`);
 
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const s3 = new AWS.S3();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const s3 = new AWS.S3(awsCustomConfig);
 
     // Copy the data based on the ingestion window. Comprehend does not allow to pass bucket prefix list. The data
     // in the bucket here is stored by date. Hence all files under the bucket prefix can be passed to Comprehend
@@ -68,7 +68,7 @@ exports.handler = async (event) => {
         }
 
         if (dataExists) {
-            const comprehend = new AWS.Comprehend();
+            const comprehend = new AWS.Comprehend(awsCustomConfig);
 
             var topicJobParams = {
                 DataAccessRoleArn: process.env.DATA_ACCESS_ARN,

@@ -18,13 +18,16 @@ import { ExecutionRole } from './lambda-role-cloudwatch-construct';
 
 export interface SolutionHelperProps {
     readonly solutionId: string;
-    readonly searchQuery: string;
-    readonly langFilter: string;
+    readonly searchQuery?: string;
+    readonly langFilter?: string;
     readonly solutionVersion: string;
     readonly topicModelingFreq: string;
-    readonly twitterIngestionFreq: string;
-    readonly newsFeedIngestionFreq: string;
-    readonly newsFeedsIngestionSearchQuery: string;
+    readonly twitterIngestionFreq?: string;
+    readonly newsFeedIngestionFreq?: string;
+    readonly newsFeedsIngestionSearchQuery?: string;
+    readonly youTubeIngestionFreq?: string;
+    readonly youTubeSearchQuery?: string;
+    readonly youTubeChannelID?: string
 }
 
 export class SolutionHelper extends cdk.Construct {
@@ -56,13 +59,16 @@ export class SolutionHelper extends cdk.Construct {
             timeout: cdk.Duration.seconds(30),
             environment: {
                 // the query is only used to determin query complexity, actually query is not posted for metrics data
-                TWITTER_SEARCH_QUERY: props.searchQuery,
-                TWITTER_LANG_FILTER: props.langFilter,
-                TWITTER_INGEST_FREQ: props.twitterIngestionFreq,
+                TWITTER_SEARCH_QUERY: props.searchQuery? props.searchQuery: "",
+                TWITTER_LANG_FILTER: props.langFilter? props.langFilter: "",
+                TWITTER_INGEST_FREQ: props.twitterIngestionFreq? props.twitterIngestionFreq: "",
                 TOPIC_JOB_FREQ: props.topicModelingFreq,
-                NEWSFEEDS_INGESTION_FREQ: props.newsFeedIngestionFreq,
+                NEWSFEEDS_INGESTION_FREQ: props.newsFeedIngestionFreq? props.newsFeedIngestionFreq: "",
                 // the query is only used to determin query complexity, actually query is not posted for metrics data
-                NEWSFEEDS_SEARCH_QUERY: props.newsFeedsIngestionSearchQuery
+                NEWSFEEDS_SEARCH_QUERY: props.newsFeedsIngestionSearchQuery? props.newsFeedsIngestionSearchQuery: "",
+                YOUTUBE_INGESTION_FREQ: props.youTubeIngestionFreq? props.youTubeIngestionFreq: "",
+                YOUTUBE_SEARCH_QUERY: props.youTubeSearchQuery? props.youTubeSearchQuery: "",
+                YOUTUBE_CHANNEL_ID: props.youTubeChannelID? props.youTubeChannelID: ""
             }
         });
 

@@ -17,8 +17,8 @@ const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const stepfunctions = new AWS.StepFunctions();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
     const analyzedTextoutputs = [];
 
@@ -27,6 +27,7 @@ exports.handler = async (event) => {
         const input = message.input;
 
         try {
+            console.debug(`Analyzing event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`);
             await analyzeText(input, input.feed);
 
             if (input.text_in_images !== undefined && input.text_in_images.length > 0) {
@@ -38,7 +39,7 @@ exports.handler = async (event) => {
                 }
             }
 
-            console.debug(`Analyzed event with id_str ${JSON.stringify(input.feed.id_str)}`);
+            console.debug(`Analyzed event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`);
             const params = {
                 output: JSON.stringify(input),
                 taskToken: message.taskToken
@@ -55,7 +56,6 @@ exports.handler = async (event) => {
         } catch(error) {
             console.error(`Task failed: ${error.message}`, error);
             await taskFailed(stepfunctions, error, message.taskToken);
-            throw error;
         }
     }
 
@@ -74,8 +74,8 @@ exports.handler = async (event) => {
  * @param {*} targetElement
  */
 const analyzeText = async(targetElement, elementToAnalyze) => {
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const comprehend = new AWS.Comprehend();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const comprehend = new AWS.Comprehend(awsCustomConfig);
 
     if (elementToAnalyze._cleansed_text.length > 0) {
 
@@ -96,6 +96,13 @@ const analyzeText = async(targetElement, elementToAnalyze) => {
                 throw error;
             }))
         ]);
+    } else {
+        // Step function merge JSON expects that sentiment key should always be present.
+        // creating an empty sentiment to remove step function merge errors.
+        targetElement.Sentiment = '';
+        targetElement.SentimentScore = {};
+        targetElement.KeyPhrases = [];
+        targetElement.Entities = [];
     }
 
     return targetElement;
@@ -128,7 +135,8 @@ const detectSentiment = async (comprehend, text) => {
 
 async function taskFailed (stepfunctions, error, taskToken) {
     await stepfunctions.sendTaskFailure({
+        taskToken: taskToken,
         cause: error.message,
-        taskToken: taskToken
+        error: error.code
     }).promise();
 }

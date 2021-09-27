@@ -22,4 +22,4 @@ const dht = new DiscoveringHotTopicsStack(app, 'discovering-hot-topics-using-mac
     description: `(${app.node.tryGetContext('solution_id')}) - Discovering Hot Topics using Machine Learning. Version %%VERSION%%`
 });
 
-app.node.applyAspect(new ApplytoLambda(dht, 'CustomConfig'));
+cdk.Aspects.of(app).add(new ApplytoLambda(dht, 'CustomConfig'));

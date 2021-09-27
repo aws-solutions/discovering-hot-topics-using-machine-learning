@@ -1,0 +1,24 @@
+# exclude python 3rd party modules
+google*
+cachetools*
+_distutils_hack
+.venv-test
+apiclient
+bin
+certifi*
+charset*
+httplib2*
+idna*
+packaging*
+pkg_resources*
+protobuf*
+pyasn1*
+pyparsing*
+pytz*
+requests*
+rsa*
+setuptools*
+six*
+uritemplate*
+urllib3*
+distutils-precedence.pth

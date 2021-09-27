@@ -18,16 +18,15 @@ import unittest
 import boto3
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import EndpointConnectionError
-from dht_config import custom_boto_config
 from moto import mock_dynamodb2
+from shared_util import custom_boto_config, service_helper
 from util import ddb_helper
-from util.helper import get_service_resource
 
 
 @mock_dynamodb2
 def ddb_setup(table_name):
     # ddb = boto3.resource("dynamodb", config=custom_boto_config.init())
-    ddb = get_service_resource("dynamodb")
+    ddb = service_helper.get_service_resource("dynamodb")
     ddb.create_table(
         TableName=table_name,
         KeySchema=[{"AttributeName": "account", "KeyType": "HASH"}],

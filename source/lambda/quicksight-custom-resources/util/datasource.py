@@ -11,7 +11,7 @@
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.helpers import get_quicksight_client
 from util.quicksight_resource import QuickSightResource
@@ -41,7 +41,7 @@ class DataSource(QuickSightResource):
                 Permissions=self._get_permissions(),
                 SslProperties={"DisableSsl": False},
             )
-            logger.info(f"finished creating quicksight datasource for id:{self.id}" f"response {response}")
+            logger.info(f"finished creating quicksight datasource for id:{self.id} response {response}")
         except quicksight_client.exceptions.ResourceExistsException:
             logger.info(f"datasource for id:{self.id} already exists")
             response = quicksight_client.describe_data_source(AwsAccountId=self.aws_account_id, DataSourceId=self.id)
@@ -72,7 +72,7 @@ class DataSource(QuickSightResource):
         quicksight_client = get_quicksight_client()
 
         response = quicksight_client.delete_data_source(AwsAccountId=self.aws_account_id, DataSourceId=self.id)
-        logger.info(f"finished deleting quicksight datasource for id:{self.id}, " f"response:{response}")
+        logger.info(f"finished deleting quicksight datasource for id:{self.id} response:{response}")
         self.arn = response["Arn"]
         return response
 

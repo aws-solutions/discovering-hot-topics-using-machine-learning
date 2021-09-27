@@ -83,6 +83,13 @@ test('test Text Analysis Fireshose Stream Creation', () => {
                 encryption: BucketEncryption.S3_MANAGED
             })
         }),
+        youTubeCommentsStorage: new EventStorage(stack, 'YouTubeComments', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'youTubeComments',
+            s3Bucket: new Bucket(stack, 'youTubeCommentsStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
         textAnalysisInfNS: 'com.analyze.inference.text'
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

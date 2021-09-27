@@ -18,8 +18,8 @@ const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 class ImageExtractor {
     constructor () {
-        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-        this.s3 = new AWS.S3();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        this.s3 = new AWS.S3(awsCustomConfig);
     }
 
     /**

@@ -61,7 +61,11 @@ test('visting node lambda runtimes and adding aspects', () => {
                 S3Key: {}
             }
         }
-    }, ResourcePart.CompleteDefinition)
+    }, ResourcePart.CompleteDefinition);
+
+    expect(stack).toHaveResource('AWS::Lambda::LayerVersion', {
+        "Type": "AWS::Lambda::LayerVersion"
+    }, ResourcePart.CompleteDefinition);
 });
 
 test('visting node python runtimes and adding aspects', () => {
@@ -92,5 +96,9 @@ test('visting node python runtimes and adding aspects', () => {
                 S3Key: {}
             }
         }
-    }, ResourcePart.CompleteDefinition)
+    }, ResourcePart.CompleteDefinition);
+
+    expect(stack).toHaveResource('AWS::Lambda::LayerVersion', {
+        "Type": "AWS::Lambda::LayerVersion"
+    }, ResourcePart.CompleteDefinition);
 });

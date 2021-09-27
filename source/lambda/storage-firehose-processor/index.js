@@ -18,7 +18,6 @@ exports.handler = (event, context, callback) => {
         const payload = Buffer.from(record.data, 'base64').toString('utf8');
         const newPayload = JSON.parse(payload).detail;
 
-        //TODO - convert date from string to proper timestamp
         return {
             recordId: record.recordId,
             result: 'Ok',

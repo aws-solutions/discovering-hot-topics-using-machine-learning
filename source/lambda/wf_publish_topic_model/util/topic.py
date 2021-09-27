@@ -19,11 +19,13 @@ from collections import defaultdict
 from datetime import datetime
 
 import boto3
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging
 
 logger = custom_logging.get_logger(__name__)
 
 s3 = boto3.client("s3", config=custom_boto_config.init())
+sqs = boto3.resource("sqs", config=custom_boto_config.init())
+
 event_bridge_client = boto3.client("events", config=custom_boto_config.init())
 
 """
@@ -37,6 +39,10 @@ TMP_DIR = "/tmp/"  # NOSONAR (python:S5443)
 This method builds the mapping between the topics and the ids of the content and publishes it
 to the eventbridge for storage and visualization
 """
+
+
+class QueueNameNotProvidiedException(Exception):
+    pass
 
 
 def publish_topic_id_mapping(platform, job_id, timestamp, topic):
@@ -60,20 +66,34 @@ def publish_topic_id_mapping(platform, job_id, timestamp, topic):
         raise e
 
 
-def get_topic_dict(doc_topics_file_name):
-    topic_content_dict = defaultdict(list)
+def pubish_topics(source_prefix, job_id, timestamp, doc_topics_file_name):
+    queue_name = os.environ.get("QUEUE_NAME")
 
-    with open(doc_topics_file_name) as csvfile:
-        csv_reader = csv.DictReader(csvfile, fieldnames=("docname", "topic", "proportion"))
-        next(csv_reader)  # skip the header row
-        for row in csv_reader:
-            key = row["docname"].split(":")[0]
+    if queue_name:
+        logger.debug(f"File name received is {doc_topics_file_name}")
+        with open(doc_topics_file_name) as csvfile:
+            csv_reader = csv.DictReader(csvfile, fieldnames=("docname", "topic", "proportion"))
+            logger.debug("Accessing file to process topics")
+            next(csv_reader)  # skip the header row
 
-            # storing with bucket name as key to optimize S3.get calls
-            topic_content_dict[key].append(row)
+            queue = sqs.get_queue_by_name(QueueName=queue_name)
 
-    logger.debug(f"Topic dictionary contents are {json.dumps(topic_content_dict)}")
-    return topic_content_dict
+            for row in csv_reader:
+                key = row["docname"].split(":")[0]
+                queue.send_message(
+                    MessageBody=json.dumps(
+                        {
+                            "Platform": source_prefix,
+                            "JobId": job_id,
+                            "SubmitTime": timestamp,
+                            "Topic": {key: [row]},
+                        }
+                    )
+                )
+        logger.debug("Topic processing complete")
+    else:
+        logger.error("Could not find queue name set in environment variable")
+        raise QueueNameNotProvidiedException("Could not find queue name set in environment variable")
 
 
 def parse_csv_for_mapping(platform, job_id, timestamp, topic_content_dict):
@@ -86,7 +106,9 @@ def parse_csv_for_mapping(platform, job_id, timestamp, topic_content_dict):
         # splitting byte code lines into an array. This saves decode call and is invoked later only if the line is read
         raw_feed_array = obj["Body"].read().split(b"\n")
 
+        logger.debug(f"Processing key name: {key_name}")
         for record in topic_content_dict[key_name]:
+            logger.debug(f"Processing record: {record}")
             line_number = int(record["docname"].split(":")[1])
             # calling decode here as we are now reading the line
             id_str = raw_feed_array[line_number - 1].decode("utf-8").split(",")[0]

@@ -23,8 +23,8 @@ import boto3
 import mock
 import pytest
 from botocore import stub
-from dht_config import custom_boto_config
 from moto import mock_dynamodb2, mock_kinesis, mock_sts
+from shared_util import custom_boto_config
 
 
 def create_event_data_for_ddb(url: str):

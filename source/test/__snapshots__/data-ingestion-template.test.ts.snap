@@ -3,16 +3,16 @@
 exports[`do not create SSM credential path entry 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -49,7 +49,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -62,7 +62,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -75,7 +75,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -206,7 +206,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F": Object {
       "Properties": Object {
         "EventBusName": Object {
           "Ref": "existingEventBus2F5875A1",
@@ -231,7 +231,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
+                "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
                 "Arn",
               ],
             },
@@ -241,29 +241,10 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaEventsRuleC328D765",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90": Object {
       "DependsOn": Array [
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -286,7 +267,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -299,7 +280,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -312,7 +293,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -330,7 +311,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
             "Arn",
           ],
         },
@@ -341,7 +322,26 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionAwsEventsLambdaInvokePermission159F3E98D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -396,7 +396,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -421,10 +421,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
+        "PolicyName": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
         "Roles": Array [
           Object {
-            "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "Ref": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
           },
         ],
       },
@@ -437,16 +437,16 @@ Object {
 exports[`do not create source dynamodb table 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -483,7 +483,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -496,7 +496,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -509,7 +509,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -640,7 +640,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F": Object {
       "Properties": Object {
         "EventBusName": Object {
           "Ref": "existingEventBus2F5875A1",
@@ -665,7 +665,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
+                "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
                 "Arn",
               ],
             },
@@ -675,29 +675,10 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaEventsRuleC328D765",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90": Object {
       "DependsOn": Array [
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -720,7 +701,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -733,7 +714,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -746,7 +727,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -767,7 +748,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
             "Arn",
           ],
         },
@@ -778,7 +759,26 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionAwsEventsLambdaInvokePermission159F3E98D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -833,7 +833,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -909,10 +909,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
+        "PolicyName": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
         "Roles": Array [
           Object {
-            "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "Ref": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
           },
         ],
       },
@@ -963,16 +963,16 @@ Object {
 exports[`do not create target dynamodb table 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -1009,7 +1009,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1022,7 +1022,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1035,7 +1035,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1196,7 +1196,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F": Object {
       "Properties": Object {
         "EventBusName": Object {
           "Ref": "existingEventBus2F5875A1",
@@ -1221,7 +1221,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
+                "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
                 "Arn",
               ],
             },
@@ -1231,29 +1231,10 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaEventsRuleC328D765",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90": Object {
       "DependsOn": Array [
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -1276,7 +1257,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1289,7 +1270,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1302,7 +1283,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1320,7 +1301,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
             "Arn",
           ],
         },
@@ -1331,7 +1312,26 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionAwsEventsLambdaInvokePermission159F3E98D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1386,7 +1386,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -1435,10 +1435,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
+        "PolicyName": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
         "Roles": Array [
           Object {
-            "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "Ref": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
           },
         ],
       },
@@ -1479,16 +1479,16 @@ exports[`fail when neither existing bus nor event bus properties are provided 1`
 exports[`test ingestion with all parameters and custom event bridge 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -1525,7 +1525,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1538,7 +1538,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1551,7 +1551,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1712,7 +1712,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F": Object {
       "Properties": Object {
         "EventBusName": Object {
           "Ref": "testCustomBusIngestionBus2242DCDB",
@@ -1737,7 +1737,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
+                "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
                 "Arn",
               ],
             },
@@ -1747,29 +1747,10 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaEventsRuleC328D765",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90": Object {
       "DependsOn": Array [
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -1792,7 +1773,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1805,7 +1786,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1818,7 +1799,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -1839,7 +1820,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
             "Arn",
           ],
         },
@@ -1850,7 +1831,26 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionAwsEventsLambdaInvokePermission159F3E98D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1905,7 +1905,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -1981,10 +1981,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
+        "PolicyName": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
         "Roles": Array [
           Object {
-            "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "Ref": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
           },
         ],
       },
@@ -2061,16 +2061,16 @@ Object {
 exports[`test ingestion with existing event bus 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbArtifactHashEC708AE7": Object {
-      "Description": "Artifact hash for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0ArtifactHash61FD114B": Object {
+      "Description": "Artifact hash for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392": Object {
-      "Description": "S3 bucket for asset \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81": Object {
+      "Description": "S3 bucket for asset \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
-    "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119": Object {
-      "Description": "S3 key for asset version \\"26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bb\\"",
+    "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA": Object {
+      "Description": "S3 key for asset version \\"264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0\\"",
       "Type": "String",
     },
   },
@@ -2107,7 +2107,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -2120,7 +2120,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -2133,7 +2133,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -2294,7 +2294,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F": Object {
       "Properties": Object {
         "EventBusName": Object {
           "Ref": "existingEventBus2F5875A1",
@@ -2319,7 +2319,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
+                "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
                 "Arn",
               ],
             },
@@ -2329,29 +2329,10 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaEventsRuleC328D765",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90": Object {
       "DependsOn": Array [
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
+        "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
       ],
       "Metadata": Object {
         "cfn_nag": Object {
@@ -2374,7 +2355,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3Bucket04D62392",
+            "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3Bucket71199E81",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -2387,7 +2368,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -2400,7 +2381,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters26e3e062939886d2ecb4cddc312e73501f65b140fc2ca36845247ffdb45828bbS3VersionKey49005119",
+                          "Ref": "AssetParameters264a554884ca03dba7dd0c9045b116252a9f53b56027cfd8b337d609b3e23fb0S3VersionKey7F9EA7BA",
                         },
                       ],
                     },
@@ -2421,7 +2402,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
             "Arn",
           ],
         },
@@ -2432,7 +2413,26 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionAwsEventsLambdaInvokePermission159F3E98D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunction7E9BAC90",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedEventsRuleB9F64B1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -2487,7 +2487,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
+    "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680": Object {
       "Metadata": Object {
         "cfn_nag": Object {
           "rules_to_suppress": Array [
@@ -2563,10 +2563,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
+        "PolicyName": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRoleDefaultPolicyA41AA680",
         "Roles": Array [
           Object {
-            "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
+            "Ref": "testCustomBusRuleTargetLambdaRuleTargetLambdawrappedLambdaFunctionServiceRole93F1D949",
           },
         ],
       },

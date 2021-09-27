@@ -27,7 +27,8 @@ export interface TextAnalysisProxyProps {
     readonly txtInImgKeyPhraseStorage: EventStorage;
     readonly moderationLabelStorage: EventStorage;
     readonly twFeedStorage: EventStorage;
-    readonly newsFeedStorage: EventStorage
+    readonly newsFeedStorage: EventStorage;
+    readonly youTubeCommentsStorage: EventStorage;
     readonly textAnalysisInfNS: string;
 }
 
@@ -52,6 +53,7 @@ export class TextAnalysisProxy extends Construct {
                     MODERATION_LABELS_FIREHOSE: props.moderationLabelStorage.deliveryStreamName,
                     TW_FEED_STORAGE: props.twFeedStorage.deliveryStreamName,
                     NEWSFEEDS_FEED_STORAGE: props.newsFeedStorage.deliveryStreamName,
+                    YOUTUBECOMMENTS_FEED_STORAGE: props.youTubeCommentsStorage.deliveryStreamName,
                     TEXT_ANALYSIS_NS: props.textAnalysisInfNS
                 },
                 timeout: Duration.minutes(15)
@@ -67,7 +69,8 @@ export class TextAnalysisProxy extends Construct {
             props.txtInImgKeyPhraseStorage.deliveryStreamArn,
             props.moderationLabelStorage.deliveryStreamArn,
             props.twFeedStorage.deliveryStreamArn,
-            props.newsFeedStorage.deliveryStreamArn
+            props.newsFeedStorage.deliveryStreamArn,
+            props.youTubeCommentsStorage.deliveryStreamArn
         ];
 
         this.textAnalysisLambda.addToRolePolicy(new PolicyStatement({
