@@ -114,7 +114,7 @@ export class YoutubeComments extends cdk.NestedStack {
                         VIDEO_NAMESPACE: this.video_namespace,
                         SSM_API_KEY: _youtubeAPIKey.valueAsString,
                         QUERY: _youtubeSearchQuery.valueAsString,
-                        CHANNEL: _youtubeChannel.valueAsString,
+                        CHANNEL_ID: _youtubeChannel.valueAsString,
                         VIDEO_SEARCH_INGESTION_WINDOW: cdk.Token.asString(_videoSearchIngestionWindow.valueAsNumber),
                     },
                     timeout: cdk.Duration.minutes(15),
@@ -131,7 +131,7 @@ export class YoutubeComments extends cdk.NestedStack {
                         STREAM_NAME: _stream.streamName,
                         SSM_API_KEY: _youtubeAPIKey.valueAsString,
                         VIDEO_NAMESPACE: this.video_namespace,
-                        CHANNEL: _youtubeChannel.valueAsString,
+                        CHANNEL_ID: _youtubeChannel.valueAsString,
                         VIDEO_SEARCH_INGESTION_WINDOW: cdk.Token.asString(_videoSearchIngestionWindow.valueAsNumber)
                     },
                     timeout: cdk.Duration.minutes(10),

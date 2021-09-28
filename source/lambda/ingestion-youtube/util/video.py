@@ -54,6 +54,9 @@ def search_videos(event):
 
 
 def build_youtube_search_request():
+    """
+    Building a query based on the following API - https://developers.google.com/youtube/v3/docs/search/list
+    """
     video_search_params = {
         "part": "id,snippet",
         "type": "video",

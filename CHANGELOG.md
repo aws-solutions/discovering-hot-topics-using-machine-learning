@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Ingest YouTube comments
+-   Capability to ingest YouTube comments
 
 ### Updated
 
--   AWS CDK version to 1.120.0
--   AWS SDK version to 2.985.0
+-   AWS CDK version to 1.121.0
+-   AWS SDK version to 2.991.0
 -   Updated Amazon QuickSight analysis and dashboard to reflect the new ingestion source
 
 ## [1.5.0] - 2021-07-22

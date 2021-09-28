@@ -33,7 +33,7 @@ Deploying this solution with the default parameters builds the following environ
 
 The architecture of the solution includes the following key components and workflows:
 
-1. Ingestion – Twitter, RSS feed, and YouTube comments ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler.
+1. Ingestion – Twitter, RSS feeds, and YouTube comments ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler. For detailed reference architecture diagrams for Twitter, YouTube comment, and RSS news feed ingestion, refer to the [implementation guide](https://docs.aws.amazon.com/solutions/latest/discovering-hot-topics-using-machine-learning/overview.html).
 
 2. Data Stream — The data is buffered through Amazon Kinesis Data Streams to provide resiliency and throttle incoming requests. The Data Streams have a configured DLQ to catch any errors in processing feeds.
 

@@ -104,10 +104,13 @@ def search_comments(event):
             youtube_response = request.execute()
             logger.debug(f"Threads, youtube comments {json.dumps(youtube_response)}")
 
-            process_service_response(youtube_response, search_query, tracker_date, title)
+            record_published = process_service_response(youtube_response, search_query, tracker_date, title)
             next_page_token = youtube_response.get("nextPageToken", None)
-            if next_page_token:
-                logger.debug(f"Next page token is {next_page_token}")
+            logger.debug(f"Next page token is {next_page_token}")
+            # This condition optimizes comment thread list, since it seems that the API is returning the most recent ones first
+            # this would avoid additional additional iterations to the call if the comment was already ingested based on the
+            # tracker date and comments updatedAt timestamp
+            if next_page_token and record_published:
                 comment_search_params["pageToken"] = next_page_token
             else:
                 # update tracker, since loop is over break
@@ -121,14 +124,25 @@ def search_comments(event):
 
 
 def process_service_response(youtube_response, search_query, tracker_date, video_title):
+    record_published = True
+
     for item in youtube_response["items"]:
-        process_comment(item["snippet"]["topLevelComment"], search_query, video_title, tracker_date)
+        record_published = process_comment(item["snippet"]["topLevelComment"], search_query, video_title, tracker_date)
 
         if item.get("replies", None) and item.get("replies").get("comments", None):
+            reply_record_published = True
+
             comments = item.get("replies").get("comments")
             logger.debug(f"Found replies in comments: {json.dumps(comments)}")
             for item_comment in comments:
-                process_comment(item_comment, search_query, video_title, tracker_date)
+                reply_record_published = process_comment(item_comment, search_query, video_title, tracker_date)
+                if not reply_record_published:
+                    break
+
+        if not record_published:
+            break
+
+    return record_published
 
 
 def process_comment(comment_response, search_query, video_title, tracker_date=None):
@@ -142,8 +156,11 @@ def process_comment(comment_response, search_query, video_title, tracker_date=No
             output_json = output_record.__dict__
             logger.debug(f"Received record for publishing: {json.dumps(output_json)}")
             stream_helper.buffer_data_into_stream(output_json, partition_key=output_json["feed"]["id_str"])
+
+        return True
     else:
         logger.debug("Not publishing the record")
+        return False
 
 
 def get_output_record(comment_response, search_query, video_title):
