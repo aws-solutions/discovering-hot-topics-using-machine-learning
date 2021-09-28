@@ -22,8 +22,8 @@ class ModerationLabels {
     static storeLabels = async(data) => {
 
         if (data.moderation_labels_in_imgs !== undefined && data.moderation_labels_in_imgs.length > 0) {
-            new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-            const kinesisFireshose = new AWS.Firehose();
+            const awsCustomConfig = CustomConfig.customAwsConfig();
+            const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
             const labelsRecords = [];
 

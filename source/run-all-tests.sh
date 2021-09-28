@@ -38,7 +38,7 @@ setup_python_env() {
 	echo "Installing python packages"
 	pip3 install -r requirements.txt --target .
 	pip3 install -r requirements-dev.txt
-	pip3 install ../shared # This is required so that libraries under lambda layers are available to unit test lambda functions
+	pip3 install $source_dir/lambda/layers/python_lambda_layer # This is required so that libraries under lambda layers are available to unit test lambda functions
 	echo "deactivate virtual environment"
 	deactivate
 }
@@ -97,7 +97,7 @@ run_javascript_lambda_test() {
 		exit 1
 	fi
     [ "${CLEAN:-true}" = "true" ] && rm -rf coverage/lcov-report
-    mkdir -p $source_dir/test/coverage-reports/jest
+    mkdir -p $source_dir/test/coverage-reports/jest/$lambda_name
     coverage_report_path=$source_dir/test/coverage-reports/jest/$lambda_name
     rm -fr $coverage_report_path
     mv coverage $coverage_report_path
@@ -153,7 +153,11 @@ run_cdk_project_test "CDK - Discovering Hot Topics using Machine Learning App"
 #
 # Test the attached Lambda functions
 #
-run_python_lambda_test shared "Lambda Layer - Custom botocore config Initiatlization"
+run_python_lambda_test layers/python_lambda_layer "Lambda Python Layer - Custom botocore config Initiatlization"
+
+run_javascript_lambda_test layers/aws-nodesdk-custom-config "Lambda Nodejs Layer - Custom config initialization"
+
+run_python_lambda_test capture_news_feed "Ingestion - newscatcher"
 
 run_javascript_lambda_test create-partition "create-partition"
 
@@ -164,6 +168,8 @@ run_javascript_lambda_test firehose-text-proxy "Storage - Firehose Text Proxy"
 run_javascript_lambda_test ingestion-consumer "Ingestion - Consumer"
 
 run_javascript_lambda_test ingestion-producer "Ingestion - Producer"
+
+run_python_lambda_test ingestion-youtube "Ingestion - Youtube"
 
 run_javascript_lambda_test integration "Storage - App Integragation Lambda"
 
@@ -188,8 +194,6 @@ run_javascript_lambda_test wf-submit-topic-model "Storage - Submit Topic Model J
 run_javascript_lambda_test wf-translate-text "Workflow - Transate Text"
 
 run_python_lambda_test quicksight-custom-resources "Quicksight - Custom Resources"
-
-run_python_lambda_test capture_news_feed "Ingestion - newscatcher"
 
 run_javascript_lambda_test wf-detect-language "Workflow - Detect Language"
 

@@ -52,7 +52,7 @@ def test_s3_mapping_bucket():
 
 @mock_s3
 def test_parse_csv_mapping():
-    from wf_publish_topic_model.util.topic import get_topic_dict, parse_csv_for_mapping
+    from wf_publish_topic_model.util.topic import parse_csv_for_mapping, publish_topics
 
     with mock_s3():
         s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
@@ -75,7 +75,15 @@ def test_parse_csv_mapping():
         "twitter",
         "1234567890123456789012345",
         "2020-06-26T19:05:16.785Z",
-        get_topic_dict(os.path.join(os.path.dirname(__file__), "fixtures/doc-topics.csv")),
+        {
+            "2020/06/25/19/WfEngineRawForTAKinesisFire-rl7PaeLbt4Vx-1-2020-06-25-19-20-02-cd4559fa-5b3c-4b7e-8d8a-cfbbc48071dd": [
+                {
+                    "docname": "twitter/2020/06/25/19/WfEngineRawForTAKinesisFire-rl7PaeLbt4Vx-1-2020-06-25-19-20-02-cd4559fa-5b3c-4b7e-8d8a-cfbbc48071dd:1",
+                    "topic": "004",
+                    "proportion": "fakenumber",
+                }
+            ]
+        },
     )
     assert response[0]["job_id"] == "1234567890123456789012345"
     assert response[0]["job_timestamp"] == "2020-06-26T19:05:16.785Z"

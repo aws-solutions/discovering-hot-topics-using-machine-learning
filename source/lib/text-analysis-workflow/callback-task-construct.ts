@@ -41,22 +41,22 @@ export interface StepFuncCallbackTaskProps {
      */
     readonly existingQueueObj?: sqs.Queue;
     /**
-    * Optional user-provided props to override the default props for the SQS queue.
-    *
-    * @default - Default props are used
-    */
+     * Optional user-provided props to override the default props for the SQS queue.
+     *
+     * @default - Default props are used
+     */
     readonly queueProps?: sqs.QueueProps;
     /**
-    * Optional user provided properties for the dead letter queue
-    *
-    * @default - Default props are used
-    */
+     * Optional user provided properties for the dead letter queue
+     *
+     * @default - Default props are used
+     */
     readonly deadLetterQueueProps?: sqs.QueueProps;
     /**
-    * Whether to deploy a secondary queue to be used as a dead letter queue.
-    *
-    * @default - true.
-    */
+     * Whether to deploy a secondary queue to be used as a dead letter queue.
+     *
+     * @default - true.
+     */
     readonly deployDeadLetterQueue?: boolean;
     /**
      * The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
@@ -85,11 +85,10 @@ export interface StepFuncCallbackTaskProps {
      * @default - None
      */
     readonly stateMachine?: sfn.StateMachine;
-
 }
 
 export class StepFuncCallbackTask extends sfn.StateMachineFragment {
-    public readonly queue: sqs.Queue;
+    public readonly sqsQueue: sqs.Queue;
     public readonly deadLetterQueue: sqs.DeadLetterQueue | undefined;
     public readonly lambda: lambda.Function;
     public readonly startState: sfn.State;
@@ -141,7 +140,7 @@ export class StepFuncCallbackTask extends sfn.StateMachineFragment {
 
         this.startState = _queueTask;
         this.endStates = [ _queueTask ]
-        this.queue = _sqsLambda.sqsQueue;
+        this.sqsQueue = _sqsLambda.sqsQueue;
         this.lambda = _sqsLambda.lambdaFunction;
         this.deadLetterQueue = _sqsLambda.deadLetterQueue;
 

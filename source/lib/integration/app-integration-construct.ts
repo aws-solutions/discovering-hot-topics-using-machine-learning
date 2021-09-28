@@ -93,6 +93,7 @@ export class AppIntegration extends Construct {
             moderationLabelStorage: eventStorageMap.get('ModerationLabels')!,
             twFeedStorage: eventStorageMap.get('TwFeedStorage')!,
             newsFeedStorage: eventStorageMap.get('NewsFeedStorage')!,
+            youTubeCommentsStorage: eventStorageMap.get('YouTubeComments')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
         });
 

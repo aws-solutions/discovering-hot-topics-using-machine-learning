@@ -17,7 +17,6 @@ const lambda = require('../index.js');
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const AWSMock = require('aws-sdk-mock');
-const AWS = require('aws-sdk');
 
 describe ('When stream processor is called', () => {
     let lambdaSpy;

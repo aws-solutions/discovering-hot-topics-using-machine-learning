@@ -272,3 +272,5 @@ dmypy.json
 .pytype/
 source/lambda/wf_publish_topic_model/test/fixtures/output/doc-topics.csv
 source/lambda/wf_publish_topic_model/test/fixtures/output/topic-terms.csv
+
+.idea/

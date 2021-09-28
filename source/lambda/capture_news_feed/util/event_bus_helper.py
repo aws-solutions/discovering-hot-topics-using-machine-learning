@@ -17,10 +17,9 @@ import json
 import os
 
 import boto3
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging, service_helper
 
 from util import config_helper, ddb_helper
-from util.helper import get_service_client
 
 logger = custom_logging.get_logger(__name__)
 
@@ -43,7 +42,7 @@ class ConfigEvent:
 
 def publish_config(config_event: ConfigEvent, event_bus=None):
     if not event_bus:
-        event_bus = get_service_client("events")
+        event_bus = service_helper.get_service_client("events")
 
     for url in config_event.url_list:
         event = {

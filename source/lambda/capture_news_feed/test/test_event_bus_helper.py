@@ -19,7 +19,7 @@ import unittest
 import boto3
 from botocore.exceptions import ClientError
 from botocore.stub import Stubber
-from dht_config import custom_boto_config, custom_logging
+from shared_util import custom_boto_config, custom_logging
 from util.event_bus_helper import ConfigEvent, publish_config
 
 

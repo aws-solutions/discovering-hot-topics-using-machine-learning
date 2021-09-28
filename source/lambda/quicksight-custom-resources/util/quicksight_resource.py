@@ -14,7 +14,7 @@
 import json
 import os
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.helpers import get_aws_account_id, get_aws_partition, get_aws_region, get_quicksight_client
 

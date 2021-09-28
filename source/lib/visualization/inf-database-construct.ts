@@ -27,6 +27,7 @@ import { TextInImgSentimentTable } from './text-in-img-sentiment-table-construct
 import { TopicMappingsTable } from './topicmappings-table-construct';
 import { TopicsTable } from './topics-table-construct';
 import { TwitterTable } from './twitter-table-construct';
+import { YoutubeCommentsTable } from './youtubecomments-table-construct';
 
 export interface InferenceDatabaseProps {
     readonly s3InputDataBucket: Bucket,
@@ -163,6 +164,14 @@ export class InferenceDatabase extends Construct {
         });
         this._tableMap.set('NewsFeedStorage', newsFeedTable.table);
 
+        const youtubeCommentsTable = new YoutubeCommentsTable(this, 'YoutubeComments', {
+            s3InputDataBucket: props.s3InputDataBucket,
+            s3BucketPrefix: `${props.tablePrefixMappings.get('YouTubeComments')!}/`,
+            tableName: props.tablePrefixMappings.get('YouTubeComments')!,
+            database: this._database
+        });
+        this._tableMap.set('YouTubeComments', youtubeCommentsTable.table);
+
         const storageCrawler = new StorageCrawler(this, 'HotTopicsDB', {
             s3Bucket: props.s3InputDataBucket,
             databaseName: this._database.databaseName,
@@ -180,6 +189,7 @@ export class InferenceDatabase extends Construct {
         storageCrawler.node.addDependency(moderationLabelsTable);
         storageCrawler.node.addDependency(twitterTable);
         storageCrawler.node.addDependency(newsFeedTable);
+        storageCrawler.node.addDependency(youtubeCommentsTable);
     }
 
     public get database(): Database {

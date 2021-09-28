@@ -10,7 +10,7 @@
 #  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions     #
 #  and limitations under the License.                                                                                 #
 # #####################################################################################################################
-from dht_config import custom_logging
+from shared_util import custom_logging
 from tenacity import retry, retry_if_exception_type, stop_after_attempt
 
 from util.helpers import get_quicksight_client
@@ -50,7 +50,7 @@ class DataSet(QuickSightResource):
         quicksight_client = get_quicksight_client()
 
         response = quicksight_client.delete_data_set(AwsAccountId=self.aws_account_id, DataSetId=self.id)
-        logger.info(f"finished deleting quicksight dataset for id:{self.id}, " f"response:{response}")
+        logger.info(f"finished deleting quicksight dataset for id:{self.id}, response:{response}")
 
         self.arn = response["Arn"]
         return response
@@ -77,7 +77,7 @@ class DataSet(QuickSightResource):
         try:
             logger.info(f"Params for creating the dataset for id:{self.id}:: {params}")
             response = quicksight_client.create_data_set(**params)
-            logger.info(f"finished creating quicksight create_data_set id:{self.id}, " f"response:{response}")
+            logger.info(f"finished creating quicksight create_data_set id:{self.id}, response:{response}")
         except quicksight_client.exceptions.ResourceExistsException:
             logger.info(f"dataset for id:{self.id} already exists")
             response = quicksight_client.describe_data_set(AwsAccountId=self.aws_account_id, DataSetId=self.id)

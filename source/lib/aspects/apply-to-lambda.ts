@@ -15,7 +15,7 @@
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as lambda_python from '@aws-cdk/aws-lambda-python';
 import * as cdk from '@aws-cdk/core';
-import { NodejsLayerVersion } from '../awsnodejs-lambda-layer/layers';
+import { NodejsLayerVersion } from '../awsnodejs-lambda-layer/layer';
 
 export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
     readonly pythonLayer: lambda.LayerVersion;
@@ -25,7 +25,7 @@ export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
         super(scope, id);
 
         this.pythonLayer = new lambda_python.PythonLayerVersion(this, 'PythonLibLayer', {
-            entry: 'lambda/shared',
+            entry: 'lambda/layers/python_lambda_layer',
             description: 'This layer has boto config initialization and logging functions',
             compatibleRuntimes: [ lambda.Runtime.PYTHON_3_8 ]
         });

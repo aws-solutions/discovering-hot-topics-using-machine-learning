@@ -65,6 +65,9 @@ def custom_resource(event, _):
             metrics_data["NewsFeedsSearchComplexity"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", "").split(","))
             metrics_data["NewsFeedsSearchQueryLength"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", ""))
             metrics_data["NewsFeedsIngestionFreq"] = os.environ.get("NEWSFEEDS_INGESTION_FREQ", "")
+            metrics_data["YouTubeSearchQueryLength"] = len(os.environ.get("YOUTUBE_SEARCH_QUERY"))
+            metrics_data["YouTubIngestionFreq"] = os.environ.get("YOUTUBE_INGESTION_FREQ", "")
+            metrics_data["YouTubeChannelIDSet"] = "True" if os.environ.get("YOUTUBE_CHANNEL_ID", None) else "False"
 
             headers = {"Content-Type": "application/json"}
             payload = {

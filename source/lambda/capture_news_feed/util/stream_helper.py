@@ -17,12 +17,11 @@ import os
 import uuid
 
 import boto3
-
-from util.helper import get_service_client
+from shared_util import service_helper
 
 
 def buffer_data_into_stream(data, partition_key=None):
-    kds_client = get_service_client("kinesis")
+    kds_client = service_helper.get_service_client("kinesis")
 
     if not partition_key:
         partition_key = str(uuid.uuid4())

@@ -17,16 +17,15 @@ const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-	new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-	const kinesisStream = new AWS.Kinesis();
+	const awsCustomConfig = CustomConfig.customAwsConfig();
+	const kinesisStream = new AWS.Kinesis(awsCustomConfig);
 
-	// console.debug(`Event received is ${JSON.stringify(event)}`);
-	const response = await kinesisStream.putRecord({
+	const result = kinesisStream.putRecord({
 		Data: JSON.stringify(event),
 		PartitionKey: event.id,
 		StreamName: process.env.STREAM_NAME
 	}).promise();
 
-	// console.debug(`The response from Kinesis stream is ${JSON.stringify(response)}`);
-	return response;
+	console.debug(`Response from PutRecord: ${JSON.stringify(result)}`);
+	return result;
 };

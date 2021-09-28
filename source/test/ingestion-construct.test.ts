@@ -125,6 +125,39 @@ test ('Event Bus creation', () => {
         removalPolicy: cdk.RemovalPolicy.RETAIN
     });
 
+    const _deployYoutubeCommentsIngestion = new cdk.CfnParameter(stack, 'DeployYouTubeCommentsIngestion', {
+        type: 'String',
+        default: 'Yes',
+        allowedValues: ['Yes', 'No'],
+        description: 'Would you like to deploy YouTube comments ingestion mechanism. If you answer yes, YouTubeVideoSearchQuery and YouTubeSearchIngestionFreq parameters are mandatory'
+    });
+
+    const _youtubeVideoSearchFreq = new cdk.CfnParameter(stack, 'YouTubeSearchIngestionFreq', {
+        type: 'String',
+        default: 'cron(0 12 * * ? *)',
+        allowedPattern: `^$|${_cronRegex}`,
+        description: 'Required: The frequency at which at which YouTube comments should be retrieved',
+        constraintDescription: 'Please provide a valid cron expression of the formation \'cron(0 12 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+    });
+
+    const _youtubeAPIKey = new cdk.CfnParameter(stack, 'YoutubeAPIKey', {
+        type: 'String',
+        description: 'The key name where Youtube API credentails are stored',
+        allowedPattern: '^(?!\\s*$).+',
+        default: '/discovering-hot-topics-using-machine-learning/youtube/comments',
+        constraintDescription: 'Please provide the SSM Key for Youtube API'
+    });
+
+    const _youtubeVideoSearchQuery = new cdk.CfnParameter(stack, 'YoutubeSearchQuery', {
+        type: 'String',
+        description: 'Please provide the keywords to search for on Youtube. You can use NOT (-) and OR (|) operators to find videos. '+
+        'Example \'boating|sailing -fishing\'. For details refer API documentation on this link https://developers.google.com/youtube/v3/docs/search/list',
+        minLength: 0,
+        maxLength: 500,
+        default: 'movie trailers',
+        constraintDescription: 'Please provide key words for Youtube search query'
+    });
+
     new Ingestion(stack, 'Ingestion', {
         ingestFrequency: _twitterIngestFreqParam,
         twitterQueryParameter: _queryParam,
@@ -135,7 +168,11 @@ test ('Event Bus creation', () => {
         rssNewsFeedIngestFreq: _rssNewsFeedIngestFreq,
         s3LoggingBucket: s3AccessLoggingBucket,
         deployTwitter: _deployTwitter,
-        deployRSSNewsFeeds: _deployRSSFeeds
+        deployRSSNewsFeeds: _deployRSSFeeds,
+        deployYouTubeComments: _deployYoutubeCommentsIngestion,
+        youTubeSearchFreq: _youtubeVideoSearchFreq,
+        youTubeSearchQuery: _youtubeVideoSearchQuery,
+        youtTubeApiKey: _youtubeAPIKey
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

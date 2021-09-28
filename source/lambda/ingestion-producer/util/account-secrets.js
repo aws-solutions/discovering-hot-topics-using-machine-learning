@@ -18,8 +18,8 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 class AccountSecrets{
 
     constructor() {
-        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-        this.parameterStore = new AWS.SSM();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        this.parameterStore = new AWS.SSM(awsCustomConfig);
     }
 
     async getTwitterSecret() {

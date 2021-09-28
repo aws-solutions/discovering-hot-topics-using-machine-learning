@@ -17,8 +17,8 @@ import unittest
 from datetime import datetime, timedelta, timezone
 
 import boto3
-from dht_config import custom_boto_config
 from moto import mock_dynamodb2
+from shared_util import custom_boto_config
 from util import ddb_helper
 
 

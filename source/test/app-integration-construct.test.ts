@@ -35,6 +35,7 @@ test('test App Integration Construct', () => {
     tableMappings.set('ModerationLabels', 'moderationlabels');
     tableMappings.set('NewsFeedStorage', 'newsfeedstorage');
     tableMappings.set('TwFeedStorage', 'twfeedstorage');
+    tableMappings.set('YouTubeComments', 'youtubecomments');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,

@@ -18,7 +18,7 @@ import re
 from datetime import date, datetime, timezone
 from urllib.parse import urlparse
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 from newscatcher import Newscatcher
 
 from util import stream_helper

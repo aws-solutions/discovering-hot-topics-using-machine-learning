@@ -67,7 +67,7 @@ export class TopicOrchestration extends cdk.Construct {
                     STACK_NAME: cdk.Aws.STACK_NAME
                 },
                 timeout: cdk.Duration.minutes(10),
-                memorySize: 512
+                memorySize: 256
             },
             outputPath: '$.Payload'
         });
@@ -175,9 +175,7 @@ export class TopicOrchestration extends cdk.Construct {
                 outputPath: '$.Payload'
             });
             props.rawBucket.grantRead(_publishTopicTerms.lambdaFunction);
-            // TODO - Temporary fix for Sonarqube because it thinks the below '?' is a ternary operator and requires an assignment.
-            // To be removed once sonarqube is upgraded in the build pipeline
-            lambdaToS3.s3Bucket?.grantRead(_publishTopicTerms.lambdaFunction); // NOSONAR - rule "Non-empty statements should change control flow or have at least one side-effect"
+            lambdaToS3.s3Bucket?.grantRead(_publishTopicTerms.lambdaFunction);
             lambdaPublishEventPolicy.attachToRole(_publishTopicTerms.lambdaFunction.role as iam.Role);
 
             const _publishTopics = new StepFuncLambdaTask(this, `${platformType}PublishTopics`, {
@@ -195,13 +193,11 @@ export class TopicOrchestration extends cdk.Construct {
                         QUEUE_NAME: _publishTopicsMappings.sqsQueue.queueName
                     },
                     timeout: cdk.Duration.minutes(15),
+                    memorySize: 256 // with youtube, the size of the dictionary in the lambda is bigger
                 },
                 outputPath: '$.Payload'
             });
-            // props.rawBucket.grantRead(_publishTopics.lambdaFunction);
-            // TODO - Temporary fix for Sonarqube because it thinks the below '?' is a ternary operator and requires an assignment.
-            // To be removed once sonarqube is upgraded in the build pipeline
-            lambdaToS3.s3Bucket?.grantRead(_publishTopics.lambdaFunction); // NOSONAR - rule "Non-empty statements should change control flow or have at least one side-effect"
+            lambdaToS3.s3Bucket?.grantRead(_publishTopics.lambdaFunction);
             _publishTopicsMappings.sqsQueue.grantSendMessages(_publishTopics.lambdaFunction);
 
             const _nestedParallel = new sfn.Parallel(this, `PublishTopicFor${platformType}`, {

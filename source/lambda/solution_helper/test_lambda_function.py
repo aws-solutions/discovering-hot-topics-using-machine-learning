@@ -36,6 +36,9 @@ class LambdaTest(unittest.TestCase):
         os.environ["NEWSFEEDS_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
         os.environ["NEWSFEEDS_SEARCH_QUERY"] = "somefakesearch"
         os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'
+        os.environ["YOUTUBE_SEARCH_QUERY"] = "some fake video search"
+        os.environ["YOUTUBE_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
+        os.environ["YOUTUBE_CHANNEL_ID"] = "fakechannelid"
 
     def tearDown(self):
         del os.environ["TWITTER_SEARCH_QUERY"]
@@ -98,6 +101,9 @@ class LambdaTest(unittest.TestCase):
                 "NewsFeedsSearchComplexity": 1,
                 "NewsFeedsSearchQueryLength": 14,
                 "NewsFeedsIngestionFreq": "cron(0 23 * * ? *)",
+                "YouTubIngestionFreq": "cron(0 23 * * ? *)",
+                "YouTubeChannelIDSet": "True",
+                "YouTubeSearchQueryLength": 22,
             },
         )
 
@@ -114,7 +120,7 @@ class LambdaTest(unittest.TestCase):
             from lambda_function import custom_resource
 
             custom_resource(event, None)
-        except:
+        except:  # NOSONAR - python:S5754 - This is a unit test to check for exception handling
             self.fail("Exception should not be raised when metrics cannot be sent")
 
     @mock.patch("requests.post")
@@ -128,7 +134,7 @@ class LambdaTest(unittest.TestCase):
             from lambda_function import custom_resource
 
             custom_resource(invalid_event, None)
-        except:
+        except:  # NOSONAR - python:S5754 - This is a unit test to check for exception handling
             self.fail("Exception should not be raised when metrics cannot be sent")
 
     def test_sanitize_data(self):

@@ -18,12 +18,11 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
 
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const stepfunctions = new AWS.StepFunctions();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
 	await Promise.all(event.Records.map(async (record, index) => {
 		const payload = Buffer.from(record.kinesis.data, 'base64').toString();
-		// console.debug(`unparsed payload ${payload}`);
 		const params = {
 			stateMachineArn: process.env.STATE_MACHINE_ARN,
 			input: payload

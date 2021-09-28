@@ -19,8 +19,8 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 exports.handler = async (event) => {
     console.debug(`Event received is ${JSON.stringify(event)}`);
 
-    new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-    const comprehend = new AWS.Comprehend();
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const comprehend = new AWS.Comprehend(awsCustomConfig);
 
     const response = {};
     let completedCount = 0;

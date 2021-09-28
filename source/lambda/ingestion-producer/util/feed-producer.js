@@ -19,8 +19,8 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 class FeedProducer {
 
     constructor () {
-        new AWS.Config(CustomConfig.customAwsConfig());
-        this.kinesisStream = new AWS.Kinesis();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        this.kinesisStream = new AWS.Kinesis(awsCustomConfig);
     }
 
     async writeToStream (data, props) {
@@ -44,12 +44,10 @@ class FeedProducer {
                 });
             });
 
-            const response = await this.kinesisStream.putRecords({
+            return this.kinesisStream.putRecords({
                 Records: dataRecords,
                 StreamName: process.env.STREAM_NAME
             }).promise();
-
-            return response;
         }
     }
 }

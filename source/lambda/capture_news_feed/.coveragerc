@@ -1,5 +1,6 @@
 [run]
 omit =
+    charset_normalizer/*
     *certifi/*
     *chardet/*
     feedparser.py

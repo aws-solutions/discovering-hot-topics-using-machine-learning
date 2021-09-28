@@ -13,7 +13,7 @@
 
 from enum import Enum, auto
 
-from dht_config import custom_logging
+from shared_util import custom_logging
 
 from util.helpers import get_quicksight_client
 from util.quicksight_resource import QuickSightResource
@@ -62,7 +62,7 @@ class Template(QuickSightResource):
             SourceEntity=analysis_source_entity.get_source_entity(),
             VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from analysis " f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from analysis, response: {response}")
 
         self.arn = response["Arn"]
         return response
@@ -84,7 +84,7 @@ class Template(QuickSightResource):
             SourceEntity=analysis_source_entity.get_source_entity(),
             VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from analysis " f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from analysis, response: {response}")
 
         self.arn = response["Arn"]
         return response
@@ -102,7 +102,7 @@ class Template(QuickSightResource):
             SourceEntity=source_entity,
             VersionDescription="1",
         )
-        logger.info(f"finished quicksight create_template id:{self.id} from template " f"response: {response}")
+        logger.info(f"finished quicksight create_template id:{self.id} from template, response: {response}")
 
         self.arn = response["Arn"]
         return response
@@ -112,7 +112,7 @@ class Template(QuickSightResource):
 
         logger.info(f"requesting quicksight delete_template id:{self.id}")
         response = quicksight_client.delete_template(AwsAccountId=self.aws_account_id, TemplateId=self.id)
-        logger.info(f"finished quicksight delete_template for id:{self.id} " f"response: {response}")
+        logger.info(f"finished quicksight delete_template for id:{self.id}, response: {response}")
         return response
 
     def update_template_permissions(
@@ -131,7 +131,7 @@ class Template(QuickSightResource):
             GrantPermissions=[{"Principal": principal, "Actions": ["quicksight:DescribeTemplate"]}],
         )
         logger.info(
-            f"finished quicksight update_template_permissions for id:{self.id} from template " f"response: {response}"
+            f"finished quicksight update_template_permissions for id:{self.id} from template, response: {response}"
         )
         return response
 

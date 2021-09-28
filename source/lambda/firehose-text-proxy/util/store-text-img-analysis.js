@@ -22,33 +22,16 @@ class ImageAnalysis {
     static storeTextFromImage = async(data) => {
 
         if (data.text_in_images !== undefined && data.text_in_images.length > 0) {
-            new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-            const kinesisFireshose = new AWS.Firehose();
+            const awsCustomConfig = CustomConfig.customAwsConfig();
+            const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
             const txtInImgs = data.text_in_images? data.text_in_images : []; // empty array if the data feed does not have the array
             const txtInImgSentimentRecords = [];
             const txtInImgEntityRecords = [];
             const txtInImgKeyPhrasesRecords = [];
             txtInImgs.forEach((txt_in_img) => {
-                txtInImgSentimentRecords.push({
-                    Data: `${JSON.stringify({
-                        account_name: data.account_name,
-                        platform: data.platform,
-                        search_query: data.search_query,
-                        id_str: data.feed.id_str,
-                        created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
-                        text: txt_in_img.text,
-                        image_url: txt_in_img.image_url,
-                        sentiment: txt_in_img.Sentiment,
-                        sentimentposscore: txt_in_img.SentimentScore.Positive,
-                        sentimentnegscore: txt_in_img.SentimentScore.Negative,
-                        sentimentneuscore: txt_in_img.SentimentScore.Neutral,
-                        sentimentmixscore: txt_in_img.SentimentScore.Mixed
-                    })}\n`
-                });
-
-                txt_in_img.Entities.forEach((entity) => {
-                    txtInImgEntityRecords.push({
+                if (txt_in_img.Sentiment !== undefined) {
+                    txtInImgSentimentRecords.push({
                         Data: `${JSON.stringify({
                             account_name: data.account_name,
                             platform: data.platform,
@@ -57,31 +40,54 @@ class ImageAnalysis {
                             created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
                             text: txt_in_img.text,
                             image_url: txt_in_img.image_url,
-                            entity_text: entity.Text,
-                            entity_type: entity.Type,
-                            entity_score: entity.Score,
-                            entity_begin_offset: entity.BeginOffset,
-                            entity_end_offset: entity.EndOffset
+                            sentiment: txt_in_img.Sentiment,
+                            sentimentposscore: txt_in_img.SentimentScore.Positive,
+                            sentimentnegscore: txt_in_img.SentimentScore.Negative,
+                            sentimentneuscore: txt_in_img.SentimentScore.Neutral,
+                            sentimentmixscore: txt_in_img.SentimentScore.Mixed
                         })}\n`
                     });
+                }
+
+                txt_in_img.Entities.forEach((entity) => {
+                    if (entity.Text !== undefined) {
+                        txtInImgEntityRecords.push({
+                            Data: `${JSON.stringify({
+                                account_name: data.account_name,
+                                platform: data.platform,
+                                search_query: data.search_query,
+                                id_str: data.feed.id_str,
+                                created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                                text: txt_in_img.text,
+                                image_url: txt_in_img.image_url,
+                                entity_text: entity.Text,
+                                entity_type: entity.Type,
+                                entity_score: entity.Score,
+                                entity_begin_offset: entity.BeginOffset,
+                                entity_end_offset: entity.EndOffset
+                            })}\n`
+                        });
+                    }
                 });
 
                 txt_in_img.KeyPhrases.forEach((keyPhrase) => {
-                    txtInImgKeyPhrasesRecords.push({
-                        Data: `${JSON.stringify({
-                            account_name: data.account_name,
-                            platform: data.platform,
-                            search_query: data.search_query,
-                            id_str: data.feed.id_str,
-                            created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
-                            text: txt_in_img.text,
-                            image_url: txt_in_img.image_url,
-                            phrase: keyPhrase.Text,
-                            phrase_score: keyPhrase.Score,
-                            phrase_begin_offset: keyPhrase.BeginOffset,
-                            phrase_end_offset: keyPhrase.EndOffset
-                        })}\n`
-                    });
+                    if (keyPhrase.Text !== undefined)  {
+                        txtInImgKeyPhrasesRecords.push({
+                            Data: `${JSON.stringify({
+                                account_name: data.account_name,
+                                platform: data.platform,
+                                search_query: data.search_query,
+                                id_str: data.feed.id_str,
+                                created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                                text: txt_in_img.text,
+                                image_url: txt_in_img.image_url,
+                                phrase: keyPhrase.Text,
+                                phrase_score: keyPhrase.Score,
+                                phrase_begin_offset: keyPhrase.BeginOffset,
+                                phrase_end_offset: keyPhrase.EndOffset
+                            })}\n`
+                        });
+                    }
                 });
             });
 

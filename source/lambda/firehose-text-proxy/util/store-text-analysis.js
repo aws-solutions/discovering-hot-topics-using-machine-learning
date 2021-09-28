@@ -30,6 +30,7 @@ class TextAnalysis {
                 TwFeedStorage.storeTweets(data);
                 break;
             case 'newsfeeds':
+            case 'youtubecomments':
                 RawDataStorage.storeFeed(data);
                 break;
             default:
@@ -37,8 +38,8 @@ class TextAnalysis {
                 throw Error(`Received unsupported platform ${data.platform}`);
         }
 
-        new AWS.Config(CustomConfig.customAwsConfig()); //initialize the Global AWS Config with key parameters
-        const kinesisFireshose = new AWS.Firehose();
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
         const sentimentRecord = {
             account_name: data.account_name,

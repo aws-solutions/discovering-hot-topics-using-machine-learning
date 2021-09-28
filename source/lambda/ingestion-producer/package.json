@@ -1,6 +1,6 @@
 {
   "name": "ingestion-producer",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "This function pull data from the twitter stream and pushes it to Kinesis Stream.",
   "main": "feed-producer.js",
   "scripts": {
@@ -11,13 +11,13 @@
   "author": "aws-solution-builer@",
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-sdk": "^2.945.0",
+    "aws-sdk": "^2.991.0",
     "twitter-lite": "^1.1.0"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^5.2.1",
+    "aws-sdk-mock": "^5.3.0",
     "chai": "^4.3.4",
-    "jest": "^27.0.6",
-    "sinon": "^11.1.1"
+    "jest": "^27.2.0",
+    "sinon": "^11.1.2"
   }
 }
