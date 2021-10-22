@@ -115,7 +115,7 @@ class TestEventBusHelper(unittest.TestCase):
 
     def test_slice_text_into_arrays(self):
         original_text_small = "This is fake text"
-        self.assertEquals(len(newscatcher_helper.slice_text_into_arrays(original_text_small)), 1)
+        self.assertEqual(len(newscatcher_helper.slice_text_into_arrays(original_text_small)), 1)
 
         original_text_large_arr = []
         for i in range(300):
@@ -123,7 +123,7 @@ class TestEventBusHelper(unittest.TestCase):
 
         original_text_large = " ".join(original_text_large_arr)
 
-        self.assertEquals(
+        self.assertEqual(
             len(newscatcher_helper.slice_text_into_arrays(original_text_large)),
             len(original_text_large) // 1250
             if len(original_text_large) % 1250 == 0
