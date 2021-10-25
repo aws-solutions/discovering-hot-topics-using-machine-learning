@@ -18,8 +18,8 @@ import re
 from datetime import date, datetime, timezone
 from urllib.parse import urlparse
 
-from shared_util import custom_logging
 from newscatcher import Newscatcher
+from shared_util import custom_logging
 
 from util import stream_helper
 
@@ -28,6 +28,7 @@ logger = custom_logging.get_logger(__name__)
 rss_datetime_fromat_1 = "%a, %d %b %Y %H:%M:%S %z"
 rss_datetime_fromat_2 = "%a, %d %b %Y %H:%M:%S %Z"
 rss_datetime_fromat_3 = "%a, %d %b %Y %H:%M:%S"
+rss_datetime_fromat_4 = "%A, %B %d, %Y %I:%M %p %z"
 
 
 class TopicNotSupportedError(Exception):
@@ -59,7 +60,7 @@ def retrieve_feed_from_all_topics(url):
         try:
             aggregated_feed.append(retrieve_feed(url, topic=topic))
         except TopicNotSupportedError as error:
-            logger.warn(f"Skipping topic {topic} for {url} because {error}")
+            logger.debug(f"Skipping topic {topic} for {url} because {error}")
 
     return aggregated_feed
 
@@ -112,7 +113,6 @@ def retrieve_feed(url, topic=None):
         news_feeds["articles"] = try_parsing_published_date(news_feeds["articles"])
 
     if not news_feeds:
-        logger.warn(f"Topic {topic} is not supported")
         raise TopicNotSupportedError(f"Topic {topic} is not supported")
     return news_feeds
 
@@ -125,7 +125,10 @@ def get_published_timestamp(str_date):
         try:
             published_datetime = datetime.strptime(str_date, rss_datetime_fromat_2)
         except ValueError:
-            published_datetime = datetime.strptime(str_date, rss_datetime_fromat_3)
+            try:
+                published_datetime = datetime.strptime(str_date, rss_datetime_fromat_3)
+            except ValueError:
+                published_datetime = datetime.strptime(str_date, rss_datetime_fromat_4)
 
     return published_datetime.replace(tzinfo=timezone.utc)
 
@@ -162,46 +165,54 @@ def create_and_publish_record(news_feed, account_name, platform, last_published_
         try:
             published_timestamp = news_feed_timestamp(article)
         except ValueError:
-            logger.warn(f"Cannot parse published timestamp for {article}")
+            logger.warning(f"Cannot parse published timestamp for {article}")
             continue
 
         if not last_published_timestamp or published_timestamp > datetime.fromisoformat(last_published_timestamp):
             # check if at least one element of list is present in the article summary else skip this article
-            if len(query_str_list) > 0 and not any(keyword in article["summary"] for keyword in query_str_list):
-                logger.debug("Did not find {query_str} in {article}")
-                # Moving to next article since it did not have any of the search key words
-                continue
+            text = article.get("summary", article.get("title", None))
+            if text:
+                logger.debug(f"Article Detail: {article}")
+                if len(query_str_list) > 0 and not any(keyword in text for keyword in query_str_list):
+                    logger.debug(f"Did not find {query_str} in {article}")
+                    # Moving to next article since it did not have any of the search key words
+                    continue
 
-            text = article["summary"]
-            clean_text = re.sub(cleanr, "", text)
-            text_array = slice_text_into_arrays(clean_text)
+                clean_text = re.sub(cleanr, "", text)
+                text_array = slice_text_into_arrays(clean_text)
 
-            # TODO - move the entities and extended entities to a function
-            # populate image urls
-            id_str = f"{str(int(datetime.now().timestamp() * 1000))}#{url}"
-            image_urls = filter_link_types(article["links"], "image/jpeg")
-            entities, extended_entities = dict(), dict()
-            entities["media"], extended_entities["media"] = image_urls, image_urls
+                # populate image urls
+                id_str = f"{str(int(datetime.now().timestamp() * 1000))}#{url}"
+                image_urls = filter_link_types(article["links"], "image/jpeg")
+                entities, extended_entities = dict(), dict()
+                entities["media"], extended_entities["media"] = image_urls, image_urls
 
-            # populate text urls
-            text_urls = filter_link_types(article["links"], "text/html")
-            entities["urls"], extended_entities["urls"] = text_urls, text_urls
-            publish_record(
-                {
-                    "account_name": account_name,
-                    "platform": platform,
-                    "search_query": query_str,
-                    "feed": {
-                        "created_at": published_timestamp.isoformat(),
-                        "entities": entities,
-                        "extended_entities": extended_entities,
-                        "lang": language,
-                        "metadata": {"website": url, "country": country, "topic": topic},
-                    },
-                },
-                id_str,
-                text_array,
-            )
+                # populate text urls
+                text_urls = filter_link_types(article["links"], "text/html")
+                text_urls = filter_link_types(article["links"], "audio/mpeg") if not text_urls else text_urls
+
+                if text_urls:
+                    entities["urls"], extended_entities["urls"] = text_urls, text_urls
+                    publish_record(
+                        {
+                            "account_name": account_name,
+                            "platform": platform,
+                            "search_query": query_str,
+                            "feed": {
+                                "created_at": published_timestamp.isoformat(),
+                                "entities": entities,
+                                "extended_entities": extended_entities,
+                                "lang": language,
+                                "metadata": {"website": url, "country": country, "topic": topic},
+                            },
+                        },
+                        id_str,
+                        text_array,
+                    )
+                else:
+                    logger.debug(f"Skipping news feed from {url} since could not get url from {json.dumps(article)}")
+            else:
+                logger.debug(f"Could not find article in newsfeed {article}")
 
 
 def publish_record(record_to_publish, id_str, text_array):
@@ -221,13 +232,16 @@ def news_feed_timestamp(article):
     published_parsed = article.get("published_parsed", None)
     if published_parsed:
         published_timestamp = get_published_parsed_timestamp(published_parsed)
-    else:
+    elif article.get("published", None):
         # sample published time stamp Thu, 18 Mar 2021 20:06:58 +0200
         try:
             published_timestamp = get_published_timestamp(article["published"])
-        except ValueError:
-            logger.error(f"Could not parse time information and hence skipping record {article}")
-            raise ValueError
+        except (ValueError, KeyError) as error:
+            logger.debug(f"Could not parse time information and hence skipping record {article}")
+            raise error
+    else:
+        logger.debug(f'Could not retrieve published timestamp for {article}, hence marking it as "now"')
+        published_timestamp = datetime.now().replace(tzinfo=timezone.utc)
     return published_timestamp
 
 

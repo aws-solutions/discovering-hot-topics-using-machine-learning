@@ -84,8 +84,25 @@ for folder in */ ; do
     done
 
     if [ -e "requirements.txt" ]; then
-        pip3 install -q -r requirements.txt --upgrade --target ./
+        if [ "$function_name" = "capture_news_feed" ]; then
+            echo "Installing $function_name lambda using virtual environment"
+            python3 -m venv .venv-test
+            echo "Activating virtual environment"
+            source .venv-test/bin/activate
+            echo "Executing pip3 install -q -r requirements.txt --upgrade --target ./"
+            pip3 install -q -r requirements.txt --upgrade --target ./
+            echo "Deactivating virtual environment"
+            deactivate
+            echo "Deleting python virtual environment"
+            rm -fr .venv-test
+        else
+            echo "Installing $function_name lambda"
+            echo "Executing pip3 install -q -r requirements.txt --upgrade --target ./"
+            pip3 install -q -r requirements.txt --upgrade --target ./
+        fi
     elif [ -e "package.json" ]; then
+        echo "Installing node dependencies"
+        echo "Executing npm ci --only=prod"
         npm ci --only=prod
     fi
 
