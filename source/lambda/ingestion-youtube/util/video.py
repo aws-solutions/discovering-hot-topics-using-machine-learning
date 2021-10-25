@@ -67,7 +67,8 @@ def build_youtube_search_request():
     }
 
     if os.environ.get("QUERY", None):
-        video_search_params["q"] = os.environ["QUERY"]
+        q = os.environ["QUERY"].replace("|", "%7C")  # any use of | has to be url encoded
+        video_search_params["q"] = q
 
     if os.environ.get("CHANNEL_ID", None):
         video_search_params["channelId"] = os.environ["CHANNEL_ID"]

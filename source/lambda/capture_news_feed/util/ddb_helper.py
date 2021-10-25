@@ -96,7 +96,7 @@ def get_query_tracker(account, url, search_query, topic=None, **item_kwargs):
         ScanIndexForward=False,
     )
     if len(response["Items"]) == 0:
-        logger.warn("Query tracker is empty")
+        logger.warning("Query tracker is empty")
         return {"LAST_PUBLISHED_TIMESTAMP": (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()}
 
     return response["Items"][0]  # since limit is 1, it will return only 1 record and hence taking the first index value
