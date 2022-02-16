@@ -15,13 +15,14 @@
 import copy
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import googleapiclient.errors
 from shared_util.custom_logging import get_logger
 
-from util import credential_helper, ddb_helper, stream_helper
+from util import credential_helper, ddb_helper
 from util.youtube_service_helper import get_youtube_service_resource
+from shared_util.stream_helper import buffer_data_into_stream
 
 logger = get_logger(__name__)
 
@@ -67,7 +68,9 @@ class OutputRecord:
         self.feed["parent_id"] = comment.parent_id
         self.feed["viewer_rating"] = comment.viewer_rating
         self.feed["like_count"] = comment.like_count
-        self.feed["created_at"] = comment.published_at
+        self.feed["created_at"] = datetime.strptime(comment.published_at, "%Y-%m-%dT%H:%M:%SZ").strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         self.feed["updated_at"] = comment.updated_at
         self.platform = "youtubecomments"
         self.account_name = "default"
@@ -147,7 +150,9 @@ def process_service_response(youtube_response, search_query, tracker_date, video
 
 def process_comment(comment_response, search_query, video_title, tracker_date=None):
     comment_updated_date = (
-        datetime.strptime(comment_response["snippet"]["updatedAt"], "%Y-%m-%dT%H:%M:%SZ") if tracker_date else None
+        datetime.strptime(comment_response["snippet"]["updatedAt"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        if tracker_date
+        else None
     )
 
     if tracker_date == None or (comment_updated_date > tracker_date):
@@ -155,7 +160,7 @@ def process_comment(comment_response, search_query, video_title, tracker_date=No
         for output_record in output_records:
             output_json = output_record.__dict__
             logger.debug(f"Received record for publishing: {json.dumps(output_json)}")
-            stream_helper.buffer_data_into_stream(output_json, partition_key=output_json["feed"]["id_str"])
+            buffer_data_into_stream(output_json, partition_key=output_json["feed"]["id_str"])
 
         return True
     else:

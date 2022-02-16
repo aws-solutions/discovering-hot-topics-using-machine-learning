@@ -1,0 +1,470 @@
+{
+    "JobStatus": "COMPLETED",
+    "LanguageCode": "en-US",
+    "Transcript": [
+        {
+            "LoudnessScores": [
+                79.26,
+                78.82,
+                77.41,
+                83.43
+            ],
+            "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "Lorem",
+                    "BeginOffsetMillis": 1540,
+                    "EndOffsetMillis": 1840
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "ipsum",
+                    "BeginOffsetMillis": 1840,
+                    "EndOffsetMillis": 2240
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9829,
+                    "Content": "dolor",
+                    "BeginOffsetMillis": 2240,
+                    "EndOffsetMillis": 2350
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "sit",
+                    "BeginOffsetMillis": 2350,
+                    "EndOffsetMillis": 2460
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9756,
+                    "Content": "amet",
+                    "BeginOffsetMillis": 2460,
+                    "EndOffsetMillis": 2790
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": 0.9754,
+                    "Content": ",",
+                    "BeginOffsetMillis": 2790,
+                    "EndOffsetMillis": 3180
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.5565,
+                    "Content": "consectetur",
+                    "BeginOffsetMillis": 3180,
+                    "EndOffsetMillis": 3700
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.6254,
+                    "Content": "adipiscing",
+                    "BeginOffsetMillis": 3700,
+                    "EndOffsetMillis": 3910
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "elit",
+                    "BeginOffsetMillis": 3910,
+                    "EndOffsetMillis": 4260
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": 0.0,
+                    "Content": ","
+                }
+            ],
+            "Id": "d54eee05-8e5b-467b-9e34-1aef3429305d",
+            "BeginOffsetMillis": 1540,
+            "EndOffsetMillis": 4260,
+            "Sentiment": "POSITIVE",
+            "ParticipantRole": "CUSTOMER"
+        },
+        {
+            "LoudnessScores": [
+                79.26,
+                78.82,
+                77.41,
+                83.43
+            ],
+            "Content": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "sed",
+                    "BeginOffsetMillis": 1540,
+                    "EndOffsetMillis": 1840
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "do",
+                    "BeginOffsetMillis": 1840,
+                    "EndOffsetMillis": 2240
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9829,
+                    "Content": "eiusmod",
+                    "BeginOffsetMillis": 2240,
+                    "EndOffsetMillis": 2350
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "tempor",
+                    "BeginOffsetMillis": 2350,
+                    "EndOffsetMillis": 2460
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9756,
+                    "Content": "incididunt",
+                    "BeginOffsetMillis": 2460,
+                    "EndOffsetMillis": 2790
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9754,
+                    "Content": "ut",
+                    "BeginOffsetMillis": 2790,
+                    "EndOffsetMillis": 3180
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.5565,
+                    "Content": "labore",
+                    "BeginOffsetMillis": 3180,
+                    "EndOffsetMillis": 3700
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.6254,
+                    "Content": "et",
+                    "BeginOffsetMillis": 3700,
+                    "EndOffsetMillis": 3910
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "dolore",
+                    "BeginOffsetMillis": 3910,
+                    "EndOffsetMillis": 4260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "magna",
+                    "BeginOffsetMillis": 4260,
+                    "EndOffsetMillis": 4400
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "aliqua",
+                    "BeginOffsetMillis": 4400,
+                    "EndOffsetMillis": 4600
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": 0.0,
+                    "Content": "."
+                }
+            ],
+            "Id": "3c938491-f49a-4428-9792-8f00db47478b",
+            "BeginOffsetMillis": 1540,
+            "EndOffsetMillis": 4600,
+            "Sentiment": "POSITIVE",
+            "ParticipantRole": "AGENT"
+        },
+        {
+            "LoudnessScores": [
+                83.43,
+                89.14,
+                88.69
+            ],
+            "Content": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "Items": [
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "Ut",
+                    "BeginOffsetMillis": 4840,
+                    "EndOffsetMillis": 5260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "enim",
+                    "BeginOffsetMillis": 5260,
+                    "EndOffsetMillis": 5320
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9781,
+                    "Content": "ad",
+                    "BeginOffsetMillis": 5320,
+                    "EndOffsetMillis": 5650
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.999,
+                    "Content": "minim",
+                    "BeginOffsetMillis": 5650,
+                    "EndOffsetMillis": 5890
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 0.9727,
+                    "Content": "veniam",
+                    "BeginOffsetMillis": 5890,
+                    "EndOffsetMillis": 5980
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": 0.0,
+                    "Content": ","
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "quis",
+                    "BeginOffsetMillis": 5980,
+                    "EndOffsetMillis": 6460
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "nostrud",
+                    "BeginOffsetMillis": 6460,
+                    "EndOffsetMillis": 6760
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "exercitation",
+                    "BeginOffsetMillis": 6760,
+                    "EndOffsetMillis": 7060
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "ullamco",
+                    "BeginOffsetMillis": 7060,
+                    "EndOffsetMillis": 7260
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "laboris",
+                    "BeginOffsetMillis": 7260,
+                    "EndOffsetMillis": 7460
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "nisi",
+                    "BeginOffsetMillis": 7260,
+                    "EndOffsetMillis": 7460
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "ut",
+                    "BeginOffsetMillis": 7460,
+                    "EndOffsetMillis": 7760
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "aliquip",
+                    "BeginOffsetMillis": 7760,
+                    "EndOffsetMillis": 7960
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "ex",
+                    "BeginOffsetMillis": 7960,
+                    "EndOffsetMillis": 8060
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "ea",
+                    "BeginOffsetMillis": 8060,
+                    "EndOffsetMillis": 8360
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "commodo",
+                    "BeginOffsetMillis": 8360,
+                    "EndOffsetMillis": 8660
+                },
+                {
+                    "Type": "pronunciation",
+                    "Confidence": 1.0,
+                    "Content": "consequat",
+                    "BeginOffsetMillis": 8660,
+                    "EndOffsetMillis": 8960
+                },
+                {
+                    "Type": "punctuation",
+                    "Confidence": 0.0,
+                    "Content": "."
+                }
+            ],
+            "Id": "e483e058-a250-4c25-ae07-7c1d1971f96d",
+            "BeginOffsetMillis": 4840,
+            "EndOffsetMillis": 8960,
+            "Sentiment": "NEGATIVE",
+            "ParticipantRole": "CUSTOMER"
+        }
+    ],
+    "AccountId": "fakeaccount",
+    "Categories": {
+        "MatchedDetails": {},
+        "MatchedCategories": []
+    },
+    "Channel": "VOICE",
+    "JobName": "mock_analytics_job",
+    "Participants": [
+        {
+            "ParticipantRole": "AGENT"
+        },
+        {
+            "ParticipantRole": "CUSTOMER"
+        }
+    ],
+    "ConversationCharacteristics": {
+        "NonTalkTime": {
+            "Instances": [],
+            "TotalTimeMillis": 0
+        },
+        "Interruptions": {
+            "TotalCount": 6,
+            "TotalTimeMillis": 104819,
+            "InterruptionsByInterrupter": {
+                "AGENT": [
+                    {
+                        "BeginOffsetMillis": 1540,
+                        "DurationMillis": 2720,
+                        "EndOffsetMillis": 4260
+                    },
+                    {
+                        "BeginOffsetMillis": 4840,
+                        "DurationMillis": 8920,
+                        "EndOffsetMillis": 13760
+                    },
+                    {
+                        "BeginOffsetMillis": 14840,
+                        "DurationMillis": 10020,
+                        "EndOffsetMillis": 24860
+                    },
+                    {
+                        "BeginOffsetMillis": 25540,
+                        "DurationMillis": 52920,
+                        "EndOffsetMillis": 78460
+                    },
+                    {
+                        "BeginOffsetMillis": 79540,
+                        "DurationMillis": 27420,
+                        "EndOffsetMillis": 106960
+                    },
+                    {
+                        "BeginOffsetMillis": 109540,
+                        "DurationMillis": 2820,
+                        "EndOffsetMillis": 112360
+                    }
+                ]
+            }
+        },
+        "TotalConversationDurationMillis": 116060,
+        "Sentiment": {
+            "OverallSentiment": {
+                "AGENT": 1.0,
+                "CUSTOMER": 1.0
+            },
+            "SentimentByPeriod": {
+                "QUARTER": {
+                    "AGENT": [
+                        {
+                            "Score": -0.8,
+                            "BeginOffsetMillis": 0,
+                            "EndOffsetMillis": 29015
+                        },
+                        {
+                            "Score": 0.0,
+                            "BeginOffsetMillis": 29015,
+                            "EndOffsetMillis": 58030
+                        },
+                        {
+                            "Score": 0.0,
+                            "BeginOffsetMillis": 58030,
+                            "EndOffsetMillis": 87045
+                        },
+                        {
+                            "Score": 2.5,
+                            "BeginOffsetMillis": 87045,
+                            "EndOffsetMillis": 116060
+                        }
+                    ],
+                    "CUSTOMER": [
+                        {
+                            "Score": -0.8,
+                            "BeginOffsetMillis": 0,
+                            "EndOffsetMillis": 29015
+                        },
+                        {
+                            "Score": 0.0,
+                            "BeginOffsetMillis": 29015,
+                            "EndOffsetMillis": 58030
+                        },
+                        {
+                            "Score": 0.0,
+                            "BeginOffsetMillis": 58030,
+                            "EndOffsetMillis": 87045
+                        },
+                        {
+                            "Score": 2.5,
+                            "BeginOffsetMillis": 87045,
+                            "EndOffsetMillis": 116060
+                        }
+                    ]
+                }
+            }
+        },
+        "TalkSpeed": {
+            "DetailsByParticipant": {
+                "AGENT": {
+                    "AverageWordsPerMinute": 186
+                },
+                "CUSTOMER": {
+                    "AverageWordsPerMinute": 186
+                }
+            }
+        },
+        "TalkTime": {
+            "DetailsByParticipant": {
+                "AGENT": {
+                    "TotalTimeMillis": 106369
+                },
+                "CUSTOMER": {
+                    "TotalTimeMillis": 106369
+                }
+            },
+            "TotalTimeMillis": 212738
+        }
+    },
+    "ContentMetadata": {
+        "Output": "Raw"
+    }
+}

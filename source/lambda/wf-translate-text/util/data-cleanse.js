@@ -18,7 +18,9 @@ class DataCleanse {
         return DataCleanse.removeCREoL(
             DataCleanse.removePunctuation(
                 DataCleanse.removeURL(
-                    DataCleanse.removeRTTag(text)
+                    DataCleanse.removeRTTag(
+                        DataCleanse.removeHashtags(DataCleanse.removeUserSymbol(text))
+                    )
                 )
             )
         );
@@ -30,7 +32,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeCREoL(text) {
-        return text.replace(/(\r\n|\n|\r)/gm,' ');
+        return text.replace(/\r?\n|\r/gm,' ').trim();
     }
 
     /**
@@ -51,7 +53,7 @@ class DataCleanse {
         //removed ':' from the list since we wanted to keep timestamp as is
         // This regular expression is to remove certain non-alphabetic characters. hence
         // supressing the SONAR rule
-        return text.replace(/[.,\/#!$%\^&\*;{}=\-_`~()?]/g, ''); // NOSONAR (javascript:S4784)
+        return text.replace(/[.,\/#!$%\^&\*;{}=\-_`~()?]/g, ' '); // NOSONAR (javascript:S4784)
     }
 
     /**
@@ -73,12 +75,12 @@ class DataCleanse {
     }
 
     /**
-     * Remove '@Users' tag from tweets
+     * Remove '@' tag for user handles from tweets
      *
      * @param {string} text
      */
-    static removeUsers(text) {
-        return text.replace(/(@\S*)/, '');
+    static removeUserSymbol(text) {
+        return text.replace(/@/, '');
     }
 
     /**
@@ -87,7 +89,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeHashtags(text) {
-        return text.replace(/(#\S*)/,'');
+        return text.replace(/#/,'');
     }
 }
 

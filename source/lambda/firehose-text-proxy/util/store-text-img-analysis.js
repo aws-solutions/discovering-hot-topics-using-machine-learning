@@ -11,21 +11,18 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
-const moment = require('moment');
-const timeformat = require('./time-stamp-format');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class ImageAnalysis {
-    static storeTextFromImage = async(data) => {
-
+    static storeTextFromImage = async (data) => {
         if (data.text_in_images !== undefined && data.text_in_images.length > 0) {
             const awsCustomConfig = CustomConfig.customAwsConfig();
             const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
-            const txtInImgs = data.text_in_images? data.text_in_images : []; // empty array if the data feed does not have the array
+            const txtInImgs = data.text_in_images ? data.text_in_images : []; // empty array if the data feed does not have the array
             const txtInImgSentimentRecords = [];
             const txtInImgEntityRecords = [];
             const txtInImgKeyPhrasesRecords = [];
@@ -37,7 +34,7 @@ class ImageAnalysis {
                             platform: data.platform,
                             search_query: data.search_query,
                             id_str: data.feed.id_str,
-                            created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                            created_at: data.feed.created_at,
                             text: txt_in_img.text,
                             image_url: txt_in_img.image_url,
                             sentiment: txt_in_img.Sentiment,
@@ -57,7 +54,7 @@ class ImageAnalysis {
                                 platform: data.platform,
                                 search_query: data.search_query,
                                 id_str: data.feed.id_str,
-                                created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                                created_at: data.feed.created_at,
                                 text: txt_in_img.text,
                                 image_url: txt_in_img.image_url,
                                 entity_text: entity.Text,
@@ -71,14 +68,14 @@ class ImageAnalysis {
                 });
 
                 txt_in_img.KeyPhrases.forEach((keyPhrase) => {
-                    if (keyPhrase.Text !== undefined)  {
+                    if (keyPhrase.Text !== undefined) {
                         txtInImgKeyPhrasesRecords.push({
                             Data: `${JSON.stringify({
                                 account_name: data.account_name,
                                 platform: data.platform,
                                 search_query: data.search_query,
                                 id_str: data.feed.id_str,
-                                created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                                created_at: data.feed.created_at,
                                 text: txt_in_img.text,
                                 image_url: txt_in_img.image_url,
                                 phrase: keyPhrase.Text,
@@ -91,26 +88,32 @@ class ImageAnalysis {
                 });
             });
 
-            await kinesisFireshose.putRecordBatch({
-                DeliveryStreamName: process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE,
-                Records: txtInImgSentimentRecords
-            }).promise();
+            await kinesisFireshose
+                .putRecordBatch({
+                    DeliveryStreamName: process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE,
+                    Records: txtInImgSentimentRecords
+                })
+                .promise();
 
-            if ( txtInImgEntityRecords.length > 0 ) {
-                await kinesisFireshose.putRecordBatch({
-                    DeliveryStreamName: process.env.TXT_IN_IMG_ENTITY_FIREHOSE,
-                    Records: txtInImgEntityRecords
-                }).promise();
+            if (txtInImgEntityRecords.length > 0) {
+                await kinesisFireshose
+                    .putRecordBatch({
+                        DeliveryStreamName: process.env.TXT_IN_IMG_ENTITY_FIREHOSE,
+                        Records: txtInImgEntityRecords
+                    })
+                    .promise();
             }
 
-            if ( txtInImgKeyPhrasesRecords.length > 0 ) {
-                await kinesisFireshose.putRecordBatch({
-                    DeliveryStreamName: process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE,
-                    Records: txtInImgKeyPhrasesRecords
-                }).promise();
+            if (txtInImgKeyPhrasesRecords.length > 0) {
+                await kinesisFireshose
+                    .putRecordBatch({
+                        DeliveryStreamName: process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE,
+                        Records: txtInImgKeyPhrasesRecords
+                    })
+                    .promise();
             }
         }
-    }
+    };
 }
 
 module.exports = ImageAnalysis;

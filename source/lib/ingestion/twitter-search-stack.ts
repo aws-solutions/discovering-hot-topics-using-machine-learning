@@ -70,7 +70,7 @@ export class TwitterSearchIngestion extends cdk.NestedStack {
             type: 'String',
             description: 'The name of the stream where search comments should be published for analysis',
             allowedPattern: '^arn:\\S+:kinesis:\\S+:\\d{12}:stream/\\S+$',
-            constraintDescription: 'Please provide the Kinesis Stream name'
+            constraintDescription: 'Please provide the Amazon Kinesis Data Streams name'
         });
 
         const _stream = kinesis.Stream.fromStreamArn(this, 'PublishCommentsStream', _streamArn.valueAsString);

@@ -1,0 +1,12 @@
+[run]
+omit =
+    test/*
+    .venv-*/*
+    test/*
+    */__init__.py
+    cachetools*
+    openpyxl*/*
+    et_xmlfile*/*
+    jmespath/*
+source =
+    .

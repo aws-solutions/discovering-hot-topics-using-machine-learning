@@ -55,7 +55,7 @@ describe ('When cleansing data', () => {
         const dataCleanser = new DataCleanse();
         const originalText = 'This is not good, but can be, overall; great?';
         const cleansedText = DataCleanse.removePunctuation(originalText);
-        expect(cleansedText).to.equal('This is not good but can be overall great');
+        expect(cleansedText).to.equal('This is not good  but can be  overall  great ');
     });
 
     it ('should remove retweet with user tag', async() => {
@@ -68,15 +68,15 @@ describe ('When cleansing data', () => {
     it ('should remove user tag', async() => {
         const dataCleanser = new DataCleanse();
         const originalText = 'RT @user This is sample tweet';
-        const cleansedText = DataCleanse.removeUsers(originalText);
-        expect(cleansedText).to.equal('RT  This is sample tweet');
+        const cleansedText = DataCleanse.removeUserSymbol(originalText);
+        expect(cleansedText).to.equal('RT user This is sample tweet');
     });
 
     it ('should remove hashtag', async() => {
         const dataCleanser = new DataCleanse();
         const originalText = 'RT @user This #likes is sample tweet';
         const cleansedText = DataCleanse.removeHashtags(originalText);
-        expect(cleansedText).to.equal('RT @user This  is sample tweet');
+        expect(cleansedText).to.equal('RT @user This likes is sample tweet');
     });
 
     it ('should remove retweet tag', async() => {

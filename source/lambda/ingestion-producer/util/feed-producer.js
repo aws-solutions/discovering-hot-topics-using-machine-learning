@@ -11,32 +11,37 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
+const moment = require('moment');
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
+const twitterTimestampFormat = 'ddd MMM DD HH:mm:ss Z YYYY';
+const dbTimestampFormat = 'YYYY-MM-DD HH:mm:ss';
 class FeedProducer {
-
-    constructor () {
+    constructor() {
         const awsCustomConfig = CustomConfig.customAwsConfig();
         this.kinesisStream = new AWS.Kinesis(awsCustomConfig);
     }
 
-    async writeToStream (data, props) {
+    async writeToStream(data, props) {
         let dataRecords = [];
         if (data.length > 0) {
             data.forEach((record, index) => {
                 // changed the twitter search API call to include full text, this caused the API to retrun the tweet
                 // as 'full_text' attribute. This is breaking rest of the solution.
                 // Copy full_text to text, as the rest of the solution expects the tweet as 'text' attribute.
-                record["text"] = record["full_text"];
+                record['text'] = record['full_text'];
+                record['created_at'] = moment.utc(record.created_at, twitterTimestampFormat).format(dbTimestampFormat);
                 const message = {
                     account_name: props.accountName,
                     platform: props.platform,
                     search_query: props.query,
                     feed: record
-                }
+                };
+
+                console.debug(`Writing tweet: ${JSON.stringify(message)}`);
 
                 dataRecords.push({
                     Data: JSON.stringify(message),
@@ -44,10 +49,12 @@ class FeedProducer {
                 });
             });
 
-            return this.kinesisStream.putRecords({
-                Records: dataRecords,
-                StreamName: process.env.STREAM_NAME
-            }).promise();
+            return this.kinesisStream
+                .putRecords({
+                    Records: dataRecords,
+                    StreamName: process.env.STREAM_NAME
+                })
+                .promise();
         }
     }
 }

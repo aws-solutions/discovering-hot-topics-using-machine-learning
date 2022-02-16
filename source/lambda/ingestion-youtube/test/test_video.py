@@ -14,7 +14,7 @@
 
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from test.fixtures.event_bus_fixture import get_event_bus_stubber
 from test.test_credential_helper import ssm_setup
 from unittest.mock import patch
@@ -49,7 +49,7 @@ def test_search_video(mock_youtube_resource, get_event_bus_stubber):
         },
     )
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     test_item = {
         "kind": "youtube#searchResult",
@@ -144,7 +144,7 @@ def test_search_video_with_10_or_more_iterations(mock_youtube_resource, get_even
         },
     )
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     items = []
@@ -238,7 +238,7 @@ def test_search_video_with_page_token(mock_youtube_resource, get_event_bus_stubb
         },
     )
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     items = []
@@ -310,7 +310,7 @@ def test_search_video_with_event_bus_failures(mock_youtube_resource, get_event_b
         },
     )
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     test_item = {
         "kind": "youtube#searchResult",
@@ -341,7 +341,7 @@ def test_search_video_when_api_throws_error(mock_youtube_resource, get_event_bus
     api_key = "fakeapikey"
     ssm_setup(api_key)
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     test_item = {
         "kind": "youtube#searchResult",

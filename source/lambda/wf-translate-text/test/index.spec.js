@@ -229,7 +229,7 @@ describe('Test feed with embedded text', () => {
 
     it ('lambda function should throw an error', async () => {
         const response = await lambda.handler(__test_event__.event_with_embedded_text);
-        expect(response[0].text_in_images[0]._cleansed_text).to.equal('It\'s monday keep similing');
+        expect(response[0].text_in_images[0]._cleansed_text).to.equal('It\'s monday  keep similing');
     });
 
     afterEach(() => {

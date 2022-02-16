@@ -21,7 +21,7 @@ from urllib.parse import urlparse
 from newscatcher import Newscatcher
 from shared_util import custom_logging
 
-from util import stream_helper
+from shared_util.stream_helper import buffer_data_into_stream
 
 logger = custom_logging.get_logger(__name__)
 
@@ -182,7 +182,7 @@ def create_and_publish_record(news_feed, account_name, platform, last_published_
                 text_array = slice_text_into_arrays(clean_text)
 
                 # populate image urls
-                id_str = f"{str(int(datetime.now().timestamp() * 1000))}#{url}"
+                id_str = f"{str(int(datetime.now(timezone.utc).timestamp() * 1000))}#{url}"
                 image_urls = filter_link_types(article["links"], "image/jpeg")
                 entities, extended_entities = dict(), dict()
                 entities["media"], extended_entities["media"] = image_urls, image_urls
@@ -199,7 +199,7 @@ def create_and_publish_record(news_feed, account_name, platform, last_published_
                             "platform": platform,
                             "search_query": query_str,
                             "feed": {
-                                "created_at": published_timestamp.isoformat(),
+                                "created_at": published_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
                                 "entities": entities,
                                 "extended_entities": extended_entities,
                                 "lang": language,
@@ -224,7 +224,7 @@ def publish_record(record_to_publish, id_str, text_array):
         logger.debug(f"Publishing record: {record_to_publish}")
 
         """ Buffer text content to Kinesis Data Streams """
-        stream_helper.buffer_data_into_stream(record_to_publish, partition_key=id_str)
+        buffer_data_into_stream(record_to_publish, partition_key=id_str)
 
 
 def news_feed_timestamp(article):
@@ -241,7 +241,7 @@ def news_feed_timestamp(article):
             raise error
     else:
         logger.debug(f'Could not retrieve published timestamp for {article}, hence marking it as "now"')
-        published_timestamp = datetime.now().replace(tzinfo=timezone.utc)
+        published_timestamp = datetime.now(timezone.utc).replace(tzinfo=timezone.utc)
     return published_timestamp
 
 

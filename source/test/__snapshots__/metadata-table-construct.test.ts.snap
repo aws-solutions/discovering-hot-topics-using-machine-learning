@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test workflow stack 1`] = `
+Object {
+  "Resources": Object {
+    "MetadataTableCfnmetadata21D802BC": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "TestDB27CDA92F",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for metadata",
+          "Name": "metadata",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Categories",
+                "Type": "struct<MatchedCategories:array<string>>",
+              },
+              Object {
+                "Name": "Channel",
+                "Type": "string",
+              },
+              Object {
+                "Name": "JobName",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Participants",
+                "Type": "array<struct<ParticipantRole:string>>",
+              },
+              Object {
+                "Name": "ConversationCharacteristics",
+                "Type": "struct<NonTalkTime:struct<Instances:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>,TotalTimeMillis:bigint>,Interruptions:struct<TotalCount:int,TotalTimeMillis:bigint,InterruptionsByInterrupter:struct<AGENT:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>>>,TotalConversationDurationMillis:bigint,Sentiment:struct<OverallSentiment:struct<AGENT:float,CUSTOMER:float>,SentimentByPeriod:struct<QUARTER:struct<AGENT:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>,CUSTOMER:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>>>>,TalkSpeed:struct<DetailsByParticipant:struct<AGENT:struct<AverageWordsPerMinute:int>,CUSTOMER:struct<AverageWordsPerMinute:int>>>,TalkTime:struct<DetailsByParticipant:struct<AGENT:struct<TotalTimeMillis:bigint>,CUSTOMER:struct<TotalTimeMillis:bigint>>,TotalTimeMillis:bigint>>",
+              },
+              Object {
+                "Name": "ContentMetadata",
+                "Type": "struct<Output:string>",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "TestBucket560B80BC",
+                  },
+                  "/metadata/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "TestBucket560B80BC": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "TestDB27CDA92F": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseInput": Object {
+          "Name": "socialmediadb",
+        },
+      },
+      "Type": "AWS::Glue::Database",
+    },
+  },
+}
+`;

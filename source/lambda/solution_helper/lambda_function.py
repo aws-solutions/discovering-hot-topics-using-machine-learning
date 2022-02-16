@@ -68,6 +68,7 @@ def custom_resource(event, _):
             metrics_data["YouTubeSearchQueryLength"] = len(os.environ.get("YOUTUBE_SEARCH_QUERY"))
             metrics_data["YouTubIngestionFreq"] = os.environ.get("YOUTUBE_INGESTION_FREQ", "")
             metrics_data["YouTubeChannelIDSet"] = "True" if os.environ.get("YOUTUBE_CHANNEL_ID", None) else "False"
+            metrics_data["CustomIngestion"] = os.environ.get("DEPLOY_CUSTOM_INGESTION", "")
 
             headers = {"Content-Type": "application/json"}
             payload = {

@@ -18,7 +18,6 @@ import { App, Stack } from '@aws-cdk/core';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
 
 test('test App Integration Construct', () => {
-
     const app = new App();
     const stack = new Stack(app, 'testStack', {
         stackName: 'testStack'
@@ -28,14 +27,18 @@ test('test App Integration Construct', () => {
     tableMappings.set('Entity', 'entity');
     tableMappings.set('KeyPhrase', 'keyphrase');
     tableMappings.set('Topics', 'topics');
-    tableMappings.set('TopicMappings','topic-mappings');
+    tableMappings.set('TopicMappings', 'topic-mappings');
     tableMappings.set('TxtInImgEntity', 'txtinimgentity');
     tableMappings.set('TxtInImgSentiment', 'txtinimgsentiment');
     tableMappings.set('TxtInImgKeyPhrase', 'txtinimgkeyphrase');
     tableMappings.set('ModerationLabels', 'moderationlabels');
     tableMappings.set('NewsFeedStorage', 'newsfeedstorage');
     tableMappings.set('TwFeedStorage', 'twfeedstorage');
+    tableMappings.set('CustomIngestion', 'customingestion');
     tableMappings.set('YouTubeComments', 'youtubecomments');
+    tableMappings.set('CustomIngestionLoudness', 'customingestionloudness');
+    tableMappings.set('CustomIngestionItem', 'customingestionitem');
+    tableMappings.set('Metadata', 'metadata');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
@@ -49,6 +52,7 @@ test('test App Integration Construct', () => {
         textAnalysisInfNS: 'com.test',
         topicsAnalysisInfNS: 'com.topic',
         topicMappingsInfNS: 'com.topic.mappings',
+        metadataNS: 'metadata.call_analytics',
         tableMappings: tableMappings,
         s3LoggingBucket: s3AccessLoggingBucket
     });

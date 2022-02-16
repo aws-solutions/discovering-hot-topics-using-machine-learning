@@ -41,7 +41,7 @@ def get_query_timestamp(video_id):
 def update_query_timestamp(video_id):
     ddb = get_service_client("dynamodb")
     table_name = os.environ["TARGET_DDB_TABLE"]
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     # defaulting to 7 days if ingestion window is not provided
     expiry_window = str(

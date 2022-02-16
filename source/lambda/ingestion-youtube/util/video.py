@@ -15,7 +15,8 @@
 import json
 import logging
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+import urllib.parse
 
 import googleapiclient.errors
 from shared_util.custom_logging import get_logger
@@ -61,14 +62,15 @@ def build_youtube_search_request():
         "part": "id,snippet",
         "type": "video",
         "maxResults": 50,
-        "publishedAfter": (datetime.now() - timedelta(days=int(os.environ["VIDEO_SEARCH_INGESTION_WINDOW"]))).strftime(
+        "publishedAfter": (
+            datetime.now(timezone.utc) - timedelta(days=int(os.environ["VIDEO_SEARCH_INGESTION_WINDOW"]))
+        ).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
         ),  # format required 1970-01-01T00:00:00Z
     }
 
     if os.environ.get("QUERY", None):
-        q = os.environ["QUERY"].replace("|", "%7C")  # any use of | has to be url encoded
-        video_search_params["q"] = q
+        video_search_params["q"] = urllib.parse.quote_plus(os.environ["QUERY"])
 
     if os.environ.get("CHANNEL_ID", None):
         video_search_params["channelId"] = os.environ["CHANNEL_ID"]

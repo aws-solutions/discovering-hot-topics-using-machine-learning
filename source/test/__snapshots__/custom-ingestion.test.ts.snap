@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test custom ingestion nested stack 1`] = `
+Object {
+  "Conditions": Object {
+    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": Object {
+      "Fn::Or": Array [
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "cn-north-1",
+          ],
+        },
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "cn-northwest-1",
+          ],
+        },
+      ],
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2ArtifactHash6AC92321": Object {
+      "Description": "Artifact hash for asset \\"660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2\\"",
+      "Type": "String",
+    },
+    "AssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3BucketE7D5B867": Object {
+      "Description": "S3 bucket for asset \\"660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2\\"",
+      "Type": "String",
+    },
+    "AssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3VersionKey74E30F47": Object {
+      "Description": "S3 key for asset version \\"660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2\\"",
+      "Type": "String",
+    },
+    "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccArtifactHash5CD27A08": Object {
+      "Description": "Artifact hash for asset \\"f49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312cc\\"",
+      "Type": "String",
+    },
+    "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccS3Bucket4CB4FA55": Object {
+      "Description": "S3 bucket for asset \\"f49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312cc\\"",
+      "Type": "String",
+    },
+    "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccS3VersionKeyD4739BA0": Object {
+      "Description": "S3 key for asset version \\"f49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312cc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BusEA82B648": Object {
+      "Properties": Object {
+        "Name": "Bus",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+    "Stream790BDEE4": Object {
+      "Properties": Object {
+        "RetentionPeriodHours": 24,
+        "ShardCount": 1,
+        "StreamEncryption": Object {
+          "Fn::If": Array [
+            "AwsCdkKinesisEncryptedStreamsUnsupportedRegions",
+            Object {
+              "Ref": "AWS::NoValue",
+            },
+            Object {
+              "EncryptionType": "KMS",
+              "KeyId": "alias/aws/kinesis",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Kinesis::Stream",
+    },
+    "testS3EventNestedStacktestS3EventNestedStackResource0A9F329B": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "EventBus": Object {
+            "Fn::GetAtt": Array [
+              "BusEA82B648",
+              "Arn",
+            ],
+          },
+          "StreamARN": Object {
+            "Fn::GetAtt": Array [
+              "Stream790BDEE4",
+              "Arn",
+            ],
+          },
+          "referencetoAssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3BucketE7D5B867Ref": Object {
+            "Ref": "AssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3BucketE7D5B867",
+          },
+          "referencetoAssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3VersionKey74E30F47Ref": Object {
+            "Ref": "AssetParameters660d874178634d873033ba813b3ce42f8053e5b0102d30beeec7022445c4e3e2S3VersionKey74E30F47",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccS3Bucket4CB4FA55",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccS3VersionKeyD4739BA0",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParametersf49ebd99fcec17d201f204fea82d13dc69f8123eff900af1ea6a237b15b312ccS3VersionKeyD4739BA0",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;

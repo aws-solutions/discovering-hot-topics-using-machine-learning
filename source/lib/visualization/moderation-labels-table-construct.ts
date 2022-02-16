@@ -12,38 +12,27 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import * as glue from '@aws-cdk/aws-glue';
+import * as cdk from '@aws-cdk/core';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export class ModerationLabelsTable extends GenericTable {
+export class ModerationLabelsTable extends GenericCfnTable {
 
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): Column[] {
-        return [{
-                name: 'account_name',
-                type: Schema.STRING
-            }, {
-                name: 'platform',
-                type: Schema.STRING
-            }, {
-                name: 'search_query',
-                type: Schema.STRING
-            }, {
-                name: 'id_str',
-                type: Schema.STRING
-            }, {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
+        return [
+            ...this.coreColumns, {
                 name: 'image_url',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'label_name',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'confidence',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }];
     }
 }

@@ -29,6 +29,8 @@ logger = custom_logging.get_logger(__name__)
 s3 = boto3.client("s3", config=custom_boto_config.init())
 
 TMP_DIR = "/tmp/"  # NOSONAR (python:S5443)
+TOPICS_FILE_NAME = "doc-topics.csv"
+TERMS_FILE_NAME = "topic-terms.csv"
 
 
 class IngestionSourcePrefixMissingError(Exception):
@@ -46,12 +48,11 @@ def handler(event, context):
 
 def topic_handler(event, context):
     source_prefix_list = os.environ["SOURCE_PREFIX"].lower().split(",")
-    file_name = "doc-topics.csv"
 
     for source_prefix in source_prefix_list:
         file_available = False
         try:
-            file_available = is_file_available(event, source_prefix, file_name)
+            file_available = is_file_available(event, source_prefix, TOPICS_FILE_NAME)
         except IngestionSourcePrefixMissingError as prefix_error:
             logger.error(f"Received prefix missing error - {prefix_error} for prefix: {source_prefix}")
             continue
@@ -64,9 +65,10 @@ def topic_handler(event, context):
             # get job ID and timestamp details
             job_id = event[source_prefix]["JobId"]
             timestamp = event[source_prefix]["SubmitTime"]
-            logger.debug(f"Retrieving topic dict for {TMP_DIR+file_name}")
-            pubish_topics(source_prefix, job_id, timestamp, doc_topics_file_name=TMP_DIR + file_name)
+            logger.debug(f"Retrieving topic dict for {TMP_DIR+TOPICS_FILE_NAME}")
+            pubish_topics(source_prefix, job_id, timestamp, doc_topics_file_name=TMP_DIR + TOPICS_FILE_NAME)
             logger.debug("Complete topic publishing")
+            delete_downloaded_file(TMP_DIR + TOPICS_FILE_NAME)  # delete the topics csv file
 
 
 def topic_mapping_handler(event, context):
@@ -86,12 +88,11 @@ def topic_mapping_handler(event, context):
 
 def topic_terms_handler(event, context):
     source_prefix_list = os.environ["SOURCE_PREFIX"].lower().split(",")
-    file_name = "topic-terms.csv"
 
     for source_prefix in source_prefix_list:
         file_available = False
         try:
-            file_available = is_file_available(event, source_prefix, file_name)
+            file_available = is_file_available(event, source_prefix, TERMS_FILE_NAME)
         except IngestionSourcePrefixMissingError as prefix_error:
             logger.error(f"Received prefix missing error - {prefix_error} for prefix: {source_prefix}")
             continue
@@ -100,8 +101,9 @@ def topic_terms_handler(event, context):
             # get job ID and timestamp details
             job_id = event[source_prefix]["JobId"]
             timestamp = event[source_prefix]["SubmitTime"]
-            publish_topics(job_id, timestamp, topic_terms_file_name=TMP_DIR + file_name)
+            publish_topics(job_id, timestamp, topic_terms_file_name=TMP_DIR + TERMS_FILE_NAME)
             logger.debug("Publishing topics terms complete")
+            delete_downloaded_file(TMP_DIR + TERMS_FILE_NAME)  # delete the terms csv file
 
 
 def is_file_available(event, source_prefix, file_to_extract):
@@ -126,12 +128,13 @@ def is_file_available(event, source_prefix, file_to_extract):
                 archive_file = tarfile.open(TMP_DIR + file_name)
                 file_list = archive_file.getnames()
                 logger.debug(f"File list length is {len(file_list)} and files in the archive {file_list}")
-                if len(file_list) != 2 and not ("doc-topics.csv" in file_list and "doc-terms.csv" in file_list):
+                if len(file_list) != 2 and not (TOPICS_FILE_NAME in file_list and TERMS_FILE_NAME in file_list):
                     raise IncorrectTarFileException(
                         "Either number of files in the archive are not 2 or file names are not as expected in the archive. May not be a valid archive"
                     )
                 archive_file.extractall(TMP_DIR, member_file_to_extract(archive_file, file_to_extract))
             archive_file.close()
+            delete_downloaded_file(TMP_DIR + file_name)  # delete the downloaded archive
             logger.debug(f"Extraction complete. Files in the directory are {os.listdir(TMP_DIR)}")
             return True
         except Exception as e:
@@ -150,3 +153,11 @@ def member_file_to_extract(archive_file, file_to_extract):
         if os.path.basename(tarinfo.name) == file_to_extract:
             logger.debug(f"inside if loop {tarinfo}")
             yield tarinfo
+
+
+def delete_downloaded_file(file_path):
+    """
+    This method deletes the file name that is passed to it from the /tmp/ directory.
+    """
+    os.remove(file_path)
+    logger.debug(f"File {file_path} deleted")

@@ -18,7 +18,7 @@ import * as events from '@aws-cdk/aws-events';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as cdk from '@aws-cdk/core';
-import { EventsRuleToLambda } from '@aws-solutions-constructs/aws-events-rule-lambda';
+import { EventbridgeToLambda } from '@aws-solutions-constructs/aws-eventbridge-lambda';
 import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
 import * as defaults from '@aws-solutions-constructs/core';
 
@@ -49,7 +49,7 @@ export interface LambdaAndDynamoDBProps {
     /**
      * The key path in SSM from where the credentials are to be read for the lambda to execute the API
      */
-     readonly credentialKeyPath?: string;
+    readonly credentialKeyPath?: string;
 }
 
 /**
@@ -120,7 +120,7 @@ enum Qualifier {
 export class DataIngestionTemplate extends cdk.Construct {
     private _bus: events.EventBus;
     private _rule: events.Rule;
-    private _lambda: { [qualifier: string] : lambda.Function } = {};
+    private _lambda: { [qualifier: string]: lambda.Function } = {};
     private _dynamoDB: { [qualifier: string]: ddb.Table } = {};
 
     constructor(scope: cdk.Construct, id: string, props: DataIngestionTemplateProps) {
@@ -164,7 +164,7 @@ export class DataIngestionTemplate extends cdk.Construct {
      *
      * @param props
      */
-    private buildCustomBusAndAddRules(props: DataIngestionTemplateProps): EventsRuleToLambda {
+    private buildCustomBusAndAddRules(props: DataIngestionTemplateProps): EventbridgeToLambda {
         if (props.existingIngestionEventBus) {
             this._bus = props.existingIngestionEventBus;
         }
@@ -174,7 +174,7 @@ export class DataIngestionTemplate extends cdk.Construct {
             throw new Error('Either ingestionEventBusProps or existingIngestionEventBus has to be set. Both cannot be undefined');
         }
 
-        const _target = new EventsRuleToLambda(this, 'RuleTargetLambda', {
+        const _target = new EventbridgeToLambda(this, 'RuleTargetLambda', {
             lambdaFunctionProps: props.target.lambdaFunctionProps,
             existingLambdaObj: props.target.existingLambda,
             eventRuleProps: {
@@ -201,7 +201,7 @@ export class DataIngestionTemplate extends cdk.Construct {
             lambdaFunctionProps: props.lambdaFunctionProps
         });
 
-        let _ddbTable: ddb.Table| undefined;
+        let _ddbTable: ddb.Table | undefined;
         if (props.tableProps || props.existingTable) {
             const lambdaToDDB = new LambdaToDynamoDB(this, id, {
                 existingLambdaObj: _lambda,
@@ -227,16 +227,16 @@ export class DataIngestionTemplate extends cdk.Construct {
     private buildSSMPolicy(keyPath: string): iam.PolicyStatement {
         return new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
-            resources: [ `arn:${cdk.Aws.PARTITION}:ssm:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:parameter${keyPath}` ],
-            actions: [ 'ssm:GetParameter' ]
+            resources: [`arn:${cdk.Aws.PARTITION}:ssm:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:parameter${keyPath}`],
+            actions: ['ssm:GetParameter']
         });
     }
 
     private buildPutEventPolicy(): iam.PolicyStatement {
         return new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
-            resources: [ this._bus.eventBusArn ],
-            actions: [ 'events:PutEvents' ]
+            resources: [this._bus.eventBusArn],
+            actions: ['events:PutEvents']
         })
     }
 

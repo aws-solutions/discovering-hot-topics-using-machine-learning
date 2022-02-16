@@ -14,7 +14,7 @@
 
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from test.fixtures.event_bus_fixture import get_event_bus_stubber
 from test.test_credential_helper import ssm_setup
 from test.test_ddb_helper import ddb_setup
@@ -52,7 +52,7 @@ def test_lambda_search_videos(mock_youtube_resource, get_event_bus_stubber):
         },
     )
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     publish_time = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     test_item = {
         "kind": "youtube#searchResult",
@@ -115,8 +115,8 @@ def test_lambda_search_comments(mock_youtube_resource):
                             "videoId": video_id,
                             "viewerRating": 2,
                             "likeCount": 0,
-                            "publishedAt": datetime.now().isoformat(),
-                            "updatedAt": datetime.now().isoformat(),
+                            "publishedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                            "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                         },
                     },
                     "videoId": video_id,

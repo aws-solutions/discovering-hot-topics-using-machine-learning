@@ -78,24 +78,30 @@ const analyzeText = async(targetElement, elementToAnalyze) => {
     const comprehend = new AWS.Comprehend(awsCustomConfig);
 
     if (elementToAnalyze._cleansed_text.length > 0) {
+        //detect sentiment
+        if (targetElement.Sentiment === undefined || process.env.REPROCESS_SENTIMENT === "TRUE") {
+            targetElement = Object.assign(targetElement, await detectSentiment(comprehend, elementToAnalyze._cleansed_text))
+        } else {
+            targetElement.SentimentScore = {};
+        }
 
-        Promise.all([
-            targetElement = Object.assign(targetElement, await detectSentiment(comprehend, elementToAnalyze._cleansed_text)),
-            targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
-                Text: elementToAnalyze._cleansed_text,
-                LanguageCode: 'en'
-            }).promise().catch((error) => {
-                console.error(`Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`, error);
-                throw error;
-            })),
-            targetElement = Object.assign(targetElement, await comprehend.detectEntities({
-                Text: elementToAnalyze._cleansed_text,
-                LanguageCode: 'en'
-            }).promise().catch((error) => {
-                console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
-                throw error;
-            }))
-        ]);
+        // detect key phrases
+        targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
+            Text: elementToAnalyze._cleansed_text,
+            LanguageCode: 'en'
+        }).promise().catch((error) => {
+            console.error(`Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`, error);
+            throw error;
+        }))
+
+        // detect entities
+        targetElement = Object.assign(targetElement, await comprehend.detectEntities({
+            Text: elementToAnalyze._cleansed_text,
+            LanguageCode: 'en'
+        }).promise().catch((error) => {
+            console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
+            throw error;
+        }))
     } else {
         // Step function merge JSON expects that sentiment key should always be present.
         // creating an empty sentiment to remove step function merge errors.

@@ -25,12 +25,15 @@ boto3 - Apache-2.0
 botocore - Apache-2.0
 chai - MIT license
 crhelper - Apache-2.0
+googleapis - Apache-2.0
 jest - MIT license
+jmespath - MIT License
 momentjs - MIT license
 moto - Apache-2.0
 newscatcher - MIT license
 nock - MIT license
 node - MIT license
+openpyx - MIT license
 pytest-cov - MIT license
 pytest - MIT license
 requests - Apache-2.0

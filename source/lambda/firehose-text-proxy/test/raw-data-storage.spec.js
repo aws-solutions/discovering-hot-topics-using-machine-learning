@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const sinon = require('sinon');
 const expect = require('chai').expect;
@@ -28,14 +28,17 @@ describe('when storing news feeds', () => {
 
         AWSMock.mock('Firehose', 'putRecord', (params, callback) => {
             console.log(params);
-            if (params.Record.Data === '{"account_name":"url_params","platform":"newsfeeds","created_at":"2021-06-23 02:30:00",'+
-                    '"entities":{"media":[],"urls":[{"expanded_url":"https://fakeurl.com"}]},"extended_entities":{"media":[],'+
-                    '"urls":[{"expanded_url":"https://fakeurl.com"}]},"lang":"en","id_str":"fakenumber#fakesite#0","text":"some fake news","metadata":'+
-                    '{"website":"fakeurl","country":"None","topic":"faketopic"}}\n'
-                && params.DeliveryStreamName === 'fake_news_feed_storage') {
+            if (
+                params.Record.Data ===
+                    '{"account_name":"url_params","platform":"newsfeeds","created_at":"2021-06-23 02:30:06",' +
+                        '"entities":{"media":[],"urls":[{"expanded_url":"https://fakeurl.com"}]},"extended_entities":{"media":[],' +
+                        '"urls":[{"expanded_url":"https://fakeurl.com"}]},"lang":"en","id_str":"fakenumber#fakesite#0","text":"some fake news","metadata":' +
+                        '{"website":"fakeurl","country":"None","topic":"faketopic"}}\n' &&
+                params.DeliveryStreamName === 'fake_news_feed_storage'
+            ) {
                 callback(null, {
-                    "Encrypted": true,
-                    "RecordId": "fakerecordid"
+                    'Encrypted': true,
+                    'RecordId': 'fakerecordid'
                 });
             } else {
                 callback(new Error('Received invalid parameters'), null);
@@ -44,8 +47,8 @@ describe('when storing news feeds', () => {
 
         AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
             callback(null, {
-                "Encrypted": true,
-                "FailedPutCount": 0,
+                'Encrypted': true,
+                'FailedPutCount': 0
             });
         });
     });
@@ -56,7 +59,7 @@ describe('when storing news feeds', () => {
         delete process.env.AWS_SDK_USER_AGENT;
     });
 
-    it('should store them successfully', async () =>{
+    it('should store them successfully', async () => {
         const spy = sinon.spy(RawFeedStorage, 'storeFeed');
         expect(await RawFeedStorage.storeFeed(__test_data__._news_feed_event.detail)).to.be.undefined;
         assert.equal(spy.callCount, 1);

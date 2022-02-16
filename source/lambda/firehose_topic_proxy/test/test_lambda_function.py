@@ -18,33 +18,11 @@ from unittest.mock import patch
 
 import boto3
 import pytest
-from moto import mock_kinesis
+from moto import mock_firehose
+from test.test_topic import create_s3_delivery_stream
 
 
-def create_s3_delivery_stream(client, stream_name):
-    return client.create_delivery_stream(
-        DeliveryStreamName=stream_name,
-        DeliveryStreamType="DirectPut",
-        ExtendedS3DestinationConfiguration={
-            "RoleARN": "arn:aws:iam::{}:role/firehose_delivery_role".format(123456789012),
-            "BucketARN": "arn:aws:s3:::kinesis-test",
-            "Prefix": "myFolder/",
-            "CompressionFormat": "UNCOMPRESSED",
-            "DataFormatConversionConfiguration": {
-                "Enabled": True,
-                "InputFormatConfiguration": {"Deserializer": {"HiveJsonSerDe": {}}},
-                "OutputFormatConfiguration": {"Serializer": {"ParquetSerDe": {"Compression": "UNCOMPRESSED"}}},
-                "SchemaConfiguration": {
-                    "DatabaseName": "socialmediadb",
-                    "RoleARN": "arn:aws:iam::{}:role/firehose_delivery_role".format(123456789012),
-                    "TableName": "topics",
-                },
-            },
-        },
-    )
-
-
-@mock_kinesis
+@mock_firehose
 def test_lambda_function_with_topic_event():
     firehose = boto3.client("firehose", region_name="us-east-1")
     create_s3_delivery_stream(firehose, "Topics")
@@ -124,7 +102,7 @@ def test_lambda_function_with_topic_event():
         handler(topic_event, None)
 
 
-@mock_kinesis
+@mock_firehose
 def test_lambda_function_with_mapping_event():
     firehose = boto3.client("firehose", region_name="us-east-1")
     create_s3_delivery_stream(firehose, "TopicMappings")

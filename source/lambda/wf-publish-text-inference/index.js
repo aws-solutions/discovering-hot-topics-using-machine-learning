@@ -11,33 +11,33 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
- "use strict"
+"use strict"
 
- const AWS = require('aws-sdk');
- const CustomConfig = require('aws-nodesdk-custom-config');
+const AWS = require('aws-sdk');
+const CustomConfig = require('aws-nodesdk-custom-config');
 
- exports.handler = async (event) => {
-    const awsCustomConfig = CustomConfig.customAwsConfig();
-    const eventBridge = new AWS.EventBridge(awsCustomConfig);
+exports.handler = async (event) => {
+const awsCustomConfig = CustomConfig.customAwsConfig();
+const eventBridge = new AWS.EventBridge(awsCustomConfig);
 
-     try {
-         const response = await eventBridge.putEvents({
-             Entries: [{
-                 EventBusName: process.env.EVENT_BUS_NAME,
-                 DetailType: `${event.platform}.${event.account_name}`,
-                 Detail: JSON.stringify(event),
-                 Source: process.env.EVENT_NAMESPACE
-             }]
-         }).promise();
+    try {
+        const response = await eventBridge.putEvents({
+            Entries: [{
+                EventBusName: process.env.EVENT_BUS_NAME,
+                DetailType: `${event.platform}.${event.account_name}`,
+                Detail: JSON.stringify(event),
+                Source: process.env.EVENT_NAMESPACE
+            }]
+        }).promise();
 
-         if (response.FailedEntryCount > 0) {
-             console.error(`Following event failed to publish ${event}`);
-             throw new Error('EventBridge failed to publish an event. Received FailedEntryCount > 0');
-         }
+        if (response.FailedEntryCount > 0) {
+            console.error(`Following event failed to publish ${event}`);
+            throw new Error('EventBridge failed to publish an event. Received FailedEntryCount > 0');
+        }
 
-         return response;
-     } catch (error) {
-         console.error('Error in publishing event', error);
-         throw error;
-     }
- }
+        return response;
+    } catch (error) {
+        console.error('Error in publishing event', error);
+        throw error;
+    }
+}

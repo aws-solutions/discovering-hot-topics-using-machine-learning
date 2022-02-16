@@ -98,12 +98,41 @@ describe ('When workflow->analyze text is called', () => {
         });
     });
 
-    it ('should receive event correctly', async () => {
+    it('should receive event correctly', async () => {
         if (! lambdaSpy.threw()) expect.fail;
         expect((await lambda.handler(__test_event__.event))[0].account_name).to.equal('twitter');
     });
 
-    it ('should analyze embedded text -> post rek', async () => {
+    it('should not call comprehend sentiment analysis if sentiment is available', async() => {
+        if (! lambdaSpy.threw()) expect.fail;
+        const response = await lambda.handler(__test_event__.eventWithSentiment);
+        expect(response[0].Sentiment).to.equal('POSITIVE');
+        expect(response[0].SentimentScore).to.eql({});
+    });
+
+    it('should call comprehend sentiment even if sentiment is available', async() => {
+        process.env.REPROCESS_SENTIMENT = "TRUE"
+        if (! lambdaSpy.threw()) expect.fail;
+        const response = await lambda.handler(__test_event__.eventWithSentiment);
+        expect(response[0].Sentiment).to.equal('NEUTRAL');
+        expect(response[0].SentimentScore).to.eql({
+            "Positive": 0.003071434795856476,
+            "Negative": 0.0034885697532445192,
+            "Neutral": 0.9934296011924744,
+            "Mixed": 0.000010461636520631146
+        });
+    });
+
+    it('should return empty sentiment, key phrase and entities in json target element', async() => {
+        if (! lambdaSpy.threw()) expect.fail;
+        const response = await lambda.handler(__test_event__.eventWithEmptyText);
+        expect(response[0].SentimetScore).to.be.undefined;
+        expect(response[0].Sentiment).to.equal("");
+        expect(response[0].KeyPhrases).to.be.empty;
+        expect(response[0].Entities).to.be.empty;
+    });    
+
+    it('should analyze embedded text -> post rek', async () => {
         if (! lambdaSpy.threw()) expect.fail;
         const response = await lambda.handler(__test_event__.eventWithRekText);
         expect(response[0].account_name).to.equal('twitter');
@@ -113,9 +142,7 @@ describe ('When workflow->analyze text is called', () => {
         expect(response[0].text_in_images[0].KeyPhrases[1].Text).to.equal('Some fake movie name');
     });
 
-
-
-    it ('should call comprehend -> detect sentiment', async () => {
+    it('should call comprehend -> detect sentiment', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectSentiment({
             Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
@@ -125,7 +152,7 @@ describe ('When workflow->analyze text is called', () => {
         expect(response.Sentiment).to.equal('NEUTRAL');
     });
 
-    it ('should call comprehend -> detect sentiment', async () => {
+    it('should call comprehend -> detect sentiment', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectSentiment({
             Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
@@ -136,7 +163,7 @@ describe ('When workflow->analyze text is called', () => {
     });
 
 
-    it ('should call comprehend -> detect entities', async () => {
+    it('should call comprehend -> detect entities', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectEntities({
             Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
@@ -146,7 +173,7 @@ describe ('When workflow->analyze text is called', () => {
         expect(response.Entities[0].Type).to.equal('PERSON');
     });
 
-    it ('should call comprehend -> key phrases', async () => {
+    it('should call comprehend -> key phrases', async () => {
         const comprehend = new AWS.Comprehend();
         const response = await comprehend.detectKeyPhrases({
             Text: `${JSON.parse(__test_event__.event.Records[0].body).input.feed._cleansed_text}`,
@@ -156,6 +183,33 @@ describe ('When workflow->analyze text is called', () => {
         expect(response.KeyPhrases[0].Score).to.equal(1);
     });
 
+    it('throw error when publishing task fails', async() => {
+        AWSMock.remock('StepFunctions', 'sendTaskSuccess', (error, callback) => {
+            callback(new Error('Fake failure when sending task success'), null);
+        });
+
+        AWSMock.remock('StepFunctions', 'sendTaskFailure', (error, callback) => {
+            callback(new Error('Fake error when sending task failure failure'), null);
+        });        
+
+        await lambda.handler(__test_event__.event).catch((error) => {
+            if (error.message instanceof assert.AssertionError) {
+                assert.fail();
+            }
+            assert.equal(error.message, 'Fake error when sending task failure failure');
+        });
+    });
+
+    it('should have sentiment empty if response is undefined', async() => {
+        AWSMock.remock('Comprehend', 'detectSentiment', (error, callback) => {
+            callback(null, undefined);
+        });
+        if (! lambdaSpy.threw()) expect.fail;
+        const response = await lambda.handler(__test_event__.event);
+        expect(response[0].Sentiment).to.equal("");
+        expect(response[0].SentimentScore).to.eql({});
+    });
+    
     afterEach(() => {
         AWSMock.restore('Comprehend');
         AWSMock.restore('StepFunctions');
@@ -164,7 +218,6 @@ describe ('When workflow->analyze text is called', () => {
         delete process.env.AWS_SDK_USER_AGENT;
     });
 });
-
 
 describe('Error scenarios', () => {
     let lambdaSpy;

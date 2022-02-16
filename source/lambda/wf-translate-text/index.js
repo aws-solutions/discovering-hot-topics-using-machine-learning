@@ -58,7 +58,7 @@ exports.handler = async (event) => {
             // build the arrary of records to push to S3 using Kinesis
             const data = [];
             data.push ({
-                Data: `${feed.id_str},${DataCleanse.removeHashtags(DataCleanse.removeUsers(feed._cleansed_text))}\n` // further cleansed for topic modeling
+                Data: `${feed.id_str},${feed._cleansed_text}\n` // further cleansed for topic modeling
             });
 
             // Only cleaning and inserting embedded text, no translation
@@ -68,7 +68,7 @@ exports.handler = async (event) => {
                 for (let index = 0; index < textInImgs.length; ++index) {
                     textInImgs[index]._cleansed_text = DataCleanse.cleanText(textInImgs[index].text); // this record remains in the event object
                     data.push({
-                        Data: `${feed.id_str},${DataCleanse.removeHashtags(DataCleanse.removeUsers(textInImgs[index]._cleansed_text))}\n` // further cleansed for topic modeling only
+                        Data: `${feed.id_str},${textInImgs[index]._cleansed_text}\n` // further cleansed for topic modeling only
                     });
                 }
             }
@@ -101,12 +101,12 @@ exports.handler = async (event) => {
     }
 }
 
-async function taskFailed (stepfunctions, error, taskToken) {
+async function taskFailed (stepfunctions, errorDetails, taskToken) {
     try {
         await stepfunctions.sendTaskFailure({
             taskToken: taskToken,
-            cause: error.message,
-            error: error.code
+            cause: errorDetails.message,
+            error: errorDetails.code
         }).promise();
     } catch(error) {
         console.error(`Error sending failed status for taskToken ${taskToken}`);

@@ -12,11 +12,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-
 import * as events from '@aws-cdk/aws-events';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
+import { CustomIngestion } from './custom-ingestion';
 import { FeedConsumer } from './feed-consumer-construct';
 import { NewsCatcher } from './newscatcher-stack';
 import { TwitterSearchIngestion } from './twitter-search-stack';
@@ -35,13 +35,16 @@ export interface IngestionProps {
     readonly rssNewsFeedIngestFreq?: cdk.CfnParameter;
     readonly deployYouTubeComments: cdk.CfnParameter;
     readonly youTubeSearchQuery?: cdk.CfnParameter;
-    readonly youTubeChannel?: cdk.CfnParameter,
+    readonly youTubeChannel?: cdk.CfnParameter;
     readonly youTubeSearchFreq?: cdk.CfnParameter;
     readonly youtTubeApiKey?: cdk.CfnParameter;
+    readonly deployCustomIngestion: cdk.CfnParameter;
+    readonly integrationEventBus: events.IEventBus;
+    readonly metadataNS: string;
 }
 
 export class Ingestion extends cdk.Construct {
-    private readonly _consumerLambdaFunc;
+    public readonly consumerLambdaFunc;
 
     constructor(scope: cdk.Construct, id: string, props: IngestionProps) {
         super(scope, id);
@@ -55,81 +58,117 @@ export class Ingestion extends cdk.Construct {
                 reservedConcurrentExecutions: 1 // adding to throttle submissions to step functions
             },
             batchSize: 5,
-            shardCount: 1,
+            shardCount: 1
         });
-        this._consumerLambdaFunc = _feedConsumerlambda.lambdaFunction;
+        this.consumerLambdaFunc = _feedConsumerlambda.lambdaFunction;
 
         // creating a common event bus messaging backbone across different ingestion sources
         const _eventBus = new events.EventBus(this, 'Bus');
 
         const _twitterSearch = new TwitterSearchIngestion(this, 'TwitterSearch', {
             parameters: {
-                "SupportedLang": props.supportedLang!.valueAsString,
-                "QueryParameter": props.twitterQueryParameter!.valueAsString,
-                "SSMPathForCredentials": props.credentialKeyPath!.valueAsString,
-                "IngestQueryFrequency": props.ingestFrequency!.valueAsString,
-                "StreamARN": _feedConsumerlambda.kinesisStream.streamArn
+                'SupportedLang': props.supportedLang!.valueAsString,
+                'QueryParameter': props.twitterQueryParameter!.valueAsString,
+                'SSMPathForCredentials': props.credentialKeyPath!.valueAsString,
+                'IngestQueryFrequency': props.ingestFrequency!.valueAsString,
+                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn
             }
         });
-        const _JSON_FILE_EXTN_LENGTH = ".json".length;
-        _twitterSearch.nestedStackResource!.addMetadata('nestedStackFileName', _twitterSearch.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
+        const _JSON_FILE_EXTN_LENGTH = '.json'.length;
+        _twitterSearch.nestedStackResource!.addMetadata(
+            'nestedStackFileName',
+            _twitterSearch.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
+        );
 
         const _deployTwitterIngestionCondition = new cdk.CfnCondition(this, 'DeployTwitterIngestion', {
             expression: cdk.Fn.conditionAnd(
-                cdk.Fn.conditionEquals(props.deployTwitter, "Yes"),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.twitterQueryParameter, "")),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.ingestFrequency, "")),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.credentialKeyPath, ""))
-        )});
+                cdk.Fn.conditionEquals(props.deployTwitter, 'Yes'),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.twitterQueryParameter, '')),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.ingestFrequency, '')),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.credentialKeyPath, ''))
+            )
+        });
         _twitterSearch.nestedStackResource?.addOverride('Condition', _deployTwitterIngestionCondition.logicalId);
 
         const _newsCatcher = new NewsCatcher(this, 'NewsCatcher', {
             parameters: {
-                "EventBus": _eventBus.eventBusArn,
-                "StreamARN": _feedConsumerlambda.kinesisStream.streamArn,
+                'EventBus': _eventBus.eventBusArn,
+                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
                 // if the search query is blank it acts as wild char search ('*'). All feeds no filters
-                "NewsSearchQuery": props.rssNewsFeedQueryParameter!.valueAsString? props.rssNewsFeedQueryParameter!.valueAsString : '',
-                "Config": props.rssNewsFeedConfig!.valueAsString,
-                "IngestFrequency": props.rssNewsFeedIngestFreq!.valueAsString
+                'NewsSearchQuery': props.rssNewsFeedQueryParameter!.valueAsString
+                    ? props.rssNewsFeedQueryParameter!.valueAsString
+                    : '',
+                'Config': props.rssNewsFeedConfig!.valueAsString,
+                'IngestFrequency': props.rssNewsFeedIngestFreq!.valueAsString
             }
         });
-        _newsCatcher.nestedStackResource!.addMetadata('nestedStackFileName', _newsCatcher.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
+        _newsCatcher.nestedStackResource!.addMetadata(
+            'nestedStackFileName',
+            _newsCatcher.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
+        );
 
         const _deployRSSFeedsIngestionCondition = new cdk.CfnCondition(this, 'DeployRSSFeeds', {
             expression: cdk.Fn.conditionAnd(
-                cdk.Fn.conditionEquals(props.deployRSSNewsFeeds, "Yes"),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.rssNewsFeedIngestFreq, ""))
-            )});
+                cdk.Fn.conditionEquals(props.deployRSSNewsFeeds, 'Yes'),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.rssNewsFeedIngestFreq, ''))
+            )
+        });
         _newsCatcher.nestedStackResource?.addOverride('Condition', _deployRSSFeedsIngestionCondition.logicalId);
-
 
         // YouTube ingestion nested stack
         const _youTubeComments = new YoutubeComments(this, 'YouTubeCommentsIngestion', {
             parameters: {
-                "EventBus": _eventBus.eventBusArn,
-                "StreamARN": _feedConsumerlambda.kinesisStream.streamArn,
-                "YoutubeAPIKey": props.youtTubeApiKey?.valueAsString!,
-                "YouTubeSearchIngestionFreq": props.youTubeSearchFreq?.valueAsString!,
-                "YouTubeChannel": props.youTubeChannel?.valueAsString!,
-                "YoutubeSearchQuery": props.youTubeSearchQuery?.valueAsString!
+                'EventBus': _eventBus.eventBusArn,
+                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
+                'YoutubeAPIKey': props.youtTubeApiKey?.valueAsString!,
+                'YouTubeSearchIngestionFreq': props.youTubeSearchFreq?.valueAsString!,
+                'YouTubeChannel': props.youTubeChannel?.valueAsString!,
+                'YoutubeSearchQuery': props.youTubeSearchQuery?.valueAsString!
             }
         });
-        _youTubeComments.nestedStackResource!.addMetadata('nestedStackFileName', _youTubeComments.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH));
+        _youTubeComments.nestedStackResource!.addMetadata(
+            'nestedStackFileName',
+            _youTubeComments.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
+        );
 
         const _deployYoutubeCommentsCondition = new cdk.CfnCondition(this, 'DeployYouTubeComments', {
             expression: cdk.Fn.conditionAnd(
-                cdk.Fn.conditionEquals(props.deployYouTubeComments.valueAsString, "Yes"),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youTubeSearchFreq, "")),
-                cdk.Fn.conditionNot(cdk.Fn.conditionAnd(
-                    cdk.Fn.conditionEquals(props.youTubeSearchQuery,""), cdk.Fn.conditionEquals(props.youTubeChannel, ""))
+                cdk.Fn.conditionEquals(props.deployYouTubeComments.valueAsString, 'Yes'),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youTubeSearchFreq, '')),
+                cdk.Fn.conditionNot(
+                    cdk.Fn.conditionAnd(
+                        cdk.Fn.conditionEquals(props.youTubeSearchQuery, ''),
+                        cdk.Fn.conditionEquals(props.youTubeChannel, '')
+                    )
                 ),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youtTubeApiKey,""))
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youtTubeApiKey, ''))
             )
         });
         _youTubeComments.nestedStackResource?.addOverride('Condition', _deployYoutubeCommentsCondition.logicalId);
-    }
 
-    public get consumerLambdaFunc(): lambda.Function {
-        return this._consumerLambdaFunc
+        const _customIngestion = new CustomIngestion(this, 'S3CustomIngestion', {
+            parameters: {
+                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
+                'IntegrationBus': props.integrationEventBus.eventBusArn,
+                'S3AccessLoggingBucket': props.s3LoggingBucket.bucketArn,
+                'MetadataNS': props.metadataNS
+            }
+        });
+        _customIngestion.nestedStackResource!.addMetadata(
+            'nestedStackFileName',
+            _customIngestion.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
+        );
+
+        const _deployCustomIngestionCondition = new cdk.CfnCondition(this, 'DeployCustomIngestion', {
+            expression: cdk.Fn.conditionEquals(props.deployCustomIngestion.valueAsString, 'Yes')
+        });
+
+        _customIngestion.nestedStackResource?.addOverride('Condition', _deployCustomIngestionCondition.logicalId);
+
+        new cdk.CfnOutput(this, 'S3BucketToUploadData', {
+            value: _customIngestion.s3Bucket.urlForObject(),
+            description: 'Bucket location to upload source files for ingestion',
+            condition: _deployCustomIngestionCondition
+        });
     }
 }

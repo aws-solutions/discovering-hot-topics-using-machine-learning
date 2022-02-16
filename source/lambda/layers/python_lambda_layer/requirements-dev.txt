@@ -1,6 +1,6 @@
-pytest==6.2.2
-pytest-cov==2.11.1
+pytest==6.2.5
+pytest-cov==3.0.0
 mock==4.0.3
 botocore
 boto3
-moto
+moto==2.3.1

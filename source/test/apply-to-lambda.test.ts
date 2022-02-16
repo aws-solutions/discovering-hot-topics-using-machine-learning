@@ -17,55 +17,63 @@ import * as lambda from '@aws-cdk/aws-lambda';
 import * as cdk from '@aws-cdk/core';
 import { ApplytoLambda } from '../lib/aspects/apply-to-lambda';
 
-test ('test adding custom config', () => {
+test('test adding custom config', () => {
     const stack = new cdk.Stack();
     new ApplytoLambda(stack, 'TestConfig');
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Lambda::LayerVersion', {
-        Type: 'AWS::Lambda::LayerVersion',
-        Properties: {
-            CompatibleRuntimes: [
-                "python3.8"
-            ],
-            Content: {
-
+    expect(stack).toHaveResourceLike(
+        'AWS::Lambda::LayerVersion',
+        {
+            Type: 'AWS::Lambda::LayerVersion',
+            Properties: {
+                CompatibleRuntimes: ['python3.8'],
+                Content: {}
             }
-        }
-    }, ResourcePart.CompleteDefinition);
+        },
+        ResourcePart.CompleteDefinition
+    );
 });
 
 test('visting node lambda runtimes and adding aspects', () => {
     const app = new cdk.App();
     const stack = new cdk.Stack(app);
     new lambda.Function(stack, 'testFunction', {
-        code: lambda.Code.fromAsset(`${__dirname}/../lambda/create-partition`),
+        code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
         runtime: lambda.Runtime.NODEJS_14_X,
         handler: 'index.handler'
     });
 
     app.node.applyAspect(new ApplytoLambda(stack, 'testConfigWithNode'));
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
-        Type: 'AWS::Lambda::Function',
-        Properties: {
-            Runtime: "nodejs14.x",
-            Environment: {
-                Variables: {
-                    "AWS_SDK_USER_AGENT": "{ \"customUserAgent\": \"AwsSolution/undefined/undefined\" }"
+    expect(stack).toHaveResourceLike(
+        'AWS::Lambda::Function',
+        {
+            Type: 'AWS::Lambda::Function',
+            Properties: {
+                Runtime: 'nodejs14.x',
+                Environment: {
+                    Variables: {
+                        'AWS_SDK_USER_AGENT': '{ "customUserAgent": "AwsSolution/undefined/undefined" }'
+                    }
+                },
+                Handler: 'index.handler',
+                Role: {},
+                Code: {
+                    S3Bucket: {},
+                    S3Key: {}
                 }
-            },
-            Handler: 'index.handler',
-            Role: {},
-            Code: {
-                S3Bucket: {},
-                S3Key: {}
             }
-        }
-    }, ResourcePart.CompleteDefinition);
+        },
+        ResourcePart.CompleteDefinition
+    );
 
-    expect(stack).toHaveResource('AWS::Lambda::LayerVersion', {
-        "Type": "AWS::Lambda::LayerVersion"
-    }, ResourcePart.CompleteDefinition);
+    expect(stack).toHaveResource(
+        'AWS::Lambda::LayerVersion',
+        {
+            'Type': 'AWS::Lambda::LayerVersion'
+        },
+        ResourcePart.CompleteDefinition
+    );
 });
 
 test('visting node python runtimes and adding aspects', () => {
@@ -79,26 +87,34 @@ test('visting node python runtimes and adding aspects', () => {
 
     app.node.applyAspect(new ApplytoLambda(stack, 'testConfigWithNode'));
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
-        Type: 'AWS::Lambda::Function',
-        Properties: {
-            Runtime: "python3.8",
-            Environment: {
-                Variables: {
-                    "AWS_SDK_USER_AGENT": "{ \"user_agent_extra\": \"AwsSolution/undefined/undefined\" }"
+    expect(stack).toHaveResourceLike(
+        'AWS::Lambda::Function',
+        {
+            Type: 'AWS::Lambda::Function',
+            Properties: {
+                Runtime: 'python3.8',
+                Environment: {
+                    Variables: {
+                        'AWS_SDK_USER_AGENT': '{ "user_agent_extra": "AwsSolution/undefined/undefined" }'
+                    }
+                },
+                Handler: 'handler',
+                Layers: [{}],
+                Role: {},
+                Code: {
+                    S3Bucket: {},
+                    S3Key: {}
                 }
-            },
-            Handler: 'handler',
-            Layers: [{}],
-            Role: {},
-            Code: {
-                S3Bucket: {},
-                S3Key: {}
             }
-        }
-    }, ResourcePart.CompleteDefinition);
+        },
+        ResourcePart.CompleteDefinition
+    );
 
-    expect(stack).toHaveResource('AWS::Lambda::LayerVersion', {
-        "Type": "AWS::Lambda::LayerVersion"
-    }, ResourcePart.CompleteDefinition);
+    expect(stack).toHaveResource(
+        'AWS::Lambda::LayerVersion',
+        {
+            'Type': 'AWS::Lambda::LayerVersion'
+        },
+        ResourcePart.CompleteDefinition
+    );
 });

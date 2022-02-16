@@ -11,16 +11,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
-const moment = require('moment');
-const timeformat = require('./time-stamp-format');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class ModerationLabels {
-    static storeLabels = async(data) => {
-
+    static storeLabels = async (data) => {
         if (data.moderation_labels_in_imgs !== undefined && data.moderation_labels_in_imgs.length > 0) {
             const awsCustomConfig = CustomConfig.customAwsConfig();
             const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
@@ -35,7 +32,7 @@ class ModerationLabels {
                             platform: data.platform,
                             search_query: data.search_query,
                             id_str: data.feed.id_str,
-                            created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                            created_at: data.feed.created_at,
                             image_url: image.image_url,
                             label_name: label.Name,
                             confidence: label.Confidence
@@ -44,12 +41,14 @@ class ModerationLabels {
                 });
             });
 
-            await kinesisFireshose.putRecordBatch({
-                DeliveryStreamName: process.env.MODERATION_LABELS_FIREHOSE,
-                Records: labelsRecords
-            }).promise();
+            await kinesisFireshose
+                .putRecordBatch({
+                    DeliveryStreamName: process.env.MODERATION_LABELS_FIREHOSE,
+                    Records: labelsRecords
+                })
+                .promise();
         }
-    }
+    };
 }
 
 module.exports = ModerationLabels;
