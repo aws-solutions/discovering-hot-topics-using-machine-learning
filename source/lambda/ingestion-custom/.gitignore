@@ -1,0 +1,6 @@
+cachetools*
+.venv*
+openpyxl*
+et_xmlfile*
+jmespath*
+jp.py

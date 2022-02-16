@@ -12,49 +12,50 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import * as glue from '@aws-cdk/aws-glue';
+import * as cdk from '@aws-cdk/core';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export class SentimentTable extends GenericTable {
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+
+export class SentimentTable extends GenericCfnTable {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): Column[] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
-                name: 'account_name',
-                type: Schema.STRING
-            }, {
-                name: 'platform',
-                type: Schema.STRING
-            }, {
-                name: 'search_query',
-                type: Schema.STRING
-            }, {
-                name: 'id_str',
-                type: Schema.STRING
-            },  {
-                name: 'text',
-                type: Schema.STRING
-            }, {
-                name: 'translated_text',
-                type: Schema.STRING
-            }, {
-                name: 'sentiment',
-                type: Schema.STRING
-            }, {
-                name: 'sentimentposscore',
-                type: Schema.DOUBLE
-            }, {
-                name: 'sentimentnegscore',
-                type: Schema.DOUBLE
-            }, {
-                name: 'sentimentneuscore',
-                type: Schema.DOUBLE
-            }, {
-                name: 'sentimentmixscore',
-                type: Schema.DOUBLE
-            }];
+            name: 'account_name',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'platform',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'search_query',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'id_str',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'text',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'translated_text',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'sentiment',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'sentimentposscore',
+            type: glue.Schema.DOUBLE.inputString
+        }, {
+            name: 'sentimentnegscore',
+            type: glue.Schema.DOUBLE.inputString
+        }, {
+            name: 'sentimentneuscore',
+            type: glue.Schema.DOUBLE.inputString
+        }, {
+            name: 'sentimentmixscore',
+            type: glue.Schema.DOUBLE.inputString
+        }];
     }
 }

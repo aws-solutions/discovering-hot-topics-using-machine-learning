@@ -6,11 +6,13 @@ omit =
     google*/*
     */__init__.py
     cachetools*
-    _distutils_hack
+    _distutils_hack*
+    distutils-precedence.pth
     apiclient
     bin
     certifi*
     charset*
+    google_auth*
     httplib2*
     idna*
     packaging*
@@ -25,6 +27,5 @@ omit =
     six*
     uritemplate*
     urllib3*
-    distutils-precedence.pth
 source =
     .

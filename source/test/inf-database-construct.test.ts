@@ -34,6 +34,7 @@ test('test workflow stack', () => {
     storageConfig.set('NewsFeedStorage', 'newsfeedstorage');
     storageConfig.set('ModerationLabels', 'moderationlabels');
     storageConfig.set('YouTubeComments', 'youtubecomments');
+    storageConfig.set('CustomIngestion', 'customingestion');
 
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {

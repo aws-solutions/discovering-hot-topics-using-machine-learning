@@ -43,7 +43,7 @@ class TestQueryDDBHelper(unittest.TestCase):
         self.table_name = os.environ["TARGET_DDB_TABLE"]
         ddb = ddb_setup(self.table_name)
         self.video_id = "fakevideoid"
-        current_time = datetime.now()
+        current_time = datetime.now(timezone.utc)
         expiry_window = str(
             int(
                 (current_time + timedelta(days=int(os.environ.get("VIDEO_SEARCH_INGESTION_WINDOW", 7)))).timestamp()

@@ -30,19 +30,23 @@ def store_topics(data):
     for key in data:
         for record in data[key]:
             logger.debug("Record information for writing to Firehose is " + json.dumps(record))
+            record_timestamp = datetime.strftime(
+                datetime.strptime(record["job_timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
+                "%Y-%m-%d %H:%M:%S",
+            )
             response = firehose.put_record(
                 DeliveryStreamName=os.environ["TOPICS_FIREHOSE"],
                 Record={
                     "Data": json.dumps(
                         {
                             "job_id": record["job_id"],
-                            "job_timestamp": datetime.strftime(
-                                datetime.strptime(record["job_timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
-                                "%Y-%m-%d %H:%M:%S.%f",
-                            ),
+                            "job_timestamp": record_timestamp,
                             "topic": record["topic"],
                             "term": record["term"],
                             "weight": record["weight"],
+                            # duplicating the value, since this column is used for partitioning and
+                            # partitioning loses time precision (has only date)
+                            "created_at": record_timestamp,
                         }
                     )
                     + "\n"
@@ -53,6 +57,9 @@ def store_topics(data):
 
 def store_mappings(data):
     logger.debug("Data received is " + json.dumps(data))
+    record_timestamp = datetime.strftime(
+        datetime.strptime(data["job_timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"), "%Y-%m-%d %H:%M:%S"
+    )
     response = firehose.put_record(
         DeliveryStreamName=os.environ["TOPIC_MAPPINGS_FIREHOSE"],
         Record={
@@ -60,11 +67,12 @@ def store_mappings(data):
                 {
                     "platform": data["platform"],
                     "job_id": data["job_id"],
-                    "job_timestamp": datetime.strftime(
-                        datetime.strptime(data["job_timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"), "%Y-%m-%d %H:%M:%S.%f"
-                    ),
+                    "job_timestamp": record_timestamp,
                     "topic": data["topic"],
                     "id_str": data["id_str"],
+                    # duplicating the value, since this column is used for partitioning and
+                    # partitioning loses time precision (has only date)
+                    "created_at": record_timestamp,
                 }
             )
             + "\n"

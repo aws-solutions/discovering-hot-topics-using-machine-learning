@@ -11,42 +11,45 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
-const AWS = require('aws-sdk');
-const moment = require('moment');
 const TwFeedStorage = require('./tw-feed-storage');
-const timeformat = require('./time-stamp-format');
-const CustomConfig = require('aws-nodesdk-custom-config');
 const RawDataStorage = require('./raw-data-storage');
+const FirehoseHelper = require('./firehose-helper');
 
 class TextAnalysis {
     static storeText = async (data) => {
         // SONAR Rule: switch statements are useful when there are many different cases depending
         // on the value of the same expression. Plans to put in additional types in the future and
         // hence inserting a suppress rule
-        switch(data.platform) { // NOSONAR (javascript:S1301), more platform types are to be added
+        switch (
+            data.platform // NOSONAR (javascript:S1301), more platform types are to be added
+        ) {
             case 'twitter':
-                TwFeedStorage.storeTweets(data);
+                await TwFeedStorage.storeTweets(data);
                 break;
             case 'newsfeeds':
             case 'youtubecomments':
-                RawDataStorage.storeFeed(data);
+                await RawDataStorage.storeFeed(data);
+                break;
+            case 'customingestion':
+                await RawDataStorage.trascribeFeed(data);
+                // removing the elements since they have been processed in the 'transcribeFeed call
+                delete data.feed.Items;
+                delete data.feed.LoudnessScores;
+                await RawDataStorage.storeFeed(data);
                 break;
             default:
                 console.error(`Received platform type as ${data.platform} which is not supported`);
                 throw Error(`Received unsupported platform ${data.platform}`);
         }
 
-        const awsCustomConfig = CustomConfig.customAwsConfig();
-        const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
-
         const sentimentRecord = {
             account_name: data.account_name,
             platform: data.platform,
             search_query: data.search_query,
             id_str: data.feed.id_str,
-            created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+            created_at: data.feed.created_at,
             text: data.feed.text,
             translated_text: data.feed._translated_text,
             sentiment: data.Sentiment,
@@ -56,12 +59,7 @@ class TextAnalysis {
             sentimentmixscore: data.SentimentScore.Mixed
         };
 
-        await kinesisFireshose.putRecord({
-            DeliveryStreamName: process.env.SENTIMENT_FIREHOSE,
-            Record: {
-                Data: `${JSON.stringify(sentimentRecord)}\n`
-            }
-        }).promise();
+        await FirehoseHelper.putRecord(`${JSON.stringify(sentimentRecord)}\n`, process.env.SENTIMENT_FIREHOSE);
 
         const entitiesArray = data.Entities;
         const entitiesRecord = [];
@@ -72,7 +70,7 @@ class TextAnalysis {
                     platform: data.platform,
                     search_query: data.search_query,
                     id_str: data.feed.id_str,
-                    created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                    created_at: data.feed.created_at,
                     text: data.feed.text,
                     translated_text: data.feed._translated_text,
                     entity_text: entity.Text,
@@ -85,10 +83,7 @@ class TextAnalysis {
         }
 
         if (entitiesRecord.length > 0) {
-            await kinesisFireshose.putRecordBatch({
-                DeliveryStreamName: process.env.ENTITIES_FIREHOSE,
-                Records: entitiesRecord
-            }).promise();
+            await FirehoseHelper.putRecordBatch(entitiesRecord, process.env.ENTITIES_FIREHOSE);
         }
 
         const keyPhrasesArray = data.KeyPhrases;
@@ -100,7 +95,7 @@ class TextAnalysis {
                     platform: data.platform,
                     search_query: data.search_query,
                     id_str: data.feed.id_str,
-                    created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat),
+                    created_at: data.feed.created_at,
                     text: data.feed.text,
                     translated_text: data.feed._translated_text,
                     phrase: keyPhrase.Text,
@@ -108,16 +103,13 @@ class TextAnalysis {
                     phrase_begin_offset: keyPhrase.BeginOffset,
                     phrase_end_offset: keyPhrase.EndOffset
                 })}\n`
-            })
+            });
         }
 
         if (keyPhrasesRecord.length > 0) {
-            await kinesisFireshose.putRecordBatch({
-                DeliveryStreamName: process.env.KEYPHRASE_FIREHOSE,
-                Records: keyPhrasesRecord
-            }).promise();
+            await FirehoseHelper.putRecordBatch(keyPhrasesRecord, process.env.KEYPHRASE_FIREHOSE);
         }
-    }
+    };
 }
 
 module.exports = TextAnalysis;

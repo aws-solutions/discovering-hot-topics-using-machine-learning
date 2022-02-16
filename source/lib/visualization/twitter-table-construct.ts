@@ -12,132 +12,264 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { CfnTable, IDatabase, ITable, Table } from "@aws-cdk/aws-glue";
-import { Bucket } from "@aws-cdk/aws-s3";
-import { Aws, Construct } from "@aws-cdk/core";
+import * as glue from "@aws-cdk/aws-glue";
+import * as cdk from "@aws-cdk/core";
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export interface TwitterTableProps {
-    readonly s3InputDataBucket: Bucket,
-    readonly s3BucketPrefix: string,
-    readonly database: IDatabase,
-    readonly tableName: string
-}
+export class TwitterTable extends GenericCfnTable {
 
-export class TwitterTable extends Construct {
-    private _table: ITable;
-
-    constructor (scope: Construct, id: string, props: TwitterTableProps) {
-        super(scope, id);
-
-        const twitterTable = new CfnTable(this, 'TwitterRecord', {
-            catalogId: props.database.catalogId,
-            databaseName: props.database.databaseName,
-            tableInput: {
-                name: props.tableName,
-                description: 'Store Twitter Records',
-                parameters: {
-                    classification: 'parquet',
-                    has_encrypted_data: false
-                },
-                storageDescriptor: {
-                    compressed: false,
-                    inputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat',
-                    location: props.s3InputDataBucket.s3UrlForObject(props.s3BucketPrefix),
-                    outputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat',
-                    serdeInfo: {
-                        serializationLibrary: 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
-                    },
-                    columns: this.twitterColumns,
-                    storedAsSubDirectories: true,
-                },
-                partitionKeys: [{
-                    name: 'db_created_at',
-                    type: 'timestamp'
-                }],
-                tableType: 'EXTERNAL_TABLE'
-            }
-        });
-
-        this._table = Table.fromTableArn(this, 'Table', `arn:${Aws.PARTITION}:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:table/${props.database.databaseName}/${twitterTable.ref}`);
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+        super(scope, id, props);
     }
 
-    private get twitterColumns(): CfnTable.ColumnProperty [] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
             name: 'account_name',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'platform',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'coordinates',
-            type: 'struct<type:string,coordinates:array<double>>'
+            type: glue.Schema.struct(this.coordinatesType).inputString,
         }, {
             name: 'retweeted',
-            type: 'boolean'
+            type: glue.Schema.BOOLEAN.inputString
         }, {
             name: 'source',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'entities',
-            type: 'struct<hashtags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>'
+            //type: 'struct<hashtags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>'
+            type: glue.Schema.struct([{
+                name: 'hastags',
+                type: glue.Schema.array(glue.Schema.struct([{
+                    name: 'text',
+                    type: glue.Schema.STRING
+                }, {
+                    name: 'indices',
+                    type: glue.Schema.array(glue.Schema.BIG_INT)
+                }]))
+            }, {
+                name: 'urls',
+                type: glue.Schema.array(glue.Schema.struct([{
+                    name: 'url',
+                    type: glue.Schema.STRING
+                }, {
+                    name: 'expanded_url',
+                    type: glue.Schema.STRING
+                }, {
+                    name: 'display_url',
+                    type: glue.Schema.STRING
+                }, {
+                    name: 'indices',
+                    type: glue.Schema.array(glue.Schema.BIG_INT)
+                }]))
+            }]).inputString
         }, {
             name: 'reply_count',
-            type: 'bigint'
+            type: glue.Schema.BIG_INT.inputString
         }, {
             name: 'favorite_count',
-            type: 'bigint'
+            type: glue.Schema.BIG_INT.inputString
         }, {
             name: 'geo',
-            type: 'struct<type:string,coordinates:array<double>>'
+            type: glue.Schema.struct(this.coordinatesType).inputString,
         }, {
             name: 'id_str',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'truncated',
-            type: 'boolean'
+            type: glue.Schema.BOOLEAN.inputString
         }, {
             name: 'text',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'retweet_count',
-            type: 'bigint'
+            type: glue.Schema.BIG_INT.inputString
         }, {
             name: 'possibly_sensitive',
-            type: 'boolean'
+            type: glue.Schema.BOOLEAN.inputString
         }, {
             name: 'filter_level',
-            type: 'string'
-        }, {
-            name: 'created_at',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'place',
-            type: 'struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>'
+            //type: 'struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>'
+            type: glue.Schema.struct([{
+                name: 'id',
+                type: glue.Schema.STRING
+            }, {
+                name: 'url',
+                type: glue.Schema.STRING
+            }, {
+                name: 'place_type',
+                type: glue.Schema.STRING
+            }, {
+                name: 'name',
+                type: glue.Schema.STRING
+            }, {
+                name: 'full_name',
+                type: glue.Schema.STRING
+            }, {
+                name: 'country_code',
+                type: glue.Schema.STRING
+            }, {
+                name: 'country',
+                type: glue.Schema.STRING
+            }, {
+                name: 'bounding_box',
+                type: glue.Schema.struct([{
+                    name: 'type',
+                    type: glue.Schema.STRING
+                }, {
+                    name: 'coordinates',
+                    type: glue.Schema.array(glue.Schema.array(glue.Schema.array(glue.Schema.FLOAT)))
+                }])
+            }]).inputString
         }, {
             name: 'favorited',
-            type: 'boolean'
+            type: glue.Schema.BOOLEAN.inputString
         }, {
             name: 'lang',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'in_reply_to_screen_name',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'is_quote_status',
-            type: 'boolean'
+            type: glue.Schema.BOOLEAN.inputString
         }, {
             name: 'in_reply_to_user_id_str',
-            type: 'string'
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'user',
-            type: 'struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verified:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:string,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>'
+            // type: 'struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verified:boolean,followers_count:bigint,friends_count:bigint,
+            // listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:string,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,
+            // profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,
+            // profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>'
+            type: glue.Schema.struct([{
+                name: 'id',
+                type: glue.Schema.STRING
+            }, {
+                name: 'id_str',
+                type: glue.Schema.STRING
+            }, {
+                name: 'name',
+                type: glue.Schema.STRING
+            }, {
+                name: 'screen_name',
+                type: glue.Schema.STRING
+            }, {
+                name: 'location',
+                type: glue.Schema.STRING
+            }, {
+                name: 'url',
+                type: glue.Schema.STRING
+            }, {
+                name: 'description',
+                type: glue.Schema.STRING
+            }, {
+                name: 'translator_type',
+                type: glue.Schema.STRING
+            }, {
+                name: 'protected',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'verfied',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'followers_count',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'friends_count',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'listed_count',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'favourites_count',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'statuses_count',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'created_at',
+                type: glue.Schema.STRING
+            }, {
+                name: 'utc_offset',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'time_zone',
+                type: glue.Schema.BIG_INT
+            }, {
+                name: 'geo_enabled',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'lang',
+                type: glue.Schema.STRING
+            }, {
+                name: 'contributors_enabled',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'is_translator',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'profile_background_color',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_background_image_url',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_background_image_url_https',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_background_tile',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'profile_link_color',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_sidebar_border_color',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_sidebar_fill_color',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_text_color',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_use_background_image',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'profile_image_url',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_image_url_https',
+                type: glue.Schema.STRING
+            }, {
+                name: 'profile_banner_url',
+                type: glue.Schema.STRING
+            }, {
+                name: 'default_profile',
+                type: glue.Schema.BOOLEAN
+            }, {
+                name: 'default_profile_image',
+                type: glue.Schema.BOOLEAN
+            }]).inputString
         }, {
             name: 'quote_count',
-            type: 'bigint'
+            type: glue.Schema.BIG_INT.inputString
         }]
     }
 
-    public get table(): ITable {
-        return this._table;
+    private get coordinatesType(): glue.Column[] {
+        return [{
+            name: 'type',
+            type: glue.Schema.STRING
+        }, {
+            name: 'coordinates',
+            type: glue.Schema.array(glue.Schema.DOUBLE)
+        }]
     }
 }

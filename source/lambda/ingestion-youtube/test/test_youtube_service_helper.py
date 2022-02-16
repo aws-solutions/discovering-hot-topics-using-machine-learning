@@ -14,7 +14,7 @@
 
 import os
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from test.test_credential_helper import ssm_setup
 from unittest.mock import patch
 
@@ -34,7 +34,7 @@ def test_get_youtube_service_resource(mock_youtube_resource):
 
     mock_youtube_resource.build.assert_called_once_with("youtube", "v3", developerKey=credential_helper.get_api_key())
 
-    current_datetime = datetime.now()
+    current_datetime = datetime.now(timezone.utc)
     video_search_params = {
         "q": "fakesearch",
         "part": "id,snippet",

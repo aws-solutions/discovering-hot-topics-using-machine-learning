@@ -16,19 +16,29 @@ import json
 import os
 import unittest
 from unittest.mock import patch
+from shared_util import custom_boto_config
 
 import boto3
 import pytest
-from moto import mock_kinesis
+from moto import mock_firehose, mock_s3
+
+MOCK_BUCKET = "kinesis-test"
+
+
+@mock_s3()
+def s3_setup():
+    conn = boto3.resource("s3", config=custom_boto_config.init())
+    conn.create_bucket(Bucket=MOCK_BUCKET)
 
 
 def create_s3_delivery_stream(client, stream_name):
+    s3_setup()
     return client.create_delivery_stream(
         DeliveryStreamName=stream_name,
         DeliveryStreamType="DirectPut",
         ExtendedS3DestinationConfiguration={
             "RoleARN": "arn:aws:iam::{}:role/firehose_delivery_role".format(12345679012),
-            "BucketARN": "arn:aws:s3:::kinesis-test",
+            "BucketARN": f"arn:aws:s3:::{MOCK_BUCKET}",
             "Prefix": "myFolder/",
             "CompressionFormat": "UNCOMPRESSED",
             "DataFormatConversionConfiguration": {
@@ -45,9 +55,9 @@ def create_s3_delivery_stream(client, stream_name):
     )
 
 
-@mock_kinesis
+@mock_firehose
 def test_topic_stream():
-    firehose = boto3.client("firehose", region_name="us-east-1")
+    firehose = boto3.client("firehose", region_name="us-east-1", config=custom_boto_config.init())
     create_s3_delivery_stream(firehose, "Topics")
     response = firehose.put_record(
         DeliveryStreamName="Topics",
@@ -57,10 +67,10 @@ def test_topic_stream():
         },
     )
 
-    assert response["RecordId"] == 12345678
+    assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
 
 
-@mock_kinesis
+@mock_firehose
 def test_mappings_stream():
     firehose = boto3.client("firehose", region_name="us-east-1")
     create_s3_delivery_stream(firehose, "TopicMappings")
@@ -78,11 +88,10 @@ def test_mappings_stream():
             + "\n"
         },
     )
+    assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
 
-    assert response["RecordId"] == 12345678
 
-
-@mock_kinesis
+@mock_firehose
 def test_store_topics():
     from util.topic import store_topics
 
@@ -158,7 +167,7 @@ def test_store_topics():
     store_topics(topicsEvent["detail"])
 
 
-@mock_kinesis
+@mock_firehose
 def test_mappings_topics():
     from util.topic import store_mappings
 

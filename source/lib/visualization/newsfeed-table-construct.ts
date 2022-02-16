@@ -14,24 +14,24 @@
 
 import * as glue from '@aws-cdk/aws-glue';
 import * as cdk from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
 
-export class NewsFeedTable extends GenericTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericTableProps) {
+export class NewsFeedTable extends GenericCfnTable {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): glue.Column[] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
             name: 'account_name',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'platform',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'search_query',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'entities',
             type: glue.Schema.struct([{
@@ -46,7 +46,7 @@ export class NewsFeedTable extends GenericTable {
                     name: 'media_url',
                     type: glue.Schema.STRING
                 }]))
-            }])
+            }]).inputString
         }, {
             name: 'metadata',
             type: glue.Schema.struct([{
@@ -58,19 +58,19 @@ export class NewsFeedTable extends GenericTable {
             }, {
                 name: 'topic',
                 type: glue.Schema.STRING
-            }])
+            }]).inputString
         }, {
             name: 'lang',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'id_str',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'text',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'translated_text',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }]
     }
 }

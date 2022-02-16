@@ -18,7 +18,6 @@ import { Stack } from '@aws-cdk/core';
 import { TextAnalysisProxy } from '../lib/integration/text-analysis-proxy';
 import { EventStorage } from '../lib/storage/event-storage-construct';
 
-
 test('test Text Analysis Fireshose Stream Creation', () => {
     const stack = new Stack();
     new TextAnalysisProxy(stack, 'TestTAProxy', {
@@ -90,7 +89,36 @@ test('test Text Analysis Fireshose Stream Creation', () => {
                 encryption: BucketEncryption.S3_MANAGED
             })
         }),
-        textAnalysisInfNS: 'com.analyze.inference.text'
+        customIngestionStorage: new EventStorage(stack, 'Custom', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'customingestion',
+            s3Bucket: new Bucket(stack, 'customIngestionStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
+        customIngestionLoudnessStorage: new EventStorage(stack, 'CustomIngestionLoudness', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'customingestionloudness',
+            s3Bucket: new Bucket(stack, 'customIngestionLoudnessStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
+        customIngestionItemStorage: new EventStorage(stack, 'CustomIngestionItem', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'customingestionitem',
+            s3Bucket: new Bucket(stack, 'customIngestionItemStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        }),
+        textAnalysisInfNS: 'com.analyze.inference.text',
+        metadataNS: 'metadata.call_analytics',
+        metadataStorage: new EventStorage(stack, 'Metadata', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'metadata',
+            s3Bucket: new Bucket(stack, 'metadataStorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
+        })
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

@@ -1,6 +1,6 @@
 {
   "name": "wf-submit-topic-model",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "This lambda function submits the topic modeling job. It looks up for the data in the last 48 hours (default) and submits the bucket information for processing",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,13 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "aws-sdk": "^2.1008.0"
+    "aws-sdk": "^2.1067.0"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^5.4.0",
-    "chai": "^4.3.4",
-    "jest": "^27.2.5",
-    "sinon": "^11.1.2"
+    "aws-sdk-mock": "^5.6.2",
+    "chai": "^4.3.6",
+    "jest": "^27.4.7",
+    "sinon": "^13.0.1"
   },
   "author": "@aws-solutions-builder",
   "license": "Apache-2.0"

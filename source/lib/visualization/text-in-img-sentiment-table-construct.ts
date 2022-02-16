@@ -12,51 +12,40 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import * as glue from '@aws-cdk/aws-glue';
+import * as cdk from '@aws-cdk/core';
+import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct';
 
-export class TextInImgSentimentTable extends GenericTable {
+export class TextInImgSentimentTable extends GenericCfnTable {
 
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
 
     }
 
-    protected getColumns(): Column[] {
-        return [{
-                name: 'account_name',
-                type: Schema.STRING
-            }, {
-                name: 'platform',
-                type: Schema.STRING
-            }, {
-                name: 'search_query',
-                type: Schema.STRING
-            }, {
-                name: 'id_str',
-                type: Schema.STRING
-            }, {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
+        return [
+            ...this.coreColumns, {
                 name: 'text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'sentiment',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'sentimentposscore',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentnegscore',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentneuscore',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentmixscore',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'image_url',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }];
     }
 }

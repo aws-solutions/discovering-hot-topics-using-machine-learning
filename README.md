@@ -6,10 +6,10 @@ The solution automates digital asset (text and image) ingestion from twitter, RS
 
 The solution performs the following key features:
 
--   **Performs topic modeling to detect dominant topics**: identifies the terms that collectively form a topic from within customer feedback
--   **Identifies the sentiment of what customers are saying**: uses contextual semantic search to understand the nature of online discussions
--   **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
--   **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
+- **Performs topic modeling to detect dominant topics**: identifies the terms that collectively form a topic from within customer feedback
+- **Identifies the sentiment of what customers are saying**: uses contextual semantic search to understand the nature of online discussions
+- **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
+- **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
 
 This solution deploys an AWS CloudFormation template that supports Twitter, RSS feeds, and YouTube comments as data source options for ingestion, but the solution can be customized to aggregate other social media platforms and internal enterprise systems.
 
@@ -17,10 +17,10 @@ For a detailed solution deployment guide, refer to [Discovering Hot Topics using
 
 ## On this Page
 
--   [Architecture Overview](#architecture-overview)
--   [Deployment](#deployment)
--   [Source Code](#source-code)
--   [Creating a custom build](#creating-a-custom-build)
+- [Architecture Overview](#architecture-overview)
+- [Deployment](#deployment)
+- [Source Code](#source-code)
+- [Creating a custom build](#creating-a-custom-build)
 
 ## Architecture Overview
 
@@ -54,13 +54,13 @@ After you deploy the solution, use the included Amazon QuickSight dashboard to v
 
 [AWS CDK Solutions Constructs](https://aws.amazon.com/solutions/constructs/) make it easier to consistently create well-architected applications. All AWS Solutions Constructs are reviewed by AWS and use best practices established by the AWS Well-Architected Framework. This solution uses the following AWS CDK Constructs:
 
--   aws-events-rule-lambda
--   aws-kinesisfirehose-s3
--   aws-kinesisstreams-lambda
--   aws-lambda-dynamodb
--   aws-lambda-s3
--   aws-lambda-step-function
--   aws-sqs-lambda
+- aws-events-rule-lambda
+- aws-kinesisfirehose-s3
+- aws-kinesisstreams-lambda
+- aws-lambda-dynamodb
+- aws-lambda-s3
+- aws-lambda-step-function
+- aws-sqs-lambda
 
 ## Deployment
 
@@ -78,12 +78,12 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     ├── bin                             [entrypoint of the CDK application]
     ├── lambda                          [folder containing source code the lambda functions]
     │   ├── capture_news_feed           [lambda function to ingest news feeds]
-    │   ├── create-partition            [lambda function to create glue partitions]
     │   ├── firehose_topic_proxy        [lambda function to write topic analysis output to Amazon Kinesis Firehose]
     │   ├── firehose-text-proxy         [lambda function to write text analysis output to Amazon Kinesis Firehose]
-    │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Stream]
+    │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Streams]
+    │   ├── ingestion-custom            [lambda function that reads files from Amazon S3 bucket and pushes data to Amazon Kinesis Data Streams]
     │   ├── ingestion-producer          [lambda function that makes Twitter API call and pushes data to Amazon Kinesis Data Stream]
-    │   ├── ingestion-youtube           [lambda function that ingests comments from YouTube videos and pushes data to Amazon Kinesis Data Stream]
+    │   ├── ingestion-youtube           [lambda function that ingests comments from YouTube videos and pushes data to Amazon Kinesis Data Streams]
     │   ├── integration                 [lambda function that publishes inference outputs to Amazon Events Bridge]
     │   ├── layers                      [lambda layer function library for Node and Python layers]
     │   │   ├── aws-nodesdk-custom-config
@@ -106,10 +106,12 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     │   ├── ingestion                   [CDK constructs for data ingestion]
     │   ├── integration                 [CDK constructs for Amazon Events Bridge]
     │   ├── quicksight-custom-resources [CDK construct that invokes custom resources to create Amazon QuickSight resources]
+    │   ├── s3-event-notification       [CDK construct that configures S3 events to be pushed to Amazon EventBridge]
     │   ├── storage                     [CDK constructs that define storage of the inference events]
     │   ├── text-analysis-workflow      [CDK constructs for text analysis of ingested data]
     │   ├── topic-analysis-workflow     [CDK constructs for topic visualization of ingested data]
     │   └── visualization               [CDK constructs to build a relational database model for visualization]
+    ├── discovering-hot-topics.ts
 ```
 
 ## Creating a custom build
@@ -124,7 +126,7 @@ Clone this git repository
 
 ### 2. Build the solution for deployment
 
--   To run the unit tests
+- To run the unit tests
 
 ```
 cd <rootDir>/source
@@ -132,14 +134,14 @@ chmod +x ./run-all-tests.sh
 ./run-all-tests.sh
 ```
 
--   Configure the bucket name of your target Amazon S3 distribution bucket
+- Configure the bucket name of your target Amazon S3 distribution bucket
 
 ```
 export DIST_OUTPUT_BUCKET=my-bucket-name
 export VERSION=my-version
 ```
 
--   Now build the distributable:
+- Now build the distributable:
 
 ```
 cd <rootDir>/deployment
@@ -148,7 +150,7 @@ chmod +x ./build-s3-dist.sh
 
 ```
 
--   Parameter details
+- Parameter details
 
 ```
 $DIST_OUTPUT_BUCKET - This is the global name of the distribution. For the bucket name, the AWS Region is added to the global name (example: 'my-bucket-name-us-east-1') to create a regional bucket. The lambda artifact should be uploaded to the regional buckets for the CloudFormation template to pick it up for deployment.
@@ -158,13 +160,13 @@ $CF_TEMPLATE_BUCKET_NAME - The name of the S3 bucket where the CloudFormation te
 $QS_TEMPLATE_ACCOUNT - The account from which the Amazon QuickSight templates should be sourced for Amazon QuickSight Analysis and Dashboard creation
 ```
 
--   When creating and using buckets it is recommeded to:
+- When creating and using buckets it is recommeded to:
 
-    -   Use randomized names or uuid as part of your bucket naming strategy.
-    -   Ensure buckets are not public.
-    -   Verify bucket ownership prior to uploading templates or code artifacts.
+  - Use randomized names or uuid as part of your bucket naming strategy.
+  - Ensure buckets are not public.
+  - Verify bucket ownership prior to uploading templates or code artifacts.
 
--   Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
+- Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
 
 ```
 aws s3 cp ./global-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot-topics-using-machine-learning/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name

@@ -48,7 +48,7 @@ export class YoutubeComments extends cdk.NestedStack {
             type: 'String',
             description: 'Required: The name of the stream where search comments should be published for analysis',
             allowedPattern: '^arn:\\S+:kinesis:\\S+:\\d{12}:stream/\\S+$',
-            constraintDescription: 'Please provide the Kinesis Stream name'
+            constraintDescription: 'Please provide the Amazon Kinesis Data Streams name'
         });
 
         const _youtubeSearchQuery = new cdk.CfnParameter(this, 'YoutubeSearchQuery', {

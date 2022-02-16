@@ -11,23 +11,23 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-
 import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 import { Function, IFunction } from '@aws-cdk/aws-lambda';
-import { Chain, StateMachine, StateMachineType } from '@aws-cdk/aws-stepfunctions';
-import { Aws, Construct } from '@aws-cdk/core';
+import * as sfn from '@aws-cdk/aws-stepfunctions';
+import * as logs from '@aws-cdk/aws-logs';
+import * as cdk from '@aws-cdk/core';
 import { LambdaToStepFunction } from '@aws-solutions-constructs/aws-lambda-step-function';
 
 export interface WorkflowProps {
-    readonly stateMachineType?: StateMachineType;
-    readonly chain: Chain,
-    readonly lambdaFunc?: IFunction,
+    readonly stateMachineType?: sfn.StateMachineType;
+    readonly chain: sfn.Chain;
+    readonly lambdaFunc?: IFunction;
 }
 
-export class Workflow extends Construct {
-    private _stMachine: StateMachine
+export class Workflow extends cdk.Construct {
+    private _stMachine: sfn.StateMachine;
 
-    constructor (scope: Construct, id: string, props: WorkflowProps) {
+    constructor(scope: cdk.Construct, id: string, props: WorkflowProps) {
         super(scope, id);
 
         if (props.lambdaFunc != null && props.lambdaFunc != undefined) {
@@ -35,8 +35,15 @@ export class Workflow extends Construct {
                 existingLambdaObj: props.lambdaFunc as Function,
                 stateMachineProps: {
                     definition: props.chain,
-                    ...(props.stateMachineType === StateMachineType.EXPRESS && {
-                        stateMachineType: props.stateMachineType
+                    ...(props.stateMachineType === sfn.StateMachineType.EXPRESS && {
+                        stateMachineType: props.stateMachineType,
+                        logs: {
+                            level: sfn.LogLevel.ERROR,
+                            includeExecutionData: false,
+                            destination: new logs.LogGroup(this, 'TextAnalysisWF', {
+                                logGroupName: `/aws/vendedlogs/states/${cdk.Stack.of(this).getLogicalId}`.slice(0, 255)
+                            })
+                        }
                     })
                 }
             });
@@ -45,34 +52,38 @@ export class Workflow extends Construct {
             const cfnDefaultPolicy = role.node.findChild('DefaultPolicy').node.defaultChild as CfnPolicy;
 
             cfnDefaultPolicy.addMetadata('cfn_nag', {
-                rules_to_suppress: [{
-                    id: 'W76',
-                    reason: 'The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the '+
-                        'SPCM violation as this policy is required to monitor as well as invoke specific tasks'
-                }, {
-                    id: 'W12',
-                    reason: "The 'LogDelivery' actions do not support resource-level authorizations"
-                }]
+                rules_to_suppress: [
+                    {
+                        id: 'W76',
+                        reason:
+                            'The policy adds cloudwatch alarms and allows step function to invoke lambda tasks. Suppressing the ' +
+                            'SPCM violation as this policy is required to monitor as well as invoke specific tasks'
+                    },
+                    {
+                        id: 'W12',
+                        reason: "The 'LogDelivery' actions do not support resource-level authorizations"
+                    }
+                ]
             });
         } else {
             const _stateMachineRole = new Role(this, 'StateMachineRole', {
-                assumedBy: new ServicePrincipal(`states.${Aws.REGION}.amazonaws.com`),
+                assumedBy: new ServicePrincipal(`states.${cdk.Aws.REGION}.amazonaws.com`)
             });
 
             const stateMachineLogPolicy = new Policy(this, 'StateMachineLogPolicy', {
                 statements: [
                     new PolicyStatement({
                         actions: [
-                            "logs:CreateLogDelivery",
-                            "logs:GetLogDelivery",
-                            "logs:UpdateLogDelivery",
-                            "logs:DeleteLogDelivery",
-                            "logs:ListLogDeliveries",
-                            "logs:PutResourcePolicy",
-                            "logs:DescribeResourcePolicies",
-                            "logs:DescribeLogGroups"
+                            'logs:CreateLogDelivery',
+                            'logs:GetLogDelivery',
+                            'logs:UpdateLogDelivery',
+                            'logs:DeleteLogDelivery',
+                            'logs:ListLogDeliveries',
+                            'logs:PutResourcePolicy',
+                            'logs:DescribeResourcePolicies',
+                            'logs:DescribeLogGroups'
                         ],
-                        resources: [ `arn:${Aws.PARTITION}:logs:${Aws.REGION}:${Aws.ACCOUNT_ID}:*` ],
+                        resources: [`arn:${cdk.Aws.PARTITION}:logs:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:*`],
                         effect: Effect.ALLOW
                     })
                 ]
@@ -80,11 +91,18 @@ export class Workflow extends Construct {
 
             _stateMachineRole.attachInlinePolicy(stateMachineLogPolicy);
 
-            this._stMachine = new StateMachine(this, 'WorkflowEngine', {
+            this._stMachine = new sfn.StateMachine(this, 'WorkflowEngine', {
                 definition: props.chain,
-                ...(props.stateMachineType === StateMachineType.EXPRESS && {
+                ...(props.stateMachineType === sfn.StateMachineType.EXPRESS && {
                     stateMachineType: props.stateMachineType,
                     role: _stateMachineRole,
+                    logs: {
+                        level: sfn.LogLevel.ERROR,
+                        includeExecutionData: false,
+                        destination: new logs.LogGroup(this, 'TextAnalysisWF', {
+                            logGroupName: `/aws/vendedlogs/states/${cdk.Stack.of(this).getLogicalId}`.slice(0, 255)
+                        })
+                    }
                 })
             });
 
@@ -92,7 +110,7 @@ export class Workflow extends Construct {
         }
     }
 
-    public get stateMachine(): StateMachine {
+    public get stateMachine(): sfn.StateMachine {
         return this._stMachine;
     }
 }

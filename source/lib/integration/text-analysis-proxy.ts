@@ -29,7 +29,12 @@ export interface TextAnalysisProxyProps {
     readonly twFeedStorage: EventStorage;
     readonly newsFeedStorage: EventStorage;
     readonly youTubeCommentsStorage: EventStorage;
+    readonly customIngestionStorage: EventStorage;
+    readonly customIngestionLoudnessStorage: EventStorage;
+    readonly customIngestionItemStorage: EventStorage;
+    readonly metadataStorage: EventStorage;
     readonly textAnalysisInfNS: string;
+    readonly metadataNS: string;
 }
 
 export class TextAnalysisProxy extends Construct {
@@ -38,7 +43,7 @@ export class TextAnalysisProxy extends Construct {
     constructor(scope: Construct, id: string, props: TextAnalysisProxyProps) {
         super(scope, id);
 
-        this.textAnalysisLambda = buildLambdaFunction(this,  {
+        this.textAnalysisLambda = buildLambdaFunction(this, {
             lambdaFunctionProps: {
                 runtime: Runtime.NODEJS_14_X,
                 handler: 'index.handler',
@@ -54,7 +59,12 @@ export class TextAnalysisProxy extends Construct {
                     TW_FEED_STORAGE: props.twFeedStorage.deliveryStreamName,
                     NEWSFEEDS_FEED_STORAGE: props.newsFeedStorage.deliveryStreamName,
                     YOUTUBECOMMENTS_FEED_STORAGE: props.youTubeCommentsStorage.deliveryStreamName,
-                    TEXT_ANALYSIS_NS: props.textAnalysisInfNS
+                    CUSTOMINGESTION_FEED_STORAGE: props.customIngestionStorage.deliveryStreamName,
+                    CUSTOMINGESTIONMETADATA_FEED_STORAGE: props.metadataStorage.deliveryStreamName,
+                    CUSTOMINGESTIONLOUDNESS_FEED_STORAGE: props.customIngestionLoudnessStorage.deliveryStreamName,
+                    CUSTOMINGESTIONITEM_FEED_STORAGE: props.customIngestionItemStorage.deliveryStreamName,
+                    TEXT_ANALYSIS_NS: props.textAnalysisInfNS,
+                    METADATA_NS: props.metadataNS
                 },
                 timeout: Duration.minutes(15)
             }
@@ -70,23 +80,34 @@ export class TextAnalysisProxy extends Construct {
             props.moderationLabelStorage.deliveryStreamArn,
             props.twFeedStorage.deliveryStreamArn,
             props.newsFeedStorage.deliveryStreamArn,
-            props.youTubeCommentsStorage.deliveryStreamArn
+            props.youTubeCommentsStorage.deliveryStreamArn,
+            props.customIngestionStorage.deliveryStreamArn,
+            props.customIngestionLoudnessStorage.deliveryStreamArn,
+            props.customIngestionItemStorage.deliveryStreamArn,
+            props.metadataStorage.deliveryStreamArn
         ];
 
-        this.textAnalysisLambda.addToRolePolicy(new PolicyStatement({
-            effect: Effect.ALLOW,
-            resources: resourceList,
-            actions: [ 'firehose:PutRecord', 'firehose:PutRecordBatch' ]
-        }));
+        this.textAnalysisLambda.addToRolePolicy(
+            new PolicyStatement({
+                effect: Effect.ALLOW,
+                resources: resourceList,
+                actions: ['firehose:PutRecord', 'firehose:PutRecordBatch']
+            })
+        );
 
-        (this.textAnalysisLambda.role?.node.tryFindChild('DefaultPolicy')?.node.findChild('Resource') as CfnPolicy).addMetadata('cfn_nag', {
-            rules_to_suppress: [{
-                id: 'W76',
-                reason: 'The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SCPM rule'
-            }, {
-                id: 'W12',
-                reason: 'Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.'
-            }]
+        (
+            this.textAnalysisLambda.role?.node.tryFindChild('DefaultPolicy')?.node.findChild('Resource') as CfnPolicy
+        ).addMetadata('cfn_nag', {
+            rules_to_suppress: [
+                {
+                    id: 'W76',
+                    reason: 'The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SPCM rule'
+                },
+                {
+                    id: 'W12',
+                    reason: 'Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.'
+                }
+            ]
         });
     }
 

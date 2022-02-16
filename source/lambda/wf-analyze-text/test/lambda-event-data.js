@@ -65,6 +65,32 @@ exports.event = {
     }]
 };
 
+let _withSentiment = { ..._eventJSON };
+_withSentiment.Sentiment = 'POSITIVE';
+
+exports.eventWithSentiment = {
+    Records: [{
+        body: JSON.stringify({
+            input: _withSentiment,
+            taskToken: 'fakeToken'
+        })
+    }]    
+}
+
+let _withEmptyText = { ..._eventJSON };
+_withEmptyText.feed.text = '';
+_withEmptyText.feed._cleansed_text = '';
+_withEmptyText.feed._translated_text = '';
+exports.eventWithEmptyText = {
+    Records: [{
+        body: JSON.stringify({
+            input: _withEmptyText,
+            taskToken: 'fakeToken'
+        })
+    }]    
+}
+
+
 exports.eventWithRekText = {
     Records: [{
         body: JSON.stringify({

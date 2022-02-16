@@ -12,32 +12,32 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import * as glue from "@aws-cdk/aws-glue";
+import * as cdk from "@aws-cdk/core";
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export class TopicsTable extends GenericTable {
+export class TopicsTable extends GenericCfnTable {
 
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): Column[] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
-                name: 'job_id',
-                type: Schema.STRING
-            }, {
-                name: 'job_timestamp',
-                type: Schema.TIMESTAMP
-            }, {
-                name: 'term',
-                type: Schema.STRING
-            }, {
-                name: 'weight',
-                type: Schema.DOUBLE
-            }, {
-                name: 'topic',
-                type: Schema.STRING
-            }];
+            name: 'job_id',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'job_timestamp',
+            type: glue.Schema.TIMESTAMP.inputString
+        }, {
+            name: 'term',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'weight',
+            type: glue.Schema.DOUBLE.inputString
+        }, {
+            name: 'topic',
+            type: glue.Schema.STRING.inputString
+        }];
     }
 }
