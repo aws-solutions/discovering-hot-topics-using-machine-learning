@@ -14,7 +14,7 @@
 
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from test.test_credential_helper import ssm_setup
 from test.test_ddb_helper import ddb_setup
 from test.test_stream_helper import stream_setup
@@ -69,7 +69,7 @@ def test_search_comments(mock_youtube_resource):
                             "videoId": video_id,
                             "viewerRating": 2,
                             "likeCount": 0,
-                            "updatedAt": datetime.now().strftime(api_response_time_format),
+                            "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                         },
                     },
                     "videoId": video_id,
@@ -96,7 +96,7 @@ def test_search_comments_with_tracker_date(mock_youtube_resource):
     ddb = ddb_setup(table_name)
     video_id = "fakeVideoId"
 
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
     expiry_window = str(
         int((current_time + timedelta(days=int(os.environ.get("VIDEO_SEARCH_INGESTION_WINDOW", 7)))).timestamp() * 1000)
     )
@@ -139,7 +139,7 @@ def test_search_comments_with_tracker_date(mock_youtube_resource):
                             "videoId": video_id,
                             "viewerRating": 2,
                             "likeCount": 0,
-                            "updatedAt": datetime.now().strftime(api_response_time_format),
+                            "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                         },
                     },
                     "videoId": video_id,
@@ -166,7 +166,7 @@ def test_search_comments_with_page_token(mock_youtube_resource):
     ddb = ddb_setup(table_name)
     video_id = "fakeVideoId"
 
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
     expiry_window = str(
         int((current_time + timedelta(days=int(os.environ.get("VIDEO_SEARCH_INGESTION_WINDOW", 7)))).timestamp() * 1000)
     )
@@ -208,8 +208,8 @@ def test_search_comments_with_page_token(mock_youtube_resource):
                                 "videoId": video_id,
                                 "viewerRating": 2,
                                 "likeCount": 0,
-                                "publishedAt": datetime.now().strftime(api_response_time_format),
-                                "updatedAt": datetime.now().strftime(api_response_time_format),
+                                "publishedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
+                                "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                             },
                         },
                         "videoId": video_id,
@@ -235,8 +235,8 @@ def test_search_comments_with_page_token(mock_youtube_resource):
                                 "videoId": video_id,
                                 "viewerRating": 2,
                                 "likeCount": 0,
-                                "publishedAt": datetime.now().strftime(api_response_time_format),
-                                "updatedAt": datetime.now().strftime(api_response_time_format),
+                                "publishedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
+                                "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                             },
                         },
                         "videoId": video_id,
@@ -264,7 +264,7 @@ def test_search_comments_with_replies(mock_youtube_resource):
     ddb = ddb_setup(table_name)
     video_id = "fakeVideoId"
 
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
     expiry_window = str(
         int((current_time + timedelta(days=int(os.environ.get("VIDEO_SEARCH_INGESTION_WINDOW", 7)))).timestamp() * 1000)
     )
@@ -305,8 +305,8 @@ def test_search_comments_with_replies(mock_youtube_resource):
                             "videoId": video_id,
                             "viewerRating": 2,
                             "likeCount": 0,
-                            "publishedAt": datetime.now().strftime(api_response_time_format),
-                            "updatedAt": datetime.now().strftime(api_response_time_format),
+                            "publishedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
+                            "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                         },
                     },
                     "videoId": video_id,
@@ -322,8 +322,8 @@ def test_search_comments_with_replies(mock_youtube_resource):
                                 "videoId": video_id,
                                 "viewerRating": 2,
                                 "likeCount": 0,
-                                "publishedAt": datetime.now().strftime(api_response_time_format),
-                                "updatedAt": datetime.now().strftime(api_response_time_format),
+                                "publishedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
+                                "updatedAt": datetime.now(timezone.utc).strftime(api_response_time_format),
                             },
                         }
                     ]
@@ -350,7 +350,7 @@ def test_search_comments_not_publishing_record(mock_youtube_resource):
     ddb = ddb_setup(table_name)
     video_id = "fakeVideoId"
 
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
     expiry_window = str(
         int((current_time + timedelta(days=int(os.environ.get("VIDEO_SEARCH_INGESTION_WINDOW", 7)))).timestamp() * 1000)
     )
@@ -444,7 +444,7 @@ def test_search_comments_with_api_throws_error(mock_youtube_resource):
 
 
 def test_update_text_comment():
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
     comment = Comment(
         {
             "id": "fakeCommentId",
@@ -473,7 +473,7 @@ def test_update_text_comment():
 
 
 def test_get_split_comments():
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     comment_text = ""
     for index in range(500):

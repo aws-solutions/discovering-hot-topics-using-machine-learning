@@ -1,5 +1,6 @@
-pytest-cov
-pytest-env
-pytest
-pytest-mock
-moto==2.2.2
+pytest-cov==3.0.0
+pytest-env==0.6.2
+moto==2.3.1
+pytest==6.2.5
+botocore
+mock==4.0.3

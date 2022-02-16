@@ -1,12 +1,14 @@
 # exclude python 3rd party modules
-google*
-cachetools*
+__pycache__                    
 _distutils_hack
 .venv-test
+cachetools*
 apiclient
 bin
+cachetools*
 certifi*
 charset*
+google*
 httplib2*
 idna*
 packaging*
@@ -22,3 +24,6 @@ six*
 uritemplate*
 urllib3*
 distutils-precedence.pth
+CHANGELOG.md                   
+LICENSE                        
+README.md

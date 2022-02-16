@@ -12,46 +12,76 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, DataFormat, IDatabase, Schema, Table } from '@aws-cdk/aws-glue';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Construct } from '@aws-cdk/core';
+import * as glue from '@aws-cdk/aws-glue';
+import * as s3 from '@aws-cdk/aws-s3';
+import * as cdk from '@aws-cdk/core';
 
-export interface GenericTableProps {
-    readonly s3InputDataBucket: Bucket,
+export interface GenericCfnTableProps {
+    readonly tableName: string;
+    readonly database: glue.IDatabase,
+    readonly s3InputDataBucket: s3.Bucket,
     readonly s3BucketPrefix: string,
-    readonly database: IDatabase,
-    readonly tableName: string
 }
 
-export abstract class GenericTable extends Construct {
-    private _table: Table;
+export abstract class GenericCfnTable extends cdk.Construct {
+    public readonly table: glue.CfnTable;
 
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id);
 
-        this._table = new Table(this, props.tableName, {
-            database: props.database,
-            tableName: props.tableName,
-            columns: this.getColumns(),
-            dataFormat: DataFormat.PARQUET,
-            storedAsSubDirectories: true,
-            bucket: props.s3InputDataBucket,
-            s3Prefix: props.s3BucketPrefix,
-            partitionKeys: this.getPartitionKeys()
+        this.table = new glue.CfnTable(this, `Cfn${props.tableName}`, {
+            catalogId: cdk.Aws.ACCOUNT_ID,
+            databaseName: props.database.databaseName,
+            tableInput: {
+                description: `A table created with partition projection for ${props.tableName}`,
+                name: props.tableName,
+                parameters: {
+                    "classification": "parquet",
+                    "has_encryped_data": false,
+                    "projection.enabled": "TRUE",
+                    "projection.created_at.range": "NOW-45DAYS,NOW",
+                    "projection.created_at.type": "date",
+                    "projection.created_at.format": "yyyy-MM-dd"
+                },
+                partitionKeys: this.partitionKeys,
+                storageDescriptor: {
+                    columns: this.getColumns(),
+                    compressed: false,
+                    inputFormat: "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+                    location: `${props.s3InputDataBucket.s3UrlForObject(props.s3BucketPrefix)}`,
+                    outputFormat: "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+                    serdeInfo: {
+                        serializationLibrary: "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"
+                    },
+                    storedAsSubDirectories: true
+                },
+                tableType: 'EXTERNAL_TABLE',
+            }
         });
     }
 
-    protected getPartitionKeys(): Column[] {
+    protected abstract getColumns(): glue.CfnTable.ColumnProperty[];
+
+    protected get partitionKeys(): glue.CfnTable.ColumnProperty[] {
         return [{
-                name: 'created_at',
-                type: Schema.TIMESTAMP
-            }]
+            name: 'created_at',
+            type: glue.Schema.TIMESTAMP.inputString
+        }]
     }
 
-    protected abstract getColumns(): Column[];
-
-
-    public get table(): Table {
-        return this._table;
+    protected get coreColumns() {
+        return [{
+            name: 'account_name',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'platform',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'search_query',
+            type: glue.Schema.STRING.inputString
+        }, {
+            name: 'id_str',
+            type: glue.Schema.STRING.inputString
+        }]
     }
 }

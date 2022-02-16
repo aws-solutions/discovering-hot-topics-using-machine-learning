@@ -15,11 +15,11 @@
 import json
 import os
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 
 from moto import mock_kinesis
 from shared_util.service_helper import get_service_client
-from util.stream_helper import buffer_data_into_stream
+from shared_util.stream_helper import buffer_data_into_stream
 
 
 @mock_kinesis
@@ -48,7 +48,7 @@ class TestStreamBuffer(unittest.TestCase):
             "platform": "fakeplatform",
             "search_query": "query_str",
             "feed": {
-                "created_at": datetime.now().timestamp(),
+                "created_at": datetime.now(timezone.utc).timestamp(),
                 "id": "fakeid",
                 "id_str": "fakeid",
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",

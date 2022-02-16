@@ -3,40 +3,28 @@
 exports[`test App Integration Construct 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8ArtifactHashFDFD8F01": Object {
-      "Description": "Artifact hash for asset \\"37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94ArtifactHashC1528AF6": Object {
+      "Description": "Artifact hash for asset \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
-    "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8S3BucketA102F591": Object {
-      "Description": "S3 bucket for asset \\"37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3BucketE7D5C098": Object {
+      "Description": "S3 bucket for asset \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
-    "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8S3VersionKeyF92134AC": Object {
-      "Description": "S3 key for asset version \\"37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81": Object {
+      "Description": "S3 key for asset version \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2ArtifactHash03DC3DBA": Object {
-      "Description": "Artifact hash for asset \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
+    "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07ArtifactHashA38E62A7": Object {
+      "Description": "Artifact hash for asset \\"d69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07\\"",
       "Type": "String",
     },
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3Bucket4FE12964": Object {
-      "Description": "S3 bucket for asset \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
+    "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07S3Bucket56C50ED9": Object {
+      "Description": "S3 bucket for asset \\"d69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07\\"",
       "Type": "String",
     },
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0": Object {
-      "Description": "S3 key for asset version \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
-      "Type": "String",
-    },
-    "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12ArtifactHashE4B5838C": Object {
-      "Description": "Artifact hash for asset \\"d79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12\\"",
-      "Type": "String",
-    },
-    "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12S3Bucket178F87D0": Object {
-      "Description": "S3 bucket for asset \\"d79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12\\"",
-      "Type": "String",
-    },
-    "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12S3VersionKeyD471BFF3": Object {
-      "Description": "S3 key for asset version \\"d79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12\\"",
+    "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07S3VersionKey24994A45": Object {
+      "Description": "S3 key for asset version \\"d69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07\\"",
       "Type": "String",
     },
   },
@@ -62,6 +50,1311 @@ Object {
         },
       },
       "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionFirehoseGlueKmsE75E943F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionFirehoseGlueKmsE75E943F",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionFirehoseRole740DD3F6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionFirehoseGlueTablePolicy5BC6DFF0": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Ref": "IntegrationInfDBCustomIngestionCfncustomingestionCF1D54E2",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionFirehoseGlueTablePolicy5BC6DFF0",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionFirehoseRole740DD3F6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionFirehoseRole740DD3F6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionFirehoseRoleDefaultPolicy26953B1A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionFirehoseRoleDefaultPolicy26953B1A",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionFirehoseRole740DD3F6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionItemFirehoseGlueKms8B9ECAD4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionItemFirehoseGlueKms8B9ECAD4",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionItemFirehoseGlueTablePolicy1D9830B6": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Ref": "IntegrationInfDBCustomIngestionItemCfncustomingestionitemC488BBC0",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionItemFirehoseGlueTablePolicy1D9830B6",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionItemFirehoseRoleB492CD4B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionItemFirehoseRoleDefaultPolicy90F7728A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionItemFirehoseRoleDefaultPolicy90F7728A",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionItemKinesisFirehose487658C0": Object {
+      "DependsOn": Array [
+        "IntegrationCustomIngestionItemFirehoseGlueKms8B9ECAD4",
+        "IntegrationCustomIngestionItemFirehoseGlueTablePolicy1D9830B6",
+        "IntegrationCustomIngestionItemFirehoseRoleDefaultPolicy90F7728A",
+        "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 128,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroup7B95EC98",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroupfirehoselogstream6928D7C9",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Ref": "IntegrationInfDBCustomIngestionItemCfncustomingestionitemC488BBC0",
+              },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "error/customingestionitem/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "customingestionitem/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationCustomIngestionItemFirehoseRoleB492CD4B",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationCustomIngestionItemKinesisFirehoseKinesisFirehosePolicyEA67E9B6": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroup7B95EC98",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroupfirehoselogstream6928D7C9",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionItemKinesisFirehoseKinesisFirehosePolicyEA67E9B6",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionItemKinesisFirehoseKinesisFirehoseRole8F63C867",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionItemKinesisFirehoseKinesisFirehoseRole8F63C867": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroup7B95EC98": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroupfirehoselogstream6928D7C9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationCustomIngestionItemKinesisFirehosefirehoseloggroup7B95EC98",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionKinesisFirehose9C19C395": Object {
+      "DependsOn": Array [
+        "IntegrationCustomIngestionFirehoseGlueKmsE75E943F",
+        "IntegrationCustomIngestionFirehoseGlueTablePolicy5BC6DFF0",
+        "IntegrationCustomIngestionFirehoseRoleDefaultPolicy26953B1A",
+        "IntegrationCustomIngestionFirehoseRole740DD3F6",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 128,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationCustomIngestionKinesisFirehosefirehoseloggroup95E8C3C0",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationCustomIngestionKinesisFirehosefirehoseloggroupfirehoselogstream9C10FF76",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationCustomIngestionFirehoseRole740DD3F6",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Ref": "IntegrationInfDBCustomIngestionCfncustomingestionCF1D54E2",
+              },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "error/customingestion/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "customingestion/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationCustomIngestionFirehoseRole740DD3F6",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationCustomIngestionKinesisFirehoseKinesisFirehosePolicyB44E14D5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionKinesisFirehosefirehoseloggroup95E8C3C0",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionKinesisFirehosefirehoseloggroupfirehoselogstream9C10FF76",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionKinesisFirehoseKinesisFirehosePolicyB44E14D5",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionKinesisFirehoseKinesisFirehoseRoleA89BEAFD",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionKinesisFirehoseKinesisFirehoseRoleA89BEAFD": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionKinesisFirehosefirehoseloggroup95E8C3C0": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionKinesisFirehosefirehoseloggroupfirehoselogstream9C10FF76": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationCustomIngestionKinesisFirehosefirehoseloggroup95E8C3C0",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionLoudnessFirehoseGlueKms336EC1C0": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionLoudnessFirehoseGlueKms336EC1C0",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionLoudnessFirehoseGlueTablePolicy8441ACDA": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Ref": "IntegrationInfDBCustomIngestionLoudnessCfncustomingestionloudnessA5C73755",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionLoudnessFirehoseGlueTablePolicy8441ACDA",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionLoudnessFirehoseRoleDefaultPolicyE730D8F7": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionLoudnessFirehoseRoleDefaultPolicyE730D8F7",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionLoudnessKinesisFirehose5FB054D8": Object {
+      "DependsOn": Array [
+        "IntegrationCustomIngestionLoudnessFirehoseGlueKms336EC1C0",
+        "IntegrationCustomIngestionLoudnessFirehoseGlueTablePolicy8441ACDA",
+        "IntegrationCustomIngestionLoudnessFirehoseRoleDefaultPolicyE730D8F7",
+        "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 128,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupA42E9739",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupfirehoselogstream68A3768F",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Ref": "IntegrationInfDBCustomIngestionLoudnessCfncustomingestionloudnessA5C73755",
+              },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "error/customingestionloudness/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "customingestionloudness/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationCustomIngestionLoudnessFirehoseRoleB6FEE6DF",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationCustomIngestionLoudnessKinesisFirehoseKinesisFirehosePolicyFD03BF21": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupA42E9739",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupfirehoselogstream68A3768F",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationCustomIngestionLoudnessKinesisFirehoseKinesisFirehosePolicyFD03BF21",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehoseKinesisFirehoseRoleCE598C48",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationCustomIngestionLoudnessKinesisFirehoseKinesisFirehoseRoleCE598C48": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupA42E9739": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupfirehoselogstream68A3768F": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehosefirehoseloggroupA42E9739",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
     "IntegrationEntityFirehoseGlueKmsFB7BE402": Object {
@@ -134,7 +1427,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBEntityentityTable12F162E4",
+                        "Ref": "IntegrationInfDBEntityCfnentity9A0483C9",
                       },
                     ],
                   ],
@@ -275,7 +1568,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -309,8 +1602,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBEntityentityTable12F162E4",
+                "Ref": "IntegrationInfDBEntityCfnentity9A0483C9",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -337,8 +1636,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "entity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "entity/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/entity/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "entity/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationEntityFirehoseRole6420D932",
@@ -512,6 +1829,7 @@ Object {
           ],
           "source": Array [
             "com.test",
+            "metadata.call_analytics",
           ],
         },
         "State": "ENABLED",
@@ -590,7 +1908,7 @@ Object {
       },
       "Type": "AWS::Events::EventBus",
     },
-    "IntegrationInfDBEntityentityTable12F162E4": Object {
+    "IntegrationInfDBCustomIngestionCfncustomingestionCF1D54E2": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -599,11 +1917,286 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "entity generated by CDK",
+          "Description": "A table created with partition projection for customingestion",
+          "Name": "customingestion",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "lang",
+                "Type": "string",
+              },
+              Object {
+                "Name": "_translated_text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "_cleansed_text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "source_file",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "BeginOffsetMillis",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "EndOffsetMillis",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "Sentiment",
+                "Type": "string",
+              },
+              Object {
+                "Name": "ParticipantRole",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/customingestion/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "IntegrationInfDBCustomIngestionItemCfncustomingestionitemC488BBC0": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for customingestionitem",
+          "Name": "customingestionitem",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Type",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Confidence",
+                "Type": "float",
+              },
+              Object {
+                "Name": "Content",
+                "Type": "string",
+              },
+              Object {
+                "Name": "BeginOffsetMillis",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "EndOffsetMillis",
+                "Type": "bigint",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/customingestionitem/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "IntegrationInfDBCustomIngestionLoudnessCfncustomingestionloudnessA5C73755": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for customingestionloudness",
+          "Name": "customingestionloudness",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "score",
+                "Type": "float",
+              },
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/customingestionloudness/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "IntegrationInfDBEntityCfnentity9A0483C9": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for entity",
           "Name": "entity",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -742,502 +2335,7 @@ Object {
       },
       "Type": "AWS::Glue::SecurityConfiguration",
     },
-    "IntegrationInfDBHotTopicsDBCustomResource0E51A003": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Properties": Object {
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::CreatePartition",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionAwsEventsLambdaInvokePermission1A1717D53": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "IntegrationInfDBHotTopicsDBNightlyCreateParitionNightlyCreateParitionWEventsRuleC5C68A32",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490",
-        "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
-        "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W58",
-              "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
-            },
-            Object {
-              "id": "W89",
-              "reason": "This is not a rule for the general case, just for specific use cases/industries",
-            },
-            Object {
-              "id": "W92",
-              "reason": "Impossible for us to define the correct concurrency for clients",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8S3BucketA102F591",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8S3VersionKeyF92134AC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters37f7dfc65b1e0f8e667abd611e22ed736656e76d1fcb841373b98c28a63fead8S3VersionKeyF92134AC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "Lambda function to create parition on glue tables",
-        "Environment": Object {
-          "Variables": Object {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "DATABASE_NAME": Object {
-              "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-            },
-            "TABLE_NAMES": "sentiment,entity,keyphrase,topics,topic-mappings,txtinimgentity,txtinimgsentiment,txtinimgkeyphrase,moderationlabels,newsfeedstorage,twfeedstorage,youtubecomments",
-          },
-        },
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs14.x",
-        "Timeout": 300,
-        "TracingConfig": Object {
-          "Mode": "Active",
-        },
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":logs:",
-                        Object {
-                          "Ref": "AWS::Region",
-                        },
-                        ":",
-                        Object {
-                          "Ref": "AWS::AccountId",
-                        },
-                        ":log-group:/aws/lambda/*",
-                      ],
-                    ],
-                  },
-                },
-              ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "LambdaFunctionServiceRolePolicy",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
-              "id": "W12",
-              "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
-            },
-          ],
-        },
-      },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "xray:PutTraceSegments",
-                "xray:PutTelemetryRecords",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "IntegrationS3Bucket22BFCA0D",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "IntegrationS3Bucket22BFCA0D",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRoleDefaultPolicy92017490",
-        "Roles": Array [
-          Object {
-            "Ref": "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "glue:GetPartition",
-                "glue:GetTable",
-                "glue:CreatePartition",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":glue:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":table/",
-                      Object {
-                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":glue:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":database/",
-                      Object {
-                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-                      },
-                    ],
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":glue:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":catalog",
-                    ],
-                  ],
-                },
-              ],
-            },
-            Object {
-              "Action": "kms:Decrypt",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":kms:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":alias/aws/glue",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": Array [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":logs:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":/aws-glue/*",
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "IntegrationInfDBHotTopicsDBLambdaGlueFFEE8997",
-        "Roles": Array [
-          Object {
-            "Ref": "IntegrationInfDBHotTopicsDBLambdaFunctionServiceRole89E41EAA",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "IntegrationInfDBHotTopicsDBNightlyCreateParitionNightlyCreateParitionWEventsRuleC5C68A32": Object {
-      "DependsOn": Array [
-        "IntegrationInfDBEntityentityTable12F162E4",
-        "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
-        "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
-        "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
-        "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
-        "IntegrationInfDBTopicstopicsTableE352FDCE",
-        "IntegrationInfDBTwitterTwitterRecordB6E69351",
-        "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
-        "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
-        "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
-        "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
-      ],
-      "Properties": Object {
-        "ScheduleExpression": "cron(1 0 * * ? *)",
-        "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
-                "IntegrationInfDBHotTopicsDBLambdaFunctionD5E233F0",
-                "Arn",
-              ],
-            },
-            "Id": "Target0",
-          },
-        ],
-      },
-      "Type": "AWS::Events::Rule",
-    },
-    "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9": Object {
+    "IntegrationInfDBKeyPhraseCfnkeyphraseF95A8695": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1246,11 +2344,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "keyphrase generated by CDK",
+          "Description": "A table created with partition projection for keyphrase",
           "Name": "keyphrase",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1326,7 +2428,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955": Object {
+    "IntegrationInfDBMetadataCfnmetadata9488F83E": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1335,11 +2437,104 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "moderationlabels generated by CDK",
+          "Description": "A table created with partition projection for metadata",
+          "Name": "metadata",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Categories",
+                "Type": "struct<MatchedCategories:array<string>>",
+              },
+              Object {
+                "Name": "Channel",
+                "Type": "string",
+              },
+              Object {
+                "Name": "JobName",
+                "Type": "string",
+              },
+              Object {
+                "Name": "Participants",
+                "Type": "array<struct<ParticipantRole:string>>",
+              },
+              Object {
+                "Name": "ConversationCharacteristics",
+                "Type": "struct<NonTalkTime:struct<Instances:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>,TotalTimeMillis:bigint>,Interruptions:struct<TotalCount:int,TotalTimeMillis:bigint,InterruptionsByInterrupter:struct<AGENT:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>>>,TotalConversationDurationMillis:bigint,Sentiment:struct<OverallSentiment:struct<AGENT:float,CUSTOMER:float>,SentimentByPeriod:struct<QUARTER:struct<AGENT:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>,CUSTOMER:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>>>>,TalkSpeed:struct<DetailsByParticipant:struct<AGENT:struct<AverageWordsPerMinute:int>,CUSTOMER:struct<AverageWordsPerMinute:int>>>,TalkTime:struct<DetailsByParticipant:struct<AGENT:struct<TotalTimeMillis:bigint>,CUSTOMER:struct<TotalTimeMillis:bigint>>,TotalTimeMillis:bigint>>",
+              },
+              Object {
+                "Name": "ContentMetadata",
+                "Type": "struct<Output:string>",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "IntegrationS3Bucket22BFCA0D",
+                  },
+                  "/metadata/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "IntegrationInfDBModerationLabelsCfnmoderationlabels2D8D0975": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for moderationlabels",
           "Name": "moderationlabels",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1403,7 +2598,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F": Object {
+    "IntegrationInfDBNewsFeedCfnnewsfeedstorage1858269F": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1412,11 +2607,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "newsfeedstorage generated by CDK",
+          "Description": "A table created with partition projection for newsfeedstorage",
           "Name": "newsfeedstorage",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1488,7 +2687,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBSentimentsentimentTable2A4FD6F0": Object {
+    "IntegrationInfDBSentimentCfnsentiment765321B6": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1497,11 +2696,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "sentiment generated by CDK",
+          "Description": "A table created with partition projection for sentiment",
           "Name": "sentiment",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1581,7 +2784,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTopicMappingstopicmappingsTableCA762584": Object {
+    "IntegrationInfDBTopicMappingsCfntopicmappingsA5BE2E21": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1590,11 +2793,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "topic-mappings generated by CDK",
+          "Description": "A table created with partition projection for topic-mappings",
           "Name": "topic-mappings",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1650,7 +2857,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTopicstopicsTableE352FDCE": Object {
+    "IntegrationInfDBTopicsCfntopics92C7BC5A": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1659,11 +2866,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "topics generated by CDK",
+          "Description": "A table created with partition projection for topics",
           "Name": "topics",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1744,7 +2955,7 @@ Object {
       },
       "Type": "AWS::Glue::Database",
     },
-    "IntegrationInfDBTwitterTwitterRecordB6E69351": Object {
+    "IntegrationInfDBTwitterCfntwfeedstorageDC850E99": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1753,15 +2964,19 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "Store Twitter Records",
+          "Description": "A table created with partition projection for twfeedstorage",
           "Name": "twfeedstorage",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
-              "Name": "db_created_at",
+              "Name": "created_at",
               "Type": "timestamp",
             },
           ],
@@ -1789,7 +3004,7 @@ Object {
               },
               Object {
                 "Name": "entities",
-                "Type": "struct<hashtags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
+                "Type": "struct<hastags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
               },
               Object {
                 "Name": "reply_count",
@@ -1828,10 +3043,6 @@ Object {
                 "Type": "string",
               },
               Object {
-                "Name": "created_at",
-                "Type": "string",
-              },
-              Object {
                 "Name": "place",
                 "Type": "struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>",
               },
@@ -1857,7 +3068,7 @@ Object {
               },
               Object {
                 "Name": "user",
-                "Type": "struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verified:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:string,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
+                "Type": "struct<id:string,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verfied:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:bigint,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
               },
               Object {
                 "Name": "quote_count",
@@ -1889,7 +3100,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841": Object {
+    "IntegrationInfDBTxtInImgEntityCfntxtinimgentityB1EF7546": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1898,11 +3109,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "txtinimgentity generated by CDK",
+          "Description": "A table created with partition projection for txtinimgentity",
           "Name": "txtinimgentity",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -1982,7 +3197,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26": Object {
+    "IntegrationInfDBTxtInImgKeyPhraseCfntxtinimgkeyphrase5C32F0E7": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -1991,11 +3206,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "txtinimgkeyphrase generated by CDK",
+          "Description": "A table created with partition projection for txtinimgkeyphrase",
           "Name": "txtinimgkeyphrase",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -2071,7 +3290,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18": Object {
+    "IntegrationInfDBTxtInImgSentimentCfntxtinimgsentimentE52337E9": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -2080,11 +3299,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "txtinimgsentiment generated by CDK",
+          "Description": "A table created with partition projection for txtinimgsentiment",
           "Name": "txtinimgsentiment",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -2164,7 +3387,7 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C": Object {
+    "IntegrationInfDBYoutubeCommentsCfnyoutubecommentsE837E65C": Object {
       "Properties": Object {
         "CatalogId": Object {
           "Ref": "AWS::AccountId",
@@ -2173,11 +3396,15 @@ Object {
           "Ref": "IntegrationInfDBTweetDBF81EA9E5",
         },
         "TableInput": Object {
-          "Description": "youtubecomments generated by CDK",
+          "Description": "A table created with partition projection for youtubecomments",
           "Name": "youtubecomments",
           "Parameters": Object {
             "classification": "parquet",
-            "has_encrypted_data": false,
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
           },
           "PartitionKeys": Array [
             Object {
@@ -2339,7 +3566,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+                        "Ref": "IntegrationInfDBKeyPhraseCfnkeyphraseF95A8695",
                       },
                     ],
                   ],
@@ -2480,7 +3707,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -2514,8 +3741,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBKeyPhrasekeyphraseTable41C485C9",
+                "Ref": "IntegrationInfDBKeyPhraseCfnkeyphraseF95A8695",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -2542,8 +3775,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "keyphrase/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "keyphrase/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/keyphrase/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "keyphrase/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationKeyPhraseFirehoseRoleFAE5F92E",
@@ -2680,6 +3931,441 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "IntegrationMetadataFirehoseGlueKmsCC580BBB": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/glue",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationMetadataFirehoseGlueKmsCC580BBB",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationMetadataFirehoseRole50F3295B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationMetadataFirehoseGlueTablePolicy47E8267D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "glue:GetTable",
+                "glue:GetTableVersion",
+                "glue:GetTableVersions",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":table/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                      "/",
+                      Object {
+                        "Ref": "IntegrationInfDBMetadataCfnmetadata9488F83E",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":database/",
+                      Object {
+                        "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:aws:glue:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":catalog",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationMetadataFirehoseGlueTablePolicy47E8267D",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationMetadataFirehoseRole50F3295B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationMetadataFirehoseRole50F3295B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationMetadataFirehoseRoleDefaultPolicy38D4871F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationMetadataFirehoseRoleDefaultPolicy38D4871F",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationMetadataFirehoseRole50F3295B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationMetadataKinesisFirehoseC6557973": Object {
+      "DependsOn": Array [
+        "IntegrationMetadataFirehoseGlueKmsCC580BBB",
+        "IntegrationMetadataFirehoseGlueTablePolicy47E8267D",
+        "IntegrationMetadataFirehoseRoleDefaultPolicy38D4871F",
+        "IntegrationMetadataFirehoseRole50F3295B",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationS3Bucket22BFCA0D",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 128,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "IntegrationMetadataKinesisFirehosefirehoseloggroup08C5123C",
+            },
+            "LogStreamName": Object {
+              "Ref": "IntegrationMetadataKinesisFirehosefirehoseloggroupfirehoselogstreamAC7F954D",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "DataFormatConversionConfiguration": Object {
+            "InputFormatConfiguration": Object {
+              "Deserializer": Object {
+                "OpenXJsonSerDe": Object {},
+              },
+            },
+            "OutputFormatConfiguration": Object {
+              "Serializer": Object {
+                "ParquetSerDe": Object {},
+              },
+            },
+            "SchemaConfiguration": Object {
+              "DatabaseName": Object {
+                "Ref": "IntegrationInfDBTweetDBF81EA9E5",
+              },
+              "RoleARN": Object {
+                "Fn::GetAtt": Array [
+                  "IntegrationMetadataFirehoseRole50F3295B",
+                  "Arn",
+                ],
+              },
+              "TableName": Object {
+                "Ref": "IntegrationInfDBMetadataCfnmetadata9488F83E",
+              },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
+            },
+          },
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "ErrorOutputPrefix": "error/metadata/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "metadata/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "IntegrationMetadataFirehoseRole50F3295B",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "IntegrationMetadataKinesisFirehoseKinesisFirehosePolicyF8C3803C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "IntegrationS3Bucket22BFCA0D",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "IntegrationMetadataKinesisFirehosefirehoseloggroup08C5123C",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "IntegrationMetadataKinesisFirehosefirehoseloggroupfirehoselogstreamAC7F954D",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "IntegrationMetadataKinesisFirehoseKinesisFirehosePolicyF8C3803C",
+        "Roles": Array [
+          Object {
+            "Ref": "IntegrationMetadataKinesisFirehoseKinesisFirehoseRoleEA0CD933",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "IntegrationMetadataKinesisFirehoseKinesisFirehoseRoleEA0CD933": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IntegrationMetadataKinesisFirehosefirehoseloggroup08C5123C": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "IntegrationMetadataKinesisFirehosefirehoseloggroupfirehoselogstreamAC7F954D": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "IntegrationMetadataKinesisFirehosefirehoseloggroup08C5123C",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "IntegrationModerationLabelsFirehoseGlueKmsF1A85007": Object {
       "Properties": Object {
         "PolicyDocument": Object {
@@ -2750,7 +4436,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+                        "Ref": "IntegrationInfDBModerationLabelsCfnmoderationlabels2D8D0975",
                       },
                     ],
                   ],
@@ -2891,7 +4577,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -2925,8 +4611,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBModerationLabelsmoderationlabelsTable424F1955",
+                "Ref": "IntegrationInfDBModerationLabelsCfnmoderationlabels2D8D0975",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -2953,8 +4645,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "moderationlabels/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "moderationlabels/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/moderationlabels/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "moderationlabels/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationModerationLabelsFirehoseRoleCE8DFD78",
@@ -3161,7 +4871,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+                        "Ref": "IntegrationInfDBNewsFeedCfnnewsfeedstorage1858269F",
                       },
                     ],
                   ],
@@ -3302,7 +5012,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -3336,8 +5046,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBNewsFeednewsfeedstorageTable9086158F",
+                "Ref": "IntegrationInfDBNewsFeedCfnnewsfeedstorage1858269F",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -3364,8 +5080,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "newsfeedstorage/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "newsfeedstorage/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/newsfeedstorage/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "newsfeedstorage/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationNewsFeedStorageFirehoseRole452916A8",
@@ -3548,7 +5282,7 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "*",
+              "Action": "s3:*",
               "Condition": Object {
                 "Bool": Object {
                   "aws:SecureTransport": "false",
@@ -3559,6 +5293,12 @@ Object {
                 "AWS": "*",
               },
               "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationS3Bucket22BFCA0D",
+                    "Arn",
+                  ],
+                },
                 Object {
                   "Fn::Join": Array [
                     "",
@@ -3573,14 +5313,7 @@ Object {
                     ],
                   ],
                 },
-                Object {
-                  "Fn::GetAtt": Array [
-                    "IntegrationS3Bucket22BFCA0D",
-                    "Arn",
-                  ],
-                },
               ],
-              "Sid": "HttpsOnly",
             },
           ],
           "Version": "2012-10-17",
@@ -3658,7 +5391,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBSentimentsentimentTable2A4FD6F0",
+                        "Ref": "IntegrationInfDBSentimentCfnsentiment765321B6",
                       },
                     ],
                   ],
@@ -3799,7 +5532,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -3833,8 +5566,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBSentimentsentimentTable2A4FD6F0",
+                "Ref": "IntegrationInfDBSentimentCfnsentiment765321B6",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -3861,8 +5600,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "sentiment/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "sentiment/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/sentiment/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "sentiment/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationSentimentFirehoseRoleA51A0692",
@@ -4025,7 +5782,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12S3Bucket178F87D0",
+            "Ref": "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07S3Bucket56C50ED9",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -4038,7 +5795,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12S3VersionKeyD471BFF3",
+                          "Ref": "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07S3VersionKey24994A45",
                         },
                       ],
                     },
@@ -4051,7 +5808,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersd79145e1a99e01770ca65dea504426f5e9174d91a84794ef6d69a00b19355b12S3VersionKeyD471BFF3",
+                          "Ref": "AssetParametersd69d6d9e160992d309d0ad757a26c3d91fd9907ba87d5527c70d6e4f35fcfc07S3VersionKey24994A45",
                         },
                       ],
                     },
@@ -4064,12 +5821,25 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "CUSTOMINGESTIONITEM_FEED_STORAGE": Object {
+              "Ref": "IntegrationCustomIngestionItemKinesisFirehose487658C0",
+            },
+            "CUSTOMINGESTIONLOUDNESS_FEED_STORAGE": Object {
+              "Ref": "IntegrationCustomIngestionLoudnessKinesisFirehose5FB054D8",
+            },
+            "CUSTOMINGESTIONMETADATA_FEED_STORAGE": Object {
+              "Ref": "IntegrationMetadataKinesisFirehoseC6557973",
+            },
+            "CUSTOMINGESTION_FEED_STORAGE": Object {
+              "Ref": "IntegrationCustomIngestionKinesisFirehose9C19C395",
+            },
             "ENTITIES_FIREHOSE": Object {
               "Ref": "IntegrationEntityKinesisFirehose22678A42",
             },
             "KEYPHRASE_FIREHOSE": Object {
               "Ref": "IntegrationKeyPhraseKinesisFirehoseEE44A147",
             },
+            "METADATA_NS": "metadata.call_analytics",
             "MODERATION_LABELS_FIREHOSE": Object {
               "Ref": "IntegrationModerationLabelsKinesisFirehoseB9DCFAE5",
             },
@@ -4173,7 +5943,7 @@ Object {
           "rules_to_suppress": Array [
             Object {
               "id": "W76",
-              "reason": "The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SCPM rule",
+              "reason": "The lambda role policy requires to access multiple firehose buckets. Hence suppressing the SPCM rule",
             },
             Object {
               "id": "W12",
@@ -4260,6 +6030,30 @@ Object {
                     "Arn",
                   ],
                 },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationCustomIngestionKinesisFirehose9C19C395",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationCustomIngestionLoudnessKinesisFirehose5FB054D8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationCustomIngestionItemKinesisFirehose487658C0",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "IntegrationMetadataKinesisFirehoseC6557973",
+                    "Arn",
+                  ],
+                },
               ],
             },
           ],
@@ -4300,7 +6094,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3Bucket4FE12964",
+            "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3BucketE7D5C098",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -4313,7 +6107,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0",
+                          "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81",
                         },
                       ],
                     },
@@ -4326,7 +6120,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0",
+                          "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81",
                         },
                       ],
                     },
@@ -4578,7 +6372,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+                        "Ref": "IntegrationInfDBTopicMappingsCfntopicmappingsA5BE2E21",
                       },
                     ],
                   ],
@@ -4719,7 +6513,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -4753,8 +6547,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTopicMappingstopicmappingsTableCA762584",
+                "Ref": "IntegrationInfDBTopicMappingsCfntopicmappingsA5BE2E21",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -4781,8 +6581,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "topic-mappings/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "topic-mappings/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/topic-mappings/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "topic-mappings/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTopicMappingsFirehoseRoleD0E34058",
@@ -4989,7 +6807,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTopicstopicsTableE352FDCE",
+                        "Ref": "IntegrationInfDBTopicsCfntopics92C7BC5A",
                       },
                     ],
                   ],
@@ -5130,7 +6948,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -5164,8 +6982,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTopicstopicsTableE352FDCE",
+                "Ref": "IntegrationInfDBTopicsCfntopics92C7BC5A",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -5192,8 +7016,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "topics/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "topics/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/topics/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "topics/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTopicsFirehoseRoleAB51B4DE",
@@ -5400,28 +7242,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Fn::Select": Array [
-                          1,
-                          Object {
-                            "Fn::Split": Array [
-                              "/",
-                              Object {
-                                "Fn::Join": Array [
-                                  "",
-                                  Array [
-                                    Object {
-                                      "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-                                    },
-                                    "/",
-                                    Object {
-                                      "Ref": "IntegrationInfDBTwitterTwitterRecordB6E69351",
-                                    },
-                                  ],
-                                ],
-                              },
-                            ],
-                          },
-                        ],
+                        "Ref": "IntegrationInfDBTwitterCfntwfeedstorageDC850E99",
                       },
                     ],
                   ],
@@ -5562,7 +7383,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -5596,29 +7417,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Fn::Select": Array [
-                  1,
-                  Object {
-                    "Fn::Split": Array [
-                      "/",
-                      Object {
-                        "Fn::Join": Array [
-                          "",
-                          Array [
-                            Object {
-                              "Ref": "IntegrationInfDBTweetDBF81EA9E5",
-                            },
-                            "/",
-                            Object {
-                              "Ref": "IntegrationInfDBTwitterTwitterRecordB6E69351",
-                            },
-                          ],
-                        ],
-                      },
-                    ],
-                  },
-                ],
+                "Ref": "IntegrationInfDBTwitterCfntwfeedstorageDC850E99",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -5645,8 +7451,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "twfeedstorage/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "twfeedstorage/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/twfeedstorage/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "twfeedstorage/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTwFeedStorageFirehoseRoleBDA1E404",
@@ -5853,7 +7677,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+                        "Ref": "IntegrationInfDBTxtInImgEntityCfntxtinimgentityB1EF7546",
                       },
                     ],
                   ],
@@ -5994,7 +7818,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -6028,8 +7852,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgEntitytxtinimgentityTableE8998841",
+                "Ref": "IntegrationInfDBTxtInImgEntityCfntxtinimgentityB1EF7546",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -6056,8 +7886,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgentity/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgentity/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/txtinimgentity/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgentity/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTxtInImgEntityFirehoseRoleF8A843A9",
@@ -6264,7 +8112,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+                        "Ref": "IntegrationInfDBTxtInImgKeyPhraseCfntxtinimgkeyphrase5C32F0E7",
                       },
                     ],
                   ],
@@ -6405,7 +8253,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -6439,8 +8287,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgKeyPhrasetxtinimgkeyphraseTable0EC8DB26",
+                "Ref": "IntegrationInfDBTxtInImgKeyPhraseCfntxtinimgkeyphrase5C32F0E7",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -6467,8 +8321,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgkeyphrase/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgkeyphrase/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/txtinimgkeyphrase/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgkeyphrase/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTxtInImgKeyPhraseFirehoseRole7FD100B8",
@@ -6675,7 +8547,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
+                        "Ref": "IntegrationInfDBTxtInImgSentimentCfntxtinimgsentimentE52337E9",
                       },
                     ],
                   ],
@@ -6816,7 +8688,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -6850,8 +8722,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBTxtInImgSentimenttxtinimgsentimentTable007CDA18",
+                "Ref": "IntegrationInfDBTxtInImgSentimentCfntxtinimgsentimentE52337E9",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -6878,8 +8756,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "txtinimgsentiment/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "txtinimgsentiment/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/txtinimgsentiment/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "txtinimgsentiment/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationTxtInImgSentimentFirehoseRole3309E38D",
@@ -7086,7 +8982,7 @@ Object {
                       },
                       "/",
                       Object {
-                        "Ref": "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
+                        "Ref": "IntegrationInfDBYoutubeCommentsCfnyoutubecommentsE837E65C",
                       },
                     ],
                   ],
@@ -7227,7 +9123,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -7261,8 +9157,14 @@ Object {
                 ],
               },
               "TableName": Object {
-                "Ref": "IntegrationInfDBYoutubeCommentsyoutubecommentsTable8964DB7C",
+                "Ref": "IntegrationInfDBYoutubeCommentsCfnyoutubecommentsE837E65C",
               },
+            },
+          },
+          "DynamicPartitioningConfiguration": Object {
+            "Enabled": true,
+            "RetryOptions": Object {
+              "DurationInSeconds": 300,
             },
           },
           "EncryptionConfiguration": Object {
@@ -7289,8 +9191,26 @@ Object {
               },
             },
           },
-          "ErrorOutputPrefix": "youtubecomments/error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
-          "Prefix": "youtubecomments/created_at=!{timestamp:yyyy-MM-dd}/",
+          "ErrorOutputPrefix": "error/youtubecomments/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/",
+          "Prefix": "youtubecomments/created_at=!{partitionKeyFromQuery:created_at}/",
+          "ProcessingConfiguration": Object {
+            "Enabled": true,
+            "Processors": Array [
+              Object {
+                "Parameters": Array [
+                  Object {
+                    "ParameterName": "MetadataExtractionQuery",
+                    "ParameterValue": "{created_at: .created_at | strptime(\\"%Y-%m-%d %H:%M:%S\\") | strftime(\\"%Y-%m-%d\\")}",
+                  },
+                  Object {
+                    "ParameterName": "JsonParsingEngine",
+                    "ParameterValue": "JQ-1.6",
+                  },
+                ],
+                "Type": "MetadataExtraction",
+              },
+            ],
+          },
           "RoleARN": Object {
             "Fn::GetAtt": Array [
               "IntegrationYouTubeCommentsFirehoseRole207AE93B",

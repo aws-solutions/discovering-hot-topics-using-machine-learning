@@ -37,8 +37,8 @@ setup_python_env() {
 	source .venv-test/bin/activate
 	echo "Installing python packages"
 	pip3 install -r requirements.txt --target .
-	pip3 install -r requirements-dev.txt
 	pip3 install $source_dir/lambda/layers/python_lambda_layer # This is required so that libraries under lambda layers are available to unit test lambda functions
+	pip3 install -r requirements-dev.txt
 	echo "deactivate virtual environment"
 	deactivate
 }
@@ -153,19 +153,20 @@ run_cdk_project_test "CDK - Discovering Hot Topics using Machine Learning App"
 #
 # Test the attached Lambda functions
 #
+
 run_python_lambda_test layers/python_lambda_layer "Lambda Python Layer - Custom botocore config Initiatlization"
 
 run_javascript_lambda_test layers/aws-nodesdk-custom-config "Lambda Nodejs Layer - Custom config initialization"
 
 run_python_lambda_test capture_news_feed "Ingestion - newscatcher"
 
-run_javascript_lambda_test create-partition "create-partition"
-
 run_python_lambda_test firehose_topic_proxy "EventBridge - Firehose Topic Proxy"
 
 run_javascript_lambda_test firehose-text-proxy "Storage - Firehose Text Proxy"
 
 run_javascript_lambda_test ingestion-consumer "Ingestion - Consumer"
+
+run_python_lambda_test ingestion-custom "Custom Ingestion"
 
 run_javascript_lambda_test ingestion-producer "Ingestion - Producer"
 

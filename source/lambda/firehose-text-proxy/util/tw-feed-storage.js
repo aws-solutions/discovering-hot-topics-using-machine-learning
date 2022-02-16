@@ -11,11 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
-const moment = require('moment');
-const timeformat = require('./time-stamp-format');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class TwRawStorage {
@@ -26,19 +24,20 @@ class TwRawStorage {
         const rawTwFeed = {
             account_name: data.account_name,
             platform: data.platform,
-            ...(data.feed),
-            db_created_at: moment.utc(data.feed.created_at, timeformat.twitterTimestampFormat).format(timeformat.dbTimestampFormat)
+            ...data.feed
         };
 
         console.debug(`Raw tweet: ${JSON.stringify(rawTwFeed)}`);
 
-        await kinesisFireshose.putRecord({
-            DeliveryStreamName: process.env.TW_FEED_STORAGE,
-            Record: {
-                Data: `${JSON.stringify(rawTwFeed)}\n`
-            }
-        }).promise();
-    }
+        await kinesisFireshose
+            .putRecord({
+                DeliveryStreamName: process.env.TW_FEED_STORAGE,
+                Record: {
+                    Data: `${JSON.stringify(rawTwFeed)}\n`
+                }
+            })
+            .promise();
+    };
 }
 
 module.exports = TwRawStorage;

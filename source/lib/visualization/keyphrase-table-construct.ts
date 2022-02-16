@@ -12,48 +12,38 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import * as glue from '@aws-cdk/aws-glue';
+import * as cdk from '@aws-cdk/core';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export class KeyPhraseTable extends GenericTable {
 
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+export class KeyPhraseTable extends GenericCfnTable {
+
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): Column[] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
 
-        return [{
-                name: 'account_name',
-                type: Schema.STRING
-            }, {
-                name: 'platform',
-                type: Schema.STRING
-            }, {
-                name: 'search_query',
-                type: Schema.STRING
-            }, {
-                name: 'id_str',
-                type: Schema.STRING
-            }, {
+        return [
+            ...this.coreColumns, {
                 name: 'text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'translated_text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'phrase',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'phrase_score',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'phrase_begin_offset',
-                type: Schema.INTEGER
+                type: glue.Schema.INTEGER.inputString
             }, {
                 name: 'phrase_end_offset',
-                type: Schema.INTEGER
+                type: glue.Schema.INTEGER.inputString
             }];
     }
 }

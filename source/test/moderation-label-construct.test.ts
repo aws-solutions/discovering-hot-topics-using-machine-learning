@@ -11,7 +11,6 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
 import { Database } from '@aws-cdk/aws-glue';
@@ -21,7 +20,7 @@ import { ModerationLabelsTable } from '../lib/visualization/moderation-labels-ta
 
 test('test workflow stack', () => {
     const stack = new cdk.Stack();
-    new ModerationLabelsTable (stack, 'ModerationLabelsTabel', {
+    new ModerationLabelsTable(stack, 'ModerationLabelsTable', {
         s3InputDataBucket: new Bucket(stack, 'TestBucket'),
         s3BucketPrefix: 'moderationlabel/',
         database: new Database(stack, 'TestDB', {

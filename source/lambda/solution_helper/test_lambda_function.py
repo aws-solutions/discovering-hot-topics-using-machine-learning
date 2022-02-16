@@ -39,6 +39,7 @@ class LambdaTest(unittest.TestCase):
         os.environ["YOUTUBE_SEARCH_QUERY"] = "some fake video search"
         os.environ["YOUTUBE_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
         os.environ["YOUTUBE_CHANNEL_ID"] = "fakechannelid"
+        os.environ["DEPLOY_CUSTOM_INGESTION"] = "Yes"
 
     def tearDown(self):
         del os.environ["TWITTER_SEARCH_QUERY"]
@@ -48,6 +49,10 @@ class LambdaTest(unittest.TestCase):
         del os.environ["NEWSFEEDS_INGESTION_FREQ"]
         del os.environ["NEWSFEEDS_SEARCH_QUERY"]
         del os.environ["AWS_SDK_USER_AGENT"]
+        del os.environ["YOUTUBE_SEARCH_QUERY"]
+        del os.environ["YOUTUBE_INGESTION_FREQ"]
+        del os.environ["YOUTUBE_CHANNEL_ID"]
+        del os.environ["DEPLOY_CUSTOM_INGESTION"]
 
     def test_create_unique_id(self):
         import lambda_function
@@ -104,6 +109,7 @@ class LambdaTest(unittest.TestCase):
                 "YouTubIngestionFreq": "cron(0 23 * * ? *)",
                 "YouTubeChannelIDSet": "True",
                 "YouTubeSearchQueryLength": 22,
+                "CustomIngestion": "Yes"
             },
         )
 

@@ -1,6 +1,6 @@
 {
   "name": "firehose-text-proxy",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Lambda proxy to write to Firehose to generate Glue tables through S3",
   "main": "index.js",
   "scripts": {
@@ -11,13 +11,13 @@
   "author": "aws-solutions-builder@",
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-sdk": "^2.1008.0",
+    "aws-sdk": "^2.1067.0",
     "moment": "^2.29.1"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^5.4.0",
-    "chai": "^4.3.4",
-    "jest": "^27.2.5",
-    "sinon": "^11.1.2"
+    "aws-sdk-mock": "^5.6.2",
+    "chai": "^4.3.6",
+    "jest": "^27.4.7",
+    "sinon": "^13.0.1"
   }
 }

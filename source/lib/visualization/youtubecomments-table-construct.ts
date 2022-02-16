@@ -11,58 +11,58 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from "@aws-cdk/aws-glue";
-import { Construct } from "@aws-cdk/core";
-import { GenericTable, GenericTableProps } from "./generic-table-construct";
+import * as glue from '@aws-cdk/aws-glue';
+import * as cdk from '@aws-cdk/core';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
- export class YoutubeCommentsTable extends GenericTable {
-    constructor(scope: Construct, id: string, props: GenericTableProps) {
+export class YoutubeCommentsTable extends GenericCfnTable {
+    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): glue.Column[] {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
             name: 'account_name',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'platform',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'id_str',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'video_id',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'title',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'text',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'parent_id',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'viewer_rating',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'like_count',
-            type: glue.Schema.INTEGER
+            type: glue.Schema.INTEGER.inputString
         }, {
             name: 'updated_at',
-            type: glue.Schema.TIMESTAMP
+            type: glue.Schema.TIMESTAMP.inputString
         }, {
             name: 'search_query',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: 'lang',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: '_translated_text',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }, {
             name: '_cleansed_text',
-            type: glue.Schema.STRING
+            type: glue.Schema.STRING.inputString
         }];
     }
 }

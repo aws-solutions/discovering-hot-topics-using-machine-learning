@@ -24,11 +24,12 @@ import { TextAnalysisProxy } from './text-analysis-proxy';
 import { TopicAnalysisProxy } from './topic-analysis-proxy';
 
 export interface AppIntegrationProps {
-    readonly textAnalysisInfNS: string,
-    readonly topicsAnalysisInfNS: string,
-    readonly topicMappingsInfNS: string
-    readonly tableMappings: Map<string, string>,
-    readonly s3LoggingBucket: Bucket
+    readonly textAnalysisInfNS: string;
+    readonly topicsAnalysisInfNS: string;
+    readonly topicMappingsInfNS: string;
+    readonly metadataNS: string;
+    readonly tableMappings: Map<string, string>;
+    readonly s3LoggingBucket: Bucket;
 }
 
 export class AppIntegration extends Construct {
@@ -36,11 +37,10 @@ export class AppIntegration extends Construct {
     private _s3Bucket: Bucket;
 
     constructor(scope: Construct, id: string, props: AppIntegrationProps) {
-
         super(scope, id);
 
         // Setup S3 Bucket
-        [ this._s3Bucket ] = buildS3Bucket(this, {
+        [this._s3Bucket] = buildS3Bucket(this, {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
@@ -53,10 +53,12 @@ export class AppIntegration extends Construct {
 
         s3BucketResource.cfnOptions.metadata = {
             cfn_nag: {
-                rules_to_suppress: [{
-                    id: 'W51',
-                    reason: `This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy`
-                }]
+                rules_to_suppress: [
+                    {
+                        id: 'W51',
+                        reason: `This S3 bucket Bucket does not need a bucket policy. The access to the bucket is restricted to Kinesis Fireshose using IAM Role policy`
+                    }
+                ]
             }
         };
 
@@ -71,16 +73,21 @@ export class AppIntegration extends Construct {
         const eventStorageMap: Map<string, EventStorage> = new Map();
 
         props.tableMappings.forEach((value: string, key: string) => {
-            eventStorageMap.set(key, new EventStorage(this, key, {
-                compressionFormat: 'UNCOMPRESSED',
-                prefix: `${value}/`,
-                aggregateByDay: true,
-                convertData: true,
-                database: infDatabase.database,
-                tableName: infDatabase.tableMap.get(key)!.tableName,
-                s3Bucket: this._s3Bucket,
-                keyArn: infDatabase.glueKMSKeyArn
-            }));
+            eventStorageMap.set(
+                key,
+                new EventStorage(this, key, {
+                    compressionFormat: 'UNCOMPRESSED',
+                    prefix: `${value}/`,
+                    enableDynamicPartitioning: true,
+                    aggregateByDay: true,
+                    processor: true,
+                    convertData: true,
+                    database: infDatabase.database,
+                    tableName: infDatabase.tableMap.get(key)!.ref,
+                    s3Bucket: this._s3Bucket,
+                    keyArn: infDatabase.glueKMSKey
+                })
+            );
         });
 
         const textAnalysisLambda = new TextAnalysisProxy(this, 'TextAnalysis', {
@@ -94,7 +101,12 @@ export class AppIntegration extends Construct {
             twFeedStorage: eventStorageMap.get('TwFeedStorage')!,
             newsFeedStorage: eventStorageMap.get('NewsFeedStorage')!,
             youTubeCommentsStorage: eventStorageMap.get('YouTubeComments')!,
+            customIngestionStorage: eventStorageMap.get('CustomIngestion')!,
+            customIngestionLoudnessStorage: eventStorageMap.get('CustomIngestionLoudness')!,
+            customIngestionItemStorage: eventStorageMap.get('CustomIngestionItem')!,
+            metadataStorage: eventStorageMap.get('Metadata')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
+            metadataNS: props.metadataNS
         });
 
         // end of temporary mechanism to create tables in Glue tables
@@ -107,17 +119,16 @@ export class AppIntegration extends Construct {
         });
 
         // start of configuring targets for event bus
-        const configs: Config[] = [{
-            source: [ props.textAnalysisInfNS ],
-            ruleTargets: [
-                new LambdaFunction(textAnalysisLambda.lambdaFunction),
-            ]
-        }, {
-            source: [ props.topicsAnalysisInfNS, props.topicMappingsInfNS ],
-            ruleTargets: [
-                new LambdaFunction(topicAnalysis.lambdaFunction)
-            ]
-        }];
+        const configs: Config[] = [
+            {
+                source: [props.textAnalysisInfNS, props.metadataNS],
+                ruleTargets: [new LambdaFunction(textAnalysisLambda.lambdaFunction)]
+            },
+            {
+                source: [props.topicsAnalysisInfNS, props.topicMappingsInfNS],
+                ruleTargets: [new LambdaFunction(topicAnalysis.lambdaFunction)]
+            }
+        ];
 
         this.eventRule = new EventRule(this, 'EventRule', {
             configs: configs

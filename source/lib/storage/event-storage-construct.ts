@@ -12,81 +12,86 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { IDatabase } from "@aws-cdk/aws-glue";
-import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from "@aws-cdk/aws-iam";
-import { CfnDeliveryStream, CfnDeliveryStreamProps } from "@aws-cdk/aws-kinesisfirehose";
-import { Code, Function, Runtime } from "@aws-cdk/aws-lambda";
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Aws, Construct } from "@aws-cdk/core";
+import * as glue from "@aws-cdk/aws-glue";
+import * as iam from "@aws-cdk/aws-iam";
+import * as firehose from "@aws-cdk/aws-kinesisfirehose";
+import * as lambda from "@aws-cdk/aws-lambda";
+import * as s3 from '@aws-cdk/aws-s3';
+import * as cdk from "@aws-cdk/core";
 import { KinesisFirehoseToS3 } from '@aws-solutions-constructs/aws-kinesisfirehose-s3';
 import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 
 export interface EventStorageProps {
-    readonly compressionFormat: string,
+    readonly compressionFormat: string;
+    /**
+     * Should the delivery stream enable dynamic partitioning. If the value is set to true, then either
+     * @aggregatebyDay should be set to 'true' or @prefix property should be provided to prefix S3 bucket
+     */
+    readonly enableDynamicPartitioning?: boolean;
     /**
      * Prefix for S3 bucket, all data will be stored with the provided prefix
      */
-    readonly prefix?: string,
+    readonly prefix?: string;
     /**
      * If this property is set, it will create a prefix 'created_at=YYYY-MM-DD' for records stored in S3.
      * This property is used in conjunction with the prefix. If the prefix is not set, this property is ignored
      */
-    readonly aggregateByDay?: boolean,
+    readonly aggregateByDay?: boolean;
     /**
      * Lambda process if any tranformation is required
      */
-    readonly processor?: boolean,
+    readonly processor?: boolean;
     /**
      * S3 bucket location where data will be stored
      */
-    readonly s3Bucket: Bucket,
+    readonly s3Bucket: s3.Bucket;
     /**
      * The KMS key ARN for Glue Tables
      */
-    readonly keyArn?: string,
+    readonly keyArn?: string;
 
     //below props only required if data format is parquet
     /**
      * Convert data to Apache Parquet format
      */
-     readonly convertData?: boolean,
+    readonly convertData?: boolean;
 
     /**
      * The database name is required if Firehose should convert data to Apache Parquet
      */
-    readonly database?: IDatabase,
+    readonly database?: glue.IDatabase;
 
     /**
      * Table is required to add dependency for Firehose creation
      */
-    readonly tableName?: string
+    readonly tableName?: string;
 }
 
-export class EventStorage extends Construct {
+export class EventStorage extends cdk.Construct {
 
-    private readonly _lambda: Function;
-    private _firehose: CfnDeliveryStream;
+    private readonly _lambda: lambda.Function;
+    private _firehose: firehose.CfnDeliveryStream;
 
-    constructor (scope: Construct, id: string, props: EventStorageProps) {
+    constructor(scope: cdk.Construct, id: string, props: EventStorageProps) {
         super(scope, id);
 
         // Setup the IAM Role for Kinesis Firehose
-        const firehoseRole = new Role(this, 'FirehoseRole', {
-            assumedBy: new ServicePrincipal('firehose.amazonaws.com'),
+        const firehoseRole = new iam.Role(this, 'FirehoseRole', {
+            assumedBy: new iam.ServicePrincipal('firehose.amazonaws.com'),
         });
 
         props.s3Bucket.grantReadWrite(firehoseRole); // add permissions to read/write to S3 bucket
 
-        let firehoseGluePolicy: Policy;
+        let firehoseGluePolicy: iam.Policy;
         if (props.convertData && props.tableName !== undefined) {
-            firehoseGluePolicy = new Policy(this, 'FirehoseGlueTablePolicy', {
-                statements: [ new PolicyStatement({
-                    effect: Effect.ALLOW,
+            firehoseGluePolicy = new iam.Policy(this, 'FirehoseGlueTablePolicy', {
+                statements: [ new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
                     actions: [ 'glue:GetTable', 'glue:GetTableVersion', 'glue:GetTableVersions' ],
                     resources: [
-                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:table/${props.database!.databaseName}/${props.tableName}`,
-                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:database/${props.database!.databaseName}`,
-                        `arn:aws:glue:${Aws.REGION}:${Aws.ACCOUNT_ID}:catalog`
+                        `arn:aws:glue:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:table/${props.database!.databaseName}/${props.tableName}`,
+                        `arn:aws:glue:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:database/${props.database!.databaseName}`,
+                        `arn:aws:glue:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:catalog`
                     ]
                 })]
             })
@@ -94,11 +99,11 @@ export class EventStorage extends Construct {
             firehoseGluePolicy.attachToRole(firehoseRole);
         }
 
-        let firehoseGlueKmsPolicy: Policy;
+        let firehoseGlueKmsPolicy: iam.Policy;
         if (props.keyArn !== undefined) {
-            firehoseGlueKmsPolicy = new Policy(this, 'FirehoseGlueKms', {
-                    statements: [ new PolicyStatement({
-                    effect: Effect.ALLOW,
+            firehoseGlueKmsPolicy = new iam.Policy(this, 'FirehoseGlueKms', {
+                    statements: [ new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
                     resources: [ props.keyArn ],
                     actions: [ 'kms:Decrypt' ]
                 })]
@@ -107,58 +112,44 @@ export class EventStorage extends Construct {
             firehoseGlueKmsPolicy.attachToRole(firehoseRole);
         }
 
+        let processingConfiguration = undefined;
         if (props?.processor) {
-            this._lambda = buildLambdaFunction(this, {
-                lambdaFunctionProps: {
-                    runtime: Runtime.NODEJS_14_X,
-                    handler: 'index.handler',
-                    code: Code.fromAsset(`${__dirname}/../../lambda/storage-firehose-processor`)
-                }
-            });
-
-            const lambdaProcessorPolicy = new Policy(this, 'LambdaProcessor', {
-                statements: [new PolicyStatement({
-                    effect: Effect.ALLOW,
-                    resources: [ this._lambda.functionArn ],
-                    actions: [ "lambda:InvokeFunction", "lambda:GetFunctionConfiguration"  ]
-                })]
-            });
-
-            lambdaProcessorPolicy.attachToRole(firehoseRole);
-        }
-
-        let bucketPrefix = undefined;
-        if (props.prefix) {
-            if (props.aggregateByDay) {
-                bucketPrefix = {
-                    prefix: `${props?.prefix}created_at=!{timestamp:yyyy-MM-dd}/`,
-                    errorOutputPrefix: `${props.prefix}error/!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`
+            if (props.enableDynamicPartitioning) {
+                processingConfiguration = {
+                    processingConfiguration: {
+                        enabled: true,
+                        processors: [{
+                            type: 'MetadataExtraction',
+                            parameters: [{
+                                parameterName: "MetadataExtractionQuery",
+                                parameterValue: '{created_at: .created_at | strptime("%Y-%m-%d %H:%M:%S") | strftime("%Y-%m-%d")}'
+                            }, {
+                                parameterName: "JsonParsingEngine",
+                                parameterValue: "JQ-1.6"
+                            }]
+                        }]
+                    }
                 }
             } else {
-                bucketPrefix = {
-                    prefix: props.prefix
-                }
-            }
-        }
+                this._lambda = buildLambdaFunction(this, {
+                    lambdaFunctionProps: {
+                        runtime: lambda.Runtime.NODEJS_14_X,
+                        handler: 'index.handler',
+                        code: lambda.Code.fromAsset(`${__dirname}/../../lambda/storage-firehose-processor`)
+                    }
+                });
 
+                const lambdaProcessorPolicy = new iam.Policy(this, 'LambdaProcessor', {
+                    statements: [new iam.PolicyStatement({
+                        effect: iam.Effect.ALLOW,
+                        resources: [this._lambda.functionArn],
+                        actions: ["lambda:InvokeFunction", "lambda:GetFunctionConfiguration"]
+                    })]
+                });
 
-        // Setup the default Kinesis Firehose props
-        const defaultKinesisFirehoseProps: CfnDeliveryStreamProps = {
-            deliveryStreamType: 'DirectPut',
-            deliveryStreamEncryptionConfigurationInput: {
-                keyType: 'AWS_OWNED_CMK'
-            },
-            extendedS3DestinationConfiguration : {
-                bucketArn: props.s3Bucket.bucketArn,
-                bufferingHints: {
-                    intervalInSeconds: 600,
-                    sizeInMBs: 64
-                },
-                compressionFormat: props.compressionFormat,
-                roleArn: firehoseRole.roleArn,
-                ...bucketPrefix,
-                ...(props?.processor && {
-                        processingConfiguration: {
+                lambdaProcessorPolicy.attachToRole(firehoseRole);
+                processingConfiguration = {
+                    processingConfiguration: {
                         enabled: true,
                         processors: [{
                             type: 'Lambda',
@@ -168,7 +159,56 @@ export class EventStorage extends Construct {
                             }]
                         }]
                     }
-                }),
+                }
+            }
+        }
+
+        let bucketPrefix = undefined;
+        let dynamicPartitioningConfiguration = undefined;
+        if (props.prefix) {
+            if (props.aggregateByDay) {
+                bucketPrefix = {
+                    // updating error prefix and moving it outside the table to avoid the crawler
+                    // crawling the error prefix
+                    errorOutputPrefix: `error/${props.prefix}!{firehose:random-string}/!{firehose:error-output-type}/created_at=!{timestamp:yyyy-MM-dd}/`,
+                    prefix: `${props.prefix}created_at=!{partitionKeyFromQuery:created_at}/`,
+                }
+            } else {
+                bucketPrefix = {
+                    prefix: props.prefix
+                }
+            }
+
+            if (props.enableDynamicPartitioning) {
+                dynamicPartitioningConfiguration = {
+                    dynamicPartitioningConfiguration: {
+                        enabled: true,
+                        retryOptions: {
+                            durationInSeconds: 300
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // Setup the default Kinesis Firehose props
+        const defaultKinesisFirehoseProps: firehose.CfnDeliveryStreamProps = {
+            deliveryStreamType: 'DirectPut',
+            deliveryStreamEncryptionConfigurationInput: {
+                keyType: 'AWS_OWNED_CMK'
+            },
+            extendedS3DestinationConfiguration: {
+                bucketArn: props.s3Bucket.bucketArn,
+                bufferingHints: {
+                    intervalInSeconds: 600,
+                    sizeInMBs: 128
+                },
+                compressionFormat: props.compressionFormat,
+                roleArn: firehoseRole.roleArn,
+                ...dynamicPartitioningConfiguration,
+                ...bucketPrefix,
+                ...processingConfiguration,
                 ...(props.convertData && {
                     dataFormatConversionConfiguration: {
                         inputFormatConfiguration: {
@@ -206,7 +246,7 @@ export class EventStorage extends Construct {
         }
     }
 
-    public get kinesisFirehose(): CfnDeliveryStream {
+    public get kinesisFirehose(): firehose.CfnDeliveryStream {
         return this._firehose;
     }
 

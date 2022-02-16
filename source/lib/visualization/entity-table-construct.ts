@@ -12,50 +12,38 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Column, Schema } from '@aws-cdk/aws-glue';
+import * as glue from '@aws-cdk/aws-glue';
 import { Construct } from '@aws-cdk/core';
-import { GenericTable, GenericTableProps } from './generic-table-construct';
+import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
-export class EntityTable extends GenericTable {
-
-    constructor (scope: Construct, id: string, props: GenericTableProps) {
+export class EntityTable extends GenericCfnTable {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
-    protected getColumns(): Column[] {
-        return [{
-                name: 'account_name',
-                type: Schema.STRING
-            }, {
-                name: 'platform',
-                type: Schema.STRING
-            }, {
-                name: 'search_query',
-                type: Schema.STRING
-            }, {
-                name: 'id_str',
-                type: Schema.STRING
-            }, {
+    protected getColumns(): glue.CfnTable.ColumnProperty[] {
+        return [
+            ...this.coreColumns, {
                 name: 'text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'translated_text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'entity_text',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'entity_type',
-                type: Schema.STRING
+                type: glue.Schema.STRING.inputString
             }, {
                 name: 'entity_score',
-                type: Schema.DOUBLE
+                type: glue.Schema.DOUBLE.inputString
             }, {
                 name: 'entity_begin_offset',
-                type: Schema.INTEGER
+                type: glue.Schema.INTEGER.inputString
             }, {
                 name: 'entity_end_offset',
-                type: Schema.INTEGER
+                type: glue.Schema.INTEGER.inputString
             }];
     }
 }

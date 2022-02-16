@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2ArtifactHash03DC3DBA": Object {
-      "Description": "Artifact hash for asset \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94ArtifactHashC1528AF6": Object {
+      "Description": "Artifact hash for asset \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3Bucket4FE12964": Object {
-      "Description": "S3 bucket for asset \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3BucketE7D5C098": Object {
+      "Description": "S3 bucket for asset \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
-    "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0": Object {
-      "Description": "S3 key for asset version \\"71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2\\"",
+    "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81": Object {
+      "Description": "S3 key for asset version \\"08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94\\"",
       "Type": "String",
     },
   },
@@ -102,7 +102,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
@@ -301,7 +301,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3Bucket4FE12964",
+            "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3BucketE7D5C098",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -314,7 +314,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0",
+                          "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81",
                         },
                       ],
                     },
@@ -327,7 +327,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters71dd4a070c7233f683e1384f78fbc44c8f9ff5fc66438d0898990fb2b136d4b2S3VersionKey1089F5F0",
+                          "Ref": "AssetParameters08bfb673c08c0b9134f77690b19af672acced181d5a1cb565522f7facde54c94S3VersionKey39338F81",
                         },
                       ],
                     },
@@ -594,7 +594,7 @@ Object {
           },
           "BufferingHints": Object {
             "IntervalInSeconds": 600,
-            "SizeInMBs": 64,
+            "SizeInMBs": 128,
           },
           "CloudWatchLoggingOptions": Object {
             "Enabled": true,
