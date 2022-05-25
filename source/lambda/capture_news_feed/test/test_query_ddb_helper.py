@@ -17,12 +17,12 @@ import unittest
 from datetime import datetime, timedelta, timezone
 
 import boto3
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
 from shared_util import custom_boto_config
 from util import ddb_helper
 
 
-@mock_dynamodb2
+@mock_dynamodb
 def ddb_setup(table_name):
     ddb = boto3.resource("dynamodb", config=custom_boto_config.init())
     ddb.create_table(
@@ -41,7 +41,7 @@ def ddb_setup(table_name):
     return ddb
 
 
-@mock_dynamodb2
+@mock_dynamodb
 class TestQueryDDBHelper(unittest.TestCase):
     def setUp(self):
         self.table_name = os.environ["TARGET_DDB_TABLE"]

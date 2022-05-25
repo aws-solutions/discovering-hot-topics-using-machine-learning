@@ -11,12 +11,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
-class AccountSecrets{
-
+class AccountSecrets {
     constructor() {
         const awsCustomConfig = CustomConfig.customAwsConfig();
         this.parameterStore = new AWS.SSM(awsCustomConfig);
@@ -24,26 +23,34 @@ class AccountSecrets{
 
     async getTwitterSecret() {
         let keyName = process.env.TWITTER_CREDENTIAL_KEY_PATH;
-        if (keyName === undefined || process.env.TWITTER_CREDENTIAL_KEY_PATH === '')  {
+        if (keyName === undefined || process.env.TWITTER_CREDENTIAL_KEY_PATH === '') {
             keyName = `/${process.env.SOLUTION_NAME}/${process.env.STACK_NAME}/twitter`;
-            console.error(`Key name does not exists. Creating an SSM key name in the following path -> ${keyName}. Please insert the bearer_token in the SSM parameter store at that path`);
-            await this.parameterStore.putParameter({
-                Name: keyName,
-                Value: 'Dummy Values',
-                Description: 'Twitter Bearer Token',
-                Type: 'SecureString'
-              }).promise();
-            throw new Error(`SSM parameter key value does not exist. Create SSM parameter at ${keyName} and update lambda environment variable CREDENTIAL_KEY_PATH with the key`)
+            console.error(
+                `Key name does not exists. Creating an SSM key name in the following path -> ${keyName}. Please insert the bearer_token in the SSM parameter store at that path`
+            );
+            await this.parameterStore
+                .putParameter({
+                    Name: keyName,
+                    Value: 'Dummy Values',
+                    Description: 'Twitter Bearer Token',
+                    Type: 'SecureString'
+                })
+                .promise();
+            throw new Error(
+                `SSM parameter key value does not exist. Create SSM parameter at ${keyName} and update lambda environment variable CREDENTIAL_KEY_PATH with the key`
+            );
         } else {
             console.debug(`SSM Parameter Key name is ${keyName}`);
             let responseValue;
             try {
-                const secretValue = await this.parameterStore.getParameter({
-                    Name: keyName,
-                    WithDecryption: true
-                }).promise();
+                const secretValue = await this.parameterStore
+                    .getParameter({
+                        Name: keyName,
+                        WithDecryption: true
+                    })
+                    .promise();
                 responseValue = secretValue.Parameter.Value;
-            } catch(error) {
+            } catch (error) {
                 console.error(`Error in retrieving secrets from Parameter store ${JSON.stringify(error)}`);
                 throw error;
             }

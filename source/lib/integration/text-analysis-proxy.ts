@@ -33,6 +33,7 @@ export interface TextAnalysisProxyProps {
     readonly customIngestionLoudnessStorage: EventStorage;
     readonly customIngestionItemStorage: EventStorage;
     readonly metadataStorage: EventStorage;
+    readonly redditCommentsStorage: EventStorage;
     readonly textAnalysisInfNS: string;
     readonly metadataNS: string;
 }
@@ -63,6 +64,7 @@ export class TextAnalysisProxy extends Construct {
                     CUSTOMINGESTIONMETADATA_FEED_STORAGE: props.metadataStorage.deliveryStreamName,
                     CUSTOMINGESTIONLOUDNESS_FEED_STORAGE: props.customIngestionLoudnessStorage.deliveryStreamName,
                     CUSTOMINGESTIONITEM_FEED_STORAGE: props.customIngestionItemStorage.deliveryStreamName,
+                    REDDIT_FEED_STORAGE: props.redditCommentsStorage.deliveryStreamName,
                     TEXT_ANALYSIS_NS: props.textAnalysisInfNS,
                     METADATA_NS: props.metadataNS
                 },
@@ -84,7 +86,8 @@ export class TextAnalysisProxy extends Construct {
             props.customIngestionStorage.deliveryStreamArn,
             props.customIngestionLoudnessStorage.deliveryStreamArn,
             props.customIngestionItemStorage.deliveryStreamArn,
-            props.metadataStorage.deliveryStreamArn
+            props.metadataStorage.deliveryStreamArn,
+            props.redditCommentsStorage.deliveryStreamArn
         ];
 
         this.textAnalysisLambda.addToRolePolicy(

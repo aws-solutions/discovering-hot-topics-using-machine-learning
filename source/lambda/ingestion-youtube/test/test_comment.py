@@ -20,7 +20,7 @@ from test.test_ddb_helper import ddb_setup
 from test.test_stream_helper import stream_setup
 from unittest.mock import patch
 
-from moto import mock_dynamodb2, mock_kinesis, mock_ssm
+from moto import mock_dynamodb, mock_kinesis, mock_ssm
 from util.comment import Comment, search_comments, slice_text_into_arrays
 
 api_response_time_format = "%Y-%m-%dT%H:%M:%SZ"
@@ -28,7 +28,7 @@ api_response_time_format = "%Y-%m-%dT%H:%M:%SZ"
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments(mock_youtube_resource):
     api_key = "fakeapikey"
@@ -86,7 +86,7 @@ def test_search_comments(mock_youtube_resource):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments_with_tracker_date(mock_youtube_resource):
     api_key = "fakeapikey"
@@ -156,7 +156,7 @@ def test_search_comments_with_tracker_date(mock_youtube_resource):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments_with_page_token(mock_youtube_resource):
     api_key = "fakeapikey"
@@ -254,7 +254,7 @@ def test_search_comments_with_page_token(mock_youtube_resource):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments_with_replies(mock_youtube_resource):
     api_key = "fakeapikey"
@@ -340,7 +340,7 @@ def test_search_comments_with_replies(mock_youtube_resource):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments_not_publishing_record(mock_youtube_resource):
     api_key = "fakeapikey"
@@ -409,7 +409,7 @@ def test_search_comments_not_publishing_record(mock_youtube_resource):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_search_comments_with_api_throws_error(mock_youtube_resource):
     api_key = "fakeapikey"

@@ -118,6 +118,13 @@ test('test Text Analysis Fireshose Stream Creation', () => {
             s3Bucket: new Bucket(stack, 'metadataStorage', {
                 encryption: BucketEncryption.S3_MANAGED
             })
+        }),
+        redditCommentsStorage: new EventStorage(stack, 'RedditComments', {
+            compressionFormat: 'UNCOMPRESSED',
+            prefix: 'redditcomments',
+            s3Bucket: new Bucket(stack, 'redditcommentsstorage', {
+                encryption: BucketEncryption.S3_MANAGED
+            })
         })
     });
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();

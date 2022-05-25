@@ -21,7 +21,7 @@ from test.test_ddb_helper import ddb_setup
 from test.test_stream_helper import stream_setup
 from unittest.mock import patch
 
-from moto import mock_dynamodb2, mock_kinesis, mock_ssm
+from moto import mock_dynamodb, mock_kinesis, mock_ssm
 from util.comment import search_comments
 
 
@@ -78,7 +78,7 @@ def test_lambda_search_videos(mock_youtube_resource, get_event_bus_stubber):
 
 @mock_ssm
 @mock_kinesis
-@mock_dynamodb2
+@mock_dynamodb
 @patch("util.comment.get_youtube_service_resource")
 def test_lambda_search_comments(mock_youtube_resource):
     api_key = "fakeapikey"

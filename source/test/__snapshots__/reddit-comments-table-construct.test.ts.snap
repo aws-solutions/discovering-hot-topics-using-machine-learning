@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test workflow stack 1`] = `
+Object {
+  "Resources": Object {
+    "RedditTableCfnredditcomment85797B23": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseName": Object {
+          "Ref": "TestDB27CDA92F",
+        },
+        "TableInput": Object {
+          "Description": "A table created with partition projection for redditcomment",
+          "Name": "redditcomment",
+          "Parameters": Object {
+            "classification": "parquet",
+            "has_encryped_data": false,
+            "projection.created_at.format": "yyyy-MM-dd",
+            "projection.created_at.range": "NOW-45DAYS,NOW",
+            "projection.created_at.type": "date",
+            "projection.enabled": "TRUE",
+          },
+          "PartitionKeys": Array [
+            Object {
+              "Name": "created_at",
+              "Type": "timestamp",
+            },
+          ],
+          "StorageDescriptor": Object {
+            "Columns": Array [
+              Object {
+                "Name": "account_name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "platform",
+                "Type": "string",
+              },
+              Object {
+                "Name": "search_query",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id_str",
+                "Type": "string",
+              },
+              Object {
+                "Name": "text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "translated_text",
+                "Type": "string",
+              },
+              Object {
+                "Name": "subreddit_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "link_title",
+                "Type": "string",
+              },
+              Object {
+                "Name": "ups",
+                "Type": "int",
+              },
+              Object {
+                "Name": "total_awards_received",
+                "Type": "int",
+              },
+              Object {
+                "Name": "subreddit",
+                "Type": "string",
+              },
+              Object {
+                "Name": "link_author",
+                "Type": "string",
+              },
+              Object {
+                "Name": "likes",
+                "Type": "string",
+              },
+              Object {
+                "Name": "replies",
+                "Type": "string",
+              },
+              Object {
+                "Name": "id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "author",
+                "Type": "string",
+              },
+              Object {
+                "Name": "num_comments",
+                "Type": "int",
+              },
+              Object {
+                "Name": "parent_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "score",
+                "Type": "float",
+              },
+              Object {
+                "Name": "author_fullname",
+                "Type": "string",
+              },
+              Object {
+                "Name": "controversiality",
+                "Type": "float",
+              },
+              Object {
+                "Name": "author_premium",
+                "Type": "boolean",
+              },
+              Object {
+                "Name": "link_id",
+                "Type": "string",
+              },
+              Object {
+                "Name": "permalink",
+                "Type": "string",
+              },
+              Object {
+                "Name": "subreddit_type",
+                "Type": "string",
+              },
+              Object {
+                "Name": "link_permalink",
+                "Type": "string",
+              },
+              Object {
+                "Name": "name",
+                "Type": "string",
+              },
+              Object {
+                "Name": "subreddit_name_prefixed",
+                "Type": "string",
+              },
+              Object {
+                "Name": "created_utc",
+                "Type": "bigint",
+              },
+              Object {
+                "Name": "link_url",
+                "Type": "string",
+              },
+            ],
+            "Compressed": false,
+            "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+            "Location": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "s3://",
+                  Object {
+                    "Ref": "TestBucket560B80BC",
+                  },
+                  "/redditcomment/",
+                ],
+              ],
+            },
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+            "SerdeInfo": Object {
+              "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+            },
+            "StoredAsSubDirectories": true,
+          },
+          "TableType": "EXTERNAL_TABLE",
+        },
+      },
+      "Type": "AWS::Glue::Table",
+    },
+    "TestBucket560B80BC": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "TestDB27CDA92F": Object {
+      "Properties": Object {
+        "CatalogId": Object {
+          "Ref": "AWS::AccountId",
+        },
+        "DatabaseInput": Object {
+          "Name": "socialmedia",
+        },
+      },
+      "Type": "AWS::Glue::Database",
+    },
+  },
+}
+`;

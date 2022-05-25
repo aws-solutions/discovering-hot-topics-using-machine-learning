@@ -17,7 +17,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from unittest import mock
 
-from moto import mock_dynamodb2, mock_kinesis
+from moto import mock_dynamodb, mock_kinesis
 from util import newscatcher_helper
 
 
@@ -57,7 +57,7 @@ class TestEventBusHelper(unittest.TestCase):
         self.assertEqual(mocked_feed_call.call_count, len(newscatcher_helper.get_topic_list()))
 
     @mock_kinesis
-    @mock_dynamodb2
+    @mock_dynamodb
     def test_create_and_publish_record(self):
         setup_test_case()
         news_feed = newscatcher_helper.retrieve_feed("latimes.com")
@@ -73,7 +73,7 @@ class TestEventBusHelper(unittest.TestCase):
         )
 
     @mock_kinesis
-    @mock_dynamodb2
+    @mock_dynamodb
     def test_published_date(self):
         setup_test_case()
         news_feed = newscatcher_helper.retrieve_feed("cnn.com")
@@ -93,7 +93,7 @@ class TestEventBusHelper(unittest.TestCase):
         )
 
     @mock_kinesis
-    @mock_dynamodb2
+    @mock_dynamodb
     def test_with_query_string(self):
         setup_test_case()
         news_feed = newscatcher_helper.retrieve_feed("cnn.com")

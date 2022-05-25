@@ -11,16 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 class DataCleanse {
-    static cleanText (text) {
+    static cleanText(text) {
         return DataCleanse.removeCREoL(
             DataCleanse.removePunctuation(
                 DataCleanse.removeURL(
-                    DataCleanse.removeRTTag(
-                        DataCleanse.removeHashtags(DataCleanse.removeUserSymbol(text))
-                    )
+                    DataCleanse.removeRTTag(DataCleanse.removeHashtags(DataCleanse.removeUserSymbol(text)))
                 )
             )
         );
@@ -32,7 +30,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeCREoL(text) {
-        return text.replace(/\r?\n|\r/gm,' ').trim();
+        return text.replace(/(?:[\r\n]+)+/gm, ' ').trim();
     }
 
     /**
@@ -62,7 +60,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeRTWithUserTag(text) {
-        return text.replace (/RT\s*@\S+/g, ''); // NOSONAR (javascript:S4784)
+        return text.replace(/RT\s*@\S+/g, ''); // NOSONAR (javascript:S4784)
     }
 
     /**
@@ -71,7 +69,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeRTTag(text) {
-        return text.replace (/RT\s/g, '');
+        return text.replace(/RT\s/g, '');
     }
 
     /**
@@ -89,7 +87,7 @@ class DataCleanse {
      * @param {string} text
      */
     static removeHashtags(text) {
-        return text.replace(/#/,'');
+        return text.replace(/#/, '');
     }
 }
 

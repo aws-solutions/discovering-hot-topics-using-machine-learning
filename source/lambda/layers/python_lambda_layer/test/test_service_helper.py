@@ -18,14 +18,14 @@ import boto3
 import botocore
 import mock
 import pytest
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
 from shared_util import custom_boto_config, service_helper
 
 
-@mock_dynamodb2
+@mock_dynamodb
 def ddb_setup(table_name):
     ddb = boto3.resource("dynamodb", config=custom_boto_config.init())
-    ddb.create_table(
+    table = ddb.create_table(
         TableName=table_name,
         KeySchema=[
             {"AttributeName": "ID", "KeyType": "HASH"},
@@ -47,7 +47,7 @@ class ServiceHelperTestCase(unittest.TestCase):
         self.assertIsNotNone(service_client)
         self.assertTrue("https://s3." in service_client.meta.endpoint_url)
 
-    @mock_dynamodb2
+    @mock_dynamodb
     def test_get_service_resource(self):
         service_resource = service_helper.get_service_resource("dynamodb")
         self.assertIsNotNone(service_resource)

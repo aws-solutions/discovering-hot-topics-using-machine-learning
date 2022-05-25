@@ -18,12 +18,12 @@ import unittest
 import boto3
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import EndpointConnectionError
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
 from shared_util import custom_boto_config, service_helper
 from util import ddb_helper
 
 
-@mock_dynamodb2
+@mock_dynamodb
 def ddb_setup(table_name):
     # ddb = boto3.resource("dynamodb", config=custom_boto_config.init())
     ddb = service_helper.get_service_resource("dynamodb")
@@ -39,7 +39,7 @@ def ddb_setup(table_name):
     return ddb
 
 
-@mock_dynamodb2
+@mock_dynamodb
 class TestConfigDDBHelper(unittest.TestCase):
     def setUp(self):
         self.table_name = os.environ["DDB_CONFIG_TABLE_NAME"]

@@ -11,77 +11,78 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 exports.event = {
     source: 'com.analyze.text.inference',
     detail: {
-        "account_name": "twitter",
-        "platform": "twitter",
-        "search_query": "Abc",
-        "feed": {
-            "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id_str": "fakeID",
-            "text": "This is sample tweet from twitter. This is used for test data",
-            "truncated": false,
-            "entities": {
-                "hashtags": [],
-                "symbols": [],
-                "user_mentions": [],
-                "urls": []
+        'account_name': 'twitter',
+        'platform': 'twitter',
+        'search_query': 'Abc',
+        'feed': {
+            'created_at': 'Sat Jun 13 17:07:39 +0000 2020',
+            'id_str': 'fakeID',
+            'text': 'This is sample tweet from twitter. This is used for test data',
+            'truncated': false,
+            'entities': {
+                'hashtags': [],
+                'symbols': [],
+                'user_mentions': [],
+                'urls': []
             },
-            "metadata": {
-                "iso_language_code": "de",
-                "result_type": "recent"
+            'metadata': {
+                'iso_language_code': 'de',
+                'result_type': 'recent'
             },
-            "geo": null,
-            "coordinates": null,
-            "place": null,
-            "contributors": null,
-            "is_quote_status": false,
-            "retweet_count": 0,
-            "favorite_count": 0,
-            "favorited": false,
-            "retweeted": false,
-            "possibly_sensitive": false,
-            "lang": "de",
-            "_translated_text": "This is sample text from tweet.",
-            "_cleansed_text": "This is sample text from tweet"
+            'geo': null,
+            'coordinates': null,
+            'place': null,
+            'contributors': null,
+            'is_quote_status': false,
+            'retweet_count': 0,
+            'favorite_count': 0,
+            'favorited': false,
+            'retweeted': false,
+            'possibly_sensitive': false,
+            'lang': 'de',
+            '_translated_text': 'This is sample text from tweet.',
+            '_cleansed_text': 'This is sample text from tweet'
         },
-        "Sentiment": "NEUTRAL",
-        "SentimentScore": {
-            "Positive": 0.007853682152926922,
-            "Negative": 0.0011625795159488916,
-            "Neutral": 0.990983247756958,
-            "Mixed": 5.080233904664055e-7
+        'Sentiment': 'NEUTRAL',
+        'SentimentScore': {
+            'Positive': 0.007853682152926922,
+            'Negative': 0.0011625795159488916,
+            'Neutral': 0.990983247756958,
+            'Mixed': 5.080233904664055e-7
         },
-        "Entities": [
+        'Entities': [
             {
-                "Score": 0.5212405920028687,
-                "Type": "ORGANIZATION",
-                "Text": "organization",
-                "BeginOffset": 6,
-                "EndOffset": 15
+                'Score': 0.5212405920028687,
+                'Type': 'ORGANIZATION',
+                'Text': 'organization',
+                'BeginOffset': 6,
+                'EndOffset': 15
             },
             {
-                "Score": 0.945159912109375,
-                "Type": "LOCATION",
-                "Text": "location",
-                "BeginOffset": 21,
-                "EndOffset": 29
+                'Score': 0.945159912109375,
+                'Type': 'LOCATION',
+                'Text': 'location',
+                'BeginOffset': 21,
+                'EndOffset': 29
             }
         ],
-        "KeyPhrases": [
+        'KeyPhrases': [
             {
-                "Score": 0.9999958276748657,
-                "Text": "organization",
-                "BeginOffset": 6,
-                "EndOffset": 15
-            }, {
-                "Score": 0.9999958276748657,
-                "Text": "fakephrase",
-                "BeginOffset": 0,
-                "EndOffset": 5
+                'Score': 0.9999958276748657,
+                'Text': 'organization',
+                'BeginOffset': 6,
+                'EndOffset': 15
+            },
+            {
+                'Score': 0.9999958276748657,
+                'Text': 'fakephrase',
+                'BeginOffset': 0,
+                'EndOffset': 5
             }
         ]
     }
@@ -90,145 +91,151 @@ exports.event = {
 exports.event_no_entity_keyphrase = {
     source: 'com.analyze.text.inference',
     detail: {
-        "account_name": "twitter",
-        "platform": "twitter",
-        "search_query": "some%20search%query",
-        "feed": {
-            "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id_str": "fakeID",
-            "text": "This is sample tweet from twitter. This is used for test data",
+        'account_name': 'twitter',
+        'platform': 'twitter',
+        'search_query': 'some%20search%query',
+        'feed': {
+            'created_at': 'Sat Jun 13 17:07:39 +0000 2020',
+            'id_str': 'fakeID',
+            'text': 'This is sample tweet from twitter. This is used for test data'
         },
-        "Sentiment": "NEUTRAL",
-        "SentimentScore": {
-            "Positive": 0.007853682152926922,
-            "Negative": 0.0011625795159488916,
-            "Neutral": 0.990983247756958,
-            "Mixed": 5.080233904664055e-7
+        'Sentiment': 'NEUTRAL',
+        'SentimentScore': {
+            'Positive': 0.007853682152926922,
+            'Negative': 0.0011625795159488916,
+            'Neutral': 0.990983247756958,
+            'Mixed': 5.080233904664055e-7
         },
-        "Entities": [],
-        "KeyPhrases": [],
-        "text_in_images": [{
-            "text": "This is some fake text extracted from a jpeg file",
-            "Sentiment": "NEUTRAL",
-            "SentimentScore": {
-                "Positive": 0.007853682152926922,
-                "Negative": 0.0011625795159488916,
-                "Neutral": 0.990983247756958,
-                "Mixed": 5.080233904664055e-7
-            },
-            "Entities": [
-                {
-                    "Score": 0.5212405920028687,
-                    "Type": "ORGANIZATION",
-                    "Text": "organization",
-                    "BeginOffset": 6,
-                    "EndOffset": 15
+        'Entities': [],
+        'KeyPhrases': [],
+        'text_in_images': [
+            {
+                'text': 'This is some fake text extracted from a jpeg file',
+                'Sentiment': 'NEUTRAL',
+                'SentimentScore': {
+                    'Positive': 0.007853682152926922,
+                    'Negative': 0.0011625795159488916,
+                    'Neutral': 0.990983247756958,
+                    'Mixed': 5.080233904664055e-7
                 },
-                {
-                    "Score": 0.945159912109375,
-                    "Type": "LOCATION",
-                    "Text": "location",
-                    "BeginOffset": 21,
-                    "EndOffset": 29
-                }
-            ],
-            "KeyPhrases": [
-                {
-                    "Score": 0.9999958276748657,
-                    "Text": "organization",
-                    "BeginOffset": 6,
-                    "EndOffset": 15
-                }
-            ]
-        }]
+                'Entities': [
+                    {
+                        'Score': 0.5212405920028687,
+                        'Type': 'ORGANIZATION',
+                        'Text': 'organization',
+                        'BeginOffset': 6,
+                        'EndOffset': 15
+                    },
+                    {
+                        'Score': 0.945159912109375,
+                        'Type': 'LOCATION',
+                        'Text': 'location',
+                        'BeginOffset': 21,
+                        'EndOffset': 29
+                    }
+                ],
+                'KeyPhrases': [
+                    {
+                        'Score': 0.9999958276748657,
+                        'Text': 'organization',
+                        'BeginOffset': 6,
+                        'EndOffset': 15
+                    }
+                ]
+            }
+        ]
     }
-}
+};
 
 exports.event_with_moderation_labels = {
     source: 'com.analyze.text.inference',
     detail: {
-        "account_name": "twitter",
-        "platform": "twitter",
-        "search_query": "some%20search%query",
-        "feed": {
-            "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id_str": "fakeID",
-            "text": "This is sample tweet from twitter. This is used for test data",
+        'account_name': 'twitter',
+        'platform': 'twitter',
+        'search_query': 'some%20search%query',
+        'feed': {
+            'created_at': 'Sat Jun 13 17:07:39 +0000 2020',
+            'id_str': 'fakeID',
+            'text': 'This is sample tweet from twitter. This is used for test data'
         },
-        "moderation_labels_in_imgs": [{
-            "image_url": "https://someimageurl/media/someimage.jpg",
-            "labels": [{
-                "Name": "somebadlabel",
-                "Confidence": 0.75
-            }]
-        }]
+        'moderation_labels_in_imgs': [
+            {
+                'image_url': 'https://someimageurl/media/someimage.jpg',
+                'labels': [
+                    {
+                        'Name': 'somebadlabel',
+                        'Confidence': 0.75
+                    }
+                ]
+            }
+        ]
     }
 };
 
 exports.wrong_platform_event = {
     source: 'com.analyze.text.inference',
     detail: {
-        "account_name": "twitter",
-        "platform": "not_supported",
-        "search_query": "Abc",
-        "feed": {
-            "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id_str": "fakeID",
-            "text": "This is sample tweet from twitter. This is used for test data",
-            "truncated": false,
-            "entities": {
-                "hashtags": [],
-                "symbols": [],
-                "user_mentions": [],
-                "urls": []
+        'account_name': 'twitter',
+        'platform': 'not_supported',
+        'search_query': 'Abc',
+        'feed': {
+            'created_at': 'Sat Jun 13 17:07:39 +0000 2020',
+            'id_str': 'fakeID',
+            'text': 'This is sample tweet from twitter. This is used for test data',
+            'truncated': false,
+            'entities': {
+                'hashtags': [],
+                'symbols': [],
+                'user_mentions': [],
+                'urls': []
             },
-            "metadata": {
-                "iso_language_code": "de",
-                "result_type": "recent"
+            'metadata': {
+                'iso_language_code': 'de',
+                'result_type': 'recent'
             },
-            "geo": null,
-            "coordinates": null,
-            "place": null,
-            "contributors": null,
-            "is_quote_status": false,
-            "retweet_count": 0,
-            "favorite_count": 0,
-            "favorited": false,
-            "retweeted": false,
-            "possibly_sensitive": false,
-            "lang": "de",
-            "_translated_text": "This is sample text from tweet.",
-            "_cleansed_text": "This is sample text from tweet"
+            'geo': null,
+            'coordinates': null,
+            'place': null,
+            'contributors': null,
+            'is_quote_status': false,
+            'retweet_count': 0,
+            'favorite_count': 0,
+            'favorited': false,
+            'retweeted': false,
+            'possibly_sensitive': false,
+            'lang': 'de',
+            '_translated_text': 'This is sample text from tweet.',
+            '_cleansed_text': 'This is sample text from tweet'
         },
-        "Sentiment": "NEUTRAL",
-        "SentimentScore": {
-            "Positive": 0.007853682152926922,
-            "Negative": 0.0011625795159488916,
-            "Neutral": 0.990983247756958,
-            "Mixed": 5.080233904664055e-7
+        'Sentiment': 'NEUTRAL',
+        'SentimentScore': {
+            'Positive': 0.007853682152926922,
+            'Negative': 0.0011625795159488916,
+            'Neutral': 0.990983247756958,
+            'Mixed': 5.080233904664055e-7
         },
-        "Entities": [
+        'Entities': [
             {
-                "Score": 0.5212405920028687,
-                "Type": "ORGANIZATION",
-                "Text": "organization",
-                "BeginOffset": 6,
-                "EndOffset": 15
+                'Score': 0.5212405920028687,
+                'Type': 'ORGANIZATION',
+                'Text': 'organization',
+                'BeginOffset': 6,
+                'EndOffset': 15
             },
             {
-                "Score": 0.945159912109375,
-                "Type": "LOCATION",
-                "Text": "location",
-                "BeginOffset": 21,
-                "EndOffset": 29
+                'Score': 0.945159912109375,
+                'Type': 'LOCATION',
+                'Text': 'location',
+                'BeginOffset': 21,
+                'EndOffset': 29
             }
         ],
-        "KeyPhrases": [
+        'KeyPhrases': [
             {
-                "Score": 0.9999958276748657,
-                "Text": "organization",
-                "BeginOffset": 6,
-                "EndOffset": 15
+                'Score': 0.9999958276748657,
+                'Text': 'organization',
+                'BeginOffset': 6,
+                'EndOffset': 15
             }
         ]
     }
@@ -237,34 +244,36 @@ exports.wrong_platform_event = {
 exports.event_no_entity_keyphrase_in_img = {
     source: 'com.analyze.text.inference',
     detail: {
-        "account_name": "twitter",
-        "platform": "twitter",
-        "search_query": "some%20search%query",
-        "feed": {
-            "created_at": "Sat Jun 13 17:07:39 +0000 2020",
-            "id_str": "fakeID",
-            "text": "This is sample tweet from twitter. This is used for test data",
+        'account_name': 'twitter',
+        'platform': 'twitter',
+        'search_query': 'some%20search%query',
+        'feed': {
+            'created_at': 'Sat Jun 13 17:07:39 +0000 2020',
+            'id_str': 'fakeID',
+            'text': 'This is sample tweet from twitter. This is used for test data'
         },
-        "Sentiment": "NEUTRAL",
-        "SentimentScore": {
-            "Positive": 0.007853682152926922,
-            "Negative": 0.0011625795159488916,
-            "Neutral": 0.990983247756958,
-            "Mixed": 5.080233904664055e-7
+        'Sentiment': 'NEUTRAL',
+        'SentimentScore': {
+            'Positive': 0.007853682152926922,
+            'Negative': 0.0011625795159488916,
+            'Neutral': 0.990983247756958,
+            'Mixed': 5.080233904664055e-7
         },
-        "Entities": [],
-        "KeyPhrases": [],
-        "text_in_images": [{
-            "text": "This is some fake text extracted from a jpeg file",
-            "Sentiment": "NEUTRAL",
-            "SentimentScore": {
-                "Positive": 0.007853682152926922,
-                "Negative": 0.0011625795159488916,
-                "Neutral": 0.990983247756958,
-                "Mixed": 5.080233904664055e-7
-            },
-            "Entities": [],
-            "KeyPhrases": []
-        }]
+        'Entities': [],
+        'KeyPhrases': [],
+        'text_in_images': [
+            {
+                'text': 'This is some fake text extracted from a jpeg file',
+                'Sentiment': 'NEUTRAL',
+                'SentimentScore': {
+                    'Positive': 0.007853682152926922,
+                    'Negative': 0.0011625795159488916,
+                    'Neutral': 0.990983247756958,
+                    'Mixed': 5.080233904664055e-7
+                },
+                'Entities': [],
+                'KeyPhrases': []
+            }
+        ]
     }
 };

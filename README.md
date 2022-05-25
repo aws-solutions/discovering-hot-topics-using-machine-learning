@@ -83,6 +83,7 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Streams]
     │   ├── ingestion-custom            [lambda function that reads files from Amazon S3 bucket and pushes data to Amazon Kinesis Data Streams]
     │   ├── ingestion-producer          [lambda function that makes Twitter API call and pushes data to Amazon Kinesis Data Stream]
+    │   ├── ingestion-reddit            [lambda function that makes Reddit API call to retrieve comments from subreddits of interest and pushes data to Amazon Kinesis Data Stream]
     │   ├── ingestion-youtube           [lambda function that ingests comments from YouTube videos and pushes data to Amazon Kinesis Data Streams]
     │   ├── integration                 [lambda function that publishes inference outputs to Amazon Events Bridge]
     │   ├── layers                      [lambda layer function library for Node and Python layers]

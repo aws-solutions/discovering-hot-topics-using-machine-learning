@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test standard workflow stack 1`] = `
+exports[`test youtube ingestion stack 1`] = `
 Object {
   "Conditions": Object {
     "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": Object {
@@ -25,28 +25,28 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198ArtifactHashA2288818": Object {
-      "Description": "Artifact hash for asset \\"15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198\\"",
+    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551ArtifactHash3ED0C2FB": Object {
+      "Description": "Artifact hash for asset \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
       "Type": "String",
     },
-    "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198S3BucketB7E2053A": Object {
-      "Description": "S3 bucket for asset \\"15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198\\"",
+    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3Bucket493A15B5": Object {
+      "Description": "S3 bucket for asset \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
       "Type": "String",
     },
-    "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198S3VersionKeyD1EADE1A": Object {
-      "Description": "S3 key for asset version \\"15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198\\"",
+    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15": Object {
+      "Description": "S3 key for asset version \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60ArtifactHash993A31FA": Object {
-      "Description": "Artifact hash for asset \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eArtifactHash51B0C8EF": Object {
+      "Description": "Artifact hash for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39": Object {
-      "Description": "S3 bucket for asset \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259": Object {
+      "Description": "S3 bucket for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9": Object {
-      "Description": "S3 key for asset version \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB": Object {
+      "Description": "S3 key for asset version \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
       "Type": "String",
     },
   },
@@ -73,6 +73,9 @@ Object {
             },
           ],
         },
+        "StreamModeDetails": Object {
+          "StreamMode": "PROVISIONED",
+        },
       },
       "Type": "AWS::Kinesis::Stream",
     },
@@ -95,11 +98,11 @@ Object {
           "YouTubeSearchIngestionFreq": "cron(0 12 * * ? *)",
           "YoutubeAPIKey": "fakeKey",
           "YoutubeSearchQuery": "fakeSearchString",
-          "referencetoAssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39Ref": Object {
-            "Ref": "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39",
+          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259Ref": Object {
+            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259",
           },
-          "referencetoAssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9Ref": Object {
-            "Ref": "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9",
+          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9ABRef": Object {
+            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB",
           },
         },
         "TemplateURL": Object {
@@ -116,7 +119,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198S3BucketB7E2053A",
+                "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3Bucket493A15B5",
               },
               "/",
               Object {
@@ -126,7 +129,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198S3VersionKeyD1EADE1A",
+                        "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15",
                       },
                     ],
                   },
@@ -139,7 +142,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters15db6d99598581b0309c16adf5ccef7a753081a5470bbe8730eb7d142fa21198S3VersionKeyD1EADE1A",
+                        "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15",
                       },
                     ],
                   },
