@@ -3,16 +3,16 @@
 exports[`test Text Analysis Fireshose Stream Creation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dArtifactHash9AD07A40": Object {
-      "Description": "Artifact hash for asset \\"5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15d\\"",
+    "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4ArtifactHash74427194": Object {
+      "Description": "Artifact hash for asset \\"90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4\\"",
       "Type": "String",
     },
-    "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dS3BucketA487C41A": Object {
-      "Description": "S3 bucket for asset \\"5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15d\\"",
+    "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4S3BucketC26C1AC3": Object {
+      "Description": "S3 bucket for asset \\"90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4\\"",
       "Type": "String",
     },
-    "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dS3VersionKey6D03EDAF": Object {
-      "Description": "S3 key for asset version \\"5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15d\\"",
+    "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4S3VersionKey206F80F4": Object {
+      "Description": "S3 key for asset version \\"90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4\\"",
       "Type": "String",
     },
   },
@@ -2081,6 +2081,264 @@ Object {
       "Type": "AWS::Logs::LogStream",
       "UpdateReplacePolicy": "Retain",
     },
+    "RedditCommentsFirehoseRole40339780": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RedditCommentsFirehoseRoleDefaultPolicy53B33A45": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "redditcommentsstorageC4956261",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "redditcommentsstorageC4956261",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RedditCommentsFirehoseRoleDefaultPolicy53B33A45",
+        "Roles": Array [
+          Object {
+            "Ref": "RedditCommentsFirehoseRole40339780",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RedditCommentsKinesisFirehoseC3BD4DFA": Object {
+      "DependsOn": Array [
+        "RedditCommentsFirehoseRoleDefaultPolicy53B33A45",
+        "RedditCommentsFirehoseRole40339780",
+      ],
+      "Properties": Object {
+        "DeliveryStreamEncryptionConfigurationInput": Object {
+          "KeyType": "AWS_OWNED_CMK",
+        },
+        "DeliveryStreamType": "DirectPut",
+        "ExtendedS3DestinationConfiguration": Object {
+          "BucketARN": Object {
+            "Fn::GetAtt": Array [
+              "redditcommentsstorageC4956261",
+              "Arn",
+            ],
+          },
+          "BufferingHints": Object {
+            "IntervalInSeconds": 600,
+            "SizeInMBs": 128,
+          },
+          "CloudWatchLoggingOptions": Object {
+            "Enabled": true,
+            "LogGroupName": Object {
+              "Ref": "RedditCommentsKinesisFirehosefirehoseloggroup2DEF64EE",
+            },
+            "LogStreamName": Object {
+              "Ref": "RedditCommentsKinesisFirehosefirehoseloggroupfirehoselogstream80D3DBB9",
+            },
+          },
+          "CompressionFormat": "UNCOMPRESSED",
+          "EncryptionConfiguration": Object {
+            "KMSEncryptionConfig": Object {
+              "AWSKMSKeyARN": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":kms:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":alias/aws/s3",
+                  ],
+                ],
+              },
+            },
+          },
+          "Prefix": "redditcomments",
+          "RoleARN": Object {
+            "Fn::GetAtt": Array [
+              "RedditCommentsFirehoseRole40339780",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+    },
+    "RedditCommentsKinesisFirehoseKinesisFirehosePolicy73D7E7BD": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "redditcommentsstorageC4956261",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "redditcommentsstorageC4956261",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":logs:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    Object {
+                      "Ref": "RedditCommentsKinesisFirehosefirehoseloggroup2DEF64EE",
+                    },
+                    ":log-stream:",
+                    Object {
+                      "Ref": "RedditCommentsKinesisFirehosefirehoseloggroupfirehoselogstream80D3DBB9",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "RedditCommentsKinesisFirehoseKinesisFirehosePolicy73D7E7BD",
+        "Roles": Array [
+          Object {
+            "Ref": "RedditCommentsKinesisFirehoseKinesisFirehoseRole818766AB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "RedditCommentsKinesisFirehoseKinesisFirehoseRole818766AB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "firehose.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "RedditCommentsKinesisFirehosefirehoseloggroup2DEF64EE": Object {
+      "DeletionPolicy": "Retain",
+      "Metadata": Object {
+        "cfn_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "id": "W86",
+              "reason": "Retention period for CloudWatchLogs LogGroups are set to 'Never Expire' to preserve customer data indefinitely",
+            },
+            Object {
+              "id": "W84",
+              "reason": "By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys)",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "RedditCommentsKinesisFirehosefirehoseloggroupfirehoselogstream80D3DBB9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Ref": "RedditCommentsKinesisFirehosefirehoseloggroup2DEF64EE",
+        },
+      },
+      "Type": "AWS::Logs::LogStream",
+      "UpdateReplacePolicy": "Retain",
+    },
     "SentimentFirehoseRole8C82670C": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -2365,7 +2623,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dS3BucketA487C41A",
+            "Ref": "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4S3BucketC26C1AC3",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -2378,7 +2636,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dS3VersionKey6D03EDAF",
+                          "Ref": "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4S3VersionKey206F80F4",
                         },
                       ],
                     },
@@ -2391,7 +2649,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5f9ca7c2a1c96f81fb87ac19ad6ebc5d5cd287bfca1f84677f99996e766ef15dS3VersionKey6D03EDAF",
+                          "Ref": "AssetParameters90cf26075d009a8c5c41e56d241da45bd63e3feaa2787edc1d5bd7da65ed9aa4S3VersionKey206F80F4",
                         },
                       ],
                     },
@@ -2428,6 +2686,9 @@ Object {
             },
             "NEWSFEEDS_FEED_STORAGE": Object {
               "Ref": "NewsFeedStorageKinesisFirehoseF48B61B2",
+            },
+            "REDDIT_FEED_STORAGE": Object {
+              "Ref": "RedditCommentsKinesisFirehoseC3BD4DFA",
             },
             "SENTIMENT_FIREHOSE": Object {
               "Ref": "SentimentKinesisFirehose490D8CD7",
@@ -2634,6 +2895,12 @@ Object {
                 Object {
                   "Fn::GetAtt": Array [
                     "MetadataKinesisFirehose649EB08F",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::GetAtt": Array [
+                    "RedditCommentsKinesisFirehoseC3BD4DFA",
                     "Arn",
                   ],
                 },
@@ -4054,6 +4321,22 @@ Object {
       "UpdateReplacePolicy": "Retain",
     },
     "newsFeedStorage0BFF378B": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "redditcommentsstorageC4956261": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "BucketEncryption": Object {

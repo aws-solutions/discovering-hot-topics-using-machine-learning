@@ -11,6 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import '@aws-cdk/assert/jest';
 import { SynthUtils } from '@aws-cdk/assert';
 import { Aws, Stack } from '@aws-cdk/core';
 import { QuickSightStack } from '../lib/quicksight-custom-resources/quicksight-stack';
@@ -19,57 +20,14 @@ test('test QuickSight stackCreation', () => {
     const stack = new Stack();
     new QuickSightStack(stack, 'testQuickSight', {
         parameters: {
-            "QuickSightSourceTemplateArn": 'arn:aws:quicksight:us-east-1:fakeaccount:template/template-name',
-            "QuickSightPrincipalArn": 'arn:aws:quicksight:us-east-1:fakeaccount:user/namespace/fakeuser',
-            "S3AccessLogBucket": 'arn:aws:s3:::fakebucketforaccesslogging',
-            "SolutionID": 'SO0122',
-            "SolutionName": 'Discovering-Hot-Topics-QS-Dashboard',
-            "ParentStackName": Aws.STACK_NAME
+            'QuickSightSourceTemplateArn': 'arn:aws:quicksight:us-east-1:fakeaccount:template/template-name',
+            'QuickSightPrincipalArn': 'arn:aws:quicksight:us-east-1:fakeaccount:user/namespace/fakeuser',
+            'S3AccessLogBucket': 'arn:aws:s3:::fakebucketforaccesslogging',
+            'SolutionID': 'SO0122',
+            'SolutionName': 'Discovering-Hot-Topics-QS-Dashboard',
+            'ParentStackName': Aws.STACK_NAME
         }
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveOutput({
-        outputName: 'discoveringhottopicsusingmachinelearningQSDashboardQuicksightQuickSightResources06DCADD4analysisurl',
-        outputValue: {
-            'Fn::GetAtt': [
-                "QuicksightQuickSightResources2C63FCCA",
-                "analysis_url"
-            ]
-        }
-    });
-    expect(stack).toHaveOutput({
-        outputName: 'discoveringhottopicsusingmachinelearningQSDashboardQuicksightQuickSightResources06DCADD4dashboardurl',
-        outputValue: {
-            'Fn::GetAtt': [
-                "QuicksightQuickSightResources2C63FCCA",
-                "dashboard_url"
-            ]
-        }
-    });
-
-    expect(stack).toHaveResourceLike('Custom::QuickSightResources', {
-        "Resource": "all",
-        "LogLevel": "INFO",
-        "ApplicationName": "solution-name",
-        "WorkGroupName": "testGroup"
-    });
-
-    expect(stack).toHaveResourceLike('AWS::IAM::Role', {
-        "AssumeRolePolicyDocument": {
-            "Statement": [{
-                "Action": "sts:AssumeRole",
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": "lambda.amazonaws.com"
-                }
-            }]
-        }
-    });
-
-    expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
-        "Handler": "lambda_function.handler",
-        "Runtime": "python3.8",
-        "Timeout": 30
-    });
 });

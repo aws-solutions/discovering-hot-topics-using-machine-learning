@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const TextAnalysis = require('./util/store-text-analysis');
 const ImageAnalysis = require('./util/store-text-img-analysis');
@@ -31,4 +31,4 @@ exports.handler = async (event) => {
         default:
             throw new Error('Event source not supported');
     }
-}
+};

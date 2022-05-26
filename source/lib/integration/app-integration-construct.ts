@@ -105,6 +105,7 @@ export class AppIntegration extends Construct {
             customIngestionLoudnessStorage: eventStorageMap.get('CustomIngestionLoudness')!,
             customIngestionItemStorage: eventStorageMap.get('CustomIngestionItem')!,
             metadataStorage: eventStorageMap.get('Metadata')!,
+            redditCommentsStorage: eventStorageMap.get('RedditComments')!,
             textAnalysisInfNS: props.textAnalysisInfNS,
             metadataNS: props.metadataNS
         });

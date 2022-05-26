@@ -14,3 +14,4 @@ urllib3/
 _yaml.cpython-*.so
 yaml
 _yaml/
+charset_normalizer/

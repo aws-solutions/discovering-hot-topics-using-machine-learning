@@ -30,6 +30,7 @@ class TextAnalysis {
                 break;
             case 'newsfeeds':
             case 'youtubecomments':
+            case 'reddit':
                 await RawDataStorage.storeFeed(data);
                 break;
             case 'customingestion':

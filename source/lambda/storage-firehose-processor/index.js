@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 exports.handler = (event, context, callback) => {
     const output = event.records.map((record) => {
@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
         return {
             recordId: record.recordId,
             result: 'Ok',
-            data: Buffer.from(JSON.stringify(newPayload)).toString('base64'),
+            data: Buffer.from(JSON.stringify(newPayload)).toString('base64')
         };
     });
     console.debug(`Processing completed.  Successful records ${output.length}`);

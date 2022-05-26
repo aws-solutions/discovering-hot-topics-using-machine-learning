@@ -3,16 +3,16 @@
 exports[`Test Lambda with role and scheduler 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aArtifactHash982626B0": Object {
-      "Description": "Artifact hash for asset \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
+      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3Bucket5025E55C": Object {
-      "Description": "S3 bucket for asset \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
+      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FAD": Object {
-      "Description": "S3 key for asset version \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
+      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
   },
@@ -81,7 +81,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3Bucket5025E55C",
+            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -94,7 +94,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FAD",
+                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
                         },
                       ],
                     },
@@ -107,7 +107,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FAD",
+                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
                         },
                       ],
                     },
@@ -233,6 +233,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -344,6 +345,9 @@ Object {
         "StreamEncryption": Object {
           "EncryptionType": "KMS",
           "KeyId": "alias/aws/kinesis",
+        },
+        "StreamModeDetails": Object {
+          "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",

@@ -9,3 +9,4 @@ requests/
 ## crhelper tests directory
 tests/
 urllib3/
+charset_normalizer/

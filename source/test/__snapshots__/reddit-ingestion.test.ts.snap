@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test reddit ingestion stack 1`] = `
+Object {
+  "Conditions": Object {
+    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": Object {
+      "Fn::Or": Array [
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "cn-north-1",
+          ],
+        },
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "cn-northwest-1",
+          ],
+        },
+      ],
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28ArtifactHashE71F4FC8": Object {
+      "Description": "Artifact hash for asset \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+      "Type": "String",
+    },
+    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3BucketEBB309BA": Object {
+      "Description": "S3 bucket for asset \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+      "Type": "String",
+    },
+    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B": Object {
+      "Description": "S3 key for asset version \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+      "Type": "String",
+    },
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2ArtifactHashA3EC81B3": Object {
+      "Description": "Artifact hash for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+      "Type": "String",
+    },
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF": Object {
+      "Description": "S3 bucket for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+      "Type": "String",
+    },
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B": Object {
+      "Description": "S3 key for asset version \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BusEA82B648": Object {
+      "Properties": Object {
+        "Name": "Bus",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+    "Stream790BDEE4": Object {
+      "Properties": Object {
+        "RetentionPeriodHours": 24,
+        "ShardCount": 1,
+        "StreamEncryption": Object {
+          "Fn::If": Array [
+            "AwsCdkKinesisEncryptedStreamsUnsupportedRegions",
+            Object {
+              "Ref": "AWS::NoValue",
+            },
+            Object {
+              "EncryptionType": "KMS",
+              "KeyId": "alias/aws/kinesis",
+            },
+          ],
+        },
+        "StreamModeDetails": Object {
+          "StreamMode": "PROVISIONED",
+        },
+      },
+      "Type": "AWS::Kinesis::Stream",
+    },
+    "testredditingestionNestedStacktestredditingestionNestedStackResourceE8B6AADB": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "EventBus": Object {
+            "Fn::GetAtt": Array [
+              "BusEA82B648",
+              "Arn",
+            ],
+          },
+          "RedditAPIKey": "/fakelocation/reddit/comments",
+          "RedditIngestionFrequency": "cron(0/60 * * * ? *)",
+          "StreamARN": Object {
+            "Fn::GetAtt": Array [
+              "Stream790BDEE4",
+              "Arn",
+            ],
+          },
+          "SubRedditsToFollow": "r/test1,r/test2",
+          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CFRef": Object {
+            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF",
+          },
+          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1BRef": Object {
+            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3BucketEBB309BA",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;

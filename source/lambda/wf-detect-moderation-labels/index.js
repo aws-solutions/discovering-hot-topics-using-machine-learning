@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+"use strict";
 
 const AWS = require('aws-sdk');
 const path = require('path');
