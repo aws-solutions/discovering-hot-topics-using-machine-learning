@@ -123,7 +123,7 @@ The solution can be deployed through the CloudFormation template available on th
 
 Clone this git repository
 
-`git clone https://github.com/awslabs/<repository_name>`
+`git clone https://github.com/aws-solutions/<repository_name>`
 
 ### 2. Build the solution for deployment
 
