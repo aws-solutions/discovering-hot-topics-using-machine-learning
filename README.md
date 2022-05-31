@@ -1,17 +1,24 @@
 ## Discovering Hot Topics using Machine Learning
 
-The Discovering Hot Topics Using Machine Learning solution helps you identify the most dominant topics associated with your products, policies, events, and brands. Implementing this solution helps you react quickly to new growth opportunities, address negative brand associations, and deliver higher levels of customer satisfaction.
+The Discovering Hot Topics Using Machine Learning solution identifies the most dominant topics associated with your products, policies, events, and brands. This enables you to react quickly to new growth opportunities, address negative brand associations, and deliver a higher level of customer satisfaction for your business. In addition to helping you understand what your customers are saying about your brand, this solution gives you insights into topics that are relevant to your business.
 
-The solution automates digital asset (text and image) ingestion from twitter, RSS news feeds, and YouTube comments to provide near-real-time inferences using machine learning algorithms through Amazon Comprehend, Amazon Translate, and Amazon Rekognition to perform topic modeling, sentiment analysis, entity and key phrase detection, and detect any unsafe images. The solution then visualizes these large-scale customer analyses using an Amazon QuickSight dashboard. This guide provides step-by-step instructions for deploying this solution including a pre-built dashboard that provides you with the context and insights necessary to identify trends that help or harm your brand.
+This solution deploys an AWS CloudFormation template to automate data ingestion from these sources:
+- Twitter
+- RSS news feeds
+- YouTube comments tied to videos
+- Reddit (comments from subreddits of interest)
+- custom data in JSON or XLSX format
+ 
+This solution uses pre-trained machine learning (ML) models from Amazon Comprehend, Amazon Translate, and Amazon Rekognition to provide these benefits: 
 
-The solution performs the following key features:
+- **Detecting dominant topics using topic modeling**-identifies the terms that collectively form a topic.
+- **Identifying the sentiment of what customers are saying**—uses contextual semantic search to understand the nature of online discussions.
+- **Determining if images associated with your brand contain unsafe content**—detects unsafe and negative imagery in content.
+- **Helping you identify insights in near-real-time**—uses a visual dashboard to understand context, threats, and opportunities almost instantly.
 
-- **Performs topic modeling to detect dominant topics**: identifies the terms that collectively form a topic from within customer feedback
-- **Identifies the sentiment of what customers are saying**: uses contextual semantic search to understand the nature of online discussions
-- **Determines if images associated with your brand contain unsafe content**: detects unsafe and negative imagery in content
-- **Helps customers identify insights in near real-time**: you can use a visualization dashboard to better understand context, threats, and opportunities almost instantly
+The solution can be customized to aggregate other social media platforms and internal enterprise systems. The default CloudFormation deployment sets up custom ingestion configuration with parameters and an Amazon Simple Storage Service (Amazon S3) bucket to allow Amazon Transcribe Call Analytics output to be processed for natural language processing (NLP) analysis.
 
-This solution deploys an AWS CloudFormation template that supports Twitter, RSS feeds, and YouTube comments as data source options for ingestion, but the solution can be customized to aggregate other social media platforms and internal enterprise systems.
+With minimal configuration changes in the custom ingestion functionality, this solution can ingest data from both internal systems and external data sources, such as transcriptions from call center calls, product reviews, movie reviews, and community chat forums including Twitch and Discord. This is done by exporting the custom data in JSON or XLSX format from the respective platforms and then uploading it to an Amazon Simple Storage Service (Amazon S3) bucket that is created when deploying this solution. More details on how to customize this feature, please refer Customizing Amazon Amazon S3 ingestion.
 
 For a detailed solution deployment guide, refer to [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
