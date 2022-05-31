@@ -35,6 +35,54 @@ Object {
         },
       ],
     },
+    "IngestionDeployRedditIngestionB0819499": Object {
+      "Fn::And": Array [
+        Object {
+          "Fn::Equals": Array [
+            Object {
+              "Ref": "DeployRedditIngestion",
+            },
+            "Yes",
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "RedditAPIKey",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "RedditIngestionFrequency",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+        Object {
+          "Fn::Not": Array [
+            Object {
+              "Fn::Equals": Array [
+                Object {
+                  "Ref": "SubRedditsToFollow",
+                },
+                "",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     "IngestionDeployTwitterIngestion4D7DE3EB": Object {
       "Fn::And": Array [
         Object {
@@ -170,6 +218,18 @@ Object {
     },
   },
   "Parameters": Object {
+    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fArtifactHash3F521863": Object {
+      "Description": "Artifact hash for asset \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+      "Type": "String",
+    },
+    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3Bucket6CF1699E": Object {
+      "Description": "S3 bucket for asset \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+      "Type": "String",
+    },
+    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454": Object {
+      "Description": "S3 key for asset version \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+      "Type": "String",
+    },
     "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
       "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
       "Type": "String",
@@ -180,18 +240,6 @@ Object {
     },
     "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
       "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
-      "Type": "String",
-    },
-    "AssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cArtifactHash1F1AB89F": Object {
-      "Description": "Artifact hash for asset \\"12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824c\\"",
-      "Type": "String",
-    },
-    "AssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3Bucket73D3D2D0": Object {
-      "Description": "S3 bucket for asset \\"12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824c\\"",
-      "Type": "String",
-    },
-    "AssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3VersionKey9B720E91": Object {
-      "Description": "S3 key for asset version \\"12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824c\\"",
       "Type": "String",
     },
     "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feArtifactHashCC219F93": Object {
@@ -206,76 +254,100 @@ Object {
       "Description": "S3 key for asset version \\"24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204fe\\"",
       "Type": "String",
     },
-    "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cArtifactHash1D5C1B62": Object {
-      "Description": "Artifact hash for asset \\"27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8c\\"",
+    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507ArtifactHashF6D20CC8": Object {
+      "Description": "Artifact hash for asset \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
       "Type": "String",
     },
-    "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cS3Bucket2D140F3E": Object {
-      "Description": "S3 bucket for asset \\"27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8c\\"",
+    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3Bucket2BBF90FB": Object {
+      "Description": "S3 bucket for asset \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
       "Type": "String",
     },
-    "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cS3VersionKey68B54160": Object {
-      "Description": "S3 key for asset version \\"27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8c\\"",
+    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202": Object {
+      "Description": "S3 key for asset version \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
       "Type": "String",
     },
-    "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceArtifactHashE3F53066": Object {
-      "Description": "Artifact hash for asset \\"38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ce\\"",
+    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232ArtifactHash96BC20BE": Object {
+      "Description": "Artifact hash for asset \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
       "Type": "String",
     },
-    "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceS3Bucket9161BBF6": Object {
-      "Description": "S3 bucket for asset \\"38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ce\\"",
+    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3Bucket0417DA8C": Object {
+      "Description": "S3 bucket for asset \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
       "Type": "String",
     },
-    "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceS3VersionKeyD80DC449": Object {
-      "Description": "S3 key for asset version \\"38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ce\\"",
+    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B": Object {
+      "Description": "S3 key for asset version \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
       "Type": "String",
     },
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aArtifactHash982626B0": Object {
-      "Description": "Artifact hash for asset \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622ArtifactHashB4CEF6C9": Object {
+      "Description": "Artifact hash for asset \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
       "Type": "String",
     },
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3Bucket5025E55C": Object {
-      "Description": "S3 bucket for asset \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98C": Object {
+      "Description": "S3 bucket for asset \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
       "Type": "String",
     },
-    "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FAD": Object {
-      "Description": "S3 key for asset version \\"562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652a\\"",
+    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39": Object {
+      "Description": "S3 key for asset version \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
       "Type": "String",
     },
-    "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefArtifactHash4C71D945": Object {
-      "Description": "Artifact hash for asset \\"5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efef\\"",
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2ArtifactHashA3EC81B3": Object {
+      "Description": "Artifact hash for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
       "Type": "String",
     },
-    "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefS3BucketBB9649A7": Object {
-      "Description": "S3 bucket for asset \\"5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efef\\"",
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF": Object {
+      "Description": "S3 bucket for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
       "Type": "String",
     },
-    "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefS3VersionKey150B5DA8": Object {
-      "Description": "S3 key for asset version \\"5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efef\\"",
+    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B": Object {
+      "Description": "S3 key for asset version \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
       "Type": "String",
     },
-    "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfArtifactHash788CB7D4": Object {
-      "Description": "Artifact hash for asset \\"9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adf\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
+      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
-    "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfS3Bucket7D03245E": Object {
-      "Description": "S3 bucket for asset \\"9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adf\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
+      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
-    "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfS3VersionKeyC38D9D5F": Object {
-      "Description": "S3 key for asset version \\"9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adf\\"",
+    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
+      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60ArtifactHash993A31FA": Object {
-      "Description": "Artifact hash for asset \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fArtifactHash98C6C209": Object {
+      "Description": "Artifact hash for asset \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39": Object {
-      "Description": "S3 bucket for asset \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3Bucket3459BAE7": Object {
+      "Description": "S3 bucket for asset \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
       "Type": "String",
     },
-    "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9": Object {
-      "Description": "S3 key for asset version \\"a9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60\\"",
+    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437": Object {
+      "Description": "S3 key for asset version \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
+      "Type": "String",
+    },
+    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eArtifactHash5AD4ED38": Object {
+      "Description": "Artifact hash for asset \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+      "Type": "String",
+    },
+    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3Bucket74A4FFE6": Object {
+      "Description": "S3 bucket for asset \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+      "Type": "String",
+    },
+    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67": Object {
+      "Description": "S3 key for asset version \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+      "Type": "String",
+    },
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eArtifactHash51B0C8EF": Object {
+      "Description": "Artifact hash for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+      "Type": "String",
+    },
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259": Object {
+      "Description": "S3 bucket for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+      "Type": "String",
+    },
+    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB": Object {
+      "Description": "S3 key for asset version \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
       "Type": "String",
     },
     "Config": Object {
@@ -299,6 +371,15 @@ Object {
       ],
       "Default": "Yes",
       "Description": "Would you like to deploy Twitter Ingestion mechanism",
+      "Type": "String",
+    },
+    "DeployRedditIngestion": Object {
+      "AllowedValues": Array [
+        "Yes",
+        "No",
+      ],
+      "Default": "Yes",
+      "Description": "Required: Would you like to deploy the news feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory",
       "Type": "String",
     },
     "DeployTwitter": Object {
@@ -333,10 +414,30 @@ Object {
       "Type": "Number",
     },
     "RSSNewsFeedIngestFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0 23 * * ? *)",
       "Description": "The frequency at which RSS Feeds should be pulled. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
+      "Type": "String",
+    },
+    "RedditAPIKey": Object {
+      "AllowedPattern": "^$|^(?!\\\\s*$).+",
+      "ConstraintDescription": "Please provide the SSM key for Reddit API",
+      "Default": "/discovering-hot-topics-using-machine-learning/reddit/comments",
+      "Description": "Required: The SSM parameter key name where the Reddit API credentials detailare stored. For details about how and where to store the API credentials, please refer the implementation guide for this solution",
+      "Type": "String",
+    },
+    "RedditIngestionFrequency": Object {
+      "AllowedPattern": "^$|(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "Default": "cron(0/60 * * * ? *)",
+      "Description": "Required: The Polling frequency at which the system should ingest comments from subreddits",
+      "Type": "String",
+    },
+    "SubRedditsToFollow": Object {
+      "AllowedPattern": "^$|[^,(?! )]+",
+      "ConstraintDescription": "",
+      "Default": "r/aws,r/MachineLearning",
+      "Description": "Optional: Please provide the list of SubReddits to follow as comma separated list. Alternatively you can also set the list in the DynamoDB table. For details on the DynamoDB configuration, please refer our implementation guide",
       "Type": "String",
     },
     "SupportedLanguages": Object {
@@ -349,14 +450,14 @@ Object {
       "Type": "String",
     },
     "TopicAnalysisFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(10 0 * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(10 0 * * ? *)",
       "Description": "The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour",
       "Type": "String",
     },
     "TwitterIngestQueryFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0/5 * * * ? *)",
       "Description": "The frequency at which API calls will be made to twitter in a cron expression format. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
@@ -377,7 +478,7 @@ Object {
       "Type": "String",
     },
     "YouTubeSearchIngestionFreq": Object {
-      "AllowedPattern": "^$|(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?(?:,(?:[0-5]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-5]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+      "AllowedPattern": "^$|(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the formation 'cron(0 12 * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0 12 * * ? *)",
       "Description": "Required: The frequency at which at which YouTube comments should be retrieved",
@@ -437,6 +538,9 @@ Object {
           "EncryptionType": "KMS",
           "KeyId": "alias/aws/kinesis",
         },
+        "StreamModeDetails": Object {
+          "StreamMode": "PROVISIONED",
+        },
       },
       "Type": "AWS::Kinesis::Stream",
     },
@@ -492,7 +596,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefS3BucketBB9649A7",
+            "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3Bucket2BBF90FB",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -505,7 +609,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefS3VersionKey150B5DA8",
+                          "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202",
                         },
                       ],
                     },
@@ -518,7 +622,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters5a5c026b079c3c61de9707a9f2227292dcb5e12a9bbfd00dfb8d26431254efefS3VersionKey150B5DA8",
+                          "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202",
                         },
                       ],
                     },
@@ -899,11 +1003,11 @@ Object {
               "Arn",
             ],
           },
-          "referencetoAssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3Bucket73D3D2D0Ref": Object {
-            "Ref": "AssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3Bucket73D3D2D0",
+          "referencetoAssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98CRef": Object {
+            "Ref": "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98C",
           },
-          "referencetoAssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3VersionKey9B720E91Ref": Object {
-            "Ref": "AssetParameters12b5f2d23dcc0447fa1cfa672f1e56eeabc2a92f5a65e7380d84a84c3e98824cS3VersionKey9B720E91",
+          "referencetoAssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39Ref": Object {
+            "Ref": "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39",
           },
         },
         "TemplateURL": Object {
@@ -920,7 +1024,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cS3Bucket2D140F3E",
+                "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3Bucket74A4FFE6",
               },
               "/",
               Object {
@@ -930,7 +1034,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cS3VersionKey68B54160",
+                        "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67",
                       },
                     ],
                   },
@@ -943,7 +1047,84 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters27e074262017b99ec8c8acb41c7e1065486d42be50b31df1204561b8230cba8cS3VersionKey68B54160",
+                        "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "IngestionRedditIngestionNestedStackRedditIngestionNestedStackResource5ABCB860": Object {
+      "Condition": "IngestionDeployRedditIngestionB0819499",
+      "DeletionPolicy": "Delete",
+      "Metadata": Object {
+        "nestedStackFileName": "IngestionRedditIngestion6FBA36BE.nested.template",
+      },
+      "Properties": Object {
+        "Parameters": Object {
+          "EventBus": Object {
+            "Fn::GetAtt": Array [
+              "IngestionBus3E30EA7C",
+              "Arn",
+            ],
+          },
+          "StreamARN": Object {
+            "Fn::GetAtt": Array [
+              "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
+              "Arn",
+            ],
+          },
+          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CFRef": Object {
+            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF",
+          },
+          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1BRef": Object {
+            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3Bucket0417DA8C",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B",
                       },
                     ],
                   },
@@ -1066,11 +1247,11 @@ Object {
           "SupportedLang": Object {
             "Ref": "SupportedLanguages",
           },
-          "referencetoAssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3Bucket5025E55CRef": Object {
-            "Ref": "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3Bucket5025E55C",
+          "referencetoAssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255ARef": Object {
+            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
           },
-          "referencetoAssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FADRef": Object {
-            "Ref": "AssetParameters562b22572f5b1c96e642fd6530a7f212a75859278d0a3c37118347ab5e4f652aS3VersionKey614E5FAD",
+          "referencetoAssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6ARef": Object {
+            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
           },
         },
         "TemplateURL": Object {
@@ -1087,7 +1268,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceS3Bucket9161BBF6",
+                "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3Bucket6CF1699E",
               },
               "/",
               Object {
@@ -1097,7 +1278,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceS3VersionKeyD80DC449",
+                        "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454",
                       },
                     ],
                   },
@@ -1110,7 +1291,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters38473af3eb8fcfbc88148e758cd2e8fc7f3eeac614aca2fcb03b8f39545a33ceS3VersionKeyD80DC449",
+                        "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454",
                       },
                     ],
                   },
@@ -1152,11 +1333,11 @@ Object {
           "YoutubeSearchQuery": Object {
             "Ref": "YoutubeSearchQuery",
           },
-          "referencetoAssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39Ref": Object {
-            "Ref": "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3Bucket5CA8AB39",
+          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259Ref": Object {
+            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259",
           },
-          "referencetoAssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9Ref": Object {
-            "Ref": "AssetParametersa9a817e4cdf5cb4a7341723e75923d8348d0125fea1f3c9852339f806ed92e60S3VersionKeyABD3A1B9",
+          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9ABRef": Object {
+            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB",
           },
         },
         "TemplateURL": Object {
@@ -1173,7 +1354,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfS3Bucket7D03245E",
+                "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3Bucket3459BAE7",
               },
               "/",
               Object {
@@ -1183,7 +1364,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfS3VersionKeyC38D9D5F",
+                        "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437",
                       },
                     ],
                   },
@@ -1196,7 +1377,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters9d572b8d6263b0509c65317d88a827a74f4e2c0e93ffe0878107beb712847adfS3VersionKeyC38D9D5F",
+                        "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437",
                       },
                     ],
                   },

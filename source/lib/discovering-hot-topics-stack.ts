@@ -28,9 +28,10 @@ export interface DiscoveringHotTopicsStackProps extends cdk.StackProps {
 }
 
 export class DiscoveringHotTopicsStack extends cdk.Stack {
+    // regex expression to validate cloudwatch cron expressions. For documentation and examples, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
     static readonly cronRegex =
-        '(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|' +
-        '\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|' +
+        '(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|' +
+        '\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|' +
         '\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|' +
         '3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|' +
         '1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?' +
@@ -214,6 +215,43 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                 'Provide an arn matching an Amazon Quicksight User ARN. The input did not match the validation pattern. If you do not wish to deploy QuickSight visuals, leave it blank'
         });
 
+        const _deployRedditIngestion = new cdk.CfnParameter(this, 'DeployRedditIngestion', {
+            type: 'String',
+            default: 'Yes',
+            allowedValues: ['Yes', 'No'],
+            description:
+                'Required: Would you like to deploy the news feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory'
+        });
+
+        const _redditAPIKey = new cdk.CfnParameter(this, 'RedditAPIKey', {
+            type: 'String',
+            description:
+                'Required: The SSM parameter key name where the Reddit API credentials detailare stored. For ' +
+                'details about how and where to store the API credentials, please refer the implementation guide for this solution',
+            default: '/discovering-hot-topics-using-machine-learning/reddit/comments',
+            allowedPattern: '^$|^(?!\\s*$).+',
+            constraintDescription: 'Please provide the SSM key for Reddit API'
+        });
+
+        const _subRedditIngestionFreq = new cdk.CfnParameter(this, 'RedditIngestionFrequency', {
+            type: 'String',
+            description: 'Required: The Polling frequency at which the system should ingest comments from subreddits',
+            default: 'cron(0/60 * * * ? *)',
+            allowedPattern: `^$|${DiscoveringHotTopicsStack.cronRegex}`,
+            constraintDescription:
+                'Please provide a valid scron expression for the format "cron(0/60 * * * ? *)". For details on CloudWatch cron expressions, please navigate to https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
+        });
+
+        const _subRedditsToFollow = new cdk.CfnParameter(this, 'SubRedditsToFollow', {
+            type: 'String',
+            description:
+                'Optional: Please provide the list of SubReddits to follow as comma separated list. Alternatively you ' +
+                'can also set the list in the DynamoDB table. For details on the DynamoDB configuration, please refer our implementation guide',
+            constraintDescription: '',
+            allowedPattern: '^$|[r\\/\\w+]+([,r\\/\\w+])*',
+            default: 'r/aws,r/MachineLearning'
+        });
+
         cdk.Stack.of(this).templateOptions.metadata = {
             'AWS::CloudFormation::Interface': {
                 ParameterGroups: [
@@ -247,6 +285,15 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                         ]
                     },
                     {
+                        Label: { default: 'RedditIngestion' },
+                        Parameters: [
+                            _deployRedditIngestion.logicalId,
+                            _redditAPIKey.logicalId,
+                            _subRedditIngestionFreq.logicalId,
+                            _subRedditsToFollow.logicalId
+                        ]
+                    },
+                    {
                         Label: { default: 'CustomIngestionSetup' },
                         Parameters: [_deployCustomIngestion.logicalId]
                     },
@@ -269,10 +316,11 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                     assert: cdk.Fn.conditionOr(
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes')
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployTwitter" is set to "No", then at least one of "DeployNewsFeeds", "DeployYouTubeCommentsIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployTwitter" is set to "No", then at least one of "DeployNewsFeeds", "DeployYouTubeCommentsIngestion", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -284,10 +332,11 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                     assert: cdk.Fn.conditionOr(
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes')
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployNewsFeeds" is set to "No", then at least one of "DeployTwitter", "DeployYouTubeCommentsIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployNewsFeeds" is set to "No", then at least one of "DeployTwitter", "DeployYouTubeCommentsIngestion", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -299,10 +348,27 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                     assert: cdk.Fn.conditionOr(
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes')
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployYouTubeCommentsIngestion" is set to "No", then at least one of "DeployTwitter", "DeployNewsFeeds", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployYouTubeCommentsIngestion" is set to "No", then at least one of "DeployTwitter", "DeployNewsFeeds", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                }
+            ]
+        });
+
+        new cdk.CfnRule(this, 'DeployRedditIngestionValidation', {
+            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'No'),
+            assertions: [
+                {
+                    assert: cdk.Fn.conditionOr(
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes')
+                    ),
+                    assertDescription:
+                        'If "DeployRedditIngestion" is set to "No", then at least one of "DeployTwitter", "DeployYouTubeCommentsIngestion", "DeployNewsFeeds", "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -314,7 +380,8 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                     assert: cdk.Fn.conditionOr(
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes')
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
                         'If "DeployCustomIngestion" is set to "No", then at least one of "DeployTwitter" or "DeployNewsFeeds" or "DeployYouTubeCommentsIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
@@ -384,6 +451,29 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
                     assert: cdk.Fn.conditionNot(cdk.Fn.conditionEquals(cdk.Fn.ref(_youtubeAPIKey.logicalId), '')),
                     assertDescription:
                         'If "DeployYouTubeCommentsIngestion" is set to "Yes" then "YoutubeAPIKey" should be provided. It cannot be blank'
+                }
+            ]
+        });
+
+        new cdk.CfnRule(this, 'ValidateRedditIngestionMandatoryParam', {
+            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes'),
+            assertions: [
+                {
+                    assert: cdk.Fn.conditionNot(cdk.Fn.conditionEquals(cdk.Fn.ref(_redditAPIKey.logicalId), '')),
+                    assertDescription:
+                        'If "DeployRedditIngestion" is set to "Yes" then "RedditAPIKey" should be provided. It cannot be blank'
+                },
+                {
+                    assert: cdk.Fn.conditionNot(
+                        cdk.Fn.conditionEquals(cdk.Fn.ref(_subRedditIngestionFreq.logicalId), '')
+                    ),
+                    assertDescription:
+                        'If "DeployRedditIngestion" is set to "Yes" then "RedditIngestionFrequency" should be provided. It cannot be blank'
+                },
+                {
+                    assert: cdk.Fn.conditionNot(cdk.Fn.conditionEquals(cdk.Fn.ref(_subRedditsToFollow.logicalId), '')),
+                    assertDescription:
+                        'If "DeployRedditIngestion" is set to "Yes" then "SubRedditsToFollow" should be provided. It cannot be blank'
                 }
             ]
         });
@@ -479,6 +569,7 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         storageConfig.set('CustomIngestionLoudness', 'customingestionloudness');
         storageConfig.set('CustomIngestionItem', 'customingestionitem');
         storageConfig.set('Metadata', 'metadata');
+        storageConfig.set('RedditComments', 'redditcomments');
 
         // start of workflow -> storage integration
         const textInferenceNameSpace = 'com.analyze.text.inference';
@@ -514,6 +605,10 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             youTubeChannel: _youtubeChannelId,
             youtTubeApiKey: _youtubeAPIKey,
             deployCustomIngestion: _deployCustomIngestion,
+            deployRedditIngestion: _deployRedditIngestion,
+            subRedditsToFollow: _subRedditsToFollow,
+            redditIngestionFreq: _subRedditIngestionFreq,
+            redditAPIKey: _redditAPIKey,
             integrationEventBus: appIntegration.eventManager.eventBus,
             metadataNS: metadataNameSpace
         });
@@ -534,6 +629,10 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             },
             {
                 name: 'CUSTOMINGESTION',
+                topicModelling: true
+            },
+            {
+                name: 'REDDIT',
                 topicModelling: true
             }
         ];

@@ -170,6 +170,8 @@ run_python_lambda_test ingestion-custom "Custom Ingestion"
 
 run_javascript_lambda_test ingestion-producer "Ingestion - Producer"
 
+run_javascript_lambda_test ingestion-reddit "Ingestion - Reddit"
+
 run_python_lambda_test ingestion-youtube "Ingestion - Youtube"
 
 run_javascript_lambda_test integration "Storage - App Integragation Lambda"

@@ -11,33 +11,35 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
-exports.putRecordBatch = async(array, streamName) => {
+exports.putRecordBatch = async (array, streamName) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
     const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
-    const response = await kinesisFireshose.putRecordBatch({
-        DeliveryStreamName: streamName,
-        Records: array
-    }).promise();    
+    const response = await kinesisFireshose
+        .putRecordBatch({
+            DeliveryStreamName: streamName,
+            Records: array
+        })
+        .promise();
 
     return response;
-}
+};
 
-exports.putRecord = async(record, streamName) => {
+exports.putRecord = async (record, streamName) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
     const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
 
-    const response = await kinesisFireshose.putRecord({
-        DeliveryStreamName: streamName,
-        Record: {
-            Data: record
-        }
-    }).promise();    
-    
-    return response;
-}
+    return await kinesisFireshose
+        .putRecord({
+            DeliveryStreamName: streamName,
+            Record: {
+                Data: record
+            }
+        })
+        .promise();
+};

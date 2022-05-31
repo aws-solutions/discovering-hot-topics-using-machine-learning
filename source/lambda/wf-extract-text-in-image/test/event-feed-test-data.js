@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+"use strict";
 
 /**
  * Create event test data

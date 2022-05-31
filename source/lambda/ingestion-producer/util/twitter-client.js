@@ -11,14 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const Twit = require('twitter-lite');
 const AccountSecrets = require('./account-secrets');
 const FeedTracker = require('./feed-tracker');
 
 class TwitterClient {
-    constructor (accountName) {
+    constructor(accountName) {
         this.accountName = accountName;
         this.feedTracker = new FeedTracker(accountName);
     }
@@ -44,13 +44,19 @@ class TwitterClient {
 
         let response = null;
         try {
-            response = await twit.get("search/tweets", tweetParams);
-            console.debug(`HTTP Status Code: ${response._headers.get('status')} Rate: ${response._headers.get('x-rate-limit-remaining')} / ${response._headers.get('x-rate-limit-limit')}`);
+            response = await twit.get('search/tweets', tweetParams);
+            console.debug(
+                `HTTP Status Code: ${response._headers.get('status')} Rate: ${response._headers.get(
+                    'x-rate-limit-remaining'
+                )} / ${response._headers.get('x-rate-limit-limit')}`
+            );
         } catch (error) {
             if ('errors' in error) {
                 // Twitter API errors
                 if (error.errors[0].code === 88) {
-                    console.warn(`Rate limit will reset on: ${new Date(error._headers.get("x-rate-limit-reset") * 1000)}`);
+                    console.warn(
+                        `Rate limit will reset on: ${new Date(error._headers.get('x-rate-limit-reset') * 1000)}`
+                    );
                     console.warn(`The headers from the API call are: ${JSON.stringify(error._headers)}`);
                 } else {
                     console.error('Twitter API throw error: ', error);
@@ -83,9 +89,11 @@ class TwitterClient {
         const twit = await this.init();
         let limitResponse = null;
         try {
-            limitResponse = (await twit.get('application/rate_limit_status', {
-                resources: resources
-            })).resources.search['/search/tweets'];
+            limitResponse = (
+                await twit.get('application/rate_limit_status', {
+                    resources: resources
+                })
+            ).resources.search['/search/tweets'];
             console.debug(JSON.stringify(`limit response received is ${JSON.stringify(limitResponse)}`));
         } catch (error) {
             console.error('Error occured when processing resource limits', error);
@@ -93,7 +101,11 @@ class TwitterClient {
                 throw error; // Twitter is over capacity and hence not making the call.
             }
         }
-        console.debug(`Rate: ${limitResponse.remaining}/${limitResponse.limit} - Reset:${Math.ceil(((limitResponse.reset * 1000) - Date.now())/1000/60)} minutes`);
+        console.debug(
+            `Rate: ${limitResponse.remaining}/${limitResponse.limit} - Reset:${Math.ceil(
+                (limitResponse.reset * 1000 - Date.now()) / 1000 / 60
+            )} minutes`
+        );
         return limitResponse.remaining;
     }
 }

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test QuickSight stackCreation 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aArtifactHashC4EFB9F4": Object {
+      "Description": "Artifact hash for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+      "Type": "String",
+    },
+    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6": Object {
+      "Description": "S3 bucket for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+      "Type": "String",
+    },
+    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2": Object {
+      "Description": "S3 key for asset version \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+      "Type": "String",
+    },
+    "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6ArtifactHashE3CD2B5D": Object {
+      "Description": "Artifact hash for asset \\"598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6\\"",
+      "Type": "String",
+    },
+    "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6S3BucketEC03F20C": Object {
+      "Description": "S3 bucket for asset \\"598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6\\"",
+      "Type": "String",
+    },
+    "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6S3VersionKeyF4382CBC": Object {
+      "Description": "S3 key for asset version \\"598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "testQuickSightNestedStacktestQuickSightNestedStackResource61E1F713": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "ParentStackName": Object {
+            "Ref": "AWS::StackName",
+          },
+          "QuickSightPrincipalArn": "arn:aws:quicksight:us-east-1:fakeaccount:user/namespace/fakeuser",
+          "QuickSightSourceTemplateArn": "arn:aws:quicksight:us-east-1:fakeaccount:template/template-name",
+          "S3AccessLogBucket": "arn:aws:s3:::fakebucketforaccesslogging",
+          "SolutionID": "SO0122",
+          "SolutionName": "Discovering-Hot-Topics-QS-Dashboard",
+          "referencetoAssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6Ref": Object {
+            "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6",
+          },
+          "referencetoAssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2Ref": Object {
+            "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Ref": "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6S3BucketEC03F20C",
+              },
+              "/",
+              Object {
+                "Fn::Select": Array [
+                  0,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6S3VersionKeyF4382CBC",
+                      },
+                    ],
+                  },
+                ],
+              },
+              Object {
+                "Fn::Select": Array [
+                  1,
+                  Object {
+                    "Fn::Split": Array [
+                      "||",
+                      Object {
+                        "Ref": "AssetParameters598f93f930cd0f3e1a74691043d653c9409ee930e6ed09114ba4577eff2c6ae6S3VersionKeyF4382CBC",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;

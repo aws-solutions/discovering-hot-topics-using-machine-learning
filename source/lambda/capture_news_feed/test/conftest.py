@@ -17,7 +17,7 @@ import os
 import boto3
 import pytest
 from botocore.stub import Stubber
-from moto.dynamodb2 import mock_dynamodb2
+from moto.dynamodb import mock_dynamodb
 from shared_util import custom_boto_config
 
 

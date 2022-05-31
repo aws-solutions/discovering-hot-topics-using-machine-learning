@@ -23,7 +23,7 @@ import boto3
 import mock
 import pytest
 from botocore import stub
-from moto import mock_dynamodb2, mock_kinesis, mock_sts
+from moto import mock_dynamodb, mock_kinesis, mock_sts
 from shared_util import custom_boto_config
 
 
@@ -186,7 +186,7 @@ def lambda_event_bus_event():
 
 
 @mock_sts
-@mock_dynamodb2
+@mock_dynamodb
 def test_invoke_lambda_for_ddb_config(get_event_bus_stubber):
     lambda_event = create_cw_schedule_event()
     create_ddb_table_for_US_en()
@@ -215,7 +215,7 @@ def test_invoke_lambda_for_ddb_config(get_event_bus_stubber):
 
 
 @mock_sts
-@mock_dynamodb2
+@mock_dynamodb
 @mock.patch.dict(os.environ, {"CONFIG_PARAM": '{"country":"US", "language":"en"}'})
 @mock.patch.dict(os.environ, {"SEARCH_QUERY": "fakequery"})
 def test_invoke_lambda_for_json_str(get_event_bus_stubber):
@@ -245,7 +245,7 @@ def test_invoke_lambda_for_json_str(get_event_bus_stubber):
 
 
 @mock_sts
-@mock_dynamodb2
+@mock_dynamodb
 def test_invoke_lambda_for_ddb_config_with_failed_count(get_event_bus_stubber):
     lambda_event = create_cw_schedule_event()
     create_ddb_table_for_US_en()
@@ -274,7 +274,7 @@ def test_invoke_lambda_for_ddb_config_with_failed_count(get_event_bus_stubber):
 
 
 @mock_sts
-@mock_dynamodb2
+@mock_dynamodb
 @mock_kinesis
 def test_invoke_process_config_handler():
     lambda_event = create_event_bus_consumer_event()

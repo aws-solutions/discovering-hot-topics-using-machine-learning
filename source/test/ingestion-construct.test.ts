@@ -16,19 +16,12 @@ import * as s3 from '@aws-cdk/aws-s3';
 import * as events from '@aws-cdk/aws-events';
 import * as cdk from '@aws-cdk/core';
 import { Ingestion } from '../lib/ingestion/ingestion-construct';
+import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 
 test('Event Bus creation', () => {
     const stack = new cdk.Stack();
 
-    const _cronRegex =
-        '(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|' +
-        '\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|' +
-        '\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|' +
-        '3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|' +
-        '1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?' +
-        '(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+' +
-        '(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?' +
-        '(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$';
+    const _cronRegex = DiscoveringHotTopicsStack.cronRegex;
 
     const _deployTwitter = new cdk.CfnParameter(stack, 'DeployTwitter', {
         type: 'String',
@@ -183,6 +176,41 @@ test('Event Bus creation', () => {
         allowedValues: ['Yes', 'No']
     });
 
+    const _deployRedditIngestion = new cdk.CfnParameter(stack, 'DeployRedditIngestion', {
+        type: 'String',
+        default: 'Yes',
+        allowedValues: ['Yes', 'No'],
+        description:
+            'Required: Would you like to deploy the news feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory'
+    });
+
+    const _redditAPIKey = new cdk.CfnParameter(stack, 'RedditAPIKey', {
+        type: 'String',
+        description:
+            'Required: The SSM parameter key name where the Reddit API credentials detailare stored. For ' +
+            'details about how and where to store the API credentials, please refer the implementation guide for this solution',
+        default: '/discovering-hot-topics-using-machine-learning/reddit/comments',
+        allowedPattern: '^$|^(?!\\s*$).+',
+        constraintDescription: 'Please provide the SSM key for Reddit API'
+    });
+
+    const _subRedditIngestionFreq = new cdk.CfnParameter(stack, 'RedditIngestionFrequency', {
+        type: 'String',
+        description: 'Required: The Polling frequency at which the system should ingest comments from subreddits',
+        default: 'cron(0/60 * * * ? *)',
+        allowedPattern: `^$|${_cronRegex}`
+    });
+
+    const _subRedditsToFollow = new cdk.CfnParameter(stack, 'SubRedditsToFollow', {
+        type: 'String',
+        description:
+            'Optional: Please provide the list of SubReddits to follow as comma separated list. Alternatively you ' +
+            'can also set the list in the DynamoDB table. For details on the DynamoDB configuration, please refer our implementation guide',
+        constraintDescription: '',
+        allowedPattern: '^$|[^,(?! )]+',
+        default: 'r/aws,r/MachineLearning'
+    });
+
     new Ingestion(stack, 'Ingestion', {
         ingestFrequency: _twitterIngestFreqParam,
         twitterQueryParameter: _queryParam,
@@ -199,6 +227,10 @@ test('Event Bus creation', () => {
         youTubeSearchQuery: _youtubeVideoSearchQuery,
         youtTubeApiKey: _youtubeAPIKey,
         deployCustomIngestion: _deployCustomIngestion,
+        deployRedditIngestion: _deployRedditIngestion,
+        subRedditsToFollow: _subRedditsToFollow,
+        redditIngestionFreq: _subRedditIngestionFreq,
+        redditAPIKey: _redditAPIKey,
         metadataNS: 'metadata.call_analytics',
         integrationEventBus: new events.EventBus(stack, 'TestBus')
     });

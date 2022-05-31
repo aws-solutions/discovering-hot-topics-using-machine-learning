@@ -70,7 +70,7 @@ export class YoutubeComments extends cdk.NestedStack {
         const _youtubeVideoSearchFreq = new cdk.CfnParameter(this, 'YouTubeSearchIngestionFreq', {
             type: 'String',
             default: 'cron(0 12 * * ? *)',
-            allowedPattern: `^$|${DiscoveringHotTopicsStack.cronRegex}`,
+            allowedPattern: `${DiscoveringHotTopicsStack.cronRegex}`,
             description: 'Required: The frequency at which at which YouTube comments should be retrieved',
             constraintDescription: 'Please provide a valid cron expression of the formation \'cron(0 12 * * ? *)\'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html'
         });

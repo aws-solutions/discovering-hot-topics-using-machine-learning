@@ -17,7 +17,7 @@ import * as kinesis from '@aws-cdk/aws-kinesis';
 import * as cdk from '@aws-cdk/core';
 import { YoutubeComments } from '../lib/ingestion/youtube-comments-stacks';
 
- test('test standard workflow stack', () => {
+ test('test youtube ingestion stack', () => {
     const stack = new cdk.Stack();
     const _eventBus = new events.EventBus(stack, 'Bus');
 

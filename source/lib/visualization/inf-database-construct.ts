@@ -29,6 +29,7 @@ import { TopicsTable } from './topics-table-construct';
 import { TwitterTable } from './twitter-table-construct';
 import { YoutubeCommentsTable } from './youtubecomments-table-construct';
 import { MetdataTable } from './metadata-table-construct';
+import { RedditCommentsTable } from './reddit-comments-table-construct';
 
 export interface InferenceDatabaseProps {
     readonly s3InputDataBucket: s3.Bucket;
@@ -206,5 +207,13 @@ export class InferenceDatabase extends cdk.Construct {
             database: this.database
         });
         this.tableMap.set('Metadata', metadataTable.table);
+
+        const redditCommentsTable = new RedditCommentsTable(this, 'RedditComments', {
+            s3InputDataBucket: props.s3InputDataBucket,
+            s3BucketPrefix: `${props.tablePrefixMappings.get('RedditComments')!}/`,
+            tableName: props.tablePrefixMappings.get('RedditComments')!,
+            database: this.database
+        });
+        this.tableMap.set('RedditComments', redditCommentsTable.table);
     }
 }

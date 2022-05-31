@@ -19,6 +19,7 @@ import * as cdk from '@aws-cdk/core';
 import { CustomIngestion } from './custom-ingestion';
 import { FeedConsumer } from './feed-consumer-construct';
 import { NewsCatcher } from './newscatcher-stack';
+import { RedditIngestion } from './reddit-ingestion';
 import { TwitterSearchIngestion } from './twitter-search-stack';
 import { YoutubeComments } from './youtube-comments-stacks';
 
@@ -38,6 +39,10 @@ export interface IngestionProps {
     readonly youTubeChannel?: cdk.CfnParameter;
     readonly youTubeSearchFreq?: cdk.CfnParameter;
     readonly youtTubeApiKey?: cdk.CfnParameter;
+    readonly deployRedditIngestion: cdk.CfnParameter;
+    readonly redditAPIKey?: cdk.CfnParameter;
+    readonly redditIngestionFreq?: cdk.CfnParameter;
+    readonly subRedditsToFollow?: cdk.CfnParameter;
     readonly deployCustomIngestion: cdk.CfnParameter;
     readonly integrationEventBus: events.IEventBus;
     readonly metadataNS: string;
@@ -164,6 +169,28 @@ export class Ingestion extends cdk.Construct {
         });
 
         _customIngestion.nestedStackResource?.addOverride('Condition', _deployCustomIngestionCondition.logicalId);
+
+        const _redditIngesiton = new RedditIngestion(this, 'RedditIngestion', {
+            parameters: {
+                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
+                'EventBus': _eventBus.eventBusArn
+            }
+        });
+        _redditIngesiton.nestedStackResource?.addMetadata(
+            'nestedStackFileName',
+            _redditIngesiton.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
+        );
+
+        const _deployRedditIngestionCondition = new cdk.CfnCondition(this, 'DeployRedditIngestion', {
+            expression: cdk.Fn.conditionAnd(
+                cdk.Fn.conditionEquals(props.deployRedditIngestion.valueAsString, 'Yes'),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.redditAPIKey, '')),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.redditIngestionFreq, '')),
+                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.subRedditsToFollow, ''))
+            )
+        });
+
+        _redditIngesiton.nestedStackResource?.addOverride('Condition', _deployRedditIngestionCondition.logicalId);
 
         new cdk.CfnOutput(this, 'S3BucketToUploadData', {
             value: _customIngestion.s3Bucket.urlForObject(),

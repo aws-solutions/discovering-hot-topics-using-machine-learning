@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
@@ -27,7 +27,9 @@ exports.handler = async (event) => {
         const input = message.input;
 
         try {
-            console.debug(`Analyzing event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`);
+            console.debug(
+                `Analyzing event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`
+            );
             await analyzeText(input, input.feed);
 
             if (input.text_in_images !== undefined && input.text_in_images.length > 0) {
@@ -39,7 +41,9 @@ exports.handler = async (event) => {
                 }
             }
 
-            console.debug(`Analyzed event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`);
+            console.debug(
+                `Analyzed event with id_str ${input.feed.id_str}, on platform ${input.platform} and account name ${input.account_name}`
+            );
             const params = {
                 output: JSON.stringify(input),
                 taskToken: message.taskToken
@@ -47,13 +51,13 @@ exports.handler = async (event) => {
 
             try {
                 await stepfunctions.sendTaskSuccess(params).promise();
-            } catch(error) {
+            } catch (error) {
                 console.error(`Failed to publish successful message, params: ${JSON.stringify(params)}`, error);
                 throw error;
             }
 
             analyzedTextoutputs.push(input);
-        } catch(error) {
+        } catch (error) {
             console.error(`Task failed: ${error.message}`, error);
             await taskFailed(stepfunctions, error, message.taskToken);
         }
@@ -61,7 +65,6 @@ exports.handler = async (event) => {
 
     return analyzedTextoutputs;
 };
-
 
 /**
  * This method analyzes the text in the underlying node element and returns output for the 3 key things that
@@ -73,35 +76,53 @@ exports.handler = async (event) => {
  * @param {*} element
  * @param {*} targetElement
  */
-const analyzeText = async(targetElement, elementToAnalyze) => {
+const analyzeText = async (targetElement, elementToAnalyze) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
     const comprehend = new AWS.Comprehend(awsCustomConfig);
 
     if (elementToAnalyze._cleansed_text.length > 0) {
         //detect sentiment
-        if (targetElement.Sentiment === undefined || process.env.REPROCESS_SENTIMENT === "TRUE") {
-            targetElement = Object.assign(targetElement, await detectSentiment(comprehend, elementToAnalyze._cleansed_text))
+        if (targetElement.Sentiment === undefined || process.env.REPROCESS_SENTIMENT === 'TRUE') {
+            targetElement = Object.assign(
+                targetElement,
+                await detectSentiment(comprehend, elementToAnalyze._cleansed_text)
+            );
         } else {
             targetElement.SentimentScore = {};
         }
 
         // detect key phrases
-        targetElement = Object.assign(targetElement, await comprehend.detectKeyPhrases({
-            Text: elementToAnalyze._cleansed_text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error(`Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`, error);
-            throw error;
-        }))
+        targetElement = Object.assign(
+            targetElement,
+            await comprehend
+                .detectKeyPhrases({
+                    Text: elementToAnalyze._cleansed_text,
+                    LanguageCode: 'en'
+                })
+                .promise()
+                .catch((error) => {
+                    console.error(
+                        `Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`,
+                        error
+                    );
+                    throw error;
+                })
+        );
 
         // detect entities
-        targetElement = Object.assign(targetElement, await comprehend.detectEntities({
-            Text: elementToAnalyze._cleansed_text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
-            throw error;
-        }))
+        targetElement = Object.assign(
+            targetElement,
+            await comprehend
+                .detectEntities({
+                    Text: elementToAnalyze._cleansed_text,
+                    LanguageCode: 'en'
+                })
+                .promise()
+                .catch((error) => {
+                    console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
+                    throw error;
+                })
+        );
     } else {
         // Step function merge JSON expects that sentiment key should always be present.
         // creating an empty sentiment to remove step function merge errors.
@@ -112,19 +133,21 @@ const analyzeText = async(targetElement, elementToAnalyze) => {
     }
 
     return targetElement;
-}
-
+};
 
 const detectSentiment = async (comprehend, text) => {
     let response;
     if (text.length > 0) {
-        response = await comprehend.detectSentiment({
-            Text: text,
-            LanguageCode: 'en'
-        }).promise().catch((error) => {
-            console.error(`Error when performing sentiment analysis for ${text}`, error);
-            throw error;
-        });
+        response = await comprehend
+            .detectSentiment({
+                Text: text,
+                LanguageCode: 'en'
+            })
+            .promise()
+            .catch((error) => {
+                console.error(`Error when performing sentiment analysis for ${text}`, error);
+                throw error;
+            });
     }
 
     // Step function merge JSON expects that sentiment key should always be present.
@@ -137,12 +160,14 @@ const detectSentiment = async (comprehend, text) => {
     }
 
     return response;
-}
+};
 
-async function taskFailed (stepfunctions, error, taskToken) {
-    await stepfunctions.sendTaskFailure({
-        taskToken: taskToken,
-        cause: error.message,
-        error: error.code
-    }).promise();
+async function taskFailed(stepfunctions, error, taskToken) {
+    await stepfunctions
+        .sendTaskFailure({
+            taskToken: taskToken,
+            cause: error.message,
+            error: error.code
+        })
+        .promise();
 }

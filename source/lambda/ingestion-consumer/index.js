@@ -11,29 +11,30 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-
     const awsCustomConfig = CustomConfig.customAwsConfig();
     const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
 
-	await Promise.all(event.Records.map(async (record, index) => {
-		const payload = Buffer.from(record.kinesis.data, 'base64').toString();
-		const params = {
-			stateMachineArn: process.env.STATE_MACHINE_ARN,
-			input: payload
-		};
+    await Promise.all(
+        event.Records.map(async (record, index) => {
+            const payload = Buffer.from(record.kinesis.data, 'base64').toString();
+            const params = {
+                stateMachineArn: process.env.STATE_MACHINE_ARN,
+                input: payload
+            };
 
-		try {
-			let response = await stepfunctions.startExecution(params).promise();
-			console.log(`STATEMACHINE EXECUTE:: ${JSON.stringify(response, null, 2)}`);
-		} catch (err) {
-			console.error(`Error occured when processing ${payload}`, err);
-			throw err;
-		}
-	}));
+            try {
+                let response = await stepfunctions.startExecution(params).promise();
+                console.log(`STATEMACHINE EXECUTE:: ${JSON.stringify(response, null, 2)}`);
+            } catch (err) {
+                console.error(`Error occured when processing ${payload}`, err);
+                throw err;
+            }
+        })
+    );
 };

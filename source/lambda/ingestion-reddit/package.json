@@ -1,0 +1,24 @@
+{
+    "name": "ingestion-reddit",
+    "version": "2.0.0",
+    "description": "This function pulls data from the reddit and pushes it to Kinesis Stream.",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --coverage --silent --verbose",
+        "test-debug": "jest --coverage",
+        "clean": "rm -rf node_modules"
+    },
+    "author": "aws-solution-builer@",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "aws-sdk": "^2.1127.0",
+        "moment": "^2.29.3",
+        "snoowrap": "^1.23.0"
+    },
+    "devDependencies": {
+        "aws-sdk-mock": "^5.7.0",
+        "chai": "^4.3.6",
+        "jest": "^28.0.3",
+        "sinon": "^13.0.1"
+    }
+}

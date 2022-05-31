@@ -11,14 +11,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const AWS = require('aws-sdk');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class FeedTracker {
-
-    constructor (accountName) {
+    constructor(accountName) {
         const awsCustomConfig = CustomConfig.customAwsConfig();
         this.ddb = new AWS.DynamoDB(awsCustomConfig);
         this.accountName = accountName;
@@ -29,7 +28,8 @@ class FeedTracker {
         const response = await this.queryDDB(args);
         console.debug(`Result from ddb query ${JSON.stringify(response)}`);
         const items = response.Items;
-        if (items.length > 0) { // check if there are any records in the tracker. The very first query on solution booting will return no records
+        if (items.length > 0) {
+            // check if there are any records in the tracker. The very first query on solution booting will return no records
             console.debug(`Found ID in DDB as ${JSON.stringify(items[0].MAX_ID)}`);
             return items[0].MAX_ID.S;
         } else {
@@ -40,25 +40,24 @@ class FeedTracker {
     async queryDDB(...args) {
         const ddbParams = {
             TableName: process.env.DDB_TABLE_NAME,
-            ProjectionExpression: "MAX_ID, CREATED_TIMESTAMP",
+            ProjectionExpression: 'MAX_ID, CREATED_TIMESTAMP',
             Limit: 1,
-            KeyConditionExpression: "#ACCOUNT_IDENTIFIER = :account_identifier",
+            KeyConditionExpression: '#ACCOUNT_IDENTIFIER = :account_identifier',
             ScanIndexForward: false,
-            ExpressionAttributeNames:{
-                "#ACCOUNT_IDENTIFIER": "ACCOUNT_IDENTIFIER"
+            ExpressionAttributeNames: {
+                '#ACCOUNT_IDENTIFIER': 'ACCOUNT_IDENTIFIER'
             },
             ExpressionAttributeValues: {
-                ":account_identifier": {
+                ':account_identifier': {
                     S: `${this.accountName}#${args.join('#')}`
                 }
             }
-        }
+        };
 
         return this.ddb.query(ddbParams).promise();
     }
 
-
-    async updateTracker (search_metadata, statuses_count, ...args) {
+    async updateTracker(search_metadata, statuses_count, ...args) {
         let date = new Date();
         date.setDate(date.getDate() + 7);
 
@@ -67,13 +66,13 @@ class FeedTracker {
             'CREATED_TIMESTAMP': { S: new Date(Date.now()).toISOString() },
             'COMPLETED_IN': { S: search_metadata.completed_in.toString() },
             'MAX_ID': { S: search_metadata.max_id_str },
-            ...(search_metadata.next_results !== undefined && {'NEXT_RESULTS': { S: search_metadata.next_results }}),
+            ...(search_metadata.next_results !== undefined && { 'NEXT_RESULTS': { S: search_metadata.next_results } }),
             'QUERY': { S: search_metadata.query },
-            ...(search_metadata.refresh_url !== undefined && {'REFRESH_URL': { S: search_metadata.refresh_url }}),
+            ...(search_metadata.refresh_url !== undefined && { 'REFRESH_URL': { S: search_metadata.refresh_url } }),
             'COUNT': { N: search_metadata.count.toString() },
-            'SINCE_ID': { S: search_metadata.since_id_str},
+            'SINCE_ID': { S: search_metadata.since_id_str },
             'STATUSES_COUNT': { S: statuses_count.toString() },
-            'EXP_DATE': { N: Math.floor(date.getTime()/1000.0).toString() }
+            'EXP_DATE': { N: Math.floor(date.getTime() / 1000.0).toString() }
         };
 
         const ddbParams = {

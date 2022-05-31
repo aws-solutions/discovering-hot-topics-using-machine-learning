@@ -39,6 +39,7 @@ test('test App Integration Construct', () => {
     tableMappings.set('CustomIngestionLoudness', 'customingestionloudness');
     tableMappings.set('CustomIngestionItem', 'customingestionitem');
     tableMappings.set('Metadata', 'metadata');
+    tableMappings.set('RedditComments', 'redditcomments');
 
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
