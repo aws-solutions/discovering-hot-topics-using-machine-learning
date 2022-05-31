@@ -3,13 +3,14 @@
 The Discovering Hot Topics Using Machine Learning solution identifies the most dominant topics associated with your products, policies, events, and brands. This enables you to react quickly to new growth opportunities, address negative brand associations, and deliver a higher level of customer satisfaction for your business. In addition to helping you understand what your customers are saying about your brand, this solution gives you insights into topics that are relevant to your business.
 
 This solution deploys an AWS CloudFormation template to automate data ingestion from these sources:
+
 - Twitter
 - RSS news feeds
 - YouTube comments tied to videos
 - Reddit (comments from subreddits of interest)
 - custom data in JSON or XLSX format
- 
-This solution uses pre-trained machine learning (ML) models from Amazon Comprehend, Amazon Translate, and Amazon Rekognition to provide these benefits: 
+
+This solution uses pre-trained machine learning (ML) models from Amazon Comprehend, Amazon Translate, and Amazon Rekognition to provide these benefits:
 
 - **Detecting dominant topics using topic modeling**-identifies the terms that collectively form a topic.
 - **Identifying the sentiment of what customers are saying**—uses contextual semantic search to understand the nature of online discussions.
@@ -40,7 +41,7 @@ Deploying this solution with the default parameters builds the following environ
 
 The architecture of the solution includes the following key components and workflows:
 
-1. Ingestion – Twitter, RSS feeds, and YouTube comments ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler. For detailed reference architecture diagrams for Twitter, YouTube comment, and RSS news feed ingestion, refer to the [implementation guide](https://docs.aws.amazon.com/solutions/latest/discovering-hot-topics-using-machine-learning/overview.html).
+1. Ingestion – Twitter, RSS feeds, YouTube comments, Reddit ingestion and management using Lambda functions, Amazon DynamoDB, and Amazon CloudWatch Event Scheduler. For detailed reference architecture diagrams for Twitter, YouTube comment, RSS news feed, and Reddit ingestion refer to the [implementation guide](https://docs.aws.amazon.com/solutions/latest/discovering-hot-topics-using-machine-learning/overview.html).
 
 2. Data Stream — The data is buffered through Amazon Kinesis Data Streams to provide resiliency and throttle incoming requests. The Data Streams have a configured DLQ to catch any errors in processing feeds.
 
