@@ -1,53 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test Lambda with role and scheduler 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "FeedProducerConstructLambdaDDBDynamoTableAA674720": Object {
+  "Resources": {
+    "FeedProducerConstructLambdaDDBDynamoTableAA674720": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "KeyType": "RANGE",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
-        "TimeToLiveSpecification": Object {
+        "TimeToLiveSpecification": {
           "AttributeName": "EXP_DATE",
           "Enabled": true,
         },
@@ -55,59 +55,59 @@ Object {
       "Type": "AWS::DynamoDB::Table",
       "UpdateReplacePolicy": "Retain",
     },
-    "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE": Object {
-      "DependsOn": Array [
+    "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE": {
+      "DependsOn": [
         "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF",
         "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -117,10 +117,10 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "DDB_TABLE_NAME": Object {
+            "DDB_TABLE_NAME": {
               "Ref": "FeedProducerConstructLambdaDDBDynamoTableAA674720",
             },
             "QUERY_PARAM": "Health",
@@ -129,59 +129,59 @@ Object {
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
         "Timeout": 300,
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -198,30 +198,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -236,52 +236,52 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "FeedProducerConstructLambdaDDBDynamoTableAA674720",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "kinesis:ListShards",
                 "kinesis:PutRecord",
                 "kinesis:PutRecords",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "TestStreamE6F40222",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "ssm:GetParameter",
                 "ssm:PutParameter",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":ssm:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":parameter/some/dummy/path/test",
@@ -293,22 +293,22 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "FeedProducerConstructLambdaDDBLambdaFunctionServiceRoleDefaultPolicy6725EDBF",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "FeedProducerConstructLambdaDDBLambdaFunctionServiceRole65571D6E",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "FeedProducerConstructPollFrequencyA3F49326": Object {
-      "Properties": Object {
+    "FeedProducerConstructPollFrequencyA3F49326": {
+      "Properties": {
         "ScheduleExpression": "(0/2 * * * ? *)",
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE",
                 "Arn",
               ],
@@ -319,18 +319,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "FeedProducerConstructPollFrequencyAllowEventRuleFeedProducerConstructLambdaDDBLambdaFunction8E42B6E36960A3DF": Object {
-      "Properties": Object {
+    "FeedProducerConstructPollFrequencyAllowEventRuleFeedProducerConstructLambdaDDBLambdaFunction8E42B6E36960A3DF": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "FeedProducerConstructLambdaDDBLambdaFunctionFFB177EE",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "FeedProducerConstructPollFrequencyA3F49326",
             "Arn",
           ],
@@ -338,15 +338,15 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "TestStreamE6F40222": Object {
-      "Properties": Object {
+    "TestStreamE6F40222": {
+      "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
-        "StreamEncryption": Object {
+        "StreamEncryption": {
           "EncryptionType": "KMS",
           "KeyId": "alias/aws/kinesis",
         },
-        "StreamModeDetails": Object {
+        "StreamModeDetails": {
           "StreamMode": "PROVISIONED",
         },
       },

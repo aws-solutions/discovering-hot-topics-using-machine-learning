@@ -28,7 +28,7 @@ logger = custom_logging.get_logger(__name__)
 
 s3 = boto3.client("s3", config=custom_boto_config.init())
 
-TMP_DIR = "/tmp/"  # NOSONAR (python:S5443)
+TMP_DIR = "/tmp/"  # NOSONAR (python:S5443)  # nosec B108
 TOPICS_FILE_NAME = "doc-topics.csv"
 TERMS_FILE_NAME = "topic-terms.csv"
 

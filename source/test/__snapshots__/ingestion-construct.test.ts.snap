@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Event Bus creation 1`] = `
-Object {
-  "Conditions": Object {
-    "IngestionDeployCustomIngestion93AB274A": Object {
-      "Fn::Equals": Array [
-        Object {
+{
+  "Conditions": {
+    "IngestionDeployCustomIngestion93AB274A": {
+      "Fn::Equals": [
+        {
           "Ref": "DeployCustomIngestion",
         },
         "Yes",
       ],
     },
-    "IngestionDeployRSSFeeds0E648DA1": Object {
-      "Fn::And": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+    "IngestionDeployRSSFeeds0E648DA1": {
+      "Fn::And": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "DeployRSSFeeds",
             },
             "Yes",
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "RSSNewsFeedIngestFrequency",
                 },
                 "",
@@ -35,21 +35,21 @@ Object {
         },
       ],
     },
-    "IngestionDeployRedditIngestionB0819499": Object {
-      "Fn::And": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+    "IngestionDeployRedditIngestionB0819499": {
+      "Fn::And": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "DeployRedditIngestion",
             },
             "Yes",
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "RedditAPIKey",
                 },
                 "",
@@ -57,11 +57,11 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "RedditIngestionFrequency",
                 },
                 "",
@@ -69,11 +69,11 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "SubRedditsToFollow",
                 },
                 "",
@@ -83,21 +83,21 @@ Object {
         },
       ],
     },
-    "IngestionDeployTwitterIngestion4D7DE3EB": Object {
-      "Fn::And": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+    "IngestionDeployTwitterIngestion4D7DE3EB": {
+      "Fn::And": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "DeployTwitter",
             },
             "Yes",
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "TwitterSearchQuery",
                 },
                 "",
@@ -105,11 +105,11 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "TwitterIngestQueryFrequency",
                 },
                 "",
@@ -117,11 +117,11 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "TwitterSSMPathForBearerToken",
                 },
                 "",
@@ -131,21 +131,21 @@ Object {
         },
       ],
     },
-    "IngestionDeployYouTubeCommentsA44A0A50": Object {
-      "Fn::And": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+    "IngestionDeployYouTubeCommentsA44A0A50": {
+      "Fn::And": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "DeployYouTubeCommentsIngestion",
             },
             "Yes",
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "YouTubeSearchIngestionFreq",
                 },
                 "",
@@ -153,20 +153,20 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::And": Array [
-                Object {
-                  "Fn::Equals": Array [
-                    Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::And": [
+                {
+                  "Fn::Equals": [
+                    {
                       "Ref": "YoutubeSearchQuery",
                     },
                     "",
                   ],
                 },
-                Object {
-                  "Fn::Equals": Array [
+                {
+                  "Fn::Equals": [
                     "",
                   ],
                 },
@@ -174,11 +174,11 @@ Object {
             },
           ],
         },
-        Object {
-          "Fn::Not": Array [
-            Object {
-              "Fn::Equals": Array [
-                Object {
+        {
+          "Fn::Not": [
+            {
+              "Fn::Equals": [
+                {
                   "Ref": "YoutubeAPIKey",
                 },
                 "",
@@ -189,25 +189,25 @@ Object {
       ],
     },
   },
-  "Outputs": Object {
-    "IngestionS3BucketToUploadData5A8509A2": Object {
+  "Outputs": {
+    "IngestionS3BucketToUploadData5A8509A2": {
       "Condition": "IngestionDeployCustomIngestion93AB274A",
       "Description": "Bucket location to upload source files for ingestion",
-      "Value": Object {
-        "Fn::Join": Array [
+      "Value": {
+        "Fn::Join": [
           "",
-          Array [
+          [
             "https://s3.",
-            Object {
+            {
               "Ref": "AWS::Region",
             },
             ".",
-            Object {
+            {
               "Ref": "AWS::URLSuffix",
             },
             "/",
-            Object {
-              "Fn::GetAtt": Array [
+            {
+              "Fn::GetAtt": [
                 "IngestionS3CustomIngestionNestedStackS3CustomIngestionNestedStackResource0099DFB8",
                 "Outputs.IngestionS3CustomIngestionS3Bucket83268CB3Ref",
               ],
@@ -217,146 +217,146 @@ Object {
       },
     },
   },
-  "Parameters": Object {
-    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fArtifactHash3F521863": Object {
-      "Description": "Artifact hash for asset \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+  "Parameters": {
+    "AssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bArtifactHash53778CAB": {
+      "Description": "Artifact hash for asset "0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3b"",
       "Type": "String",
     },
-    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3Bucket6CF1699E": Object {
-      "Description": "S3 bucket for asset \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+    "AssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3Bucket3E9B60B5": {
+      "Description": "S3 bucket for asset "0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3b"",
       "Type": "String",
     },
-    "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454": Object {
-      "Description": "S3 key for asset version \\"082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958f\\"",
+    "AssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3VersionKey675907BE": {
+      "Description": "S3 key for asset version "0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3b"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feArtifactHashCC219F93": Object {
-      "Description": "Artifact hash for asset \\"24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204fe\\"",
+    "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dArtifactHashD3F143B8": {
+      "Description": "Artifact hash for asset "2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2d"",
       "Type": "String",
     },
-    "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feS3Bucket2CB045E2": Object {
-      "Description": "S3 bucket for asset \\"24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204fe\\"",
+    "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dS3Bucket03C0FA71": {
+      "Description": "S3 bucket for asset "2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2d"",
       "Type": "String",
     },
-    "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feS3VersionKey99FBCD4E": Object {
-      "Description": "S3 key for asset version \\"24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204fe\\"",
+    "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dS3VersionKey86E7DEAD": {
+      "Description": "S3 key for asset version "2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2d"",
       "Type": "String",
     },
-    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507ArtifactHashF6D20CC8": Object {
-      "Description": "Artifact hash for asset \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
+    "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6ArtifactHash1AC60176": {
+      "Description": "Artifact hash for asset "34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6"",
       "Type": "String",
     },
-    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3Bucket2BBF90FB": Object {
-      "Description": "S3 bucket for asset \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
+    "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6S3BucketB74BE12E": {
+      "Description": "S3 bucket for asset "34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6"",
       "Type": "String",
     },
-    "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202": Object {
-      "Description": "S3 key for asset version \\"574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507\\"",
+    "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6S3VersionKey4496FDB2": {
+      "Description": "S3 key for asset version "34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6"",
       "Type": "String",
     },
-    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232ArtifactHash96BC20BE": Object {
-      "Description": "Artifact hash for asset \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
+    "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643ArtifactHashBA0D8412": {
+      "Description": "Artifact hash for asset "4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643"",
       "Type": "String",
     },
-    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3Bucket0417DA8C": Object {
-      "Description": "S3 bucket for asset \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
+    "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643S3Bucket89057F20": {
+      "Description": "S3 bucket for asset "4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643"",
       "Type": "String",
     },
-    "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B": Object {
-      "Description": "S3 key for asset version \\"623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232\\"",
+    "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643S3VersionKey58106085": {
+      "Description": "S3 key for asset version "4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643"",
       "Type": "String",
     },
-    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622ArtifactHashB4CEF6C9": Object {
-      "Description": "Artifact hash for asset \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
+    "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efArtifactHashE7CF54DD": {
+      "Description": "Artifact hash for asset "b26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7ef"",
       "Type": "String",
     },
-    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98C": Object {
-      "Description": "S3 bucket for asset \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
+    "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efS3BucketFD71B376": {
+      "Description": "S3 bucket for asset "b26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7ef"",
       "Type": "String",
     },
-    "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39": Object {
-      "Description": "S3 key for asset version \\"65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622\\"",
+    "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efS3VersionKey675CAC40": {
+      "Description": "S3 key for asset version "b26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7ef"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2ArtifactHashA3EC81B3": Object {
-      "Description": "Artifact hash for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3ArtifactHash5B2C2138": {
+      "Description": "Artifact hash for asset "d4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF": Object {
-      "Description": "S3 bucket for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3S3Bucket4D780BB7": {
+      "Description": "S3 bucket for asset "d4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B": Object {
-      "Description": "S3 key for asset version \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3S3VersionKey75FC1AE0": {
+      "Description": "S3 key for asset version "d4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653ArtifactHash3A7282CC": {
+      "Description": "Artifact hash for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771": {
+      "Description": "S3 bucket for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984": {
+      "Description": "S3 key for asset version "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fArtifactHash98C6C209": Object {
-      "Description": "Artifact hash for asset \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eArtifactHash7954C83A": {
+      "Description": "Artifact hash for asset "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
-    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3Bucket3459BAE7": Object {
-      "Description": "S3 bucket for asset \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505A": {
+      "Description": "S3 bucket for asset "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
-    "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437": Object {
-      "Description": "S3 key for asset version \\"bf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279f\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75": {
+      "Description": "S3 key for asset version "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
-    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eArtifactHash5AD4ED38": Object {
-      "Description": "Artifact hash for asset \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3Bucket74A4FFE6": Object {
-      "Description": "S3 bucket for asset \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67": Object {
-      "Description": "S3 key for asset version \\"c4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481e\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eArtifactHash51B0C8EF": Object {
-      "Description": "Artifact hash for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cArtifactHash9DA8454C": {
+      "Description": "Artifact hash for asset "ec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0c"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259": Object {
-      "Description": "S3 bucket for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cS3BucketCE1F249F": {
+      "Description": "S3 bucket for asset "ec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0c"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB": Object {
-      "Description": "S3 key for asset version \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cS3VersionKeyFFC8C393": {
+      "Description": "S3 key for asset version "ec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0c"",
       "Type": "String",
     },
-    "Config": Object {
-      "Default": "{\\"country\\":\\"ALL\\", \\"language\\":\\"ALL\\", \\"topic\\":\\"ALL\\"}",
-      "Description": "Provide configuration for RSS feeds. This parameter should be configured as a JSON string. Here is a sample configuration {\\"country\\":\\"ALL\\", \\"language\\":\\"ALL\\", \\"topic\\":\\"ALL\\"}. For Country and language use ISO code. The list of superset of all supported topics is: \\"tech\\", \\"news\\", \\"business\\", \\"science\\", \\"finance\\", \\"food\\", \\"politics\\", \\"economics\\", \\"travel\\", \\"entertainment\\", \\"music\\", \\"sport\\", \\"world\\".Note: not all topics are supported for each RSS provider. Setting the value as \\"ALL\\", is treated as a wild character search",
+    "Config": {
+      "Default": "{"country":"ALL", "language":"ALL", "topic":"ALL"}",
+      "Description": "Provide configuration for RSS feeds. This parameter should be configured as a JSON string. Here is a sample configuration {"country":"ALL", "language":"ALL", "topic":"ALL"}. For Country and language use ISO code. The list of superset of all supported topics is: "tech", "news", "business", "science", "finance", "food", "politics", "economics", "travel", "entertainment", "music", "sport", "world".Note: not all topics are supported for each RSS provider. Setting the value as "ALL", is treated as a wild character search",
       "Type": "String",
     },
-    "DeployCustomIngestion": Object {
-      "AllowedValues": Array [
+    "DeployCustomIngestion": {
+      "AllowedValues": [
         "Yes",
         "No",
       ],
@@ -364,8 +364,8 @@ Object {
       "Description": "Required: Would you like to deploy custom data ingestion from an S3 bucket.",
       "Type": "String",
     },
-    "DeployRSSFeeds": Object {
-      "AllowedValues": Array [
+    "DeployRSSFeeds": {
+      "AllowedValues": [
         "Yes",
         "No",
       ],
@@ -373,8 +373,8 @@ Object {
       "Description": "Would you like to deploy Twitter Ingestion mechanism",
       "Type": "String",
     },
-    "DeployRedditIngestion": Object {
-      "AllowedValues": Array [
+    "DeployRedditIngestion": {
+      "AllowedValues": [
         "Yes",
         "No",
       ],
@@ -382,8 +382,8 @@ Object {
       "Description": "Required: Would you like to deploy the news feed ingestion mechanism. If you answer yes, Config and RSSNewsFeedIngestFrequency parameters are mandatory",
       "Type": "String",
     },
-    "DeployTwitter": Object {
-      "AllowedValues": Array [
+    "DeployTwitter": {
+      "AllowedValues": [
         "Yes",
         "No",
       ],
@@ -391,8 +391,8 @@ Object {
       "Description": "Would you like to deploy Twitter Ingestion mechanism",
       "Type": "String",
     },
-    "DeployYouTubeCommentsIngestion": Object {
-      "AllowedValues": Array [
+    "DeployYouTubeCommentsIngestion": {
+      "AllowedValues": [
         "Yes",
         "No",
       ],
@@ -400,12 +400,12 @@ Object {
       "Description": "Would you like to deploy YouTube comments ingestion mechanism. If you answer yes, YouTubeVideoSearchQuery and YouTubeSearchIngestionFreq parameters are mandatory",
       "Type": "String",
     },
-    "NewsSearchQuery": Object {
+    "NewsSearchQuery": {
       "ConstraintDescription": "Please enter the keyword to use to filter RSS news feed",
       "Description": "Provide comma separated list of keywords (optional) to filter news feeds. Only feeds containing atleast one of the keywords from the list will be processed. If no keyword is provided, feeds will not be filtered and all RSS feeds will be processed",
       "Type": "String",
     },
-    "NumberOfTopics": Object {
+    "NumberOfTopics": {
       "ConstraintDescription": "Please verify if the value entered for number of topics to be discovered is between 1 and 100 (both inclusive).",
       "Default": "10",
       "Description": "The number of topics to be discovered by Topic analysis. The min value is 1 and maximum value is 100",
@@ -413,34 +413,34 @@ Object {
       "MinValue": 1,
       "Type": "Number",
     },
-    "RSSNewsFeedIngestFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+    "RSSNewsFeedIngestFrequency": {
+      "AllowedPattern": "(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0 23 * * ? *)",
       "Description": "The frequency at which RSS Feeds should be pulled. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Type": "String",
     },
-    "RedditAPIKey": Object {
-      "AllowedPattern": "^$|^(?!\\\\s*$).+",
+    "RedditAPIKey": {
+      "AllowedPattern": "^$|^(?!\\s*$).+",
       "ConstraintDescription": "Please provide the SSM key for Reddit API",
       "Default": "/discovering-hot-topics-using-machine-learning/reddit/comments",
       "Description": "Required: The SSM parameter key name where the Reddit API credentials detailare stored. For details about how and where to store the API credentials, please refer the implementation guide for this solution",
       "Type": "String",
     },
-    "RedditIngestionFrequency": Object {
-      "AllowedPattern": "^$|(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+    "RedditIngestionFrequency": {
+      "AllowedPattern": "^$|(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$",
       "Default": "cron(0/60 * * * ? *)",
       "Description": "Required: The Polling frequency at which the system should ingest comments from subreddits",
       "Type": "String",
     },
-    "SubRedditsToFollow": Object {
+    "SubRedditsToFollow": {
       "AllowedPattern": "^$|[^,(?! )]+",
       "ConstraintDescription": "",
       "Default": "r/aws,r/MachineLearning",
       "Description": "Optional: Please provide the list of SubReddits to follow as comma separated list. Alternatively you can also set the list in the DynamoDB table. For details on the DynamoDB configuration, please refer our implementation guide",
       "Type": "String",
     },
-    "SupportedLanguages": Object {
+    "SupportedLanguages": {
       "AllowedPattern": "^$|([a-z]{2}-[a-z]{2}|[a-z]{2})(,([a-z]{2}-[a-z]{2}|[a-z]{2}))*",
       "ConstraintDescription": "Provide a list of comma separated language iso-code values, Example: de,en,es,it,pt,fr,ja,ko,zh-cn (no spaces after the comma). The input did not match the validation pattern.",
       "Default": "en,es",
@@ -449,49 +449,49 @@ Object {
       "MinLength": 2,
       "Type": "String",
     },
-    "TopicAnalysisFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+    "TopicAnalysisFrequency": {
+      "AllowedPattern": "(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(10 0 * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(10 0 * * ? *)",
       "Description": "The frequency at which the topic analysis job should run. The minimum is an hour. It is recommened That the job be run a few mins after the hour e.g 10 mins after the hour",
       "Type": "String",
     },
-    "TwitterIngestQueryFrequency": Object {
-      "AllowedPattern": "(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+    "TwitterIngestQueryFrequency": {
+      "AllowedPattern": "(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0/5 * * * ? *)",
       "Description": "The frequency at which API calls will be made to twitter in a cron expression format. For detailed documentation on schedule expression rules, please refer https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Type": "String",
     },
-    "TwitterSSMPathForBearerToken": Object {
-      "AllowedPattern": "^(?!\\\\s*$).+",
+    "TwitterSSMPathForBearerToken": {
+      "AllowedPattern": "^(?!\\s*$).+",
       "ConstraintDescription": "The SSM parameter store path cannot be empty",
       "Default": "/discovering-hot-topics-using-machine-learning/discovering-hot-topics-using-machine-learning/twitter",
       "Description": "The SSM parameter store path of key where the credentials are stored as encrypted string",
       "Type": "String",
     },
-    "TwitterSearchQuery": Object {
+    "TwitterSearchQuery": {
       "Default": "entertainment",
       "Description": "The query you would like to execute on twitter. For details of how write a query and use operators, please go to https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators",
       "MaxLength": 500,
       "MinLength": 3,
       "Type": "String",
     },
-    "YouTubeSearchIngestionFreq": Object {
-      "AllowedPattern": "^$|(cron\\\\(\\\\s*($|#|\\\\w+\\\\s*=|(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?(?:,(?:[0-6]?\\\\d)(?:(?:-|\\\\/|\\\\,)(?:[0-6]?\\\\d))?)*)\\\\s+(\\\\?|\\\\*|(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?(?:,(?:[01]?\\\\d|2[0-3])(?:(?:-|\\\\/|\\\\,)(?:[01]?\\\\d|2[0-3]))?)*)\\\\s+(\\\\?|\\\\*|(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\\\d|3[01])(?:(?:-|\\\\/|\\\\,)(?:0?[1-9]|[12]\\\\d|3[01]))?)*)\\\\s+(\\\\?|\\\\*|(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\\\/|\\\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\\\?|\\\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\\\s+(\\\\?|\\\\*|(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\\\/|\\\\,|#)(?:[0-6]))?(?:L)?)*|\\\\?|\\\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\\\s)+(\\\\?|\\\\*|(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?(?:,(?:|\\\\d{4})(?:(?:-|\\\\/|\\\\,)(?:|\\\\d{4}))?)*))\\\\))$",
+    "YouTubeSearchIngestionFreq": {
+      "AllowedPattern": "^$|(cron\\(\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?(?:,(?:[0-6]?\\d)(?:(?:-|\\/|\\,)(?:[0-6]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W|#)?(?:[1-9]|1[012])?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$",
       "ConstraintDescription": "Please provide a valid cron expression of the formation 'cron(0 12 * * ? *)'. For details on CloudWatch cron expressions, please refer the following link https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html",
       "Default": "cron(0 12 * * ? *)",
       "Description": "Required: The frequency at which at which YouTube comments should be retrieved",
       "Type": "String",
     },
-    "YoutubeAPIKey": Object {
-      "AllowedPattern": "^(?!\\\\s*$).+",
+    "YoutubeAPIKey": {
+      "AllowedPattern": "^(?!\\s*$).+",
       "ConstraintDescription": "Please provide the SSM Key for Youtube API",
       "Default": "/discovering-hot-topics-using-machine-learning/youtube/comments",
       "Description": "The key name where Youtube API credentails are stored",
       "Type": "String",
     },
-    "YoutubeSearchQuery": Object {
+    "YoutubeSearchQuery": {
       "ConstraintDescription": "Please provide key words for Youtube search query",
       "Default": "movie trailers",
       "Description": "Please provide the keywords to search for on Youtube. You can use NOT (-) and OR (|) operators to find videos. Example 'boating|sailing -fishing'. For details refer API documentation on this link https://developers.google.com/youtube/v3/docs/search/list",
@@ -500,21 +500,21 @@ Object {
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "AccessLogD598EBE9": Object {
+  "Resources": {
+    "AccessLogD598EBE9": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
@@ -524,28 +524,28 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "IngestionBus3E30EA7C": Object {
-      "Properties": Object {
+    "IngestionBus3E30EA7C": {
+      "Properties": {
         "Name": "IngestionBus83B8D656",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644": Object {
-      "Properties": Object {
+    "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644": {
+      "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
-        "StreamEncryption": Object {
+        "StreamEncryption": {
           "EncryptionType": "KMS",
           "KeyId": "alias/aws/kinesis",
         },
-        "StreamModeDetails": Object {
+        "StreamModeDetails": {
           "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "IngestionFeedConsumerIngestionStreamKinesisStreamGetRecordsIteratorAgeAlarmE6C16601": Object {
-      "Properties": Object {
+    "IngestionFeedConsumerIngestionStreamKinesisStreamGetRecordsIteratorAgeAlarmE6C16601": {
+      "Properties": {
         "AlarmDescription": "Consumer Record Processing Falling Behind, there is risk for data loss due to record expiration.",
         "ComparisonOperator": "GreaterThanOrEqualToThreshold",
         "EvaluationPeriods": 1,
@@ -553,12 +553,12 @@ Object {
         "Namespace": "AWS/Kinesis",
         "Period": 300,
         "Statistic": "Maximum",
-        "Threshold": 2592000,
+        "Threshold": 43200,
       },
       "Type": "AWS::CloudWatch::Alarm",
     },
-    "IngestionFeedConsumerIngestionStreamKinesisStreamReadProvisionedThroughputExceededAlarm821B53BC": Object {
-      "Properties": Object {
+    "IngestionFeedConsumerIngestionStreamKinesisStreamReadProvisionedThroughputExceededAlarm821B53BC": {
+      "Properties": {
         "AlarmDescription": "Consumer Application is Reading at a Slower Rate Than Expected.",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 1,
@@ -570,59 +570,59 @@ Object {
       },
       "Type": "AWS::CloudWatch::Alarm",
     },
-    "IngestionFeedConsumerIngestionStreamLambdaFunction81C67CF2": Object {
-      "DependsOn": Array [
+    "IngestionFeedConsumerIngestionStreamLambdaFunction81C67CF2": {
+      "DependsOn": [
         "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D",
         "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3Bucket2BBF90FB",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6S3BucketB74BE12E",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202",
+                        {
+                          "Ref": "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6S3VersionKey4496FDB2",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters574b5d9a5410dd5ba913ef31e62eb72c7e50e6f91d123238eace4c0e75f5f507S3VersionKeyE1813202",
+                        {
+                          "Ref": "AssetParameters34c4f3ed8baec68239410351b15e78f23c0fd0b241b858732ff335175df6ecb6S3VersionKey4496FDB2",
                         },
                       ],
                     },
@@ -632,48 +632,48 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
         "ReservedConcurrentExecutions": 1,
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
         "Timeout": 300,
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "IngestionFeedConsumerIngestionStreamLambdaFunctionKinesisEventSourceIngestionFeedConsumerIngestionStreamKinesisStreamD87284BD48D72474": Object {
-      "Properties": Object {
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionKinesisEventSourceIngestionFeedConsumerIngestionStreamKinesisStreamD87284BD48D72474": {
+      "Properties": {
         "BatchSize": 5,
         "BisectBatchOnFunctionError": true,
-        "DestinationConfig": Object {
-          "OnFailure": Object {
-            "Destination": Object {
-              "Fn::GetAtt": Array [
+        "DestinationConfig": {
+          "OnFailure": {
+            "Destination": {
+              "Fn::GetAtt": [
                 "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                 "Arn",
               ],
             },
           },
         },
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
+        "EventSourceArn": {
+          "Fn::GetAtt": [
             "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
             "Arn",
           ],
         },
-        "FunctionName": Object {
+        "FunctionName": {
           "Ref": "IngestionFeedConsumerIngestionStreamLambdaFunction81C67CF2",
         },
         "MaximumRecordAgeInSeconds": 86400,
@@ -681,45 +681,45 @@ Object {
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -736,34 +736,34 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D": Object {
-      "DependsOn": Array [
+    "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D": {
+      "DependsOn": [
         "IngestionFeedConsumerSqsDlqQueuePolicyA7D9DB43",
         "IngestionFeedConsumerSqsDlqQueue3A707A4B",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "kinesis:DescribeStreamSummary",
                 "kinesis:GetRecords",
                 "kinesis:GetShardIterator",
@@ -773,32 +773,32 @@ Object {
                 "kinesis:ListStreams",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "sqs:SendMessage",
                 "sqs:GetQueueAttributes",
                 "sqs:GetQueueUrl",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                   "Arn",
                 ],
               },
             },
-            Object {
+            {
               "Action": "kinesis:DescribeStream",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
                   "Arn",
                 ],
@@ -808,28 +808,28 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRoleDefaultPolicy93536D6D",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "IngestionFeedConsumerIngestionStreamLambdaFunctionServiceRole9E95397D",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7": Object {
+    "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionFeedConsumerIngestionStreamSqsDlqQueuePolicy74C5C73B": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "IngestionFeedConsumerIngestionStreamSqsDlqQueuePolicy74C5C73B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -839,17 +839,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -857,27 +857,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
                   "Arn",
                 ],
@@ -887,28 +887,28 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "IngestionFeedConsumerIngestionStreamSqsDlqQueue7CAEF3A7",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "IngestionFeedConsumerSqsDlqQueue3A707A4B": Object {
+    "IngestionFeedConsumerSqsDlqQueue3A707A4B": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionFeedConsumerSqsDlqQueuePolicyA7D9DB43": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "IngestionFeedConsumerSqsDlqQueuePolicyA7D9DB43": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -918,17 +918,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -936,27 +936,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "IngestionFeedConsumerSqsDlqQueue3A707A4B",
                   "Arn",
                 ],
@@ -966,88 +966,88 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "IngestionFeedConsumerSqsDlqQueue3A707A4B",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "IngestionNewsCatcherNestedStackNewsCatcherNestedStackResourceD666324A": Object {
+    "IngestionNewsCatcherNestedStackNewsCatcherNestedStackResourceD666324A": {
       "Condition": "IngestionDeployRSSFeeds0E648DA1",
       "DeletionPolicy": "Delete",
-      "Metadata": Object {
+      "Metadata": {
         "nestedStackFileName": "IngestionNewsCatcher50494FBF.nested.template",
       },
-      "Properties": Object {
-        "Parameters": Object {
-          "Config": Object {
+      "Properties": {
+        "Parameters": {
+          "Config": {
             "Ref": "Config",
           },
-          "EventBus": Object {
-            "Fn::GetAtt": Array [
+          "EventBus": {
+            "Fn::GetAtt": [
               "IngestionBus3E30EA7C",
               "Arn",
             ],
           },
-          "IngestFrequency": Object {
+          "IngestFrequency": {
             "Ref": "RSSNewsFeedIngestFrequency",
           },
-          "NewsSearchQuery": Object {
+          "NewsSearchQuery": {
             "Ref": "NewsSearchQuery",
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
               "Arn",
             ],
           },
-          "referencetoAssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98CRef": Object {
-            "Ref": "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3Bucket18A0F98C",
+          "referencetoAssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3Bucket3E9B60B5Ref": {
+            "Ref": "AssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3Bucket3E9B60B5",
           },
-          "referencetoAssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39Ref": Object {
-            "Ref": "AssetParameters65d9574a42198b64679ff290cf8ffd5eab18b5fcef4ca4d470f6525d17218622S3VersionKeyDC007E39",
+          "referencetoAssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3VersionKey675907BERef": {
+            "Ref": "AssetParameters0e1ed5e9877589f46e377d731e6842258e3ea211baabfdd274c70cd1cee92c3bS3VersionKey675907BE",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3Bucket74A4FFE6",
+              {
+                "Ref": "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cS3BucketCE1F249F",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67",
+                      {
+                        "Ref": "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cS3VersionKeyFFC8C393",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParametersc4f231e32ffabf1461bd4b16fe4d9259ccb8a54046d0d9557d137f01b60d481eS3VersionKeyF03F0C67",
+                      {
+                        "Ref": "AssetParametersec0fbf3c80c7fcfcb8974564d5f13af95a4b37e20778802e9c2f30f63cff4f0cS3VersionKeyFFC8C393",
                       },
                     ],
                   },
@@ -1060,71 +1060,74 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionRedditIngestionNestedStackRedditIngestionNestedStackResource5ABCB860": Object {
+    "IngestionRedditIngestionNestedStackRedditIngestionNestedStackResource5ABCB860": {
       "Condition": "IngestionDeployRedditIngestionB0819499",
       "DeletionPolicy": "Delete",
-      "Metadata": Object {
+      "Metadata": {
         "nestedStackFileName": "IngestionRedditIngestion6FBA36BE.nested.template",
       },
-      "Properties": Object {
-        "Parameters": Object {
-          "EventBus": Object {
-            "Fn::GetAtt": Array [
+      "Properties": {
+        "Parameters": {
+          "EventBus": {
+            "Fn::GetAtt": [
               "IngestionBus3E30EA7C",
               "Arn",
             ],
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
               "Arn",
             ],
           },
-          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CFRef": Object {
-            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF",
+          "SubRedditsToFollow": {
+            "Ref": "SubRedditsToFollow",
           },
-          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1BRef": Object {
-            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B",
+          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771Ref": {
+            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771",
+          },
+          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984Ref": {
+            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3Bucket0417DA8C",
+              {
+                "Ref": "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643S3Bucket89057F20",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B",
+                      {
+                        "Ref": "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643S3VersionKey58106085",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters623ed35d53fa017ae85ef92cd681b8fc0494b5ff4364d156c24aec50a6383232S3VersionKey5AA31B7B",
+                      {
+                        "Ref": "AssetParameters4331059565b51a5e0b6fd052d0bd84b4018b2792e80b1c527c2474f076166643S3VersionKey58106085",
                       },
                     ],
                   },
@@ -1137,78 +1140,78 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionS3CustomIngestionNestedStackS3CustomIngestionNestedStackResource0099DFB8": Object {
+    "IngestionS3CustomIngestionNestedStackS3CustomIngestionNestedStackResource0099DFB8": {
       "Condition": "IngestionDeployCustomIngestion93AB274A",
       "DeletionPolicy": "Delete",
-      "Metadata": Object {
+      "Metadata": {
         "nestedStackFileName": "IngestionS3CustomIngestionDA5FFAE5.nested.template",
       },
-      "Properties": Object {
-        "Parameters": Object {
-          "IntegrationBus": Object {
-            "Fn::GetAtt": Array [
+      "Properties": {
+        "Parameters": {
+          "IntegrationBus": {
+            "Fn::GetAtt": [
               "TestBusF2C65FE8",
               "Arn",
             ],
           },
           "MetadataNS": "metadata.call_analytics",
-          "S3AccessLoggingBucket": Object {
-            "Fn::GetAtt": Array [
+          "S3AccessLoggingBucket": {
+            "Fn::GetAtt": [
               "AccessLogD598EBE9",
               "Arn",
             ],
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
               "Arn",
             ],
           },
-          "referencetoAssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6Ref": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+          "referencetoAssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654Ref": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "referencetoAssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5Ref": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+          "referencetoAssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07BRef": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feS3Bucket2CB045E2",
+              {
+                "Ref": "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efS3BucketFD71B376",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feS3VersionKey99FBCD4E",
+                      {
+                        "Ref": "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efS3VersionKey675CAC40",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters24b9c306b9cc9d1fc4a6794806da9bf7b0c4e4ff2b31ee80a50b9ed1f7a204feS3VersionKey99FBCD4E",
+                      {
+                        "Ref": "AssetParametersb26fffda5206e56b57362fc75c2f84d9496c145cc6e7403d7c8c96474e65b7efS3VersionKey675CAC40",
                       },
                     ],
                   },
@@ -1221,77 +1224,77 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionTwitterSearchNestedStackTwitterSearchNestedStackResource3B8C7F8F": Object {
+    "IngestionTwitterSearchNestedStackTwitterSearchNestedStackResource3B8C7F8F": {
       "Condition": "IngestionDeployTwitterIngestion4D7DE3EB",
       "DeletionPolicy": "Delete",
-      "Metadata": Object {
+      "Metadata": {
         "nestedStackFileName": "IngestionTwitterSearch21AEAF91.nested.template",
       },
-      "Properties": Object {
-        "Parameters": Object {
-          "IngestQueryFrequency": Object {
+      "Properties": {
+        "Parameters": {
+          "IngestQueryFrequency": {
             "Ref": "TwitterIngestQueryFrequency",
           },
-          "QueryParameter": Object {
+          "QueryParameter": {
             "Ref": "TwitterSearchQuery",
           },
-          "SSMPathForCredentials": Object {
+          "SSMPathForCredentials": {
             "Ref": "TwitterSSMPathForBearerToken",
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
               "Arn",
             ],
           },
-          "SupportedLang": Object {
+          "SupportedLang": {
             "Ref": "SupportedLanguages",
           },
-          "referencetoAssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255ARef": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+          "referencetoAssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8BRef": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "referencetoAssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6ARef": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+          "referencetoAssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4Ref": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3Bucket6CF1699E",
+              {
+                "Ref": "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dS3Bucket03C0FA71",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454",
+                      {
+                        "Ref": "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dS3VersionKey86E7DEAD",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters082a883ebe1abcef2f93d4bf1488c4a4393926e896b31151580817ec8a93958fS3VersionKey4E46E454",
+                      {
+                        "Ref": "AssetParameters2870714034dbe1ad2020a27dd62cac476d70c50003588febab7c1960f1dbdd2dS3VersionKey86E7DEAD",
                       },
                     ],
                   },
@@ -1304,80 +1307,80 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "IngestionYouTubeCommentsIngestionNestedStackYouTubeCommentsIngestionNestedStackResourceD9D9E2B1": Object {
+    "IngestionYouTubeCommentsIngestionNestedStackYouTubeCommentsIngestionNestedStackResourceD9D9E2B1": {
       "Condition": "IngestionDeployYouTubeCommentsA44A0A50",
       "DeletionPolicy": "Delete",
-      "Metadata": Object {
+      "Metadata": {
         "nestedStackFileName": "IngestionYouTubeCommentsIngestion1376988D.nested.template",
       },
-      "Properties": Object {
-        "Parameters": Object {
-          "EventBus": Object {
-            "Fn::GetAtt": Array [
+      "Properties": {
+        "Parameters": {
+          "EventBus": {
+            "Fn::GetAtt": [
               "IngestionBus3E30EA7C",
               "Arn",
             ],
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "IngestionFeedConsumerIngestionStreamKinesisStreamD5A80644",
               "Arn",
             ],
           },
-          "YouTubeSearchIngestionFreq": Object {
+          "YouTubeSearchIngestionFreq": {
             "Ref": "YouTubeSearchIngestionFreq",
           },
-          "YoutubeAPIKey": Object {
+          "YoutubeAPIKey": {
             "Ref": "YoutubeAPIKey",
           },
-          "YoutubeSearchQuery": Object {
+          "YoutubeSearchQuery": {
             "Ref": "YoutubeSearchQuery",
           },
-          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259Ref": Object {
-            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259",
+          "referencetoAssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505ARef": {
+            "Ref": "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505A",
           },
-          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9ABRef": Object {
-            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB",
+          "referencetoAssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75Ref": {
+            "Ref": "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3Bucket3459BAE7",
+              {
+                "Ref": "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3S3Bucket4D780BB7",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437",
+                      {
+                        "Ref": "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3S3VersionKey75FC1AE0",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParametersbf694fd6dae67b8e1b2054e95b26a53a7a73ec429539f45457a63cd8081a279fS3VersionKey688FF437",
+                      {
+                        "Ref": "AssetParametersd4768d2fd18b5a622d0c4bffa487189ba6e07f414eda257d6dc6856fbc3b4ac3S3VersionKey75FC1AE0",
                       },
                     ],
                   },
@@ -1390,8 +1393,8 @@ Object {
       "Type": "AWS::CloudFormation::Stack",
       "UpdateReplacePolicy": "Delete",
     },
-    "TestBusF2C65FE8": Object {
-      "Properties": Object {
+    "TestBusF2C65FE8": {
+      "Properties": {
         "Name": "TestBus",
       },
       "Type": "AWS::Events::EventBus",

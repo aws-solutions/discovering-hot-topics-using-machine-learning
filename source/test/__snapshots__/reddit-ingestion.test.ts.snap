@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test reddit ingestion stack 1`] = `
-Object {
-  "Conditions": Object {
-    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": Object {
-      "Fn::Or": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+{
+  "Conditions": {
+    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": {
+      "Fn::Or": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "AWS::Region",
             },
             "cn-north-1",
           ],
         },
-        Object {
-          "Fn::Equals": Array [
-            Object {
+        {
+          "Fn::Equals": [
+            {
               "Ref": "AWS::Region",
             },
             "cn-northwest-1",
@@ -24,125 +24,125 @@ Object {
       ],
     },
   },
-  "Parameters": Object {
-    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28ArtifactHashE71F4FC8": Object {
-      "Description": "Artifact hash for asset \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+  "Parameters": {
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653ArtifactHash3A7282CC": {
+      "Description": "Artifact hash for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3BucketEBB309BA": Object {
-      "Description": "S3 bucket for asset \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771": {
+      "Description": "S3 bucket for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B": Object {
-      "Description": "S3 key for asset version \\"1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28\\"",
+    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984": {
+      "Description": "S3 key for asset version "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2ArtifactHashA3EC81B3": Object {
-      "Description": "Artifact hash for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeArtifactHashCDA15514": {
+      "Description": "Artifact hash for asset "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF": Object {
-      "Description": "S3 bucket for asset \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3BucketCFDF5133": {
+      "Description": "S3 bucket for asset "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
       "Type": "String",
     },
-    "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B": Object {
-      "Description": "S3 key for asset version \\"83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2\\"",
+    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0": {
+      "Description": "S3 key for asset version "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "BusEA82B648": Object {
-      "Properties": Object {
+  "Resources": {
+    "BusEA82B648": {
+      "Properties": {
         "Name": "Bus",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "Stream790BDEE4": Object {
-      "Properties": Object {
+    "Stream790BDEE4": {
+      "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
-        "StreamEncryption": Object {
-          "Fn::If": Array [
+        "StreamEncryption": {
+          "Fn::If": [
             "AwsCdkKinesisEncryptedStreamsUnsupportedRegions",
-            Object {
+            {
               "Ref": "AWS::NoValue",
             },
-            Object {
+            {
               "EncryptionType": "KMS",
               "KeyId": "alias/aws/kinesis",
             },
           ],
         },
-        "StreamModeDetails": Object {
+        "StreamModeDetails": {
           "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "testredditingestionNestedStacktestredditingestionNestedStackResourceE8B6AADB": Object {
+    "testredditingestionNestedStacktestredditingestionNestedStackResourceE8B6AADB": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "EventBus": Object {
-            "Fn::GetAtt": Array [
+      "Properties": {
+        "Parameters": {
+          "EventBus": {
+            "Fn::GetAtt": [
               "BusEA82B648",
               "Arn",
             ],
           },
           "RedditAPIKey": "/fakelocation/reddit/comments",
           "RedditIngestionFrequency": "cron(0/60 * * * ? *)",
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "Stream790BDEE4",
               "Arn",
             ],
           },
           "SubRedditsToFollow": "r/test1,r/test2",
-          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CFRef": Object {
-            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3BucketFA3528CF",
+          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771Ref": {
+            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771",
           },
-          "referencetoAssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1BRef": Object {
-            "Ref": "AssetParameters83cd4b97c10dca9845de66263eedd16681e8d5214410c04d145f2def82895bf2S3VersionKey96E6DE1B",
+          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984Ref": {
+            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3BucketEBB309BA",
+              {
+                "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3BucketCFDF5133",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B",
+                      {
+                        "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters1839fdc803dff2134d4b48ae4712644040c402ee35280d8762ab411da2cade28S3VersionKey3749A15B",
+                      {
+                        "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0",
                       },
                     ],
                   },

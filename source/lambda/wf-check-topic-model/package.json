@@ -1,6 +1,6 @@
 {
   "name": "wf-check-topic-model",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Check the status of the Topic modeling job",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,13 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "aws-sdk": "^2.1127.0"
+    "aws-sdk": "^2.1223.0"
   },
   "devDependencies": {
     "aws-sdk-mock": "^5.7.0",
     "chai": "^4.3.6",
-    "jest": "^28.0.3",
-    "sinon": "^13.0.2"
+    "jest": "^29.0.3",
+    "sinon": "^14.0.0"
   },
   "author": "@aws-solutions-builder",
   "license": "Apache-2.0"

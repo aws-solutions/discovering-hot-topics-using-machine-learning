@@ -2,5 +2,5 @@ boto3
 botocore
 coverage
 pytest==6.2.5
-pytest-cov==3.0.0
+pytest-cov==4.0.0
 mock==4.0.3

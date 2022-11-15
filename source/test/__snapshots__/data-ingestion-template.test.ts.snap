@@ -1,81 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`do not create SSM credential path entry 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "existingEventBus2F5875A1": Object {
-      "Properties": Object {
+  "Resources": {
+    "existingEventBus2F5875A1": {
+      "Properties": {
         "Name": "testStackexistingEventBus7236155E",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "testCustomBusLambdaFunctionCAB66923": Object {
-      "DependsOn": Array [
+    "testCustomBusLambdaFunctionCAB66923": {
+      "DependsOn": [
         "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
         "testCustomBusLambdaFunctionServiceRoleCE76F238",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -85,67 +85,67 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "EVENT_BUS_NAME": Object {
+            "EVENT_BUS_NAME": {
               "Ref": "existingEventBus2F5875A1",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusLambdaFunctionServiceRoleCE76F238",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusLambdaFunctionServiceRoleCE76F238": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleCE76F238": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -162,33 +162,33 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "existingEventBus2F5875A1",
                   "Arn",
                 ],
@@ -198,39 +198,39 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusLambdaFunctionServiceRoleCE76F238",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+    "testCustomBusRuleTargetLambdaEventsRuleC328D765": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "existingEventBus2F5875A1",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "source": Array [
+          "source": [
             "test.fake.namespace",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
                 "Arn",
               ],
@@ -241,18 +241,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaEventsRuleC328D765",
             "Arn",
           ],
@@ -260,59 +260,59 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
-      "DependsOn": Array [
+    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": {
+      "DependsOn": [
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -322,64 +322,64 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -396,22 +396,22 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
@@ -422,8 +422,8 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
           },
         ],
@@ -435,81 +435,81 @@ Object {
 `;
 
 exports[`do not create source dynamodb table 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "existingEventBus2F5875A1": Object {
-      "Properties": Object {
+  "Resources": {
+    "existingEventBus2F5875A1": {
+      "Properties": {
         "Name": "testStackexistingEventBus7236155E",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "testCustomBusLambdaFunctionCAB66923": Object {
-      "DependsOn": Array [
+    "testCustomBusLambdaFunctionCAB66923": {
+      "DependsOn": [
         "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
         "testCustomBusLambdaFunctionServiceRoleCE76F238",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -519,67 +519,67 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "EVENT_BUS_NAME": Object {
+            "EVENT_BUS_NAME": {
               "Ref": "existingEventBus2F5875A1",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusLambdaFunctionServiceRoleCE76F238",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusLambdaFunctionServiceRoleCE76F238": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleCE76F238": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -596,33 +596,33 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "existingEventBus2F5875A1",
                   "Arn",
                 ],
@@ -632,39 +632,39 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusLambdaFunctionServiceRoleCE76F238",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+    "testCustomBusRuleTargetLambdaEventsRuleC328D765": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "existingEventBus2F5875A1",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "source": Array [
+          "source": [
             "test.fake.namespace",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
                 "Arn",
               ],
@@ -675,18 +675,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaEventsRuleC328D765",
             "Arn",
           ],
@@ -694,59 +694,59 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
-      "DependsOn": Array [
+    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": {
+      "DependsOn": [
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -756,67 +756,67 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "TARGET_DDB_TABLE": Object {
+            "TARGET_DDB_TABLE": {
               "Ref": "testCustomBusTargetDynamoTable4F158389",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -833,45 +833,45 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "ssm:GetParameter",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":ssm:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":parametertest/fakekey/fakepath",
@@ -879,8 +879,8 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -895,14 +895,14 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusTargetDynamoTable4F158389",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
@@ -911,45 +911,45 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusTargetDynamoTable4F158389": Object {
+    "testCustomBusTargetDynamoTable4F158389": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "KeyType": "RANGE",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
-        "TimeToLiveSpecification": Object {
+        "TimeToLiveSpecification": {
           "AttributeName": "EXP_DATE",
           "Enabled": true,
         },
@@ -962,81 +962,81 @@ Object {
 `;
 
 exports[`do not create target dynamodb table 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "existingEventBus2F5875A1": Object {
-      "Properties": Object {
+  "Resources": {
+    "existingEventBus2F5875A1": {
+      "Properties": {
         "Name": "testStackexistingEventBus7236155E",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "testCustomBusLambdaFunctionCAB66923": Object {
-      "DependsOn": Array [
+    "testCustomBusLambdaFunctionCAB66923": {
+      "DependsOn": [
         "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
         "testCustomBusLambdaFunctionServiceRoleCE76F238",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -1046,70 +1046,70 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "EVENT_BUS_NAME": Object {
+            "EVENT_BUS_NAME": {
               "Ref": "existingEventBus2F5875A1",
             },
-            "SOURCE_DDB_TABLE": Object {
+            "SOURCE_DDB_TABLE": {
               "Ref": "testCustomBusSourceDynamoTableA58E4C27",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusLambdaFunctionServiceRoleCE76F238",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusLambdaFunctionServiceRoleCE76F238": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleCE76F238": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -1126,30 +1126,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -1164,23 +1164,23 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusSourceDynamoTableA58E4C27",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
             },
-            Object {
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "existingEventBus2F5875A1",
                   "Arn",
                 ],
@@ -1190,39 +1190,39 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusLambdaFunctionServiceRoleCE76F238",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+    "testCustomBusRuleTargetLambdaEventsRuleC328D765": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "existingEventBus2F5875A1",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "source": Array [
+          "source": [
             "test.fake.namespace",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
                 "Arn",
               ],
@@ -1233,18 +1233,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaEventsRuleC328D765",
             "Arn",
           ],
@@ -1252,59 +1252,59 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
-      "DependsOn": Array [
+    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": {
+      "DependsOn": [
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -1314,64 +1314,64 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -1388,45 +1388,45 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "ssm:GetParameter",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":ssm:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":parametertest/fakekey/fakepath",
@@ -1438,34 +1438,34 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusSourceDynamoTableA58E4C27": Object {
+    "testCustomBusSourceDynamoTableA58E4C27": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
       },
@@ -1476,84 +1476,84 @@ Object {
 }
 `;
 
-exports[`fail when neither existing bus nor event bus properties are provided 1`] = `Object {}`;
+exports[`fail when neither existing bus nor event bus properties are provided 1`] = `{}`;
 
 exports[`test ingestion with all parameters and custom event bridge 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testCustomBusIngestionBus2242DCDB": Object {
-      "Properties": Object {
+  "Resources": {
+    "testCustomBusIngestionBus2242DCDB": {
+      "Properties": {
         "Name": "testBus",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "testCustomBusLambdaFunctionCAB66923": Object {
-      "DependsOn": Array [
+    "testCustomBusLambdaFunctionCAB66923": {
+      "DependsOn": [
         "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
         "testCustomBusLambdaFunctionServiceRoleCE76F238",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -1563,70 +1563,70 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "EVENT_BUS_NAME": Object {
+            "EVENT_BUS_NAME": {
               "Ref": "testCustomBusIngestionBus2242DCDB",
             },
-            "SOURCE_DDB_TABLE": Object {
+            "SOURCE_DDB_TABLE": {
               "Ref": "testCustomBusSourceDynamoTableA58E4C27",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusLambdaFunctionServiceRoleCE76F238",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusLambdaFunctionServiceRoleCE76F238": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleCE76F238": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -1643,30 +1643,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -1681,23 +1681,23 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusSourceDynamoTableA58E4C27",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
             },
-            Object {
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testCustomBusIngestionBus2242DCDB",
                   "Arn",
                 ],
@@ -1707,39 +1707,39 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusLambdaFunctionServiceRoleCE76F238",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+    "testCustomBusRuleTargetLambdaEventsRuleC328D765": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "testCustomBusIngestionBus2242DCDB",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "source": Array [
+          "source": [
             "test.fake.namespace",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
                 "Arn",
               ],
@@ -1750,18 +1750,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaEventsRuleC328D765",
             "Arn",
           ],
@@ -1769,59 +1769,59 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
-      "DependsOn": Array [
+    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": {
+      "DependsOn": [
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -1831,67 +1831,67 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "TARGET_DDB_TABLE": Object {
+            "TARGET_DDB_TABLE": {
               "Ref": "testCustomBusTargetDynamoTable4F158389",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -1908,45 +1908,45 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "ssm:GetParameter",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":ssm:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":parametertest/fakekey/fakepath",
@@ -1954,8 +1954,8 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -1970,14 +1970,14 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusTargetDynamoTable4F158389",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
@@ -1986,71 +1986,71 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusSourceDynamoTableA58E4C27": Object {
+    "testCustomBusSourceDynamoTableA58E4C27": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
       },
       "Type": "AWS::DynamoDB::Table",
       "UpdateReplacePolicy": "Retain",
     },
-    "testCustomBusTargetDynamoTable4F158389": Object {
+    "testCustomBusTargetDynamoTable4F158389": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "KeyType": "RANGE",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
-        "TimeToLiveSpecification": Object {
+        "TimeToLiveSpecification": {
           "AttributeName": "EXP_DATE",
           "Enabled": true,
         },
@@ -2063,81 +2063,81 @@ Object {
 `;
 
 exports[`test ingestion with existing event bus 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "existingEventBus2F5875A1": Object {
-      "Properties": Object {
+  "Resources": {
+    "existingEventBus2F5875A1": {
+      "Properties": {
         "Name": "testStackexistingEventBus7236155E",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "testCustomBusLambdaFunctionCAB66923": Object {
-      "DependsOn": Array [
+    "testCustomBusLambdaFunctionCAB66923": {
+      "DependsOn": [
         "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
         "testCustomBusLambdaFunctionServiceRoleCE76F238",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -2147,70 +2147,70 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "EVENT_BUS_NAME": Object {
+            "EVENT_BUS_NAME": {
               "Ref": "existingEventBus2F5875A1",
             },
-            "SOURCE_DDB_TABLE": Object {
+            "SOURCE_DDB_TABLE": {
               "Ref": "testCustomBusSourceDynamoTableA58E4C27",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusLambdaFunctionServiceRoleCE76F238",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusLambdaFunctionServiceRoleCE76F238": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleCE76F238": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -2227,30 +2227,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -2265,23 +2265,23 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusSourceDynamoTableA58E4C27",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
             },
-            Object {
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "existingEventBus2F5875A1",
                   "Arn",
                 ],
@@ -2291,39 +2291,39 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusLambdaFunctionServiceRoleDefaultPolicy9BAEE1C8",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusLambdaFunctionServiceRoleCE76F238",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusRuleTargetLambdaEventsRuleC328D765": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+    "testCustomBusRuleTargetLambdaEventsRuleC328D765": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "existingEventBus2F5875A1",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "source": Array [
+          "source": [
             "test.fake.namespace",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
                 "Arn",
               ],
@@ -2334,18 +2334,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": Object {
-      "Properties": Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionAwsEventsLambdaInvokePermission1C5E16365": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaEventsRuleC328D765",
             "Arn",
           ],
@@ -2353,59 +2353,59 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": Object {
-      "DependsOn": Array [
+    "testCustomBusRuleTargetLambdaLambdaFunctionFD9658D6": {
+      "DependsOn": [
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
         "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -2415,67 +2415,67 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "TARGET_DDB_TABLE": Object {
+            "TARGET_DDB_TABLE": {
               "Ref": "testCustomBusTargetDynamoTable4F158389",
             },
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -2492,45 +2492,45 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "ssm:GetParameter",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":ssm:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":parametertest/fakekey/fakepath",
@@ -2538,8 +2538,8 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:BatchGetItem",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
@@ -2554,14 +2554,14 @@ Object {
                 "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testCustomBusTargetDynamoTable4F158389",
                     "Arn",
                   ],
                 },
-                Object {
+                {
                   "Ref": "AWS::NoValue",
                 },
               ],
@@ -2570,71 +2570,71 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRoleDefaultPolicy2D469CEC",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testCustomBusRuleTargetLambdaLambdaFunctionServiceRole6901AAAE",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testCustomBusSourceDynamoTableA58E4C27": Object {
+    "testCustomBusSourceDynamoTableA58E4C27": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
       },
       "Type": "AWS::DynamoDB::Table",
       "UpdateReplacePolicy": "Retain",
     },
-    "testCustomBusTargetDynamoTable4F158389": Object {
+    "testCustomBusTargetDynamoTable4F158389": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "AttributeType": "S",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "AttributeType": "S",
           },
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "ACCOUNT_IDENTIFIER",
             "KeyType": "HASH",
           },
-          Object {
+          {
             "AttributeName": "CREATED_TIMESTAMP",
             "KeyType": "RANGE",
           },
         ],
-        "PointInTimeRecoverySpecification": Object {
+        "PointInTimeRecoverySpecification": {
           "PointInTimeRecoveryEnabled": true,
         },
-        "SSESpecification": Object {
+        "SSESpecification": {
           "SSEEnabled": true,
         },
-        "TimeToLiveSpecification": Object {
+        "TimeToLiveSpecification": {
           "AttributeName": "EXP_DATE",
           "Enabled": true,
         },
