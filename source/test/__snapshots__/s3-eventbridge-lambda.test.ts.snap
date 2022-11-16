@@ -1,40 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test default s3-cloudtrail-eventbridge-lambda 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+{
+  "Parameters": {
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testS3EventDLQ839BF4A0": Object {
+  "Resources": {
+    "testS3EventDLQ839BF4A0": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testS3EventDLQPolicy74E4AA3E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventDLQPolicy74E4AA3E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "sqs:SendMessage",
-              "Condition": Object {
-                "ArnEquals": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::GetAtt": Array [
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Fn::GetAtt": [
                       "testS3EventS3NotificatonRule8F37C4C1",
                       "Arn",
                     ],
@@ -42,11 +42,11 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "events.amazonaws.com",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
@@ -56,67 +56,67 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testS3EventDLQ839BF4A0",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testS3EventLambdaFunction8AB33E25": Object {
-      "DependsOn": Array [
+    "testS3EventLambdaFunction8AB33E25": {
+      "DependsOn": [
         "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
         "testS3EventLambdaFunctionServiceRole6CCF554A",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
@@ -127,31 +127,31 @@ Object {
           },
         },
         "Handler": "lambda_function/handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunctionServiceRole6CCF554A",
             "Arn",
           ],
         },
         "Runtime": "python3.9",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": Object {
-      "Properties": Object {
+    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -159,45 +159,45 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testS3EventLambdaFunctionServiceRole6CCF554A": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRole6CCF554A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -214,48 +214,48 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -270,31 +270,31 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testS3EventLambdaFunctionServiceRole6CCF554A",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testS3EventS3Bucket525E215C": Object {
+    "testS3EventS3Bucket525E215C": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "LifecycleConfiguration": Object {
-          "Rules": Array [
-            Object {
-              "NoncurrentVersionTransitions": Array [
-                Object {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "NoncurrentVersionTransitions": [
+                {
                   "StorageClass": "GLACIER",
                   "TransitionInDays": 90,
                 },
@@ -303,58 +303,58 @@ Object {
             },
           ],
         },
-        "LoggingConfiguration": Object {
+        "LoggingConfiguration": {
           "LogFilePrefix": "testS3Event/",
         },
-        "NotificationConfiguration": Object {
-          "EventBridgeConfiguration": Object {
+        "NotificationConfiguration": {
+          "EventBridgeConfiguration": {
             "EventBridgeEnabled": true,
           },
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3BucketPolicy946F38A9": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3BucketPolicy946F38A9": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3Bucket525E215C",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -371,73 +371,73 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3LoggingBucketC506C02D": Object {
+    "testS3EventS3LoggingBucketC506C02D": {
       "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W35",
               "reason": "This S3 bucket is used as the access logging bucket for another bucket",
             },
           ],
         },
       },
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3LoggingBucketPolicyA0414D81": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3LoggingBucketPolicyA0414D81": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3LoggingBucketC506C02D",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3LoggingBucketC506C02D",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3LoggingBucketC506C02D",
                           "Arn",
                         ],
@@ -454,35 +454,35 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3NotificatonRule8F37C4C1": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail-type": Array [
+    "testS3EventS3NotificatonRule8F37C4C1": {
+      "Properties": {
+        "EventPattern": {
+          "detail-type": [
             "Object Created",
           ],
-          "source": Array [
+          "source": [
             "aws.s3",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testS3EventLambdaFunction8AB33E25",
                 "Arn",
               ],
             },
-            "DeadLetterConfig": Object {
-              "Arn": Object {
-                "Fn::GetAtt": Array [
+            "DeadLetterConfig": {
+              "Arn": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
               },
             },
             "Id": "Target0",
-            "RetryPolicy": Object {
+            "RetryPolicy": {
               "MaximumEventAgeInSeconds": 86400,
               "MaximumRetryAttempts": 10,
             },
@@ -491,18 +491,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": Object {
-      "Properties": Object {
+    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -515,28 +515,28 @@ Object {
 `;
 
 exports[`Test when an existing bucket is provided 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+{
+  "Parameters": {
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testBucketDF4D7D1A": Object {
+  "Resources": {
+    "testBucketDF4D7D1A": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "BucketName": "testbucket",
-        "NotificationConfiguration": Object {
-          "EventBridgeConfiguration": Object {
+        "NotificationConfiguration": {
+          "EventBridgeConfiguration": {
             "EventBridgeEnabled": true,
           },
         },
@@ -544,24 +544,24 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventDLQ839BF4A0": Object {
+    "testS3EventDLQ839BF4A0": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testS3EventDLQPolicy74E4AA3E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventDLQPolicy74E4AA3E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "sqs:SendMessage",
-              "Condition": Object {
-                "ArnEquals": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::GetAtt": Array [
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Fn::GetAtt": [
                       "testS3EventS3NotificatonRule8F37C4C1",
                       "Arn",
                     ],
@@ -569,11 +569,11 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "events.amazonaws.com",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
@@ -583,67 +583,67 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testS3EventDLQ839BF4A0",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testS3EventLambdaFunction8AB33E25": Object {
-      "DependsOn": Array [
+    "testS3EventLambdaFunction8AB33E25": {
+      "DependsOn": [
         "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
         "testS3EventLambdaFunctionServiceRole6CCF554A",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
@@ -654,31 +654,31 @@ Object {
           },
         },
         "Handler": "lambda_function/handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunctionServiceRole6CCF554A",
             "Arn",
           ],
         },
         "Runtime": "python3.9",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": Object {
-      "Properties": Object {
+    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -686,45 +686,45 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testS3EventLambdaFunctionServiceRole6CCF554A": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRole6CCF554A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -741,48 +741,48 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testBucketDF4D7D1A",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testBucketDF4D7D1A",
                           "Arn",
                         ],
@@ -797,43 +797,43 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testS3EventLambdaFunctionServiceRole6CCF554A",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testS3EventS3NotificatonRule8F37C4C1": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail-type": Array [
+    "testS3EventS3NotificatonRule8F37C4C1": {
+      "Properties": {
+        "EventPattern": {
+          "detail-type": [
             "Object Created",
           ],
-          "source": Array [
+          "source": [
             "aws.s3",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testS3EventLambdaFunction8AB33E25",
                 "Arn",
               ],
             },
-            "DeadLetterConfig": Object {
-              "Arn": Object {
-                "Fn::GetAtt": Array [
+            "DeadLetterConfig": {
+              "Arn": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
               },
             },
             "Id": "Target0",
-            "RetryPolicy": Object {
+            "RetryPolicy": {
               "MaximumEventAgeInSeconds": 86400,
               "MaximumRetryAttempts": 10,
             },
@@ -842,18 +842,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": Object {
-      "Properties": Object {
+    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -866,40 +866,40 @@ Object {
 `;
 
 exports[`Test when an existing lambda is provided 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+{
+  "Parameters": {
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testS3EventDLQ839BF4A0": Object {
+  "Resources": {
+    "testS3EventDLQ839BF4A0": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testS3EventDLQPolicy74E4AA3E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventDLQPolicy74E4AA3E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "sqs:SendMessage",
-              "Condition": Object {
-                "ArnEquals": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::GetAtt": Array [
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Fn::GetAtt": [
                       "testS3EventS3NotificatonRule8F37C4C1",
                       "Arn",
                     ],
@@ -907,11 +907,11 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "events.amazonaws.com",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
@@ -921,31 +921,31 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testS3EventDLQ839BF4A0",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testS3EventS3Bucket525E215C": Object {
+    "testS3EventS3Bucket525E215C": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "LifecycleConfiguration": Object {
-          "Rules": Array [
-            Object {
-              "NoncurrentVersionTransitions": Array [
-                Object {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "NoncurrentVersionTransitions": [
+                {
                   "StorageClass": "GLACIER",
                   "TransitionInDays": 90,
                 },
@@ -954,58 +954,58 @@ Object {
             },
           ],
         },
-        "LoggingConfiguration": Object {
+        "LoggingConfiguration": {
           "LogFilePrefix": "testS3Event/",
         },
-        "NotificationConfiguration": Object {
-          "EventBridgeConfiguration": Object {
+        "NotificationConfiguration": {
+          "EventBridgeConfiguration": {
             "EventBridgeEnabled": true,
           },
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3BucketPolicy946F38A9": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3BucketPolicy946F38A9": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3Bucket525E215C",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -1022,73 +1022,73 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3LoggingBucketC506C02D": Object {
+    "testS3EventS3LoggingBucketC506C02D": {
       "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W35",
               "reason": "This S3 bucket is used as the access logging bucket for another bucket",
             },
           ],
         },
       },
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3LoggingBucketPolicyA0414D81": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3LoggingBucketPolicyA0414D81": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3LoggingBucketC506C02D",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3LoggingBucketC506C02D",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3LoggingBucketC506C02D",
                           "Arn",
                         ],
@@ -1105,35 +1105,35 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3NotificatonRule8F37C4C1": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail-type": Array [
+    "testS3EventS3NotificatonRule8F37C4C1": {
+      "Properties": {
+        "EventPattern": {
+          "detail-type": [
             "Object Created",
           ],
-          "source": Array [
+          "source": [
             "aws.s3",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testfunctionF063FA06",
                 "Arn",
               ],
             },
-            "DeadLetterConfig": Object {
-              "Arn": Object {
-                "Fn::GetAtt": Array [
+            "DeadLetterConfig": {
+              "Arn": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
               },
             },
             "Id": "Target0",
-            "RetryPolicy": Object {
+            "RetryPolicy": {
               "MaximumEventAgeInSeconds": 86400,
               "MaximumRetryAttempts": 10,
             },
@@ -1142,18 +1142,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testS3EventS3NotificatonRuleAllowEventRuletestfunction1814BECA": Object {
-      "Properties": Object {
+    "testS3EventS3NotificatonRuleAllowEventRuletestfunction1814BECA": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testfunctionF063FA06",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -1161,18 +1161,18 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testfunctionEventBusInvokeLambda54674379": Object {
-      "Properties": Object {
+    "testfunctionEventBusInvokeLambda54674379": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testfunctionF063FA06",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -1180,41 +1180,41 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testfunctionF063FA06": Object {
-      "DependsOn": Array [
+    "testfunctionF063FA06": {
+      "DependsOn": [
         "testfunctionServiceRoleDefaultPolicy0B4726C0",
         "testfunctionServiceRoleD84755D8",
       ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
@@ -1225,8 +1225,8 @@ Object {
           },
         },
         "Handler": "lambda_function/handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testfunctionServiceRoleD84755D8",
             "Arn",
           ],
@@ -1235,27 +1235,27 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testfunctionServiceRoleD84755D8": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testfunctionServiceRoleD84755D8": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -1266,30 +1266,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testfunctionServiceRoleDefaultPolicy0B4726C0": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testfunctionServiceRoleDefaultPolicy0B4726C0": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -1304,8 +1304,8 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testfunctionServiceRoleDefaultPolicy0B4726C0",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testfunctionServiceRoleD84755D8",
           },
         ],
@@ -1317,40 +1317,40 @@ Object {
 `;
 
 exports[`Test when event props are provided 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+{
+  "Parameters": {
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testS3EventDLQ839BF4A0": Object {
+  "Resources": {
+    "testS3EventDLQ839BF4A0": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testS3EventDLQPolicy74E4AA3E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventDLQPolicy74E4AA3E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "sqs:SendMessage",
-              "Condition": Object {
-                "ArnEquals": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::GetAtt": Array [
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Fn::GetAtt": [
                       "testS3EventS3NotificatonRule8F37C4C1",
                       "Arn",
                     ],
@@ -1358,11 +1358,11 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "events.amazonaws.com",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
@@ -1372,67 +1372,67 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testS3EventDLQ839BF4A0",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testS3EventLambdaFunction8AB33E25": Object {
-      "DependsOn": Array [
+    "testS3EventLambdaFunction8AB33E25": {
+      "DependsOn": [
         "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
         "testS3EventLambdaFunctionServiceRole6CCF554A",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
@@ -1443,31 +1443,31 @@ Object {
           },
         },
         "Handler": "lambda_function/handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunctionServiceRole6CCF554A",
             "Arn",
           ],
         },
         "Runtime": "python3.9",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": Object {
-      "Properties": Object {
+    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -1475,45 +1475,45 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testS3EventLambdaFunctionServiceRole6CCF554A": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRole6CCF554A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -1530,48 +1530,48 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -1586,31 +1586,31 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testS3EventLambdaFunctionServiceRole6CCF554A",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testS3EventS3Bucket525E215C": Object {
+    "testS3EventS3Bucket525E215C": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "LifecycleConfiguration": Object {
-          "Rules": Array [
-            Object {
-              "NoncurrentVersionTransitions": Array [
-                Object {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "NoncurrentVersionTransitions": [
+                {
                   "StorageClass": "GLACIER",
                   "TransitionInDays": 90,
                 },
@@ -1619,58 +1619,58 @@ Object {
             },
           ],
         },
-        "LoggingConfiguration": Object {
+        "LoggingConfiguration": {
           "LogFilePrefix": "testS3Event/",
         },
-        "NotificationConfiguration": Object {
-          "EventBridgeConfiguration": Object {
+        "NotificationConfiguration": {
+          "EventBridgeConfiguration": {
             "EventBridgeEnabled": true,
           },
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3BucketPolicy946F38A9": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3BucketPolicy946F38A9": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3Bucket525E215C",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -1687,73 +1687,73 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3LoggingBucketC506C02D": Object {
+    "testS3EventS3LoggingBucketC506C02D": {
       "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W35",
               "reason": "This S3 bucket is used as the access logging bucket for another bucket",
             },
           ],
         },
       },
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3LoggingBucketPolicyA0414D81": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3LoggingBucketPolicyA0414D81": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3LoggingBucketC506C02D",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3LoggingBucketC506C02D",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3LoggingBucketC506C02D",
                           "Arn",
                         ],
@@ -1770,44 +1770,44 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3NotificatonRule8F37C4C1": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail": Object {
-            "eventName": Array [
+    "testS3EventS3NotificatonRule8F37C4C1": {
+      "Properties": {
+        "EventPattern": {
+          "detail": {
+            "eventName": [
               "fakeEvent1",
               "fakeEvent2",
             ],
-            "eventSource": Array [
+            "eventSource": [
               "fake.amazonaws.com",
             ],
           },
-          "detail-type": Array [
+          "detail-type": [
             "Test API Call Event",
           ],
-          "source": Array [
+          "source": [
             "aws.fake.event",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testS3EventLambdaFunction8AB33E25",
                 "Arn",
               ],
             },
-            "DeadLetterConfig": Object {
-              "Arn": Object {
-                "Fn::GetAtt": Array [
+            "DeadLetterConfig": {
+              "Arn": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
               },
             },
             "Id": "Target0",
-            "RetryPolicy": Object {
+            "RetryPolicy": {
               "MaximumEventAgeInSeconds": 86400,
               "MaximumRetryAttempts": 10,
             },
@@ -1816,18 +1816,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": Object {
-      "Properties": Object {
+    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -1840,40 +1840,40 @@ Object {
 `;
 
 exports[`Use bucket props to create a bucket 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3ArtifactHashA2A4BAD3": Object {
-      "Description": "Artifact hash for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+{
+  "Parameters": {
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7ArtifactHashD52197FF": {
+      "Description": "Artifact hash for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6": Object {
-      "Description": "S3 bucket for asset \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654": {
+      "Description": "S3 bucket for asset "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
-    "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5": Object {
-      "Description": "S3 key for asset version \\"12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3\\"",
+    "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B": {
+      "Description": "S3 key for asset version "1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testS3EventDLQ839BF4A0": Object {
+  "Resources": {
+    "testS3EventDLQ839BF4A0": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testS3EventDLQPolicy74E4AA3E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventDLQPolicy74E4AA3E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "sqs:SendMessage",
-              "Condition": Object {
-                "ArnEquals": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::GetAtt": Array [
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Fn::GetAtt": [
                       "testS3EventS3NotificatonRule8F37C4C1",
                       "Arn",
                     ],
@@ -1881,11 +1881,11 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "events.amazonaws.com",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
@@ -1895,67 +1895,67 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testS3EventDLQ839BF4A0",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testS3EventLambdaFunction8AB33E25": Object {
-      "DependsOn": Array [
+    "testS3EventLambdaFunction8AB33E25": {
+      "DependsOn": [
         "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
         "testS3EventLambdaFunctionServiceRole6CCF554A",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3Bucket9C4B93E6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3Bucket9E565654",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters12a365b778798bfc04a6082750e9436c20305bfe0835245e731bb3c2a03582f3S3VersionKeyAE1109A5",
+                        {
+                          "Ref": "AssetParameters1abc0fc8c8d9ecaa933fa5a28b2250fd168e9adc879df30b7edc099776a4a4b7S3VersionKey57F7B07B",
                         },
                       ],
                     },
@@ -1966,31 +1966,31 @@ Object {
           },
         },
         "Handler": "lambda_function/handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunctionServiceRole6CCF554A",
             "Arn",
           ],
         },
         "Runtime": "python3.9",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": Object {
-      "Properties": Object {
+    "testS3EventLambdaFunctionEventBusInvokeLambdaF35C0558": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],
@@ -1998,45 +1998,45 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "testS3EventLambdaFunctionServiceRole6CCF554A": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRole6CCF554A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -2053,48 +2053,48 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -2109,32 +2109,32 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testS3EventLambdaFunctionServiceRoleDefaultPolicyA1097FFE",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testS3EventLambdaFunctionServiceRole6CCF554A",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testS3EventS3Bucket525E215C": Object {
+    "testS3EventS3Bucket525E215C": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
         "BucketName": "bucketpropsprovided",
-        "LifecycleConfiguration": Object {
-          "Rules": Array [
-            Object {
-              "NoncurrentVersionTransitions": Array [
-                Object {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "NoncurrentVersionTransitions": [
+                {
                   "StorageClass": "GLACIER",
                   "TransitionInDays": 90,
                 },
@@ -2143,58 +2143,58 @@ Object {
             },
           ],
         },
-        "LoggingConfiguration": Object {
+        "LoggingConfiguration": {
           "LogFilePrefix": "testS3Event/",
         },
-        "NotificationConfiguration": Object {
-          "EventBridgeConfiguration": Object {
+        "NotificationConfiguration": {
+          "EventBridgeConfiguration": {
             "EventBridgeEnabled": true,
           },
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3BucketPolicy946F38A9": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3BucketPolicy946F38A9": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3Bucket525E215C",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3Bucket525E215C",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3Bucket525E215C",
                           "Arn",
                         ],
@@ -2211,73 +2211,73 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3LoggingBucketC506C02D": Object {
+    "testS3EventS3LoggingBucketC506C02D": {
       "DeletionPolicy": "Retain",
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W35",
               "reason": "This S3 bucket is used as the access logging bucket for another bucket",
             },
           ],
         },
       },
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
           "RestrictPublicBuckets": true,
         },
-        "VersioningConfiguration": Object {
+        "VersioningConfiguration": {
           "Status": "Enabled",
         },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testS3EventS3LoggingBucketPolicyA0414D81": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "testS3EventS3LoggingBucketPolicyA0414D81": {
+      "Properties": {
+        "Bucket": {
           "Ref": "testS3EventS3LoggingBucketC506C02D",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "testS3EventS3LoggingBucketC506C02D",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "testS3EventS3LoggingBucketC506C02D",
                           "Arn",
                         ],
@@ -2294,35 +2294,35 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "testS3EventS3NotificatonRule8F37C4C1": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail-type": Array [
+    "testS3EventS3NotificatonRule8F37C4C1": {
+      "Properties": {
+        "EventPattern": {
+          "detail-type": [
             "Object Created",
           ],
-          "source": Array [
+          "source": [
             "aws.s3",
           ],
         },
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "testS3EventLambdaFunction8AB33E25",
                 "Arn",
               ],
             },
-            "DeadLetterConfig": Object {
-              "Arn": Object {
-                "Fn::GetAtt": Array [
+            "DeadLetterConfig": {
+              "Arn": {
+                "Fn::GetAtt": [
                   "testS3EventDLQ839BF4A0",
                   "Arn",
                 ],
               },
             },
             "Id": "Target0",
-            "RetryPolicy": Object {
+            "RetryPolicy": {
               "MaximumEventAgeInSeconds": 86400,
               "MaximumRetryAttempts": 10,
             },
@@ -2331,18 +2331,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": Object {
-      "Properties": Object {
+    "testS3EventS3NotificatonRuleAllowEventRuletestS3EventLambdaFunction52D821FDD9EA56B7": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "testS3EventLambdaFunction8AB33E25",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "testS3EventS3NotificatonRule8F37C4C1",
             "Arn",
           ],

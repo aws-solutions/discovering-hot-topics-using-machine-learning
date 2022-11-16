@@ -526,7 +526,7 @@ describe('When sleep duration is provided', () => {
         const start = Date.now();
         await SubRedditComment.sleep(1000);
         const now = Date.now();
-        expect(now - start).to.greaterThanOrEqual(1000);
+        expect(now - start).to.greaterThanOrEqual(999);
     });
 
     it('should sleep for 3 sec if provided parameter is 3000', async () => {

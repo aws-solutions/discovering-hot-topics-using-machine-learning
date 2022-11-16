@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test workflow stack 1`] = `
-Object {
-  "Resources": Object {
-    "ImgTxtEntityCfntxtinimgentityE4EE3F6F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+{
+  "Resources": {
+    "ImgTxtEntityCfntxtinimgentityE4EE3F6F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDB27CDA92F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for txtinimgentity",
           "Name": "txtinimgentity",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -22,67 +22,67 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_type",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_score",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "entity_begin_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "entity_end_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/txtinimgentity/",
@@ -90,7 +90,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -100,17 +100,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestBucket560B80BC": Object {
+    "TestBucket560B80BC": {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestDB27CDA92F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDB27CDA92F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseInput": Object {
+        "DatabaseInput": {
           "Name": "socialmedia",
         },
       },

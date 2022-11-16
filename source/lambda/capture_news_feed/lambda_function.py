@@ -29,7 +29,7 @@ class IncorrectEventNameSpaceError(Exception):
     pass
 
 
-def publish_config_handler(event, context):
+def publish_config_handler(event, _):  # NOSONAR - lambda signature
     """ If lambda environment variable is set to read from os.environ, if not read from DDB """
     if os.environ.get("CONFIG_PARAM", None):
         """
@@ -63,7 +63,7 @@ def publish_config_handler(event, context):
             logger.debug(f"Event published is: {config_event}")
 
 
-def process_config_handler(event, context):
+def process_config_handler(event, _):  # NOSONAR - lambda signature
     if event["source"] == os.environ["INGESTION_NAMESPACE"]:
         data = event["detail"]
 

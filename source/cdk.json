@@ -4,6 +4,8 @@
     "quicksight_source_template_arn": "arn:aws:quicksight:us-east-1:%%TEMPLATE_ACCOUNT_ID%%:template/%%DIST_QUICKSIGHT_NAMESPACE%%_%%SOLUTION_NAME%%_%%DASHED_VERSION%%",
     "solution_id": "SO0122",
     "solution_name": "%%SOLUTION_NAME%%",
-    "solution_version": "%%VERSION%%"
+    "solution_version": "%%VERSION%%",
+    "app_registry_name": "%%APP_REG_NAME%%",
+    "application_type": "AWS-Solutions"
   }
 }

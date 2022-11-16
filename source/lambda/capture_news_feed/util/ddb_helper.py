@@ -80,7 +80,7 @@ def update_query_tracker(account, url, search_query, topic=None):
     )
 
 
-def get_query_tracker(account, url, search_query, topic=None, **item_kwargs):
+def get_query_tracker(account, url, search_query, topic=None, **item_kwargs):  # NOSONAR allow passing keyword args
     dynamodb = service_helper.get_service_resource("dynamodb")
 
     table = dynamodb.Table(os.environ["TARGET_DDB_TABLE"])

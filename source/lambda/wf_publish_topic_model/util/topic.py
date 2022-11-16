@@ -33,7 +33,7 @@ Lambda functions provide a /tmp directory to store temporary files.
 This is not the same /tmp as on a conventional unix OR linux
 system. Hence suppressing the rule
 """
-TMP_DIR = "/tmp/"  # NOSONAR (python:S5443)
+TMP_DIR = "/tmp/"  # NOSONAR (python:S5443) # nosec B108
 
 """
 This method builds the mapping between the topics and the ids of the content and publishes it

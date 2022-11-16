@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2022-11-16
+
+### Fixed
+
+- Github [issue #69](https://github.com/aws-solutions/discovering-hot-topics-using-machine-learning/issues/69). The fix required the ingestion  infrastructure code in CDK to be pass the AWS CloudFormation parameter to be passed to the Reddit nested stack.
+
+### Updated
+
+- CDK version 1.177.0
+- AWS SDK verson 2.1223.0
+
 ## [2.0.0] - 2022-05-31
 
 ### Added
@@ -79,7 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Truncated tweets through merging [GitHub pull request #26](https://github.com/awslabs/discovering-hot-topics-using-machine-learning/pull/26)
+- Truncated tweets through merging [GitHub pull request #26](https://github.com/aws-solutions/discovering-hot-topics-using-machine-learning/pull/26)
 
 ## [1.4.0] - 2021-02-04
 
