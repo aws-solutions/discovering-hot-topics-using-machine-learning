@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test youtube ingestion stack 1`] = `
-Object {
-  "Conditions": Object {
-    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": Object {
-      "Fn::Or": Array [
-        Object {
-          "Fn::Equals": Array [
-            Object {
+{
+  "Conditions": {
+    "AwsCdkKinesisEncryptedStreamsUnsupportedRegions": {
+      "Fn::Or": [
+        {
+          "Fn::Equals": [
+            {
               "Ref": "AWS::Region",
             },
             "cn-north-1",
           ],
         },
-        Object {
-          "Fn::Equals": Array [
-            Object {
+        {
+          "Fn::Equals": [
+            {
               "Ref": "AWS::Region",
             },
             "cn-northwest-1",
@@ -24,73 +24,73 @@ Object {
       ],
     },
   },
-  "Parameters": Object {
-    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551ArtifactHash3ED0C2FB": Object {
-      "Description": "Artifact hash for asset \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
+  "Parameters": {
+    "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fArtifactHashE200F17B": {
+      "Description": "Artifact hash for asset "acf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68f"",
       "Type": "String",
     },
-    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3Bucket493A15B5": Object {
-      "Description": "S3 bucket for asset \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
+    "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fS3Bucket8A9C57B1": {
+      "Description": "S3 bucket for asset "acf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68f"",
       "Type": "String",
     },
-    "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15": Object {
-      "Description": "S3 key for asset version \\"835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551\\"",
+    "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fS3VersionKeyCDA58CAB": {
+      "Description": "S3 key for asset version "acf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68f"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eArtifactHash51B0C8EF": Object {
-      "Description": "Artifact hash for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eArtifactHash7954C83A": {
+      "Description": "Artifact hash for asset "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259": Object {
-      "Description": "S3 bucket for asset \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505A": {
+      "Description": "S3 bucket for asset "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
-    "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB": Object {
-      "Description": "S3 key for asset version \\"dfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325e\\"",
+    "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75": {
+      "Description": "S3 key for asset version "e2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681e"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "BusEA82B648": Object {
-      "Properties": Object {
+  "Resources": {
+    "BusEA82B648": {
+      "Properties": {
         "Name": "Bus",
       },
       "Type": "AWS::Events::EventBus",
     },
-    "Stream790BDEE4": Object {
-      "Properties": Object {
+    "Stream790BDEE4": {
+      "Properties": {
         "RetentionPeriodHours": 24,
         "ShardCount": 1,
-        "StreamEncryption": Object {
-          "Fn::If": Array [
+        "StreamEncryption": {
+          "Fn::If": [
             "AwsCdkKinesisEncryptedStreamsUnsupportedRegions",
-            Object {
+            {
               "Ref": "AWS::NoValue",
             },
-            Object {
+            {
               "EncryptionType": "KMS",
               "KeyId": "alias/aws/kinesis",
             },
           ],
         },
-        "StreamModeDetails": Object {
+        "StreamModeDetails": {
           "StreamMode": "PROVISIONED",
         },
       },
       "Type": "AWS::Kinesis::Stream",
     },
-    "YouTubeCommentsIngestionNestedStackYouTubeCommentsIngestionNestedStackResource900B4A6F": Object {
+    "YouTubeCommentsIngestionNestedStackYouTubeCommentsIngestionNestedStackResource900B4A6F": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Parameters": Object {
-          "EventBus": Object {
-            "Fn::GetAtt": Array [
+      "Properties": {
+        "Parameters": {
+          "EventBus": {
+            "Fn::GetAtt": [
               "BusEA82B648",
               "Arn",
             ],
           },
-          "StreamARN": Object {
-            "Fn::GetAtt": Array [
+          "StreamARN": {
+            "Fn::GetAtt": [
               "Stream790BDEE4",
               "Arn",
             ],
@@ -98,51 +98,51 @@ Object {
           "YouTubeSearchIngestionFreq": "cron(0 12 * * ? *)",
           "YoutubeAPIKey": "fakeKey",
           "YoutubeSearchQuery": "fakeSearchString",
-          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259Ref": Object {
-            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3Bucket4A8BF259",
+          "referencetoAssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505ARef": {
+            "Ref": "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3Bucket4433505A",
           },
-          "referencetoAssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9ABRef": Object {
-            "Ref": "AssetParametersdfeb1ba00762c50e03e0442ee6b634d7d2b75158538838b00cb194b8885e325eS3VersionKeyF30FD9AB",
+          "referencetoAssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75Ref": {
+            "Ref": "AssetParameterse2902794f77117d9d61ec3d5bb1e5a5d4666fbda3f4f86b6bc64c096947b681eS3VersionKey82E6EE75",
           },
         },
-        "TemplateURL": Object {
-          "Fn::Join": Array [
+        "TemplateURL": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "https://s3.",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ".",
-              Object {
+              {
                 "Ref": "AWS::URLSuffix",
               },
               "/",
-              Object {
-                "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3Bucket493A15B5",
+              {
+                "Ref": "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fS3Bucket8A9C57B1",
               },
               "/",
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   0,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15",
+                      {
+                        "Ref": "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fS3VersionKeyCDA58CAB",
                       },
                     ],
                   },
                 ],
               },
-              Object {
-                "Fn::Select": Array [
+              {
+                "Fn::Select": [
                   1,
-                  Object {
-                    "Fn::Split": Array [
+                  {
+                    "Fn::Split": [
                       "||",
-                      Object {
-                        "Ref": "AssetParameters835d25c01facf67a2378ae695047bfef5a5d4b800588e010e46dfe4da61a4551S3VersionKey42A97E15",
+                      {
+                        "Ref": "AssetParametersacf40ea099aade00508a33cc278f84e40947e32e01c3d06187e69b932ca4d68fS3VersionKeyCDA58CAB",
                       },
                     ],
                   },

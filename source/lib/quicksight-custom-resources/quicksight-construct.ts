@@ -16,7 +16,6 @@ import { Effect, IRole, Policy, PolicyStatement } from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as cdk from '@aws-cdk/core';
 
-
 export enum QuickSightSetup {
     DATA_SET = 'dataset',
     DATA_SOURCE = 'datasource',
@@ -33,7 +32,7 @@ export interface QuickSightProps {
     readonly workgroupName: string;
     readonly logLevel: string;
     readonly role: IRole;
-    readonly parentStackName: string
+    readonly parentStackName: string;
 }
 export class QuickSight extends cdk.Construct {
     private _analysisURL: string;
@@ -52,28 +51,28 @@ export class QuickSight extends cdk.Construct {
                 new PolicyStatement({
                     effect: Effect.ALLOW,
                     actions: [
-                        "quicksight:CreateAnalysis",
-                        "quicksight:DeleteAnalysis",
-                        "quicksight:CreateDataSet",
-                        "quicksight:DeleteDataSet",
-                        "quicksight:CreateDataSource",
-                        "quicksight:DeleteDataSource",
-                        "quicksight:Describe*",
-                        "quicksight:Get*",
-                        "quicksight:List*",
-                        "quicksight:PassDataSet",
-                        "quicksight:PassDataSource",
-                        "quicksight:RestoreAnalysis",
-                        "quicksight:SearchAnalyses",
-                        "quicksight:CreateDashboard",
-                        "quicksight:DeleteDashboard"
+                        'quicksight:CreateAnalysis',
+                        'quicksight:DeleteAnalysis',
+                        'quicksight:CreateDataSet',
+                        'quicksight:DeleteDataSet',
+                        'quicksight:CreateDataSource',
+                        'quicksight:DeleteDataSource',
+                        'quicksight:Describe*',
+                        'quicksight:Get*',
+                        'quicksight:List*',
+                        'quicksight:PassDataSet',
+                        'quicksight:PassDataSource',
+                        'quicksight:RestoreAnalysis',
+                        'quicksight:SearchAnalyses',
+                        'quicksight:CreateDashboard',
+                        'quicksight:DeleteDashboard'
                     ],
-                    resources: [ `arn:${cdk.Aws.PARTITION}:quicksight:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:*/*` ]
+                    resources: [`arn:${cdk.Aws.PARTITION}:quicksight:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:*/*`]
                 }),
                 new PolicyStatement({
                     effect: Effect.ALLOW,
-                    actions: [ "quicksight:DescribeTemplate" ],
-                    resources: [ props.sourceTemplateArn ]
+                    actions: ['quicksight:DescribeTemplate'],
+                    resources: [props.sourceTemplateArn]
                 })
             ]
         });
@@ -90,13 +89,16 @@ export class QuickSight extends cdk.Construct {
         customResourceFunction.node.addDependency(customResourcePolicy);
 
         (customResourceFunction.node.defaultChild as lambda.CfnFunction).addMetadata('cfn_nag', {
-            rules_to_suppress: [{
-                "id": "W89",
-                "reason": "This is not a rule for the general case, just for specific use cases/industries"
-            }, {
-                "id": "W92",
-                "reason": "Impossible for us to define the correct concurrency for clients"
-            }]
+            rules_to_suppress: [
+                {
+                    'id': 'W89',
+                    'reason': 'This is not a rule for the general case, just for specific use cases/industries'
+                },
+                {
+                    'id': 'W92',
+                    'reason': 'Impossible for us to define the correct concurrency for clients'
+                }
+            ]
         });
 
         const customResource = new cdk.CustomResource(this, 'QuickSightResources', {

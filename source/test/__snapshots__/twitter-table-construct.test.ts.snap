@@ -1,36 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test workflow stack 1`] = `
-Object {
-  "Resources": Object {
-    "TestBucket560B80BC": Object {
+{
+  "Resources": {
+    "TestBucket560B80BC": {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestDB27CDA92F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDB27CDA92F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseInput": Object {
+        "DatabaseInput": {
           "Name": "socialmediadb",
         },
       },
       "Type": "AWS::Glue::Database",
     },
-    "TwitterCfntwfeedstorage9CBB27B5": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TwitterCfntwfeedstorage9CBB27B5": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDB27CDA92F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for twfeedstorage",
           "Name": "twfeedstorage",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -38,115 +38,115 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "coordinates",
                 "Type": "struct<type:string,coordinates:array<double>>",
               },
-              Object {
+              {
                 "Name": "retweeted",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "source",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entities",
                 "Type": "struct<hastags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
               },
-              Object {
+              {
                 "Name": "reply_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "favorite_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "geo",
                 "Type": "struct<type:string,coordinates:array<double>>",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "truncated",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "retweet_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "possibly_sensitive",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "filter_level",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "place",
                 "Type": "struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>",
               },
-              Object {
+              {
                 "Name": "favorited",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "lang",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "in_reply_to_screen_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "is_quote_status",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "in_reply_to_user_id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "user",
                 "Type": "struct<id:string,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verfied:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:bigint,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
               },
-              Object {
+              {
                 "Name": "quote_count",
                 "Type": "bigint",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/twfeedstorage/",
@@ -154,7 +154,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,

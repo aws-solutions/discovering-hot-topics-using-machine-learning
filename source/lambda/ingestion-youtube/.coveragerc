@@ -4,6 +4,7 @@ omit =
     .venv-*/*
     test/*
     google*/*
+    google/protobuf*
     */__init__.py
     cachetools*
     _distutils_hack*

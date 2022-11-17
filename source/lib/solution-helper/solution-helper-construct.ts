@@ -41,7 +41,8 @@ export class SolutionHelper extends cdk.Construct {
                 'SendAnonymousData': {
                     'Data': 'Yes'
                 }
-            }
+            },
+            lazy: true
         });
 
         const metricsCondition = new cdk.CfnCondition(this, 'AnonymousDatatoAWS', {

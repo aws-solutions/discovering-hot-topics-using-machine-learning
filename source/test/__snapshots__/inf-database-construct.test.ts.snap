@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test workflow stack 1`] = `
-Object {
-  "Resources": Object {
-    "AccessLogD598EBE9": Object {
+{
+  "Resources": {
+    "AccessLogD598EBE9": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "AccessControl": "LogDeliveryWrite",
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
@@ -26,23 +26,23 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestBucket560B80BC": Object {
+    "TestBucket560B80BC": {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestDBCustomIngestionCfncustomingestion7F493E08": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBCustomIngestionCfncustomingestion7F493E08": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for customingestion",
           "Name": "customingestion",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -50,79 +50,79 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "lang",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "_translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "_cleansed_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "source_file",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "Id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "BeginOffsetMillis",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "EndOffsetMillis",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "Sentiment",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "ParticipantRole",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/customingestion/",
@@ -130,7 +130,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -140,17 +140,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBCustomIngestionItemCfnundefined51A6A6F2": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBCustomIngestionItemCfnundefined51A6A6F2": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for undefined",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -158,59 +158,59 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "Type",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "Confidence",
                 "Type": "float",
               },
-              Object {
+              {
                 "Name": "Content",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "BeginOffsetMillis",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "EndOffsetMillis",
                 "Type": "bigint",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/undefined/",
@@ -218,7 +218,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -228,17 +228,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBCustomIngestionLoudnessCfnundefinedDAA2017D": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBCustomIngestionLoudnessCfnundefinedDAA2017D": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for undefined",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -246,43 +246,43 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "score",
                 "Type": "float",
               },
-              Object {
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/undefined/",
@@ -290,7 +290,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -300,18 +300,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBEntityCfnentity56E5ECAE": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBEntityCfnentity56E5ECAE": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for entity",
           "Name": "entity",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -319,67 +319,67 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_type",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_score",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "entity_begin_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "entity_end_offset",
                 "Type": "int",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/entity/",
@@ -387,7 +387,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -397,25 +397,25 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBGlueSecConfig0DDD9B15": Object {
-      "Properties": Object {
-        "EncryptionConfiguration": Object {
-          "CloudWatchEncryption": Object {
+    "TestDBGlueSecConfig0DDD9B15": {
+      "Properties": {
+        "EncryptionConfiguration": {
+          "CloudWatchEncryption": {
             "CloudWatchEncryptionMode": "SSE-KMS",
-            "KmsKeyArn": Object {
-              "Fn::Join": Array [
+            "KmsKeyArn": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "arn:",
-                  Object {
+                  {
                     "Ref": "AWS::Partition",
                   },
                   ":kms:",
-                  Object {
+                  {
                     "Ref": "AWS::Region",
                   },
                   ":",
-                  Object {
+                  {
                     "Ref": "AWS::AccountId",
                   },
                   ":alias/aws/glue",
@@ -423,22 +423,22 @@ Object {
               ],
             },
           },
-          "JobBookmarksEncryption": Object {
+          "JobBookmarksEncryption": {
             "JobBookmarksEncryptionMode": "CSE-KMS",
-            "KmsKeyArn": Object {
-              "Fn::Join": Array [
+            "KmsKeyArn": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "arn:",
-                  Object {
+                  {
                     "Ref": "AWS::Partition",
                   },
                   ":kms:",
-                  Object {
+                  {
                     "Ref": "AWS::Region",
                   },
                   ":",
-                  Object {
+                  {
                     "Ref": "AWS::AccountId",
                   },
                   ":alias/aws/glue",
@@ -446,8 +446,8 @@ Object {
               ],
             },
           },
-          "S3Encryptions": Array [
-            Object {
+          "S3Encryptions": [
+            {
               "S3EncryptionMode": "SSE-S3",
             },
           ],
@@ -456,18 +456,18 @@ Object {
       },
       "Type": "AWS::Glue::SecurityConfiguration",
     },
-    "TestDBKeyPhraseCfnkeyphrase659BCA3E": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBKeyPhraseCfnkeyphrase659BCA3E": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for keyphrase",
           "Name": "keyphrase",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -475,63 +475,63 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "phrase",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "phrase_score",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "phrase_begin_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "phrase_end_offset",
                 "Type": "int",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/keyphrase/",
@@ -539,7 +539,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -549,17 +549,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBMetadataCfnundefinedC1E07CAA": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBMetadataCfnundefinedC1E07CAA": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for undefined",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -567,59 +567,59 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "Categories",
                 "Type": "struct<MatchedCategories:array<string>>",
               },
-              Object {
+              {
                 "Name": "Channel",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "JobName",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "Participants",
                 "Type": "array<struct<ParticipantRole:string>>",
               },
-              Object {
+              {
                 "Name": "ConversationCharacteristics",
                 "Type": "struct<NonTalkTime:struct<Instances:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>,TotalTimeMillis:bigint>,Interruptions:struct<TotalCount:int,TotalTimeMillis:bigint,InterruptionsByInterrupter:struct<AGENT:array<struct<BeginOffsetMillis:bigint,DurationMillis:bigint,EndOffsetMillis:bigint>>>>,TotalConversationDurationMillis:bigint,Sentiment:struct<OverallSentiment:struct<AGENT:float,CUSTOMER:float>,SentimentByPeriod:struct<QUARTER:struct<AGENT:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>,CUSTOMER:array<struct<Score:float,BeginOffsetMillis:bigint,EndOffsetMillis:bigint>>>>>,TalkSpeed:struct<DetailsByParticipant:struct<AGENT:struct<AverageWordsPerMinute:int>,CUSTOMER:struct<AverageWordsPerMinute:int>>>,TalkTime:struct<DetailsByParticipant:struct<AGENT:struct<TotalTimeMillis:bigint>,CUSTOMER:struct<TotalTimeMillis:bigint>>,TotalTimeMillis:bigint>>",
               },
-              Object {
+              {
                 "Name": "ContentMetadata",
                 "Type": "struct<Output:string>",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/undefined/",
@@ -627,7 +627,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -637,18 +637,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBModerationLabelsCfnmoderationlabelsE0197D39": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBModerationLabelsCfnmoderationlabelsE0197D39": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for moderationlabels",
           "Name": "moderationlabels",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -656,51 +656,51 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "label_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "confidence",
                 "Type": "double",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/moderationlabels/",
@@ -708,7 +708,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -718,18 +718,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBNewsFeedCfnnewsfeedstorageA0156915": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBNewsFeedCfnnewsfeedstorageA0156915": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for newsfeedstorage",
           "Name": "newsfeedstorage",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -737,59 +737,59 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entities",
                 "Type": "struct<urls:array<struct<expanded_url:string>>,media:array<struct<media_url:string>>>",
               },
-              Object {
+              {
                 "Name": "metadata",
                 "Type": "struct<website:string,country:string,topic:string>",
               },
-              Object {
+              {
                 "Name": "lang",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "translated_text",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/newsfeedstorage/",
@@ -797,7 +797,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -807,17 +807,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBRedditCommentsCfnundefined09F70FCE": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBRedditCommentsCfnundefined09F70FCE": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for undefined",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -825,143 +825,143 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "subreddit_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "link_title",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "ups",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "total_awards_received",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "subreddit",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "link_author",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "likes",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "replies",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "author",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "num_comments",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "score",
                 "Type": "float",
               },
-              Object {
+              {
                 "Name": "author_fullname",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "controversiality",
                 "Type": "float",
               },
-              Object {
+              {
                 "Name": "author_premium",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "link_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "permalink",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "subreddit_type",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "link_permalink",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "subreddit_name_prefixed",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "created_utc",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "link_url",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/undefined/",
@@ -969,7 +969,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -979,18 +979,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBSentimentCfnsentimentA0A2A46B": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBSentimentCfnsentimentA0A2A46B": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for sentiment",
           "Name": "sentiment",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -998,67 +998,67 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "sentiment",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "sentimentposscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentnegscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentneuscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentmixscore",
                 "Type": "double",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/sentiment/",
@@ -1066,7 +1066,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1076,18 +1076,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTopicMappingsCfntopicmappings60C4C047": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTopicMappingsCfntopicmappings60C4C047": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for topic-mappings",
           "Name": "topic-mappings",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1095,43 +1095,43 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "job_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "job_timestamp",
                 "Type": "timestamp",
               },
-              Object {
+              {
                 "Name": "topic",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/topic-mappings/",
@@ -1139,7 +1139,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1149,18 +1149,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTopicsCfntopics65378C6C": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTopicsCfntopics65378C6C": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for topics",
           "Name": "topics",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1168,43 +1168,43 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "job_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "job_timestamp",
                 "Type": "timestamp",
               },
-              Object {
+              {
                 "Name": "term",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "weight",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "topic",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/topics/",
@@ -1212,7 +1212,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1222,24 +1222,24 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTweetDBAFCEF20F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTweetDBAFCEF20F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseInput": Object {
+        "DatabaseInput": {
           "Name": "socialmediadb",
         },
       },
       "Type": "AWS::Glue::Database",
     },
-    "TestDBTweetDBEncryption98A3A837": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTweetDBEncryption98A3A837": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DataCatalogEncryptionSettings": Object {
-          "EncryptionAtRest": Object {
+        "DataCatalogEncryptionSettings": {
+          "EncryptionAtRest": {
             "CatalogEncryptionMode": "SSE-KMS",
             "SseAwsKmsKeyId": "alias/aws/glue",
           },
@@ -1247,17 +1247,17 @@ Object {
       },
       "Type": "AWS::Glue::DataCatalogEncryptionSettings",
     },
-    "TestDBTwitterCfnundefined97B74B1E": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTwitterCfnundefined97B74B1E": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for undefined",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1265,115 +1265,115 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "coordinates",
                 "Type": "struct<type:string,coordinates:array<double>>",
               },
-              Object {
+              {
                 "Name": "retweeted",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "source",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entities",
                 "Type": "struct<hastags:array<struct<text:string,indices:array<bigint>>>,urls:array<struct<url:string,expanded_url:string,display_url:string,indices:array<bigint>>>>",
               },
-              Object {
+              {
                 "Name": "reply_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "favorite_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "geo",
                 "Type": "struct<type:string,coordinates:array<double>>",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "truncated",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "retweet_count",
                 "Type": "bigint",
               },
-              Object {
+              {
                 "Name": "possibly_sensitive",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "filter_level",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "place",
                 "Type": "struct<id:string,url:string,place_type:string,name:string,full_name:string,country_code:string,country:string,bounding_box:struct<type:string,coordinates:array<array<array<float>>>>>",
               },
-              Object {
+              {
                 "Name": "favorited",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "lang",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "in_reply_to_screen_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "is_quote_status",
                 "Type": "boolean",
               },
-              Object {
+              {
                 "Name": "in_reply_to_user_id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "user",
                 "Type": "struct<id:string,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,translator_type:string,protected:boolean,verfied:boolean,followers_count:bigint,friends_count:bigint,listed_count:bigint,favourites_count:bigint,statuses_count:bigint,created_at:string,utc_offset:bigint,time_zone:bigint,geo_enabled:boolean,lang:string,contributors_enabled:boolean,is_translator:boolean,profile_background_color:string,profile_background_image_url:string,profile_background_image_url_https:string,profile_background_tile:boolean,profile_link_color:string,profile_sidebar_border_color:string,profile_sidebar_fill_color:string,profile_text_color:string,profile_use_background_image:boolean,profile_image_url:string,profile_image_url_https:string,profile_banner_url:string,default_profile:boolean,default_profile_image:boolean>",
               },
-              Object {
+              {
                 "Name": "quote_count",
                 "Type": "bigint",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/undefined/",
@@ -1381,7 +1381,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1391,18 +1391,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgEntityCfntxtinimgentityC453C34C": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTxtInImgEntityCfntxtinimgentityC453C34C": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for txtinimgentity",
           "Name": "txtinimgentity",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1410,67 +1410,67 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_type",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "entity_score",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "entity_begin_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "entity_end_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/txtinimgentity/",
@@ -1478,7 +1478,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1488,18 +1488,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgKeyPhraseCfntxtinimgkeyphrase3E452D09": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTxtInImgKeyPhraseCfntxtinimgkeyphrase3E452D09": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for txtinimgkeyphrase",
           "Name": "txtinimgkeyphrase",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1507,63 +1507,63 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "phrase",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "phrase_score",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "phrase_begin_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "phrase_end_offset",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/txtinimgkeyphrase/",
@@ -1571,7 +1571,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1581,18 +1581,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBTxtInImgSentimentCfntxtinimgsentiment8F47ABB1": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBTxtInImgSentimentCfntxtinimgsentiment8F47ABB1": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for txtinimgsentiment",
           "Name": "txtinimgsentiment",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1600,67 +1600,67 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "sentiment",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "sentimentposscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentnegscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentneuscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "sentimentmixscore",
                 "Type": "double",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/txtinimgsentiment/",
@@ -1668,7 +1668,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -1678,18 +1678,18 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestDBYoutubeCommentsCfnyoutubecomments1C2C3B91": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDBYoutubeCommentsCfnyoutubecomments1C2C3B91": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDBTweetDBAFCEF20F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for youtubecomments",
           "Name": "youtubecomments",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -1697,79 +1697,79 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "video_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "title",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "parent_id",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "viewer_rating",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "like_count",
                 "Type": "int",
               },
-              Object {
+              {
                 "Name": "updated_at",
                 "Type": "timestamp",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "lang",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "_translated_text",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "_cleansed_text",
                 "Type": "string",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/youtubecomments/",
@@ -1777,7 +1777,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,

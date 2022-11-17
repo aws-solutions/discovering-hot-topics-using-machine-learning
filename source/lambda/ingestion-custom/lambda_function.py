@@ -41,7 +41,7 @@ factory.register_processor_for_file_format(JSON_FILE_EXTN, JSONFileProcessorBuil
 factory.register_processor_for_file_format(TRANSCRIBE_CALL_ANALYTICS, TranscribeCallAnalyticsBuilder)
 
 
-def handler(event, context):
+def handler(event, _):
     logger.debug(f"Received event: {event}")
     bucket_name = event["detail"]["bucket"]["name"]
     bucket_key_prefix = event["detail"]["object"]["key"]

@@ -1,39 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Event Bus creation 1`] = `
-Object {
-  "Resources": Object {
-    "EventRule07C93571D": Object {
-      "Properties": Object {
-        "EventBusName": Object {
+{
+  "Resources": {
+    "EventRule07C93571D": {
+      "Properties": {
+        "EventBusName": {
           "Ref": "InferenceEventsC18A8A53",
         },
-        "EventPattern": Object {
-          "account": Array [
-            Object {
+        "EventPattern": {
+          "account": [
+            {
               "Ref": "AWS::AccountId",
             },
           ],
-          "region": Array [
-            Object {
+          "region": [
+            {
               "Ref": "AWS::Region",
             },
           ],
-          "resources": Array [
-            Object {
-              "Fn::Join": Array [
+          "resources": [
+            {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "arn:",
-                  Object {
+                  {
                     "Ref": "AWS::Partition",
                   },
                   ":lambda:",
-                  Object {
+                  {
                     "Ref": "AWS::Region",
                   },
                   ":",
-                  Object {
+                  {
                     "Ref": "AWS::AccountId",
                   },
                   ":function:*",
@@ -41,7 +41,7 @@ Object {
               ],
             },
           ],
-          "source": Array [
+          "source": [
             "com.platform.event.*",
           ],
         },
@@ -49,8 +49,8 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "InferenceEventsC18A8A53": Object {
-      "Properties": Object {
+    "InferenceEventsC18A8A53": {
+      "Properties": {
         "Name": "TestEventBus",
       },
       "Type": "AWS::Events::EventBus",

@@ -1,68 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test adding custom config 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bArtifactHashFBDA4305": Object {
-      "Description": "Artifact hash for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+{
+  "Parameters": {
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fArtifactHash33F16319": {
+      "Description": "Artifact hash for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6": Object {
-      "Description": "S3 bucket for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D": {
+      "Description": "S3 bucket for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647": Object {
-      "Description": "S3 key for asset version \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3": {
+      "Description": "S3 key for asset version "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbArtifactHash14857245": Object {
-      "Description": "Artifact hash for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273ArtifactHashCCAEE650": {
+      "Description": "Artifact hash for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704": Object {
-      "Description": "S3 bucket for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB": {
+      "Description": "S3 bucket for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B": Object {
-      "Description": "S3 key for asset version \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07": {
+      "Description": "S3 key for asset version "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "TestConfigDFE7B72C": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+  "Resources": {
+    "TestConfigDFE7B72C": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "nodejs14.x",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
@@ -76,40 +76,40 @@ Object {
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
-    "TestConfigPythonLibLayer672F8799": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+    "TestConfigPythonLibLayer672F8799": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "python3.8",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
@@ -128,80 +128,80 @@ Object {
 `;
 
 exports[`visting node lambda runtimes and adding aspects 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdArtifactHashFDCFD785": Object {
-      "Description": "Artifact hash for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+{
+  "Parameters": {
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fArtifactHash33F16319": {
+      "Description": "Artifact hash for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A": Object {
-      "Description": "S3 bucket for asset \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D": {
+      "Description": "S3 bucket for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A": Object {
-      "Description": "S3 key for asset version \\"bac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bd\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3": {
+      "Description": "S3 key for asset version "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bArtifactHashFBDA4305": Object {
-      "Description": "Artifact hash for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273ArtifactHashCCAEE650": {
+      "Description": "Artifact hash for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6": Object {
-      "Description": "S3 bucket for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB": {
+      "Description": "S3 bucket for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647": Object {
-      "Description": "S3 key for asset version \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07": {
+      "Description": "S3 key for asset version "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbArtifactHash14857245": Object {
-      "Description": "Artifact hash for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174ArtifactHash17905783": {
+      "Description": "Artifact hash for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704": Object {
-      "Description": "S3 bucket for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B": {
+      "Description": "S3 bucket for asset "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B": Object {
-      "Description": "S3 key for asset version \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4": {
+      "Description": "S3 key for asset version "ea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testConfigWithNodeDDA76C99": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+  "Resources": {
+    "testConfigWithNodeDDA76C99": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "nodejs14.x",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
@@ -215,40 +215,40 @@ Object {
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
-    "testConfigWithNodePythonLibLayer75C81C17": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+    "testConfigWithNodePythonLibLayer75C81C17": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "python3.8",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
@@ -262,40 +262,40 @@ Object {
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
-    "testFunction483F4CBE": Object {
-      "DependsOn": Array [
+    "testFunction483F4CBE": {
+      "DependsOn": [
         "testFunctionServiceRoleFEC29B6F",
       ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3BucketEC06255A",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3Bucket52FCDB8B",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersbac4548d66295d0afd8c4a6ab48b825793fb3b080a587e52c65d66c0892896bdS3VersionKey9B645B6A",
+                        {
+                          "Ref": "AssetParametersea3ad9472721d25378ce14217829f6bde3a370e071a7e7235112ebfc1eaf6174S3VersionKey131506C4",
                         },
                       ],
                     },
@@ -305,19 +305,19 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
-            "AWS_SDK_USER_AGENT": "{ \\"customUserAgent\\": \\"AwsSolution/undefined/undefined\\" }",
+        "Environment": {
+          "Variables": {
+            "AWS_SDK_USER_AGENT": "{ "customUserAgent": "AwsSolution/undefined/undefined" }",
           },
         },
         "Handler": "index.handler",
-        "Layers": Array [
-          Object {
+        "Layers": [
+          {
             "Ref": "testConfigWithNodeDDA76C99",
           },
         ],
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testFunctionServiceRoleFEC29B6F",
             "Arn",
           ],
@@ -326,27 +326,27 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testFunctionServiceRoleFEC29B6F": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testFunctionServiceRoleFEC29B6F": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -362,80 +362,80 @@ Object {
 `;
 
 exports[`visting node python runtimes and adding aspects 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aArtifactHashC4EFB9F4": Object {
-      "Description": "Artifact hash for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+{
+  "Parameters": {
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71ArtifactHashF29726D4": {
+      "Description": "Artifact hash for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6": Object {
-      "Description": "S3 bucket for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850": {
+      "Description": "S3 bucket for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2": Object {
-      "Description": "S3 key for asset version \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0": {
+      "Description": "S3 key for asset version "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bArtifactHashFBDA4305": Object {
-      "Description": "Artifact hash for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fArtifactHash33F16319": {
+      "Description": "Artifact hash for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6": Object {
-      "Description": "S3 bucket for asset \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D": {
+      "Description": "S3 bucket for asset "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647": Object {
-      "Description": "S3 key for asset version \\"c46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844b\\"",
+    "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3": {
+      "Description": "S3 key for asset version "5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8f"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbArtifactHash14857245": Object {
-      "Description": "Artifact hash for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273ArtifactHashCCAEE650": {
+      "Description": "Artifact hash for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704": Object {
-      "Description": "S3 bucket for asset \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB": {
+      "Description": "S3 bucket for asset "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
-    "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B": Object {
-      "Description": "S3 key for asset version \\"de5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cb\\"",
+    "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07": {
+      "Description": "S3 key for asset version "c4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testConfigWithNodeDDA76C99": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+  "Resources": {
+    "testConfigWithNodeDDA76C99": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "nodejs14.x",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3Bucket7DD7C704",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3BucketCB8199FB",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersde5d53507ab3a110ffde286fac3114254159d7aa1f554b5543e27f5a8557b1cbS3VersionKey169EA89B",
+                        {
+                          "Ref": "AssetParametersc4e15dd7f83d9390dc047c3b527b2830f6aa3de42cba651198898b53e4c63273S3VersionKey952CDC07",
                         },
                       ],
                     },
@@ -449,40 +449,40 @@ Object {
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
-    "testConfigWithNodePythonLibLayer75C81C17": Object {
-      "Properties": Object {
-        "CompatibleRuntimes": Array [
+    "testConfigWithNodePythonLibLayer75C81C17": {
+      "Properties": {
+        "CompatibleRuntimes": [
           "python3.8",
         ],
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3BucketE78D10C6",
+        "Content": {
+          "S3Bucket": {
+            "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3Bucket1994F24D",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParametersc46c7366cefb47f1220c481b29a240b7f8c9e7379ea091a44659ba5cd447844bS3VersionKey566E3647",
+                        {
+                          "Ref": "AssetParameters5d9cce5b4b79ed45f3f90f947725a868712c56c0fac859183f3f1688c05e6f8fS3VersionKeyAFC9A9D3",
                         },
                       ],
                     },
@@ -496,40 +496,40 @@ Object {
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
-    "testFunction483F4CBE": Object {
-      "DependsOn": Array [
+    "testFunction483F4CBE": {
+      "DependsOn": [
         "testFunctionServiceRoleFEC29B6F",
       ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2",
+                        {
+                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2",
+                        {
+                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
                         },
                       ],
                     },
@@ -539,19 +539,19 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
-            "AWS_SDK_USER_AGENT": "{ \\"user_agent_extra\\": \\"AwsSolution/undefined/undefined\\" }",
+        "Environment": {
+          "Variables": {
+            "AWS_SDK_USER_AGENT": "{ "user_agent_extra": "AwsSolution/undefined/undefined" }",
           },
         },
         "Handler": "handler",
-        "Layers": Array [
-          Object {
+        "Layers": [
+          {
             "Ref": "testConfigWithNodePythonLibLayer75C81C17",
           },
         ],
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testFunctionServiceRoleFEC29B6F",
             "Arn",
           ],
@@ -560,27 +560,27 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testFunctionServiceRoleFEC29B6F": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testFunctionServiceRoleFEC29B6F": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",

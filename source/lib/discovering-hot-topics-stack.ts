@@ -550,7 +550,7 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             'nestedStackFileName',
             qsNestedTemplate.templateFile.slice(0, -5)
         );
-        qsNestedTemplate.nestedStackResource?.addOverride('Condition', _deployQuickSightCondition.logicalId);
+        qsNestedTemplate.nestedStackResource!.cfnOptions.condition = _deployQuickSightCondition;
 
         const storageConfig: Map<string, string> = new Map();
         storageConfig.set('Sentiment', 'sentiment');

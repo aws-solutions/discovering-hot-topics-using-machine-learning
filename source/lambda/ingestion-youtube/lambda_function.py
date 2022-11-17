@@ -15,9 +15,9 @@
 from util import comment, video
 
 
-def search_videos(event, context):
+def search_videos(event, _):
     video.search_videos(event)
 
 
-def search_comments(event, context):
+def search_comments(event, _):
     comment.search_comments(event)

@@ -1,71 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QS custom resource creation 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aArtifactHashC4EFB9F4": Object {
-      "Description": "Artifact hash for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+{
+  "Parameters": {
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71ArtifactHashF29726D4": {
+      "Description": "Artifact hash for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6": Object {
-      "Description": "S3 bucket for asset \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850": {
+      "Description": "S3 bucket for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
-    "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2": Object {
-      "Description": "S3 key for asset version \\"2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7a\\"",
+    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0": {
+      "Description": "S3 key for asset version "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testQSConstructCustomResource61E8811D": Object {
-      "DependsOn": Array [
+  "Resources": {
+    "testQSConstructCustomResource61E8811D": {
+      "DependsOn": [
         "testQSConstructQSCustomResourcePolicy4A5596ED",
         "testRole836465CB",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3Bucket4F2A39F6",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2",
+                        {
+                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameters2b3fda8151a8e3c5e7c0a2d6684a5605333073b38037f3dcac197c1caff18c7aS3VersionKey5BA2CFA2",
+                        {
+                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
                         },
                       ],
                     },
@@ -76,8 +76,8 @@ Object {
           },
         },
         "Handler": "lambda_function.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testRole836465CB",
             "Arn",
           ],
@@ -87,12 +87,12 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testQSConstructQSCustomResourcePolicy4A5596ED": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testQSConstructQSCustomResourcePolicy4A5596ED": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "quicksight:CreateAnalysis",
                 "quicksight:DeleteAnalysis",
                 "quicksight:CreateDataSet",
@@ -110,20 +110,20 @@ Object {
                 "quicksight:DeleteDashboard",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":quicksight:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":*/*",
@@ -131,7 +131,7 @@ Object {
                 ],
               },
             },
-            Object {
+            {
               "Action": "quicksight:DescribeTemplate",
               "Effect": "Allow",
               "Resource": "arn:some-parition:quicksight:some-region:fakeaccountid:template/solution_solution-name-v_1_0",
@@ -140,32 +140,32 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testQSConstructQSCustomResourcePolicy4A5596ED",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testRole836465CB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testQSConstructQuickSightResourcesA23CC3B0": Object {
+    "testQSConstructQuickSightResourcesA23CC3B0": {
       "DeletionPolicy": "Delete",
-      "DependsOn": Array [
+      "DependsOn": [
         "testQSConstructQSCustomResourcePolicy4A5596ED",
       ],
-      "Properties": Object {
+      "Properties": {
         "ApplicationName": "solution-name",
         "LogLevel": "INFO",
         "QuickSightPrincipalArn": "arn:some-partition:quicksight:some-region:fakeaccountid:user/namespace/some-role/some-user",
         "QuickSightSourceTemplateArn": "arn:some-parition:quicksight:some-region:fakeaccountid:template/solution_solution-name-v_1_0",
         "Resource": "all",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
+        "ServiceToken": {
+          "Fn::GetAtt": [
             "testQSConstructCustomResource61E8811D",
             "Arn",
           ],
         },
-        "StackName": Object {
+        "StackName": {
           "Ref": "AWS::StackName",
         },
         "WorkGroupName": "testGroup",
@@ -173,14 +173,14 @@ Object {
       "Type": "Custom::QuickSightResources",
       "UpdateReplacePolicy": "Delete",
     },
-    "testRole836465CB": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testRole836465CB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },

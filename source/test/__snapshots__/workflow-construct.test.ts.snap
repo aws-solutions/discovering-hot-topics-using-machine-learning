@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test express workflow stack 1`] = `
-Object {
-  "Resources": Object {
-    "WorkflowStackStateMachineLogPolicyB222B557": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+{
+  "Resources": {
+    "WorkflowStackStateMachineLogPolicyB222B557": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "logs:CreateLogDelivery",
                 "logs:GetLogDelivery",
                 "logs:UpdateLogDelivery",
@@ -19,20 +19,20 @@ Object {
                 "logs:DescribeLogGroups",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":logs:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":*",
@@ -44,28 +44,28 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "WorkflowStackStateMachineLogPolicyB222B557",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "WorkflowStackStateMachineRole56AD52FB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "WorkflowStackStateMachineRole56AD52FB": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "WorkflowStackStateMachineRole56AD52FB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "states.",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ".amazonaws.com",
@@ -80,12 +80,12 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "WorkflowStackStateMachineRoleDefaultPolicy25244020": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "WorkflowStackStateMachineRoleDefaultPolicy25244020": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "logs:CreateLogDelivery",
                 "logs:GetLogDelivery",
                 "logs:UpdateLogDelivery",
@@ -102,40 +102,42 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "WorkflowStackStateMachineRoleDefaultPolicy25244020",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "WorkflowStackStateMachineRole56AD52FB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "WorkflowStackTextAnalysisWFB1867CEA": Object {
+    "WorkflowStackTextAnalysisWFB1867CEA": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "LogGroupName": "/aws/vendedlogs/states/getLogicalId(element) {
-        jsiiDeprecationWarnings._aws_cdk_core_CfnElement(element);
-        const logicalId = this.allocateLogicalId(element);
-        return this._logicalIds.applyRename(logicalId);
-    }",
+        try {
+            jsiiDeprecationWarnings._aws_cdk_core_CfnElement(element);
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+  ",
         "RetentionInDays": 731,
       },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "WorkflowStackWorkflowEngine48A8BD9B": Object {
-      "DependsOn": Array [
+    "WorkflowStackWorkflowEngine48A8BD9B": {
+      "DependsOn": [
         "WorkflowStackStateMachineRoleDefaultPolicy25244020",
         "WorkflowStackStateMachineRole56AD52FB",
       ],
-      "Properties": Object {
-        "DefinitionString": "{\\"StartAt\\":\\"WaitState\\",\\"States\\":{\\"WaitState\\":{\\"Type\\":\\"Wait\\",\\"Seconds\\":60,\\"Next\\":\\"Success\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
-        "LoggingConfiguration": Object {
-          "Destinations": Array [
-            Object {
-              "CloudWatchLogsLogGroup": Object {
-                "LogGroupArn": Object {
-                  "Fn::GetAtt": Array [
+      "Properties": {
+        "DefinitionString": "{"StartAt":"WaitState","States":{"WaitState":{"Type":"Wait","Seconds":60,"Next":"Success"},"Success":{"Type":"Succeed"}}}",
+        "LoggingConfiguration": {
+          "Destinations": [
+            {
+              "CloudWatchLogsLogGroup": {
+                "LogGroupArn": {
+                  "Fn::GetAtt": [
                     "WorkflowStackTextAnalysisWFB1867CEA",
                     "Arn",
                   ],
@@ -146,8 +148,8 @@ Object {
           "IncludeExecutionData": false,
           "Level": "ERROR",
         },
-        "RoleArn": Object {
-          "Fn::GetAtt": Array [
+        "RoleArn": {
+          "Fn::GetAtt": [
             "WorkflowStackStateMachineRole56AD52FB",
             "Arn",
           ],
@@ -161,108 +163,108 @@ Object {
 `;
 
 exports[`test standard workflow stack 1`] = `
-Object {
-  "Mappings": Object {
-    "ServiceprincipalMap": Object {
-      "af-south-1": Object {
+{
+  "Mappings": {
+    "ServiceprincipalMap": {
+      "af-south-1": {
         "states": "states.af-south-1.amazonaws.com",
       },
-      "ap-east-1": Object {
+      "ap-east-1": {
         "states": "states.ap-east-1.amazonaws.com",
       },
-      "ap-northeast-1": Object {
+      "ap-northeast-1": {
         "states": "states.ap-northeast-1.amazonaws.com",
       },
-      "ap-northeast-2": Object {
+      "ap-northeast-2": {
         "states": "states.ap-northeast-2.amazonaws.com",
       },
-      "ap-northeast-3": Object {
+      "ap-northeast-3": {
         "states": "states.ap-northeast-3.amazonaws.com",
       },
-      "ap-south-1": Object {
+      "ap-south-1": {
         "states": "states.ap-south-1.amazonaws.com",
       },
-      "ap-southeast-1": Object {
+      "ap-southeast-1": {
         "states": "states.ap-southeast-1.amazonaws.com",
       },
-      "ap-southeast-2": Object {
+      "ap-southeast-2": {
         "states": "states.ap-southeast-2.amazonaws.com",
       },
-      "ap-southeast-3": Object {
+      "ap-southeast-3": {
         "states": "states.ap-southeast-3.amazonaws.com",
       },
-      "ca-central-1": Object {
+      "ca-central-1": {
         "states": "states.ca-central-1.amazonaws.com",
       },
-      "cn-north-1": Object {
+      "cn-north-1": {
         "states": "states.cn-north-1.amazonaws.com",
       },
-      "cn-northwest-1": Object {
+      "cn-northwest-1": {
         "states": "states.cn-northwest-1.amazonaws.com",
       },
-      "eu-central-1": Object {
+      "eu-central-1": {
         "states": "states.eu-central-1.amazonaws.com",
       },
-      "eu-north-1": Object {
+      "eu-north-1": {
         "states": "states.eu-north-1.amazonaws.com",
       },
-      "eu-south-1": Object {
+      "eu-south-1": {
         "states": "states.eu-south-1.amazonaws.com",
       },
-      "eu-south-2": Object {
+      "eu-south-2": {
         "states": "states.eu-south-2.amazonaws.com",
       },
-      "eu-west-1": Object {
+      "eu-west-1": {
         "states": "states.eu-west-1.amazonaws.com",
       },
-      "eu-west-2": Object {
+      "eu-west-2": {
         "states": "states.eu-west-2.amazonaws.com",
       },
-      "eu-west-3": Object {
+      "eu-west-3": {
         "states": "states.eu-west-3.amazonaws.com",
       },
-      "me-south-1": Object {
+      "me-south-1": {
         "states": "states.me-south-1.amazonaws.com",
       },
-      "sa-east-1": Object {
+      "sa-east-1": {
         "states": "states.sa-east-1.amazonaws.com",
       },
-      "us-east-1": Object {
+      "us-east-1": {
         "states": "states.us-east-1.amazonaws.com",
       },
-      "us-east-2": Object {
+      "us-east-2": {
         "states": "states.us-east-2.amazonaws.com",
       },
-      "us-gov-east-1": Object {
+      "us-gov-east-1": {
         "states": "states.us-gov-east-1.amazonaws.com",
       },
-      "us-gov-west-1": Object {
+      "us-gov-west-1": {
         "states": "states.us-gov-west-1.amazonaws.com",
       },
-      "us-iso-east-1": Object {
+      "us-iso-east-1": {
         "states": "states.amazonaws.com",
       },
-      "us-iso-west-1": Object {
+      "us-iso-west-1": {
         "states": "states.amazonaws.com",
       },
-      "us-isob-east-1": Object {
+      "us-isob-east-1": {
         "states": "states.amazonaws.com",
       },
-      "us-west-1": Object {
+      "us-west-1": {
         "states": "states.us-west-1.amazonaws.com",
       },
-      "us-west-2": Object {
+      "us-west-2": {
         "states": "states.us-west-2.amazonaws.com",
       },
     },
   },
-  "Resources": Object {
-    "WorkflowStackStateMachineLogPolicyB222B557": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+  "Resources": {
+    "WorkflowStackStateMachineLogPolicyB222B557": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "logs:CreateLogDelivery",
                 "logs:GetLogDelivery",
                 "logs:UpdateLogDelivery",
@@ -273,20 +275,20 @@ Object {
                 "logs:DescribeLogGroups",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":logs:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":*",
@@ -298,28 +300,28 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "WorkflowStackStateMachineLogPolicyB222B557",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "WorkflowStackStateMachineRole56AD52FB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "WorkflowStackStateMachineRole56AD52FB": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "WorkflowStackStateMachineRole56AD52FB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "states.",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ".amazonaws.com",
@@ -334,15 +336,15 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "WorkflowStackWorkflowEngine48A8BD9B": Object {
-      "DependsOn": Array [
+    "WorkflowStackWorkflowEngine48A8BD9B": {
+      "DependsOn": [
         "WorkflowStackStateMachineRole56AD52FB",
         "WorkflowStackWorkflowEngineRoleF56F2281",
       ],
-      "Properties": Object {
-        "DefinitionString": "{\\"StartAt\\":\\"WaitState\\",\\"States\\":{\\"WaitState\\":{\\"Type\\":\\"Wait\\",\\"Seconds\\":60,\\"Next\\":\\"Success\\"},\\"Success\\":{\\"Type\\":\\"Succeed\\"}}}",
-        "RoleArn": Object {
-          "Fn::GetAtt": Array [
+      "Properties": {
+        "DefinitionString": "{"StartAt":"WaitState","States":{"WaitState":{"Type":"Wait","Seconds":60,"Next":"Success"},"Success":{"Type":"Succeed"}}}",
+        "RoleArn": {
+          "Fn::GetAtt": [
             "WorkflowStackWorkflowEngineRoleF56F2281",
             "Arn",
           ],
@@ -350,21 +352,21 @@ Object {
       },
       "Type": "AWS::StepFunctions::StateMachine",
     },
-    "WorkflowStackWorkflowEngineRoleF56F2281": Object {
-      "DependsOn": Array [
+    "WorkflowStackWorkflowEngineRoleF56F2281": {
+      "DependsOn": [
         "WorkflowStackStateMachineRole56AD52FB",
       ],
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::FindInMap": Array [
+              "Principal": {
+                "Service": {
+                  "Fn::FindInMap": [
                     "ServiceprincipalMap",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     "states",

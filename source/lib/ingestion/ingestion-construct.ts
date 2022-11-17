@@ -93,7 +93,7 @@ export class Ingestion extends cdk.Construct {
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.credentialKeyPath, ''))
             )
         });
-        _twitterSearch.nestedStackResource?.addOverride('Condition', _deployTwitterIngestionCondition.logicalId);
+        _twitterSearch.nestedStackResource!.cfnOptions.condition = _deployTwitterIngestionCondition;
 
         const _newsCatcher = new NewsCatcher(this, 'NewsCatcher', {
             parameters: {
@@ -118,7 +118,7 @@ export class Ingestion extends cdk.Construct {
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.rssNewsFeedIngestFreq, ''))
             )
         });
-        _newsCatcher.nestedStackResource?.addOverride('Condition', _deployRSSFeedsIngestionCondition.logicalId);
+        _newsCatcher.nestedStackResource!.cfnOptions.condition = _deployRSSFeedsIngestionCondition;
 
         // YouTube ingestion nested stack
         const _youTubeComments = new YoutubeComments(this, 'YouTubeCommentsIngestion', {
@@ -149,7 +149,7 @@ export class Ingestion extends cdk.Construct {
                 cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.youtTubeApiKey, ''))
             )
         });
-        _youTubeComments.nestedStackResource?.addOverride('Condition', _deployYoutubeCommentsCondition.logicalId);
+        _youTubeComments.nestedStackResource!.cfnOptions.condition = _deployYoutubeCommentsCondition;
 
         const _customIngestion = new CustomIngestion(this, 'S3CustomIngestion', {
             parameters: {
@@ -168,12 +168,13 @@ export class Ingestion extends cdk.Construct {
             expression: cdk.Fn.conditionEquals(props.deployCustomIngestion.valueAsString, 'Yes')
         });
 
-        _customIngestion.nestedStackResource?.addOverride('Condition', _deployCustomIngestionCondition.logicalId);
+        _customIngestion.nestedStackResource!.cfnOptions.condition = _deployCustomIngestionCondition;
 
         const _redditIngesiton = new RedditIngestion(this, 'RedditIngestion', {
             parameters: {
                 'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
-                'EventBus': _eventBus.eventBusArn
+                'EventBus': _eventBus.eventBusArn,
+                'SubRedditsToFollow': props.subRedditsToFollow!.valueAsString
             }
         });
         _redditIngesiton.nestedStackResource?.addMetadata(
@@ -190,7 +191,7 @@ export class Ingestion extends cdk.Construct {
             )
         });
 
-        _redditIngesiton.nestedStackResource?.addOverride('Condition', _deployRedditIngestionCondition.logicalId);
+        _redditIngesiton.nestedStackResource!.cfnOptions.condition = _deployRedditIngestionCondition;
 
         new cdk.CfnOutput(this, 'S3BucketToUploadData', {
             value: _customIngestion.s3Bucket.urlForObject(),

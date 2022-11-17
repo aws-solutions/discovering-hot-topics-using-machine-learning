@@ -1,169 +1,169 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test by passing state machine 1`] = `
-Object {
-  "Mappings": Object {
-    "ServiceprincipalMap": Object {
-      "af-south-1": Object {
+{
+  "Mappings": {
+    "ServiceprincipalMap": {
+      "af-south-1": {
         "states": "states.af-south-1.amazonaws.com",
       },
-      "ap-east-1": Object {
+      "ap-east-1": {
         "states": "states.ap-east-1.amazonaws.com",
       },
-      "ap-northeast-1": Object {
+      "ap-northeast-1": {
         "states": "states.ap-northeast-1.amazonaws.com",
       },
-      "ap-northeast-2": Object {
+      "ap-northeast-2": {
         "states": "states.ap-northeast-2.amazonaws.com",
       },
-      "ap-northeast-3": Object {
+      "ap-northeast-3": {
         "states": "states.ap-northeast-3.amazonaws.com",
       },
-      "ap-south-1": Object {
+      "ap-south-1": {
         "states": "states.ap-south-1.amazonaws.com",
       },
-      "ap-southeast-1": Object {
+      "ap-southeast-1": {
         "states": "states.ap-southeast-1.amazonaws.com",
       },
-      "ap-southeast-2": Object {
+      "ap-southeast-2": {
         "states": "states.ap-southeast-2.amazonaws.com",
       },
-      "ap-southeast-3": Object {
+      "ap-southeast-3": {
         "states": "states.ap-southeast-3.amazonaws.com",
       },
-      "ca-central-1": Object {
+      "ca-central-1": {
         "states": "states.ca-central-1.amazonaws.com",
       },
-      "cn-north-1": Object {
+      "cn-north-1": {
         "states": "states.cn-north-1.amazonaws.com",
       },
-      "cn-northwest-1": Object {
+      "cn-northwest-1": {
         "states": "states.cn-northwest-1.amazonaws.com",
       },
-      "eu-central-1": Object {
+      "eu-central-1": {
         "states": "states.eu-central-1.amazonaws.com",
       },
-      "eu-north-1": Object {
+      "eu-north-1": {
         "states": "states.eu-north-1.amazonaws.com",
       },
-      "eu-south-1": Object {
+      "eu-south-1": {
         "states": "states.eu-south-1.amazonaws.com",
       },
-      "eu-south-2": Object {
+      "eu-south-2": {
         "states": "states.eu-south-2.amazonaws.com",
       },
-      "eu-west-1": Object {
+      "eu-west-1": {
         "states": "states.eu-west-1.amazonaws.com",
       },
-      "eu-west-2": Object {
+      "eu-west-2": {
         "states": "states.eu-west-2.amazonaws.com",
       },
-      "eu-west-3": Object {
+      "eu-west-3": {
         "states": "states.eu-west-3.amazonaws.com",
       },
-      "me-south-1": Object {
+      "me-south-1": {
         "states": "states.me-south-1.amazonaws.com",
       },
-      "sa-east-1": Object {
+      "sa-east-1": {
         "states": "states.sa-east-1.amazonaws.com",
       },
-      "us-east-1": Object {
+      "us-east-1": {
         "states": "states.us-east-1.amazonaws.com",
       },
-      "us-east-2": Object {
+      "us-east-2": {
         "states": "states.us-east-2.amazonaws.com",
       },
-      "us-gov-east-1": Object {
+      "us-gov-east-1": {
         "states": "states.us-gov-east-1.amazonaws.com",
       },
-      "us-gov-west-1": Object {
+      "us-gov-west-1": {
         "states": "states.us-gov-west-1.amazonaws.com",
       },
-      "us-iso-east-1": Object {
+      "us-iso-east-1": {
         "states": "states.amazonaws.com",
       },
-      "us-iso-west-1": Object {
+      "us-iso-west-1": {
         "states": "states.amazonaws.com",
       },
-      "us-isob-east-1": Object {
+      "us-isob-east-1": {
         "states": "states.amazonaws.com",
       },
-      "us-west-1": Object {
+      "us-west-1": {
         "states": "states.us-west-1.amazonaws.com",
       },
-      "us-west-2": Object {
+      "us-west-2": {
         "states": "states.us-west-2.amazonaws.com",
       },
     },
   },
-  "Parameters": Object {
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4ArtifactHash354EC4AB": Object {
-      "Description": "Artifact hash for asset \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+  "Parameters": {
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6ArtifactHash27DA85DF": {
+      "Description": "Artifact hash for asset "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3BucketFEF0F622": Object {
-      "Description": "S3 bucket for asset \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3BucketD9408561": {
+      "Description": "S3 bucket for asset "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6": Object {
-      "Description": "S3 key for asset version \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14": {
+      "Description": "S3 key for asset version "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testFragmentTaskLambdaFunction8A1F50BD": Object {
-      "DependsOn": Array [
+  "Resources": {
+    "testFragmentTaskLambdaFunction8A1F50BD": {
+      "DependsOn": [
         "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904",
         "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3BucketFEF0F622",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3BucketD9408561",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6",
+                        {
+                          "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6",
+                        {
+                          "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14",
                         },
                       ],
                     },
@@ -173,64 +173,64 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testFragmentTaskLambdaFunctionServiceRole9E2C5534": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testFragmentTaskLambdaFunctionServiceRole9E2C5534": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -247,30 +247,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "sqs:ReceiveMessage",
                 "sqs:ChangeMessageVisibility",
                 "sqs:GetQueueUrl",
@@ -278,21 +278,21 @@ Object {
                 "sqs:GetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "states:SendTaskSuccess",
                 "states:SendTaskFailure",
                 "states:SendTaskHeartbeat",
               ],
               "Effect": "Allow",
-              "Resource": Object {
+              "Resource": {
                 "Ref": "testStateMachineFA72FDE7",
               },
             },
@@ -300,42 +300,42 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testFragmentTaskLambdaFunctionSqsEventSourcetestStacktestFragmentTaskqueueC23BDA1DCDCA658C": Object {
-      "Properties": Object {
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
+    "testFragmentTaskLambdaFunctionSqsEventSourcetestStacktestFragmentTaskqueueC23BDA1DCDCA658C": {
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
             "testFragmentTaskqueue31475E94",
             "Arn",
           ],
         },
-        "FunctionName": Object {
+        "FunctionName": {
           "Ref": "testFragmentTaskLambdaFunction8A1F50BD",
         },
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "testFragmentTaskdeadLetterQueueEA9F84F8": Object {
+    "testFragmentTaskdeadLetterQueueEA9F84F8": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testFragmentTaskdeadLetterQueuePolicy1213FF74": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testFragmentTaskdeadLetterQueuePolicy1213FF74": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -345,17 +345,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -363,27 +363,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskdeadLetterQueueEA9F84F8",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskdeadLetterQueueEA9F84F8",
                   "Arn",
                 ],
@@ -393,21 +393,21 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testFragmentTaskdeadLetterQueueEA9F84F8",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testFragmentTaskqueue31475E94": Object {
+    "testFragmentTaskqueue31475E94": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
-        "RedrivePolicy": Object {
-          "deadLetterTargetArn": Object {
-            "Fn::GetAtt": Array [
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
               "testFragmentTaskdeadLetterQueueEA9F84F8",
               "Arn",
             ],
@@ -418,12 +418,12 @@ Object {
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testFragmentTaskqueuePolicy223A544A": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testFragmentTaskqueuePolicy223A544A": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -433,17 +433,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -451,27 +451,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
@@ -481,22 +481,22 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testFragmentTaskqueue31475E94",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testStateMachineFA72FDE7": Object {
-      "DependsOn": Array [
+    "testStateMachineFA72FDE7": {
+      "DependsOn": [
         "testStateMachineRole57248FD0",
       ],
-      "Properties": Object {
-        "DefinitionString": "{\\"StartAt\\":\\"Pass\\",\\"States\\":{\\"Pass\\":{\\"Type\\":\\"Pass\\",\\"End\\":true}}}",
-        "RoleArn": Object {
-          "Fn::GetAtt": Array [
+      "Properties": {
+        "DefinitionString": "{"StartAt":"Pass","States":{"Pass":{"Type":"Pass","End":true}}}",
+        "RoleArn": {
+          "Fn::GetAtt": [
             "testStateMachineRole57248FD0",
             "Arn",
           ],
@@ -504,18 +504,18 @@ Object {
       },
       "Type": "AWS::StepFunctions::StateMachine",
     },
-    "testStateMachineRole57248FD0": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testStateMachineRole57248FD0": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
-                "Service": Object {
-                  "Fn::FindInMap": Array [
+              "Principal": {
+                "Service": {
+                  "Fn::FindInMap": [
                     "ServiceprincipalMap",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     "states",
@@ -534,38 +534,38 @@ Object {
 `;
 
 exports[`test statemachine fragment creation 1`] = `
-Object {
-  "Parameters": Object {
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4ArtifactHash354EC4AB": Object {
-      "Description": "Artifact hash for asset \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+{
+  "Parameters": {
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6ArtifactHash27DA85DF": {
+      "Description": "Artifact hash for asset "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3BucketFEF0F622": Object {
-      "Description": "S3 bucket for asset \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3BucketD9408561": {
+      "Description": "S3 bucket for asset "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
-    "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6": Object {
-      "Description": "S3 key for asset version \\"e9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4\\"",
+    "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14": {
+      "Description": "S3 key for asset version "afe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6"",
       "Type": "String",
     },
   },
-  "Resources": Object {
-    "testFragmentLambdaStateMachineTask8BA38528": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+  "Resources": {
+    "testFragmentLambdaStateMachineTask8BA38528": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
-              "reason": "State machine resource not available, hence defaulting to \\"*\\"",
+              "reason": "State machine resource not available, hence defaulting to "*"",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "states:SendTaskSuccess",
                 "states:sendTaskFailure",
                 "states:SendTaskHeartbeat",
@@ -577,67 +577,67 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testFragmentLambdaStateMachineTask8BA38528",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testFragmentTaskLambdaFunction8A1F50BD": Object {
-      "DependsOn": Array [
+    "testFragmentTaskLambdaFunction8A1F50BD": {
+      "DependsOn": [
         "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904",
         "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
       ],
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W58",
               "reason": "Lambda functions has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
             },
-            Object {
+            {
               "id": "W89",
               "reason": "This is not a rule for the general case, just for specific use cases/industries",
             },
-            Object {
+            {
               "id": "W92",
               "reason": "Impossible for us to define the correct concurrency for clients",
             },
           ],
         },
       },
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3BucketFEF0F622",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3BucketD9408561",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
+          "S3Key": {
+            "Fn::Join": [
               "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
+              [
+                {
+                  "Fn::Select": [
                     0,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6",
+                        {
+                          "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14",
                         },
                       ],
                     },
                   ],
                 },
-                Object {
-                  "Fn::Select": Array [
+                {
+                  "Fn::Select": [
                     1,
-                    Object {
-                      "Fn::Split": Array [
+                    {
+                      "Fn::Split": [
                         "||",
-                        Object {
-                          "Ref": "AssetParameterse9008fc4c8320c21dada8698a19c98850c4d03982ee3b75ac1335c766b4407e4S3VersionKey0A8091B6",
+                        {
+                          "Ref": "AssetParametersafe9072edec06bbb1f2cbf55b8b836e747e802e3bbcb659179940406641528a6S3VersionKeyBB40BE14",
                         },
                       ],
                     },
@@ -647,64 +647,64 @@ Object {
             ],
           },
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
             "Arn",
           ],
         },
         "Runtime": "nodejs14.x",
-        "TracingConfig": Object {
+        "TracingConfig": {
           "Mode": "Active",
         },
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testFragmentTaskLambdaFunctionServiceRole9E2C5534": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "testFragmentTaskLambdaFunctionServiceRole9E2C5534": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
-                Object {
-                  "Action": Array [
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
                     "logs:CreateLogGroup",
                     "logs:CreateLogStream",
                     "logs:PutLogEvents",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
+                  "Resource": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:",
-                        Object {
+                        {
                           "Ref": "AWS::Partition",
                         },
                         ":logs:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":log-group:/aws/lambda/*",
@@ -721,30 +721,30 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904": Object {
-      "Metadata": Object {
-        "cfn_nag": Object {
-          "rules_to_suppress": Array [
-            Object {
+    "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904": {
+      "Metadata": {
+        "cfn_nag": {
+          "rules_to_suppress": [
+            {
               "id": "W12",
               "reason": "Lambda needs the following minimum required permissions to send trace data to X-Ray and access ENIs in a VPC.",
             },
           ],
         },
       },
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "xray:PutTraceSegments",
                 "xray:PutTelemetryRecords",
               ],
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "sqs:ReceiveMessage",
                 "sqs:ChangeMessageVisibility",
                 "sqs:GetQueueUrl",
@@ -752,8 +752,8 @@ Object {
                 "sqs:GetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
@@ -763,42 +763,42 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "testFragmentTaskLambdaFunctionServiceRoleDefaultPolicy6E2DD904",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "testFragmentTaskLambdaFunctionServiceRole9E2C5534",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "testFragmentTaskLambdaFunctionSqsEventSourcetestStacktestFragmentTaskqueueC23BDA1DCDCA658C": Object {
-      "Properties": Object {
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
+    "testFragmentTaskLambdaFunctionSqsEventSourcetestStacktestFragmentTaskqueueC23BDA1DCDCA658C": {
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
             "testFragmentTaskqueue31475E94",
             "Arn",
           ],
         },
-        "FunctionName": Object {
+        "FunctionName": {
           "Ref": "testFragmentTaskLambdaFunction8A1F50BD",
         },
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "testFragmentTaskdeadLetterQueueEA9F84F8": Object {
+    "testFragmentTaskdeadLetterQueueEA9F84F8": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testFragmentTaskdeadLetterQueuePolicy1213FF74": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testFragmentTaskdeadLetterQueuePolicy1213FF74": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -808,17 +808,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -826,27 +826,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskdeadLetterQueueEA9F84F8",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskdeadLetterQueueEA9F84F8",
                   "Arn",
                 ],
@@ -856,21 +856,21 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testFragmentTaskdeadLetterQueueEA9F84F8",
           },
         ],
       },
       "Type": "AWS::SQS::QueuePolicy",
     },
-    "testFragmentTaskqueue31475E94": Object {
+    "testFragmentTaskqueue31475E94": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "KmsMasterKeyId": "alias/aws/sqs",
-        "RedrivePolicy": Object {
-          "deadLetterTargetArn": Object {
-            "Fn::GetAtt": Array [
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
               "testFragmentTaskdeadLetterQueueEA9F84F8",
               "Arn",
             ],
@@ -881,12 +881,12 @@ Object {
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "testFragmentTaskqueuePolicy223A544A": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "testFragmentTaskqueuePolicy223A544A": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "sqs:DeleteMessage",
                 "sqs:ReceiveMessage",
                 "sqs:SendMessage",
@@ -896,17 +896,17 @@ Object {
                 "sqs:SetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -914,27 +914,27 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
               },
               "Sid": "QueueOwnerOnlyAccess",
             },
-            Object {
+            {
               "Action": "SQS:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testFragmentTaskqueue31475E94",
                   "Arn",
                 ],
@@ -944,8 +944,8 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "Queues": Array [
-          Object {
+        "Queues": [
+          {
             "Ref": "testFragmentTaskqueue31475E94",
           },
         ],

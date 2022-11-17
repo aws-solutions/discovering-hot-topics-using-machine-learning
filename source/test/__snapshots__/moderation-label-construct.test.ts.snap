@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test workflow stack 1`] = `
-Object {
-  "Resources": Object {
-    "ModerationLabelsTableCfnmoderationlabel0F6DAF4F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+{
+  "Resources": {
+    "ModerationLabelsTableCfnmoderationlabel0F6DAF4F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseName": Object {
+        "DatabaseName": {
           "Ref": "TestDB27CDA92F",
         },
-        "TableInput": Object {
+        "TableInput": {
           "Description": "A table created with partition projection for moderationlabel",
           "Name": "moderationlabel",
-          "Parameters": Object {
+          "Parameters": {
             "classification": "parquet",
             "has_encryped_data": false,
             "projection.created_at.format": "yyyy-MM-dd",
@@ -22,51 +22,51 @@ Object {
             "projection.created_at.type": "date",
             "projection.enabled": "TRUE",
           },
-          "PartitionKeys": Array [
-            Object {
+          "PartitionKeys": [
+            {
               "Name": "created_at",
               "Type": "timestamp",
             },
           ],
-          "StorageDescriptor": Object {
-            "Columns": Array [
-              Object {
+          "StorageDescriptor": {
+            "Columns": [
+              {
                 "Name": "account_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "platform",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "search_query",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "id_str",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "image_url",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "label_name",
                 "Type": "string",
               },
-              Object {
+              {
                 "Name": "confidence",
                 "Type": "double",
               },
             ],
             "Compressed": false,
             "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
-            "Location": Object {
-              "Fn::Join": Array [
+            "Location": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "s3://",
-                  Object {
+                  {
                     "Ref": "TestBucket560B80BC",
                   },
                   "/moderationlabel/",
@@ -74,7 +74,7 @@ Object {
               ],
             },
             "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
-            "SerdeInfo": Object {
+            "SerdeInfo": {
               "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
             },
             "StoredAsSubDirectories": true,
@@ -84,17 +84,17 @@ Object {
       },
       "Type": "AWS::Glue::Table",
     },
-    "TestBucket560B80BC": Object {
+    "TestBucket560B80BC": {
       "DeletionPolicy": "Retain",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "TestDB27CDA92F": Object {
-      "Properties": Object {
-        "CatalogId": Object {
+    "TestDB27CDA92F": {
+      "Properties": {
+        "CatalogId": {
           "Ref": "AWS::AccountId",
         },
-        "DatabaseInput": Object {
+        "DatabaseInput": {
           "Name": "socialmediadb",
         },
       },
