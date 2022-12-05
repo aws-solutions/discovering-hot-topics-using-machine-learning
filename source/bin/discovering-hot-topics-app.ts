@@ -14,6 +14,7 @@
 
 import * as cdk from '@aws-cdk/core';
 import { ApplytoLambda } from '../lib/aspects/apply-to-lambda';
+import { AppRegistry } from '../lib/aspects/app-registry';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 
 const app = new cdk.App();
@@ -24,3 +25,4 @@ const dht = new DiscoveringHotTopicsStack(app, 'discovering-hot-topics-using-mac
 });
 
 cdk.Aspects.of(app).add(new ApplytoLambda(dht, 'CustomConfig'));
+cdk.Aspects.of(app).add(new AppRegistry(dht, 'AppRegistry'));

@@ -3,16 +3,16 @@
 exports[`QS custom resource creation 1`] = `
 {
   "Parameters": {
-    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71ArtifactHashF29726D4": {
-      "Description": "Artifact hash for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
+    "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aArtifactHash62E0F7B2": {
+      "Description": "Artifact hash for asset "2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413a"",
       "Type": "String",
     },
-    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850": {
-      "Description": "S3 bucket for asset "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
+    "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aS3BucketBD4670E9": {
+      "Description": "S3 bucket for asset "2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413a"",
       "Type": "String",
     },
-    "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0": {
-      "Description": "S3 key for asset version "11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71"",
+    "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aS3VersionKeyCFF6143D": {
+      "Description": "S3 key for asset version "2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413a"",
       "Type": "String",
     },
   },
@@ -39,7 +39,7 @@ exports[`QS custom resource creation 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3Bucket1CAD3850",
+            "Ref": "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aS3BucketBD4670E9",
           },
           "S3Key": {
             "Fn::Join": [
@@ -52,7 +52,7 @@ exports[`QS custom resource creation 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
+                          "Ref": "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aS3VersionKeyCFF6143D",
                         },
                       ],
                     },
@@ -65,7 +65,7 @@ exports[`QS custom resource creation 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters11024bddf59dd9dcdff1d72000ce8f8c7f2b8802fe65225c235c1867b1a2de71S3VersionKey276B7FB0",
+                          "Ref": "AssetParameters2ed37f97a3146526f373779e1a9a1c1c248ec377238df898dcf39a858cae413aS3VersionKeyCFF6143D",
                         },
                       ],
                     },
