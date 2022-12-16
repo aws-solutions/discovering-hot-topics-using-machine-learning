@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2022-12-19
+
+### Fixed
+
+- GitHub [issue #75](https://github.com/aws-solutions/discovering-hot-topics-using-machine-learning/issues/75). This fix prevents AWS Service Catalog AppRegistry Application Name and Attribute Group Name from using a string that begins with `AWS`, since strings begining with `AWS` are considered as reserved words by the AWS Service.
+
 ## [2.1.0] - 2022-12-05
+
+### Added
 
 - [Service Catalog AppRegistry](https://docs.aws.amazon.com/servicecatalog/latest/arguide/intro-app-registry.html) resource to register the CloudFormation template and underlying resources as an application in both Service Catalog AppRegistry and AWS Systems Manager Application Manager
 
@@ -13,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Github [issue #69](https://github.com/aws-solutions/discovering-hot-topics-using-machine-learning/issues/69). The fix required the ingestion  infrastructure code in CDK to be pass the AWS CloudFormation parameter to be passed to the Reddit nested stack.
+- Github [issue #69](https://github.com/aws-solutions/discovering-hot-topics-using-machine-learning/issues/69). The fix required the ingestion infrastructure code in CDK to be pass the AWS CloudFormation parameter to be passed to the Reddit nested stack.
 
 ### Updated
 
