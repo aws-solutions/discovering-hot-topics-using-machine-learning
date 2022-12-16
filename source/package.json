@@ -1,6 +1,6 @@
 {
   "name": "discovering-hot-topics-using-machine-learning",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "bin": {
     "discovering-hot-topics-app": "bin/discovering-hot-topics-app.js"
   },

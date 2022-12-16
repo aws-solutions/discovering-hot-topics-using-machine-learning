@@ -25,28 +25,28 @@ exports[`test reddit ingestion stack 1`] = `
     },
   },
   "Parameters": {
-    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653ArtifactHash3A7282CC": {
-      "Description": "Artifact hash for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
+    "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2ArtifactHashE85D47AD": {
+      "Description": "Artifact hash for asset "6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2"",
       "Type": "String",
     },
-    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771": {
-      "Description": "S3 bucket for asset "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
+    "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2S3BucketA9CEF806": {
+      "Description": "S3 bucket for asset "6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2"",
       "Type": "String",
     },
-    "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984": {
-      "Description": "S3 key for asset version "d7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653"",
+    "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2S3VersionKey1E3CC92B": {
+      "Description": "S3 key for asset version "6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2"",
       "Type": "String",
     },
-    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeArtifactHashCDA15514": {
-      "Description": "Artifact hash for asset "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
+    "AssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0ArtifactHash40A7019E": {
+      "Description": "Artifact hash for asset "ac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0"",
       "Type": "String",
     },
-    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3BucketCFDF5133": {
-      "Description": "S3 bucket for asset "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
+    "AssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3Bucket65CE1F4D": {
+      "Description": "S3 bucket for asset "ac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0"",
       "Type": "String",
     },
-    "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0": {
-      "Description": "S3 key for asset version "fa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbe"",
+    "AssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3VersionKey043A1DAE": {
+      "Description": "S3 key for asset version "ac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0"",
       "Type": "String",
     },
   },
@@ -98,11 +98,11 @@ exports[`test reddit ingestion stack 1`] = `
             ],
           },
           "SubRedditsToFollow": "r/test1,r/test2",
-          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771Ref": {
-            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3Bucket5BDCD771",
+          "referencetoAssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3Bucket65CE1F4DRef": {
+            "Ref": "AssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3Bucket65CE1F4D",
           },
-          "referencetoAssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984Ref": {
-            "Ref": "AssetParametersd7320932ef08105c7e26f649e91d513e5d01e28d09c2058814f5433ca200b653S3VersionKey812C6984",
+          "referencetoAssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3VersionKey043A1DAERef": {
+            "Ref": "AssetParametersac82ecc15870afb6c4dd90b26facd67277a3768b1032f5db9f9c1c0a5d7370a0S3VersionKey043A1DAE",
           },
         },
         "TemplateURL": {
@@ -119,7 +119,7 @@ exports[`test reddit ingestion stack 1`] = `
               },
               "/",
               {
-                "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3BucketCFDF5133",
+                "Ref": "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2S3BucketA9CEF806",
               },
               "/",
               {
@@ -129,7 +129,7 @@ exports[`test reddit ingestion stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0",
+                        "Ref": "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2S3VersionKey1E3CC92B",
                       },
                     ],
                   },
@@ -142,7 +142,7 @@ exports[`test reddit ingestion stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParametersfa41660d9428f884f90b4c90511d9fb086e30095d1260d2bf41e70e4c298ddbeS3VersionKeyE8670CF0",
+                        "Ref": "AssetParameters6893cdf9474158cbbe10466d45600bbbe2764b7a53659bbb449b9cd6e3df6bd2S3VersionKey1E3CC92B",
                       },
                     ],
                   },
