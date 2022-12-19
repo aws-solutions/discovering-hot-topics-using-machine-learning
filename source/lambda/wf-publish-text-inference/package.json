@@ -1,6 +1,6 @@
 {
   "name": "wf-publish-text-inference",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Publish inference outputs as events",
   "main": "index.js",
   "scripts": {
