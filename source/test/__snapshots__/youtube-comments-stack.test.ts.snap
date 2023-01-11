@@ -25,28 +25,28 @@ exports[`test youtube ingestion stack 1`] = `
     },
   },
   "Parameters": {
-    "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7ArtifactHash39B6343D": {
-      "Description": "Artifact hash for asset "98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7"",
+    "AssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004ArtifactHash864E470F": {
+      "Description": "Artifact hash for asset "57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004"",
       "Type": "String",
     },
-    "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7S3Bucket00D6C89A": {
-      "Description": "S3 bucket for asset "98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7"",
+    "AssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3BucketBC4A408E": {
+      "Description": "S3 bucket for asset "57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004"",
       "Type": "String",
     },
-    "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7S3VersionKeyCD3F4149": {
-      "Description": "S3 key for asset version "98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7"",
+    "AssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3VersionKeyB557F4FA": {
+      "Description": "S3 key for asset version "57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004"",
       "Type": "String",
     },
-    "AssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495ArtifactHash76343B10": {
-      "Description": "Artifact hash for asset "f9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495"",
+    "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70ArtifactHashA2CC53FA": {
+      "Description": "Artifact hash for asset "b52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70"",
       "Type": "String",
     },
-    "AssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3Bucket9BC49B99": {
-      "Description": "S3 bucket for asset "f9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495"",
+    "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70S3BucketD4681A7C": {
+      "Description": "S3 bucket for asset "b52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70"",
       "Type": "String",
     },
-    "AssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3VersionKey0ACCEA91": {
-      "Description": "S3 key for asset version "f9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495"",
+    "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70S3VersionKey6DA0153C": {
+      "Description": "S3 key for asset version "b52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70"",
       "Type": "String",
     },
   },
@@ -98,11 +98,11 @@ exports[`test youtube ingestion stack 1`] = `
           "YouTubeSearchIngestionFreq": "cron(0 12 * * ? *)",
           "YoutubeAPIKey": "fakeKey",
           "YoutubeSearchQuery": "fakeSearchString",
-          "referencetoAssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3Bucket9BC49B99Ref": {
-            "Ref": "AssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3Bucket9BC49B99",
+          "referencetoAssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3BucketBC4A408ERef": {
+            "Ref": "AssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3BucketBC4A408E",
           },
-          "referencetoAssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3VersionKey0ACCEA91Ref": {
-            "Ref": "AssetParametersf9e37786738a8f7537d6b509f26dc2579367f04ee813fb222d39def783f2d495S3VersionKey0ACCEA91",
+          "referencetoAssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3VersionKeyB557F4FARef": {
+            "Ref": "AssetParameters57c2b15da7f016ca7f9b343897f4a78bbe16eb705afc79336021f441cfe63004S3VersionKeyB557F4FA",
           },
         },
         "TemplateURL": {
@@ -119,7 +119,7 @@ exports[`test youtube ingestion stack 1`] = `
               },
               "/",
               {
-                "Ref": "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7S3Bucket00D6C89A",
+                "Ref": "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70S3BucketD4681A7C",
               },
               "/",
               {
@@ -129,7 +129,7 @@ exports[`test youtube ingestion stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7S3VersionKeyCD3F4149",
+                        "Ref": "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70S3VersionKey6DA0153C",
                       },
                     ],
                   },
@@ -142,7 +142,7 @@ exports[`test youtube ingestion stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters98364d1a4859f9c5fa121184d65862936c49058d445a9388c1f4ba053436c5f7S3VersionKeyCD3F4149",
+                        "Ref": "AssetParametersb52c7fee4520ef363e89dd770bcf3b59b21ac48cb8f2d0d68526f3a7b7c0df70S3VersionKey6DA0153C",
                       },
                     ],
                   },

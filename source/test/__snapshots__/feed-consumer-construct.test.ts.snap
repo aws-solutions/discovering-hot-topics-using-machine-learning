@@ -3,16 +3,16 @@
 exports[`Test Lambda with Kinesis 1`] = `
 {
   "Parameters": {
-    "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282ArtifactHash3DD25CB8": {
-      "Description": "Artifact hash for asset "4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282"",
+    "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2ArtifactHash98FCBBD2": {
+      "Description": "Artifact hash for asset "f637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2"",
       "Type": "String",
     },
-    "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282S3Bucket5CDD4D6D": {
-      "Description": "S3 bucket for asset "4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282"",
+    "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2S3Bucket9DEAFD96": {
+      "Description": "S3 bucket for asset "f637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2"",
       "Type": "String",
     },
-    "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282S3VersionKey7D2EB396": {
-      "Description": "S3 key for asset version "4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282"",
+    "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2S3VersionKeyB01F7916": {
+      "Description": "S3 key for asset version "f637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2"",
       "Type": "String",
     },
   },
@@ -83,7 +83,7 @@ exports[`Test Lambda with Kinesis 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282S3Bucket5CDD4D6D",
+            "Ref": "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2S3Bucket9DEAFD96",
           },
           "S3Key": {
             "Fn::Join": [
@@ -96,7 +96,7 @@ exports[`Test Lambda with Kinesis 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282S3VersionKey7D2EB396",
+                          "Ref": "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2S3VersionKeyB01F7916",
                         },
                       ],
                     },
@@ -109,7 +109,7 @@ exports[`Test Lambda with Kinesis 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters4a59c8a70b9ad2aa868d3bf49a6e461f1d765ed82c6afb8ddae3fe77cfb7f282S3VersionKey7D2EB396",
+                          "Ref": "AssetParametersf637eada4d7c7f7206af045a45bf30ac483f8ab7cf2237edae663482ec3a39b2S3VersionKeyB01F7916",
                         },
                       ],
                     },
