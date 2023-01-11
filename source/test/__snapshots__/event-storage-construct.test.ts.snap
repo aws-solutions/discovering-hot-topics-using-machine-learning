@@ -3,16 +3,16 @@
 exports[`Event Storage Construct with Lambda processor 1`] = `
 {
   "Parameters": {
-    "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030ArtifactHashAE0C5201": {
-      "Description": "Artifact hash for asset "ee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030"",
+    "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096ArtifactHashDA7362ED": {
+      "Description": "Artifact hash for asset "c56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096"",
       "Type": "String",
     },
-    "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030S3Bucket5141497E": {
-      "Description": "S3 bucket for asset "ee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030"",
+    "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096S3Bucket45879BC0": {
+      "Description": "S3 bucket for asset "c56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096"",
       "Type": "String",
     },
-    "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030S3VersionKey064024FC": {
-      "Description": "S3 key for asset version "ee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030"",
+    "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096S3VersionKeyD8B4EB5A": {
+      "Description": "S3 key for asset version "c56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096"",
       "Type": "String",
     },
   },
@@ -320,7 +320,7 @@ exports[`Event Storage Construct with Lambda processor 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030S3Bucket5141497E",
+            "Ref": "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096S3Bucket45879BC0",
           },
           "S3Key": {
             "Fn::Join": [
@@ -333,7 +333,7 @@ exports[`Event Storage Construct with Lambda processor 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030S3VersionKey064024FC",
+                          "Ref": "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096S3VersionKeyD8B4EB5A",
                         },
                       ],
                     },
@@ -346,7 +346,7 @@ exports[`Event Storage Construct with Lambda processor 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParametersee44f52844b84e3dcf8355cdd82eb7df55d5340a9a45dd09d981e1e1e3238030S3VersionKey064024FC",
+                          "Ref": "AssetParametersc56354729fc16dab04fa6fe131376bdcd9bafc4b116b88ac7360da267fb07096S3VersionKeyD8B4EB5A",
                         },
                       ],
                     },
