@@ -1,6 +1,6 @@
 {
   "name": "ingestion-consumer",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "The consumer of the Kinesis stream to receive social media feed",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,9 @@
   "author": "aws-solutions-builder@",
   "license": "Apache-2.0",
   "devDependencies": {
-    "aws-sdk-mock": "^5.7.0",
-    "chai": "^4.3.6",
-    "jest": "^29.0.3",
-    "sinon": "^14.0.0"
+    "aws-sdk-mock": "^5.8.0",
+    "chai": "^4.3.7",
+    "jest": "^29.3.1",
+    "sinon": "^15.0.1"
   }
 }

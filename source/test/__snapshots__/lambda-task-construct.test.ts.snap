@@ -3,16 +3,16 @@
 exports[`test lambda task construct 1`] = `
 {
   "Parameters": {
-    "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731ArtifactHash107544C8": {
-      "Description": "Artifact hash for asset "85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731"",
+    "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cArtifactHash79717E6B": {
+      "Description": "Artifact hash for asset "06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71c"",
       "Type": "String",
     },
-    "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731S3BucketDD92732F": {
-      "Description": "S3 bucket for asset "85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731"",
+    "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cS3Bucket729D6E1C": {
+      "Description": "S3 bucket for asset "06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71c"",
       "Type": "String",
     },
-    "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731S3VersionKey10F3FBE0": {
-      "Description": "S3 key for asset version "85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731"",
+    "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cS3VersionKeyC04050FE": {
+      "Description": "S3 key for asset version "06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71c"",
       "Type": "String",
     },
   },
@@ -43,7 +43,7 @@ exports[`test lambda task construct 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731S3BucketDD92732F",
+            "Ref": "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cS3Bucket729D6E1C",
           },
           "S3Key": {
             "Fn::Join": [
@@ -56,7 +56,7 @@ exports[`test lambda task construct 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731S3VersionKey10F3FBE0",
+                          "Ref": "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cS3VersionKeyC04050FE",
                         },
                       ],
                     },
@@ -69,7 +69,7 @@ exports[`test lambda task construct 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters85d6ebd29a4df410cbb2d42d468d5807b898b08ec35f26dbf7e3b0b4a3e7d731S3VersionKey10F3FBE0",
+                          "Ref": "AssetParameters06d98f6276dd428ad45ea620ed67817bdcc9be10947ebbe2d0b71a874177d71cS3VersionKeyC04050FE",
                         },
                       ],
                     },
