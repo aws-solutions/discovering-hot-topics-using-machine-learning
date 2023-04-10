@@ -9,7 +9,7 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "aws-sdk": "^2.1290.0"
+    "aws-sdk": "^2.1354.0"
   },
   "devDependencies": {
     "aws-sdk-mock": "^5.8.0",
