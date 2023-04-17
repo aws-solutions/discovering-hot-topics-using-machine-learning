@@ -85,6 +85,7 @@ for folder in */ ; do
 
     if [ -e "requirements.txt" ]; then
         if [ "$function_name" = "capture_news_feed" ]; then
+            echo "Python version is $(python --version)"
             echo "Installing $function_name lambda using virtual environment"
             python3 -m venv .venv-test
             echo "Activating virtual environment"

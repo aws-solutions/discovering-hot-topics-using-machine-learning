@@ -18,7 +18,9 @@ import * as kinesis from '@aws-cdk/aws-kinesis';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
+import * as fs from 'fs';
 import { S3ToEventBridgeToLambda } from '../s3-event-notification/s3-eventbridge-lambda';
+import path = require('path');
 
 export class CustomIngestion extends cdk.NestedStack {
     public readonly s3Bucket: s3.Bucket;
@@ -110,7 +112,9 @@ export class CustomIngestion extends cdk.NestedStack {
                 memorySize: 256
             },
             bucketProps: {
-                versioned: false
+                versioned: false,
+                serverAccessLogsBucket: _loggingBucket,
+                serverAccessLogsPrefix: 'customingestion/'
             },
             s3LoggingBucket: _loggingBucket
         });
@@ -131,9 +135,73 @@ export class CustomIngestion extends cdk.NestedStack {
             })
         }).attachToRole(_s3ToEventBridgeToLambda.lambdaFunction.role!);
 
+        const s3PolicyUpdateRole = new iam.Role(this, 'BucketPolicyCustomResource', {
+            assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+            inlinePolicies: {
+                LambdaFunctionServiceRolePolicy: new iam.PolicyDocument({
+                    statements: [
+                        new iam.PolicyStatement({
+                            actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents'],
+                            resources: [
+                                `arn:${cdk.Aws.PARTITION}:logs:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:log-group:/aws/lambda/*`
+                            ]
+                        }),
+                        new iam.PolicyStatement({
+                            actions: ['s3:PutBucketPolicy', 's3:GetBucketPolicy', 's3:PutBucketPublicAccessBlock'],
+                            resources: [_loggingBucket.bucketArn]
+                        })
+                    ]
+                })
+            }
+        });
+
+        const s3PolicyUpdate = new lambda.Function(this, 'UpdateS3BucketPolicy', {
+            handler: 'index.handler',
+            runtime: lambda.Runtime.PYTHON_3_9,
+            code: lambda.Code.fromInline(fs.readFileSync(path.join(__dirname, 'index.py'), 'utf8')),
+            role: s3PolicyUpdateRole,
+            tracing: lambda.Tracing.ACTIVE,
+            timeout: cdk.Duration.minutes(15)
+        });
+
+        // prettier-ignore
+        const customResourcePolicyUpdate = new cdk.CustomResource(this, 'UpdateS3Policy', {// NOSONAR - CDK construct initialization 
+            resourceType: 'Custom::UpdateS3Policy',
+            serviceToken: s3PolicyUpdate.functionArn,
+            properties: {
+                LOGGING_BUCKET_NAME: _loggingBucket.bucketName,
+                SOURCE_BUCKET_NAME: this.s3Bucket.bucketName
+            }
+        });
+
         new cdk.CfnOutput(this, 'S3BucketToUploadData', {
             value: this.s3Bucket.bucketArn,
             description: 'Bucket location to upload source files for ingestion'
+        });
+
+        (s3PolicyUpdate.node.defaultChild as lambda.CfnFunction).addMetadata('cfn_nag', {
+            rules_to_suppress: [
+                {
+                    'id': 'W89',
+                    'reason': 'This is not a rule for the general case, just for specific use cases/industries'
+                },
+                {
+                    'id': 'W92',
+                    'reason': 'Impossible for us to define the correct concurrency for clients'
+                }
+            ]
+        });
+
+        (
+            s3PolicyUpdateRole.node.tryFindChild('DefaultPolicy')!.node.tryFindChild('Resource') as iam.CfnPolicy
+        ).addMetadata('cfn_nag', {
+            rules_to_suppress: [
+                {
+                    'id': 'W12',
+                    'reason':
+                        'The cloudwatch policy narrows the permissions to the specific resources to the extent possible'
+                }
+            ]
         });
     }
 }

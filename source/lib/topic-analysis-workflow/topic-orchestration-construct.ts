@@ -13,16 +13,17 @@
 
 import * as events from '@aws-cdk/aws-events';
 import * as targets from '@aws-cdk/aws-events-targets';
-import * as iam from "@aws-cdk/aws-iam";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as s3 from "@aws-cdk/aws-s3";
+import * as iam from '@aws-cdk/aws-iam';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as s3 from '@aws-cdk/aws-s3';
 import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as cdk from "@aws-cdk/core";
+import * as cdk from '@aws-cdk/core';
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
 import { SqsToLambda } from '@aws-solutions-constructs/aws-sqs-lambda';
 import { PlatformType } from '../ingestion/platform-type';
-import { StepFuncLambdaTask } from "../text-analysis-workflow/lambda-task-construct";
-import { Workflow } from "../text-analysis-workflow/workflow-construct";
+import { StepFuncLambdaTask } from '../text-analysis-workflow/lambda-task-construct';
+import { Workflow } from '../text-analysis-workflow/workflow-construct';
+import { updateBucketResourcePolicy } from '../utils/policy';
 
 export interface TopicOrchestrationProps {
     readonly ingestionWindow: string;
@@ -41,13 +42,15 @@ export class TopicOrchestration extends cdk.Construct {
         super(scope, id);
 
         const lambdaPublishEventPolicy = new iam.Policy(this, 'LambdaEventBusPolicy');
-        lambdaPublishEventPolicy.addStatements(new iam.PolicyStatement({
-            effect: iam.Effect.ALLOW,
-            resources: [ props.eventBus.eventBusArn ],
-            actions: [ 'events:PutEvents' ],
-        }));
+        lambdaPublishEventPolicy.addStatements(
+            new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                resources: [props.eventBus.eventBusArn],
+                actions: ['events:PutEvents']
+            })
+        );
 
-        const topicScheduleRule = new events.Rule (this, 'TopicSchedule', {
+        const topicScheduleRule = new events.Rule(this, 'TopicSchedule', {
             schedule: events.Schedule.expression(`${props.topicSchedule}`)
         });
 
@@ -62,7 +65,10 @@ export class TopicOrchestration extends cdk.Construct {
                     RAW_BUCKET_FEED: props.rawBucket.bucketName,
                     // select prefix names if the source type has topic modelling set to true. Sending the prefix values to the
                     // lambda function as comma separated values
-                    SOURCE_PREFIX: props.platformTypes.filter((type) => type.topicModelling).map((type) => type.name).join(","),
+                    SOURCE_PREFIX: props.platformTypes
+                        .filter((type) => type.topicModelling)
+                        .map((type) => type.name)
+                        .join(','),
                     NUMBER_OF_TOPICS: props.numberofTopics,
                     STACK_NAME: cdk.Aws.STACK_NAME
                 },
@@ -73,22 +79,24 @@ export class TopicOrchestration extends cdk.Construct {
         });
 
         const lambdaSubmitJobPolicy = new iam.Policy(this, 'LambdaSubmitJobPolicy', {
-            statements: [ new iam.PolicyStatement({
-                effect: iam.Effect.ALLOW,
-                actions: [
-                    'comprehend:StartTopicsDetectionJob'
-                ],
-                resources: [ '*' ]
-            })]
+            statements: [
+                new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
+                    actions: ['comprehend:StartTopicsDetectionJob'],
+                    resources: ['*']
+                })
+            ]
         });
 
         lambdaSubmitJobPolicy.attachToRole(submitTopicTask.lambdaFunction.role as iam.Role);
         (lambdaSubmitJobPolicy.node.defaultChild as iam.CfnPolicy).cfnOptions.metadata = {
             cfn_nag: {
-                rules_to_suppress: [{
-                  id: 'W12',
-                  reason: `The * resource allows lambda function to access Amazon Comprehend services for Topic Detection. The Comprehend services not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Comprehend service`
-                }]
+                rules_to_suppress: [
+                    {
+                        id: 'W12',
+                        reason: `The * resource allows lambda function to access Amazon Comprehend services for Topic Detection. The Comprehend services not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Comprehend service`
+                    }
+                ]
             }
         };
 
@@ -101,17 +109,19 @@ export class TopicOrchestration extends cdk.Construct {
             }
         });
 
+        updateBucketResourcePolicy(props.s3LoggingBucket, lambdaToS3.s3Bucket!, `${id}-TopicIngestion`);
+
         props.rawBucket.grantRead(submitTopicTask.lambdaFunction.role as iam.Role);
 
-        const comprehendTopicAnalysisRole = new iam.Role (this, 'TopicAnalysisRole', {
-            assumedBy: new iam.ServicePrincipal('comprehend.amazonaws.com'),
+        const comprehendTopicAnalysisRole = new iam.Role(this, 'TopicAnalysisRole', {
+            assumedBy: new iam.ServicePrincipal('comprehend.amazonaws.com')
         });
         const lambdaComprehendPassRolePolicy = new iam.Policy(this, 'LambdaComprehendPassPolicy', {
             statements: [
                 new iam.PolicyStatement({
                     effect: iam.Effect.ALLOW,
-                    actions: [ 'iam:GetRole', 'iam:PassRole' ],
-                    resources: [ comprehendTopicAnalysisRole.roleArn ]
+                    actions: ['iam:GetRole', 'iam:PassRole'],
+                    resources: [comprehendTopicAnalysisRole.roleArn]
                 })
             ]
         });
@@ -122,7 +132,7 @@ export class TopicOrchestration extends cdk.Construct {
         submitTopicTask.lambdaFunction.addEnvironment('INGESTION_S3_BUCKET_NAME', lambdaToS3.s3Bucket!.bucketName);
         submitTopicTask.lambdaFunction.addEnvironment('DATA_ACCESS_ARN', comprehendTopicAnalysisRole.roleArn);
 
-        const platformTypes = props.platformTypes.filter((type) => type.topicModelling).map((type) => type.name)
+        const platformTypes = props.platformTypes.filter((type) => type.topicModelling).map((type) => type.name);
         const parallel = new sfn.Parallel(this, 'PublishTopic', {
             comment: 'Parallely process various platform types',
             inputPath: '$',
@@ -170,7 +180,7 @@ export class TopicOrchestration extends cdk.Construct {
                         SOURCE_PREFIX: platformType,
                         QUEUE_NAME: _publishTopicsMappings.sqsQueue.queueName
                     },
-                    timeout: cdk.Duration.minutes(15),
+                    timeout: cdk.Duration.minutes(15)
                 },
                 outputPath: '$.Payload'
             });
@@ -226,21 +236,23 @@ export class TopicOrchestration extends cdk.Construct {
         });
 
         const lambdaDescribeJobPolicy = new iam.Policy(this, 'LambdaDescribeJobPolicy', {
-            statements: [ new iam.PolicyStatement({
-                effect: iam.Effect.ALLOW,
-                actions: [
-                    'comprehend:DescribeTopicsDetectionJob'
-                ],
-                resources: [ '*' ]
-            })]
+            statements: [
+                new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
+                    actions: ['comprehend:DescribeTopicsDetectionJob'],
+                    resources: ['*']
+                })
+            ]
         });
         lambdaDescribeJobPolicy.attachToRole(checkTopicStatus.lambdaFunction.role as iam.Role);
         (lambdaDescribeJobPolicy.node.defaultChild as iam.CfnPolicy).cfnOptions.metadata = {
             cfn_nag: {
-                rules_to_suppress: [{
-                  id: 'W12',
-                  reason: `The * resource allows lambda function to access Amazon Comprehend services for Topic Detection. The Comprehend services not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Comprehend service`
-                }]
+                rules_to_suppress: [
+                    {
+                        id: 'W12',
+                        reason: `The * resource allows lambda function to access Amazon Comprehend services for Topic Detection. The Comprehend services not have a resource arn. This permission is retricted to the lambda function responsible for accessing the Amazon Comprehend service`
+                    }
+                ]
             }
         };
 
@@ -259,7 +271,10 @@ export class TopicOrchestration extends cdk.Construct {
         });
 
         jobSubmittedChoice.when(sfn.Condition.stringEquals('$.JobStatus', 'NO_DATA'), new sfn.Fail(this, 'NoData'));
-        jobSubmittedChoice.when(sfn.Condition.stringEquals('$.JobStatus', 'FAILED'), new sfn.Fail(this, 'SubmitFailed'));
+        jobSubmittedChoice.when(
+            sfn.Condition.stringEquals('$.JobStatus', 'FAILED'),
+            new sfn.Fail(this, 'SubmitFailed')
+        );
         jobSubmittedChoice.otherwise(checkTopicStatus.stepFunctionTask);
         checkTopicStatus.stepFunctionTask.next(jobStatusChoice);
         jobStatusChoice.when(sfn.Condition.stringEquals('$.JobStatus', 'COMPLETED'), parallel);
@@ -268,7 +283,7 @@ export class TopicOrchestration extends cdk.Construct {
         jobStatusChoice.otherwise(new sfn.Fail(this, 'JobFailed'));
         jobWait.next(checkTopicStatus.stepFunctionTask);
 
-        const chain = sfn.Chain.start(submitTopicTask.stepFunctionTask).next(jobSubmittedChoice)
+        const chain = sfn.Chain.start(submitTopicTask.stepFunctionTask).next(jobSubmittedChoice);
 
         const topicWorkflow = new Workflow(this, 'TopicModelWF', {
             stateMachineType: sfn.StateMachineType.STANDARD,
@@ -276,15 +291,23 @@ export class TopicOrchestration extends cdk.Construct {
         });
         topicScheduleRule.addTarget(new targets.SfnStateMachine(topicWorkflow.stateMachine));
 
-        (topicWorkflow.stateMachine.role.node.tryFindChild('DefaultPolicy')?.node.findChild('Resource') as iam.CfnPolicy).addMetadata("cfn_nag",{
-            rules_to_suppress: [{
-                id: 'W76',
-                reason: 'The statemachine invokes multiple lambdas and the policy is narrowed down to the specific lambda resource arn. '+
-                    'Hence it has multiple policy statements resulting in a higher SPCM value',
-            }, {
-                id: 'W12',
-                reason: 'The "LogDelivery" actions do not support resource-level authorization'
-            }]
+        (
+            topicWorkflow.stateMachine.role.node
+                .tryFindChild('DefaultPolicy')
+                ?.node.findChild('Resource') as iam.CfnPolicy
+        ).addMetadata('cfn_nag', {
+            rules_to_suppress: [
+                {
+                    id: 'W76',
+                    reason:
+                        'The statemachine invokes multiple lambdas and the policy is narrowed down to the specific lambda resource arn. ' +
+                        'Hence it has multiple policy statements resulting in a higher SPCM value'
+                },
+                {
+                    id: 'W12',
+                    reason: 'The "LogDelivery" actions do not support resource-level authorization'
+                }
+            ]
         });
     }
 }

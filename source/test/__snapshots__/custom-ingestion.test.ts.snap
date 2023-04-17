@@ -25,32 +25,101 @@ exports[`Test custom ingestion nested stack 1`] = `
     },
   },
   "Parameters": {
-    "AssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7ArtifactHash468FA563": {
-      "Description": "Artifact hash for asset "41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7"",
+    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeArtifactHashA210655C": {
+      "Description": "Artifact hash for asset "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
       "Type": "String",
     },
-    "AssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3BucketEC0FA50A": {
-      "Description": "S3 bucket for asset "41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7"",
+    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3Bucket165DD2B5": {
+      "Description": "S3 bucket for asset "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
       "Type": "String",
     },
-    "AssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3VersionKeyA39B6099": {
-      "Description": "S3 key for asset version "41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7"",
+    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F": {
+      "Description": "S3 key for asset version "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
       "Type": "String",
     },
-    "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8ArtifactHashEC4B7DD1": {
-      "Description": "Artifact hash for asset "79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8"",
+    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18ArtifactHash7CE69A74": {
+      "Description": "Artifact hash for asset "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
       "Type": "String",
     },
-    "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8S3BucketE3E1FCE9": {
-      "Description": "S3 bucket for asset "79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8"",
+    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3E": {
+      "Description": "S3 bucket for asset "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
       "Type": "String",
     },
-    "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8S3VersionKeyE448510A": {
-      "Description": "S3 key for asset version "79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8"",
+    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8A": {
+      "Description": "S3 key for asset version "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
       "Type": "String",
     },
   },
   "Resources": {
+    "AccessLogD598EBE9": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "AccessLogPolicy4B3DB856": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "AccessLogD598EBE9",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "AccessLogD598EBE9",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "AccessLogD598EBE9",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
     "BusEA82B648": {
       "Properties": {
         "Name": "Bus",
@@ -95,11 +164,11 @@ exports[`Test custom ingestion nested stack 1`] = `
               "Arn",
             ],
           },
-          "referencetoAssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3BucketEC0FA50ARef": {
-            "Ref": "AssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3BucketEC0FA50A",
+          "referencetoAssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3ERef": {
+            "Ref": "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3E",
           },
-          "referencetoAssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3VersionKeyA39B6099Ref": {
-            "Ref": "AssetParameters41ba8a2dfffa9a52942155838e627fd59dcda70d7725cf52bacf04d7245749e7S3VersionKeyA39B6099",
+          "referencetoAssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8ARef": {
+            "Ref": "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8A",
           },
         },
         "TemplateURL": {
@@ -116,7 +185,7 @@ exports[`Test custom ingestion nested stack 1`] = `
               },
               "/",
               {
-                "Ref": "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8S3BucketE3E1FCE9",
+                "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3Bucket165DD2B5",
               },
               "/",
               {
@@ -126,7 +195,7 @@ exports[`Test custom ingestion nested stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8S3VersionKeyE448510A",
+                        "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F",
                       },
                     ],
                   },
@@ -139,7 +208,7 @@ exports[`Test custom ingestion nested stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters79d5dae64b018f205a4953a48aab1b10dc6599fb820025f801f2e884b8d0e9e8S3VersionKeyE448510A",
+                        "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F",
                       },
                     ],
                   },

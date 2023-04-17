@@ -3,16 +3,16 @@
 exports[`test Event Rule Construct 1`] = `
 {
   "Parameters": {
-    "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cArtifactHash3E7BC6A4": {
-      "Description": "Artifact hash for asset "288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158c"",
+    "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362ArtifactHashDBFE57E5": {
+      "Description": "Artifact hash for asset "e7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362"",
       "Type": "String",
     },
-    "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cS3Bucket41C1947E": {
-      "Description": "S3 bucket for asset "288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158c"",
+    "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362S3BucketC1AFE71F": {
+      "Description": "S3 bucket for asset "e7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362"",
       "Type": "String",
     },
-    "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cS3VersionKey42743180": {
-      "Description": "S3 key for asset version "288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158c"",
+    "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362S3VersionKeyA5A8AD94": {
+      "Description": "S3 key for asset version "e7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362"",
       "Type": "String",
     },
   },
@@ -103,7 +103,7 @@ exports[`test Event Rule Construct 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cS3Bucket41C1947E",
+            "Ref": "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362S3BucketC1AFE71F",
           },
           "S3Key": {
             "Fn::Join": [
@@ -116,7 +116,7 @@ exports[`test Event Rule Construct 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cS3VersionKey42743180",
+                          "Ref": "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362S3VersionKeyA5A8AD94",
                         },
                       ],
                     },
@@ -129,7 +129,7 @@ exports[`test Event Rule Construct 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters288a9299e5fc34f848e5681e8f909f535fe393035b3146929517e8303a0c158cS3VersionKey42743180",
+                          "Ref": "AssetParameterse7cf0cecfadcd7ea8d3d81b255b741775cc9251ae55b0b4b3453d9b8a3742362S3VersionKeyA5A8AD94",
                         },
                       ],
                     },
