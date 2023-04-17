@@ -12,11 +12,11 @@
  *********************************************************************************************************************/
 
 import { SynthUtils } from '@aws-cdk/assert';
-import * as s3 from '@aws-cdk/aws-s3';
 import * as events from '@aws-cdk/aws-events';
+import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
-import { Ingestion } from '../lib/ingestion/ingestion-construct';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
+import { Ingestion } from '../lib/ingestion/ingestion-construct';
 
 test('Event Bus creation', () => {
     const stack = new cdk.Stack();
@@ -127,10 +127,10 @@ test('Event Bus creation', () => {
     const s3AccessLoggingBucket = new s3.Bucket(stack, 'AccessLog', {
         versioned: false,
         encryption: s3.BucketEncryption.S3_MANAGED,
-        accessControl: s3.BucketAccessControl.LOG_DELIVERY_WRITE,
         publicReadAccess: false,
         blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-        removalPolicy: cdk.RemovalPolicy.RETAIN
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+        enforceSSL: true
     });
 
     const _deployYoutubeCommentsIngestion = new cdk.CfnParameter(stack, 'DeployYouTubeCommentsIngestion', {

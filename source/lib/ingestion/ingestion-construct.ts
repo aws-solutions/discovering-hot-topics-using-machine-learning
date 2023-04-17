@@ -167,8 +167,10 @@ export class Ingestion extends cdk.Construct {
         const _deployCustomIngestionCondition = new cdk.CfnCondition(this, 'DeployCustomIngestion', {
             expression: cdk.Fn.conditionEquals(props.deployCustomIngestion.valueAsString, 'Yes')
         });
-
         _customIngestion.nestedStackResource!.cfnOptions.condition = _deployCustomIngestionCondition;
+        (_customIngestion.node.defaultChild as cdk.CfnResource).addDependsOn(
+            props.s3LoggingBucket.node.tryFindChild('Policy')?.node.tryFindChild('Resource') as cdk.CfnResource
+        );
 
         const _redditIngesiton = new RedditIngestion(this, 'RedditIngestion', {
             parameters: {

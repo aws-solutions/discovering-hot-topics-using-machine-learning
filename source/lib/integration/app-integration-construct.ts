@@ -17,6 +17,7 @@ import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
 import { Construct } from '@aws-cdk/core';
 import { buildS3Bucket } from '@aws-solutions-constructs/core';
 import { EventStorage } from '../storage/event-storage-construct';
+import { updateBucketResourcePolicy } from '../utils/policy';
 import { InferenceDatabase } from '../visualization/inf-database-construct';
 import { EventManager } from './event-manager-construct';
 import { Config, EventRule } from './event-rule-construct';
@@ -47,6 +48,8 @@ export class AppIntegration extends Construct {
                 serverAccessLogsPrefix: `${id}/`
             }
         });
+
+        updateBucketResourcePolicy(props.s3LoggingBucket, this._s3Bucket, id);
 
         // Extract the CfnBucket from the s3Bucket
         const s3BucketResource = this._s3Bucket.node.defaultChild as CfnBucket;

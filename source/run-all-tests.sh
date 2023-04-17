@@ -37,7 +37,6 @@ setup_python_env() {
 	source .venv-test/bin/activate
 	echo "Installing python packages"
 	pip3 install -r requirements.txt --target .
-	pip3 install $source_dir/lambda/layers/python_lambda_layer # This is required so that libraries under lambda layers are available to unit test lambda functions
 	pip3 install -r requirements-dev.txt
 	echo "deactivate virtual environment"
 	deactivate

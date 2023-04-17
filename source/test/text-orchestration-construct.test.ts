@@ -15,10 +15,9 @@ import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
 import { EventBus } from '@aws-cdk/aws-events';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import { TextOrchestration } from '../lib/text-analysis-workflow/text-orchestration-construct';
-
 
 test('test orchestration construct', () => {
     const stack = new cdk.Stack();
@@ -26,12 +25,12 @@ test('test orchestration construct', () => {
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
         encryption: BucketEncryption.S3_MANAGED,
-        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        enforceSSL: true,
         publicReadAccess: false,
         blockPublicAccess: BlockPublicAccess.BLOCK_ALL
     });
 
-    new TextOrchestration (stack, 'OrchestrationConstruct', {
+    new TextOrchestration(stack, 'OrchestrationConstruct', {
         eventBus: new EventBus(stack, 'TestEventBus'),
         textAnalysisNameSpace: 'com.test.text',
         s3LoggingBucket: s3AccessLoggingBucket,
@@ -40,23 +39,28 @@ test('test orchestration construct', () => {
             code: Code.fromAsset('lambda/wf-extract-text-in-image'),
             handler: 'index.handler'
         }),
-        platformTypes: [{
-            name: 'TWITTER',
-            topicModelling: true
-        }, {
-            name: 'NEWSFEEDS',
-            topicModelling: true
-        }]
+        platformTypes: [
+            {
+                name: 'TWITTER',
+                topicModelling: true
+            },
+            {
+                name: 'NEWSFEEDS',
+                topicModelling: true
+            }
+        ]
     });
 
     expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 
     expect(stack).toHaveResourceLike('AWS::IAM::Policy', {
-        "PolicyDocument": {
-            "Statement": [{
-                "Action": "states:StartExecution",
-                "Effect": "Allow",
-            }]
+        'PolicyDocument': {
+            'Statement': [
+                {
+                    'Action': 'states:StartExecution',
+                    'Effect': 'Allow'
+                }
+            ]
         }
     });
 });

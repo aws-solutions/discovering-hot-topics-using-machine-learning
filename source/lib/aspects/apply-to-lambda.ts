@@ -27,12 +27,12 @@ export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
         this.pythonLayer = new lambda_python.PythonLayerVersion(this, 'PythonLibLayer', {
             entry: 'lambda/layers/python_lambda_layer',
             description: 'This layer has boto config initialization and logging functions',
-            compatibleRuntimes: [ lambda.Runtime.PYTHON_3_8 ]
+            compatibleRuntimes: [lambda.Runtime.PYTHON_3_8, lambda.Runtime.PYTHON_3_9]
         });
 
         this.nodejsLayer = new NodejsLayerVersion(this, id, {
             entry: 'lambda/layers/aws-nodesdk-custom-config',
-            compatibleRuntimes: [ lambda.Runtime.NODEJS_14_X ],
+            compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
             description: 'This layer configures AWS Node SDK initialization'
         });
     }
@@ -50,12 +50,14 @@ export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
             if (node.runtime.family == lambda.RuntimeFamily.NODEJS) {
                 node.addLayers(this.nodejsLayer);
                 node.addEnvironment(
-                    "AWS_SDK_USER_AGENT", `{ "customUserAgent": "AwsSolution/${solutionID}/${solutionVersion}" }`
+                    'AWS_SDK_USER_AGENT',
+                    `{ "customUserAgent": "AwsSolution/${solutionID}/${solutionVersion}" }`
                 );
             } else if (node.runtime.family == lambda.RuntimeFamily.PYTHON) {
                 node.addLayers(this.pythonLayer);
                 node.addEnvironment(
-                    "AWS_SDK_USER_AGENT", `{ "user_agent_extra": "AwsSolution/${solutionID}/${solutionVersion}" }`
+                    'AWS_SDK_USER_AGENT',
+                    `{ "user_agent_extra": "AwsSolution/${solutionID}/${solutionVersion}" }`
                 );
             }
         }

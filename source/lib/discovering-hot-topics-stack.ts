@@ -12,7 +12,6 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { AnyPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import { Ingestion } from './ingestion/ingestion-construct';
@@ -500,26 +499,13 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         const s3AccessLoggingBucket = new s3.Bucket(this, 'AccessLog', {
             versioned: false,
             encryption: s3.BucketEncryption.S3_MANAGED,
-            accessControl: s3.BucketAccessControl.LOG_DELIVERY_WRITE,
-            publicReadAccess: false,
+            removalPolicy: cdk.RemovalPolicy.RETAIN,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-            removalPolicy: cdk.RemovalPolicy.RETAIN
+            enforceSSL: true
         });
 
-        s3AccessLoggingBucket.addToResourcePolicy(
-            new PolicyStatement({
-                sid: 'HttpsOnly',
-                resources: [`${s3AccessLoggingBucket.bucketArn}/*`],
-                actions: ['*'],
-                principals: [new AnyPrincipal()],
-                effect: Effect.DENY,
-                conditions: {
-                    Bool: {
-                        'aws:SecureTransport': 'false'
-                    }
-                }
-            })
-        );
+        // using escape hatch to remove the ACL from the bucket, since another construct is putting it back.
+        (s3AccessLoggingBucket.node.defaultChild as s3.CfnBucket).addDeletionOverride('Properties.AccessControl');
 
         (s3AccessLoggingBucket.node.defaultChild as s3.CfnBucket).cfnOptions.metadata = {
             cfn_nag: {
