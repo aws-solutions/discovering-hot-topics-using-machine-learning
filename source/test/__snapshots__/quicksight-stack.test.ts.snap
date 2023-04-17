@@ -3,28 +3,28 @@
 exports[`test QuickSight stackCreation 1`] = `
 {
   "Parameters": {
-    "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8ArtifactHash6537D7F7": {
-      "Description": "Artifact hash for asset "9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8"",
+    "AssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162ArtifactHashE17CC473": {
+      "Description": "Artifact hash for asset "df2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162"",
       "Type": "String",
     },
-    "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8S3Bucket769F5F20": {
-      "Description": "S3 bucket for asset "9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8"",
+    "AssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3BucketECBB312B": {
+      "Description": "S3 bucket for asset "df2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162"",
       "Type": "String",
     },
-    "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8S3VersionKey651D0DA1": {
-      "Description": "S3 key for asset version "9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8"",
+    "AssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3VersionKeyF1758139": {
+      "Description": "S3 key for asset version "df2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162"",
       "Type": "String",
     },
-    "AssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797ArtifactHash29B97AC0": {
-      "Description": "Artifact hash for asset "b1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797"",
+    "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aArtifactHash40CCC119": {
+      "Description": "Artifact hash for asset "ecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927a"",
       "Type": "String",
     },
-    "AssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3Bucket370C7A2F": {
-      "Description": "S3 bucket for asset "b1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797"",
+    "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aS3Bucket18EF3FE8": {
+      "Description": "S3 bucket for asset "ecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927a"",
       "Type": "String",
     },
-    "AssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3VersionKey6859C342": {
-      "Description": "S3 key for asset version "b1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797"",
+    "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aS3VersionKey0B018AA6": {
+      "Description": "S3 key for asset version "ecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927a"",
       "Type": "String",
     },
   },
@@ -41,11 +41,11 @@ exports[`test QuickSight stackCreation 1`] = `
           "S3AccessLogBucket": "arn:aws:s3:::fakebucketforaccesslogging",
           "SolutionID": "SO0122",
           "SolutionName": "Discovering-Hot-Topics-QS-Dashboard",
-          "referencetoAssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3Bucket370C7A2FRef": {
-            "Ref": "AssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3Bucket370C7A2F",
+          "referencetoAssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3BucketECBB312BRef": {
+            "Ref": "AssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3BucketECBB312B",
           },
-          "referencetoAssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3VersionKey6859C342Ref": {
-            "Ref": "AssetParametersb1ca903e2560d41c92d1b702f7e2f764d7a277170d88d5e14b141a38f4ff3797S3VersionKey6859C342",
+          "referencetoAssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3VersionKeyF1758139Ref": {
+            "Ref": "AssetParametersdf2e92c3ab0fa435e53e2cd575d990bf91ef6866e59d19b817486bc490c5b162S3VersionKeyF1758139",
           },
         },
         "TemplateURL": {
@@ -62,7 +62,7 @@ exports[`test QuickSight stackCreation 1`] = `
               },
               "/",
               {
-                "Ref": "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8S3Bucket769F5F20",
+                "Ref": "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aS3Bucket18EF3FE8",
               },
               "/",
               {
@@ -72,7 +72,7 @@ exports[`test QuickSight stackCreation 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8S3VersionKey651D0DA1",
+                        "Ref": "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aS3VersionKey0B018AA6",
                       },
                     ],
                   },
@@ -85,7 +85,7 @@ exports[`test QuickSight stackCreation 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters9294db2337b037b7ae8492774b47005d9f9a6b7b4ca51ef62ce96adabd68e8b8S3VersionKey651D0DA1",
+                        "Ref": "AssetParametersecf93dd3bf9b750bcd409c53eff15e01ef9e7049e23d953f289a7ac3526f927aS3VersionKey0B018AA6",
                       },
                     ],
                   },

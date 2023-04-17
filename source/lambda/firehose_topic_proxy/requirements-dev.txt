@@ -1,3 +1,4 @@
-moto==4.1.0
-pytest==7.2.0
+moto==4.1.7
+pytest==7.2.2
 pytest-cov==4.0.0
+-e ../layers/python_lambda_layer

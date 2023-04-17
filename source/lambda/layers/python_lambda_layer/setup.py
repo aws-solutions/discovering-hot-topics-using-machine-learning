@@ -15,7 +15,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="python_lambda_layer",
-    version="2.0.0",
+    version="2.1.3",
     description="Initialize boto config for AWS Python SDK with custom configuration",
     url="https://github.com/awslabs/discovering-hot-topics-using-machine-learning",
     author="aws-solutions-builder",

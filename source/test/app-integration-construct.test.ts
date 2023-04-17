@@ -13,7 +13,7 @@
 
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
-import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
 import { App, Stack } from '@aws-cdk/core';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
 
@@ -44,8 +44,8 @@ test('test App Integration Construct', () => {
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
         encryption: BucketEncryption.S3_MANAGED,
-        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
         publicReadAccess: false,
+        enforceSSL: true,
         blockPublicAccess: BlockPublicAccess.BLOCK_ALL
     });
 

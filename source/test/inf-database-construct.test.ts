@@ -13,10 +13,9 @@
 
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
-import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import { InferenceDatabase } from '../lib/visualization/inf-database-construct';
-
 
 test('test workflow stack', () => {
     const stack = new cdk.Stack();
@@ -36,13 +35,12 @@ test('test workflow stack', () => {
     storageConfig.set('YouTubeComments', 'youtubecomments');
     storageConfig.set('CustomIngestion', 'customingestion');
 
-
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
         encryption: BucketEncryption.S3_MANAGED,
-        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
         publicReadAccess: false,
-        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+        enforceSSL: true
     });
 
     new InferenceDatabase(stack, 'TestDB', {

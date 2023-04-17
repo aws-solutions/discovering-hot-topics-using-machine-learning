@@ -14,11 +14,9 @@
 import { SynthUtils } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
 import { EventBus } from '@aws-cdk/aws-events';
-import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
 import { Stack } from '@aws-cdk/core';
 import { TopicOrchestration } from '../lib/topic-analysis-workflow/topic-orchestration-construct';
-
-
 
 test('test Text Analysis Fireshose Stream Creation', () => {
     const stack = new Stack();
@@ -26,7 +24,7 @@ test('test Text Analysis Fireshose Stream Creation', () => {
     const s3AccessLoggingBucket = new Bucket(stack, 'AccessLog', {
         versioned: false,
         encryption: BucketEncryption.S3_MANAGED,
-        accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
+        enforceSSL: true,
         publicReadAccess: false,
         blockPublicAccess: BlockPublicAccess.BLOCK_ALL
     });
@@ -35,10 +33,12 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         ingestionWindow: '2',
         numberofTopics: '10',
         rawBucket: new Bucket(stack, 'RawBucket'),
-        platformTypes: [{
-            name: 'TWITTER',
-            topicModelling: true
-        }],
+        platformTypes: [
+            {
+                name: 'TWITTER',
+                topicModelling: true
+            }
+        ],
         eventBus: new EventBus(stack, 'EventBus'),
         topicsAnalaysisNameSpace: 'com.test.topic',
         topicMappingsNameSpace: 'com.test.mappings',

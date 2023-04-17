@@ -22,7 +22,7 @@ export interface NodejsLayerVersionProps {
     /**
      * The path to the root directory of the lambda layer.
      */
-    readonly entry: string
+    readonly entry: string;
 
     /**
      * The runtimes compatible with the python layer.
@@ -44,7 +44,7 @@ export interface NodejsLayerVersionProps {
 
 export class NodejsLayerVersion extends lambda.LayerVersion {
     constructor(scope: cdk.Construct, id: string, props: NodejsLayerVersionProps) {
-        const compatibleRuntimes = props.compatibleRuntimes ?? [ lambda.Runtime.NODEJS_14_X ];
+        const compatibleRuntimes = props.compatibleRuntimes ?? [lambda.Runtime.NODEJS_14_X];
 
         for (const runtime of compatibleRuntimes) {
             if (runtime && runtime.family !== lambda.RuntimeFamily.NODEJS) {
@@ -60,10 +60,11 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
                 bundling: {
                     image: lambda.Runtime.NODEJS_14_X.bundlingImage,
                     user: 'root',
-                    local: { // attempts local bundling first, if it fails, then executes docker based build
+                    local: {
+                        // attempts local bundling first, if it fails, then executes docker based build
                         tryBundle(outputDir: string) {
                             try {
-                                spawnSync('echo "Trying local bundling of assets" && npm ci --only=prod');
+                                spawnSync('echo "Trying local bundling of assets" && npm ci --only=prod'); // NOSONAR - building lambda assets
                                 const targetDirectory = `${outputDir}/nodejs/node_modules/${baseFolderName}`;
                                 if (!fs.existsSync(targetDirectory)) {
                                     // recursively create the target path that include 'nodejs/node_modules'
@@ -72,7 +73,7 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
                                     });
                                 }
                                 NodejsLayerVersion.copyFilesSyncRecursively(entry, targetDirectory);
-                            } catch(error){
+                            } catch (error) {
                                 console.error('Error with local bundling', error);
                                 return false;
                             }
@@ -81,12 +82,15 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
                     },
                     command: [
                         // executed only if local bundling fails. Docker becomes the sencondary deployment option
-                        "bash", "-c", 'echo "local bundling failed and hence building with Docker image"', [
-                            "npm ci --only=prod",
+                        'bash',
+                        '-c',
+                        'echo "local bundling failed and hence building with Docker image"',
+                        [
+                            'npm ci --only=prod',
                             `mkdir -p /asset-output/nodejs/node_modules/${baseFolderName}`,
                             `cp -R /asset-input/* /asset-output/nodejs/node_modules/${baseFolderName}`
                         ].join(' && ')
-                    ],
+                    ]
                 }
             }),
             compatibleRuntimes,
@@ -120,4 +124,3 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
         });
     }
 }
-

@@ -1,6 +1,7 @@
 pytest-cov==4.0.0
 pytest-env==0.8.1
-moto==4.0.13
-pytest==7.2.0
+moto==4.1.7
+pytest==7.2.2
 botocore
 mock==5.0.1
+-e ../layers/python_lambda_layer
