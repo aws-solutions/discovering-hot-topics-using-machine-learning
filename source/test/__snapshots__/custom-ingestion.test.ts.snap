@@ -25,28 +25,28 @@ exports[`Test custom ingestion nested stack 1`] = `
     },
   },
   "Parameters": {
-    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeArtifactHashA210655C": {
-      "Description": "Artifact hash for asset "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
+    "AssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2ArtifactHashA64CF354": {
+      "Description": "Artifact hash for asset "01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2"",
       "Type": "String",
     },
-    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3Bucket165DD2B5": {
-      "Description": "S3 bucket for asset "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
+    "AssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3Bucket4324637E": {
+      "Description": "S3 bucket for asset "01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2"",
       "Type": "String",
     },
-    "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F": {
-      "Description": "S3 key for asset version "2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81ae"",
+    "AssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3VersionKey24346418": {
+      "Description": "S3 key for asset version "01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2"",
       "Type": "String",
     },
-    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18ArtifactHash7CE69A74": {
-      "Description": "Artifact hash for asset "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
+    "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8ArtifactHashED34DD7C": {
+      "Description": "Artifact hash for asset "31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8"",
       "Type": "String",
     },
-    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3E": {
-      "Description": "S3 bucket for asset "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
+    "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8S3BucketE6FEB353": {
+      "Description": "S3 bucket for asset "31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8"",
       "Type": "String",
     },
-    "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8A": {
-      "Description": "S3 key for asset version "cba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18"",
+    "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8S3VersionKey4F5B960A": {
+      "Description": "S3 key for asset version "31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8"",
       "Type": "String",
     },
   },
@@ -164,11 +164,11 @@ exports[`Test custom ingestion nested stack 1`] = `
               "Arn",
             ],
           },
-          "referencetoAssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3ERef": {
-            "Ref": "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3Bucket5CE1FA3E",
+          "referencetoAssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3Bucket4324637ERef": {
+            "Ref": "AssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3Bucket4324637E",
           },
-          "referencetoAssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8ARef": {
-            "Ref": "AssetParameterscba9159b2a9ff6430f7f3318c812821dc4e8e40e4a4f1a2b82dcb75f78746b18S3VersionKeyBF74CA8A",
+          "referencetoAssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3VersionKey24346418Ref": {
+            "Ref": "AssetParameters01b85b6bcec6f183b1c3cf712ea48cb15a099a7acc142c83e1be16e20190b9b2S3VersionKey24346418",
           },
         },
         "TemplateURL": {
@@ -185,7 +185,7 @@ exports[`Test custom ingestion nested stack 1`] = `
               },
               "/",
               {
-                "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3Bucket165DD2B5",
+                "Ref": "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8S3BucketE6FEB353",
               },
               "/",
               {
@@ -195,7 +195,7 @@ exports[`Test custom ingestion nested stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F",
+                        "Ref": "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8S3VersionKey4F5B960A",
                       },
                     ],
                   },
@@ -208,7 +208,7 @@ exports[`Test custom ingestion nested stack 1`] = `
                     "Fn::Split": [
                       "||",
                       {
-                        "Ref": "AssetParameters2632e2642cf4480d54cc10f359a79d7487dfe9677db9256b05857fca709e81aeS3VersionKeyFC28544F",
+                        "Ref": "AssetParameters31d09a12f440df75a97e6ae62d9fcaa4417744eb6dda13ba233433c2c79f41f8S3VersionKey4F5B960A",
                       },
                     ],
                   },

@@ -3,16 +3,16 @@
 exports[`Test Lambda with role and scheduler 1`] = `
 {
   "Parameters": {
-    "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605ArtifactHash22082629": {
-      "Description": "Artifact hash for asset "7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605"",
+    "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaArtifactHash8E6713FC": {
+      "Description": "Artifact hash for asset "9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caa"",
       "Type": "String",
     },
-    "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605S3BucketC2591D75": {
-      "Description": "S3 bucket for asset "7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605"",
+    "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaS3Bucket476799AF": {
+      "Description": "S3 bucket for asset "9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caa"",
       "Type": "String",
     },
-    "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605S3VersionKeyF93DC4B1": {
-      "Description": "S3 key for asset version "7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605"",
+    "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaS3VersionKey703E74DF": {
+      "Description": "S3 key for asset version "9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caa"",
       "Type": "String",
     },
   },
@@ -81,7 +81,7 @@ exports[`Test Lambda with role and scheduler 1`] = `
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605S3BucketC2591D75",
+            "Ref": "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaS3Bucket476799AF",
           },
           "S3Key": {
             "Fn::Join": [
@@ -94,7 +94,7 @@ exports[`Test Lambda with role and scheduler 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605S3VersionKeyF93DC4B1",
+                          "Ref": "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaS3VersionKey703E74DF",
                         },
                       ],
                     },
@@ -107,7 +107,7 @@ exports[`Test Lambda with role and scheduler 1`] = `
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters7cc1a9613ea169e0e583ba24b5245f6036d067101c06aec359c3786610803605S3VersionKeyF93DC4B1",
+                          "Ref": "AssetParameters9a512a1198e54699fd9d427f29f91021458fda9d23601e31e4b76bf96d5d7caaS3VersionKey703E74DF",
                         },
                       ],
                     },

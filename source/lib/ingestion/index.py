@@ -61,7 +61,7 @@ def handler(event, context):
                         break
                     else:
                         logger.info("Bucket policy exists, hence update not required")
-                        update_policy = false
+                        update_policy = False
                         break
 
             if update_policy:

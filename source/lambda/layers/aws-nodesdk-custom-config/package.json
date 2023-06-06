@@ -1,6 +1,6 @@
 {
   "name": "aws-nodesdk-custom-config",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "AWS Nodejs SDK Config intialization layer",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
-    "sinon": "^15.0.3"
+    "sinon": "^15.1.0"
   },
   "author": "aws-solutions-builder@",
   "license": "Apache-2.0"
