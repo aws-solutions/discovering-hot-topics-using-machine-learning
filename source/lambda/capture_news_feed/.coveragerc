@@ -1,14 +1,14 @@
 [run]
 omit =
     charset_normalizer/*
-    *certifi/*
-    *chardet/*
+    certifi/*
+    chardet/*
     feedparser.py
-    *idna/*
-    *requests/*
+    idna/*
+    requests/*
     requests_file.py
-    *tldextract/*
-    *urllib3/*
+    tldextract/*
+    urllib3/*
     images/*
     tests/*
     .venv-*/*

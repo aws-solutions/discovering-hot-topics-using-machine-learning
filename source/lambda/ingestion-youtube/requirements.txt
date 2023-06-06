@@ -1,2 +1,2 @@
-google-api-python-client==2.85.0
-protobuf==4.21.12
+google-api-python-client==2.88.0
+protobuf==4.23.2
