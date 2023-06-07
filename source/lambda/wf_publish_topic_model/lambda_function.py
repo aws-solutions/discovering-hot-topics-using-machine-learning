@@ -132,7 +132,9 @@ def is_file_available(event, source_prefix, file_to_extract):
                     raise IncorrectTarFileException(
                         "Either number of files in the archive are not 2 or file names are not as expected in the archive. May not be a valid archive"
                     )
-                archive_file.extractall(TMP_DIR, member_file_to_extract(archive_file, file_to_extract))
+                # fmt: off
+                archive_file.extractall(TMP_DIR, member_file_to_extract(archive_file, file_to_extract)) # nosec - this is provided by Firehose
+                # fmt: on
             archive_file.close()
             delete_downloaded_file(TMP_DIR + file_name)  # delete the downloaded archive
             logger.debug(f"Extraction complete. Files in the directory are {os.listdir(TMP_DIR)}")
