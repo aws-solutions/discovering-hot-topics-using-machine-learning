@@ -11,16 +11,17 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as events from '@aws-cdk/aws-events';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as sources from '@aws-cdk/aws-lambda-event-sources';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as cdk from '@aws-cdk/core';
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
 import * as defaults from '@aws-solutions-constructs/core';
+import * as cdk from 'aws-cdk-lib';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as sources from 'aws-cdk-lib/aws-lambda-event-sources';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import { Construct } from 'constructs';
 import { PlatformType } from '../ingestion/platform-type';
 import { EventStorage } from '../storage/event-storage-construct';
 import { updateBucketResourcePolicy } from '../utils/policy';
@@ -36,20 +37,20 @@ export interface TextOrchestrationProps {
     readonly platformTypes: PlatformType[];
 }
 
-export class TextOrchestration extends cdk.Construct {
+export class TextOrchestration extends Construct {
     private readonly _stateMachine: sfn.StateMachine;
     private _s3Bucket: s3.Bucket;
 
-    constructor(scope: cdk.Construct, id: string, props: TextOrchestrationProps) {
+    constructor(scope: Construct, id: string, props: TextOrchestrationProps) {
         super(scope, id);
 
-        [this._s3Bucket] = defaults.buildS3Bucket(this, {
+        this._s3Bucket = defaults.buildS3Bucket(this, {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
                 serverAccessLogsPrefix: `${id}/`
             }
-        });
+        }).bucket;
 
         updateBucketResourcePolicy(props.s3LoggingBucket as s3.Bucket, this._s3Bucket, id);
 
@@ -67,7 +68,7 @@ export class TextOrchestration extends cdk.Construct {
         // start of detect language task
         const detectLangTask = new StepFuncCallbackTask(this, 'DetectLang', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-detect-language'),
                 reservedConcurrentExecutions: 15,
@@ -117,7 +118,7 @@ export class TextOrchestration extends cdk.Construct {
 
         const imageAnalysisTask = new StepFuncCallbackTask(this, 'ImageAnalysis', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-extract-text-in-image'),
                 timeout: cdk.Duration.minutes(15),
@@ -175,7 +176,7 @@ export class TextOrchestration extends cdk.Construct {
         // start of content moderation
         const moderationLabelTask = new StepFuncCallbackTask(this, 'ModerationLabels', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-detect-moderation-labels'),
                 timeout: cdk.Duration.minutes(5),
@@ -221,7 +222,7 @@ export class TextOrchestration extends cdk.Construct {
         // start of translation task state lambda function and role iam.Policy
         const translateTask = new StepFuncCallbackTask(this, 'Translate', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-translate-text'),
                 timeout: cdk.Duration.minutes(5),
@@ -269,7 +270,7 @@ export class TextOrchestration extends cdk.Construct {
         // start of text analysis task state lambda function and role iam.Policy
         const textAnalysisTask = new StepFuncCallbackTask(this, 'TextAnalysis', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
                 timeout: cdk.Duration.minutes(5),
@@ -312,7 +313,7 @@ export class TextOrchestration extends cdk.Construct {
         const publishEventsTask = new StepFuncLambdaTask(this, 'PublishEvents', {
             taskName: 'PublishEvents',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-publish-text-inference'),
                 timeout: cdk.Duration.minutes(5),

@@ -1,0 +1,16 @@
+# exclude python 3rd party modules
+bin
+certifi*/
+crhelper/
+idna*/
+requests/
+tests/
+urllib3*/
+_yaml.cpython-*.so
+tldextract/
+charset_normalizer*/
+praw*/
+requests*/
+update_checker*/
+update_checker*
+websocket*/

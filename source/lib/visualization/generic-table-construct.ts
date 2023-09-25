@@ -12,21 +12,23 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface GenericCfnTableProps {
     readonly tableName: string;
-    readonly database: glue.IDatabase,
+    readonly database: glue_alpha.IDatabase,
     readonly s3InputDataBucket: s3.Bucket,
     readonly s3BucketPrefix: string,
 }
 
-export abstract class GenericCfnTable extends cdk.Construct {
+export abstract class GenericCfnTable extends Construct {
     public readonly table: glue.CfnTable;
 
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id);
 
         this.table = new glue.CfnTable(this, `Cfn${props.tableName}`, {
@@ -65,23 +67,23 @@ export abstract class GenericCfnTable extends cdk.Construct {
     protected get partitionKeys(): glue.CfnTable.ColumnProperty[] {
         return [{
             name: 'created_at',
-            type: glue.Schema.TIMESTAMP.inputString
+            type: glue_alpha.Schema.TIMESTAMP.inputString
         }]
     }
 
     protected get coreColumns() {
         return [{
             name: 'account_name',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'platform',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'search_query',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'id_str',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }]
     }
 }

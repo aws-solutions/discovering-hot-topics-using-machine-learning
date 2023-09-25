@@ -60,26 +60,28 @@ class TextAnalysis {
             sentimentmixscore: data.SentimentScore.Mixed
         };
 
-        await FirehoseHelper.putRecord(`${JSON.stringify(sentimentRecord)}\n`, process.env.SENTIMENT_FIREHOSE);
+        const sentimentData = JSON.stringify(sentimentRecord);
+        await FirehoseHelper.putRecord(Buffer.from(`${sentimentData}\n`), process.env.SENTIMENT_FIREHOSE);
 
         const entitiesArray = data.Entities;
         const entitiesRecord = [];
         for (const entity of entitiesArray) {
+            const entityData = JSON.stringify({
+                account_name: data.account_name,
+                platform: data.platform,
+                search_query: data.search_query,
+                id_str: data.feed.id_str,
+                created_at: data.feed.created_at,
+                text: data.feed.text,
+                translated_text: data.feed._translated_text,
+                entity_text: entity.Text,
+                entity_type: entity.Type,
+                entity_score: entity.Score,
+                entity_begin_offset: entity.BeginOffset,
+                entity_end_offset: entity.EndOffset
+            });
             entitiesRecord.push({
-                Data: `${JSON.stringify({
-                    account_name: data.account_name,
-                    platform: data.platform,
-                    search_query: data.search_query,
-                    id_str: data.feed.id_str,
-                    created_at: data.feed.created_at,
-                    text: data.feed.text,
-                    translated_text: data.feed._translated_text,
-                    entity_text: entity.Text,
-                    entity_type: entity.Type,
-                    entity_score: entity.Score,
-                    entity_begin_offset: entity.BeginOffset,
-                    entity_end_offset: entity.EndOffset
-                })}\n`
+                Data: Buffer.from(`${entityData}\n`)
             });
         }
 
@@ -90,20 +92,21 @@ class TextAnalysis {
         const keyPhrasesArray = data.KeyPhrases;
         const keyPhrasesRecord = [];
         for (const keyPhrase of keyPhrasesArray) {
+            const keyphraseData = JSON.stringify({
+                account_name: data.account_name,
+                platform: data.platform,
+                search_query: data.search_query,
+                id_str: data.feed.id_str,
+                created_at: data.feed.created_at,
+                text: data.feed.text,
+                translated_text: data.feed._translated_text,
+                phrase: keyPhrase.Text,
+                phrase_score: keyPhrase.Score,
+                phrase_begin_offset: keyPhrase.BeginOffset,
+                phrase_end_offset: keyPhrase.EndOffset
+            });
             keyPhrasesRecord.push({
-                Data: `${JSON.stringify({
-                    account_name: data.account_name,
-                    platform: data.platform,
-                    search_query: data.search_query,
-                    id_str: data.feed.id_str,
-                    created_at: data.feed.created_at,
-                    text: data.feed.text,
-                    translated_text: data.feed._translated_text,
-                    phrase: keyPhrase.Text,
-                    phrase_score: keyPhrase.Score,
-                    phrase_begin_offset: keyPhrase.BeginOffset,
-                    phrase_end_offset: keyPhrase.EndOffset
-                })}\n`
+                Data: Buffer.from(`${keyphraseData}\n`)
             });
         }
 

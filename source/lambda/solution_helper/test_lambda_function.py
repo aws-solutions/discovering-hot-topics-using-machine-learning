@@ -17,6 +17,7 @@ from unittest import mock
 
 import requests
 
+CRON_EXPRESSION = "cron(0 23 * * ? *)"
 
 def mocked_requests_post(*args, **kwargs):
     class MockResponse:
@@ -28,31 +29,6 @@ def mocked_requests_post(*args, **kwargs):
 
 
 class LambdaTest(unittest.TestCase):
-    def setUp(self):
-        os.environ["TWITTER_SEARCH_QUERY"] = "someSearchParam"
-        os.environ["TWITTER_LANG_FILTER"] = "en,fr,es,de,pt"
-        os.environ["TWITTER_INGEST_FREQ"] = "cron(0/5 * * * ? *)"
-        os.environ["TOPIC_JOB_FREQ"] = "cron(10 0 * * ? *)"
-        os.environ["NEWSFEEDS_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
-        os.environ["NEWSFEEDS_SEARCH_QUERY"] = "somefakesearch"
-        os.environ["AWS_SDK_USER_AGENT"] = '{ "user_agent_extra": "solution/fakeID/fakeVersion" }'
-        os.environ["YOUTUBE_SEARCH_QUERY"] = "some fake video search"
-        os.environ["YOUTUBE_INGESTION_FREQ"] = "cron(0 23 * * ? *)"
-        os.environ["YOUTUBE_CHANNEL_ID"] = "fakechannelid"
-        os.environ["DEPLOY_CUSTOM_INGESTION"] = "Yes"
-
-    def tearDown(self):
-        del os.environ["TWITTER_SEARCH_QUERY"]
-        del os.environ["TWITTER_LANG_FILTER"]
-        del os.environ["TWITTER_INGEST_FREQ"]
-        del os.environ["TOPIC_JOB_FREQ"]
-        del os.environ["NEWSFEEDS_INGESTION_FREQ"]
-        del os.environ["NEWSFEEDS_SEARCH_QUERY"]
-        del os.environ["AWS_SDK_USER_AGENT"]
-        del os.environ["YOUTUBE_SEARCH_QUERY"]
-        del os.environ["YOUTUBE_INGESTION_FREQ"]
-        del os.environ["YOUTUBE_CHANNEL_ID"]
-        del os.environ["DEPLOY_CUSTOM_INGESTION"]
 
     def test_create_unique_id(self):
         import lambda_function
@@ -71,7 +47,20 @@ class LambdaTest(unittest.TestCase):
                 "SolutionId": "SO1234",
                 "UUID": "some-uuid",
                 "Foo": "Bar",
+                "Region": "testregion",
                 "Version": "fake-version",
+                "TopicJobFreq": "cron(10 0 * * ? *)",
+                "NewsFeedsIngestionEnabled": "Yes",
+                "NewsFeedsIngestionFreq": CRON_EXPRESSION,
+                "NewsFeedsSearchQuery": "somefakesearch",
+                "YoutubeIngestionEnabled": "Yes",
+                "YouTubeIngestionFreq": CRON_EXPRESSION,
+                "YoutubeSearchQuery": "some fake video search",
+                "YoutubeChannelId": "fakechannelid",
+                "RedditIngestionEnabled": "Yes",
+                "RedditIngestionFreq": CRON_EXPRESSION,
+                "SubredditsToFollow": "fakesubreddit",
+                "DeployCustomIngestion": "Yes"
             },
         }
 
@@ -96,20 +85,21 @@ class LambdaTest(unittest.TestCase):
         self.assertEqual(
             actual_payload["Data"],
             {
-                "Foo": "Bar",
+                "Region": "testregion",
                 "RequestType": "Create",
-                "TwitterSearchQueryComplexity": 1,
-                "TwitterSearchQueryLength": 15,
-                "TwitterLangFilter": "en,fr,es,de,pt",
-                "TwitterIngestionFreq": "cron(0/5 * * * ? *)",
                 "TopicJobFreq": "cron(10 0 * * ? *)",
+                "NewsFeedsIngestionEnabled": "Yes",
                 "NewsFeedsSearchComplexity": 1,
                 "NewsFeedsSearchQueryLength": 14,
-                "NewsFeedsIngestionFreq": "cron(0 23 * * ? *)",
-                "YouTubIngestionFreq": "cron(0 23 * * ? *)",
+                "NewsFeedsIngestionFreq": CRON_EXPRESSION,
+                "YoutubeIngestionEnabled": "Yes",
+                "YouTubeIngestionFreq": CRON_EXPRESSION,
                 "YouTubeChannelIDSet": "True",
                 "YouTubeSearchQueryLength": 22,
-                "CustomIngestion": "Yes"
+                "RedditIngestionEnabled": "Yes",
+                "RedditIngestionFreq": CRON_EXPRESSION,
+                "RedditIngestionSubredditCount": 1,
+                "CustomIngestionEnabled": "Yes"
             },
         )
 
@@ -142,20 +132,3 @@ class LambdaTest(unittest.TestCase):
             custom_resource(invalid_event, None)
         except:  # NOSONAR - python:S5754 - This is a unit test to check for exception handling
             self.fail("Exception should not be raised when metrics cannot be sent")
-
-    def test_sanitize_data(self):
-        from lambda_function import _sanitize_data
-
-        resource_properties = {
-            "ServiceToken": "lambda-fn-arn",
-            "Resource": "AnonymousMetric",
-            "SolutionId": "SO1234",
-            "UUID": "some-uuid",
-            "Region": "us-east-1",
-            "Foo": "Bar",
-        }
-
-        expected_response = {"Region": "us-east-1", "Foo": "Bar"}
-
-        actual_response = _sanitize_data(resource_properties)
-        self.assertCountEqual(expected_response, actual_response)

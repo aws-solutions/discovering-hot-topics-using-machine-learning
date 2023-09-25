@@ -13,33 +13,31 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { FirehoseClient, PutRecordCommand, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.putRecordBatch = async (array, streamName) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
-
-    const response = await kinesisFireshose
-        .putRecordBatch({
+    const kinesisFireshose = new FirehoseClient(awsCustomConfig);
+    const response = await kinesisFireshose.send(
+        new PutRecordBatchCommand({
             DeliveryStreamName: streamName,
             Records: array
         })
-        .promise();
-
+    );
     return response;
 };
 
 exports.putRecord = async (record, streamName) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
+    const kinesisFireshose = new FirehoseClient(awsCustomConfig);
 
-    return await kinesisFireshose
-        .putRecord({
+    return await kinesisFireshose.send(
+        new PutRecordCommand({
             DeliveryStreamName: streamName,
             Record: {
-                Data: record
+                Data: Buffer.from(record)
             }
         })
-        .promise();
+    );
 };

@@ -11,47 +11,47 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const lambda = require('../index.js');
 const expect = require('chai').expect;
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { ComprehendClient, DescribeTopicsDetectionJobCommand } = require('@aws-sdk/client-comprehend');
+const comprehendMock = AWSMock.mockClient(ComprehendClient);
 
 describe('When all jobs are IN_PROGRESS', () => {
     beforeEach(() => {
+        comprehendMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
-        process.env.SOURCE_PREFIX = "TWITTER,NEWSCATCHER";
-
-        AWSMock.mock('Comprehend', 'describeTopicsDetectionJob', (error, callback) => {
-            callback(null,     {
-                "TopicsDetectionJobProperties": {
-                    "JobId": "1234567890123456789012345",
-                    "JobName": "topic_modeling_job",
-                    "JobStatus": "IN_PROGRESS",
-                    "SubmitTime": "2020-06-26T19:05:16.785Z",
-                    "EndTime": "2020-06-26T19:31:13.798Z",
-                    "InputDataConfig": {
-                        "S3Uri": "s3://testbucket",
-                        "InputFormat": "ONE_DOC_PER_LINE"
-                    },
-                    "OutputDataConfig": {
-                        "S3Uri": "s3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz"
-                    },
-                    "NumberOfTopics": 25,
-                    "DataAccessRoleArn": "arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole"
-                }
-            });
+        process.env.SOURCE_PREFIX = 'TWITTER,NEWSCATCHER';
+        comprehendMock.on(DescribeTopicsDetectionJobCommand).resolves({
+            'TopicsDetectionJobProperties': {
+                'JobId': '1234567890123456789012345',
+                'JobName': 'topic_modeling_job',
+                'JobStatus': 'IN_PROGRESS',
+                'SubmitTime': '2020-06-26T19:05:16.785Z',
+                'EndTime': '2020-06-26T19:31:13.798Z',
+                'InputDataConfig': {
+                    'S3Uri': 's3://testbucket',
+                    'InputFormat': 'ONE_DOC_PER_LINE'
+                },
+                'OutputDataConfig': {
+                    'S3Uri': 's3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz'
+                },
+                'NumberOfTopics': 25,
+                'DataAccessRoleArn': 'arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole'
+            }
         });
     });
 
-    it ('should execute the lambda function and return job status', async () => {
-        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(",");
+    it('should execute the lambda function and return job status', async () => {
+        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(',');
         const event = {};
         for (const sourcePrefix of sourcePrefixList) {
             event[`${sourcePrefix}`] = {
-                "JobId": "1234567890123456789012345",
-                "JobStatus": "IN_PROGRESS"
-            }
+                'JobId': '1234567890123456789012345',
+                'JobStatus': 'IN_PROGRESS'
+            };
         }
 
         const response = await lambda.handler(event);
@@ -65,46 +65,44 @@ describe('When all jobs are IN_PROGRESS', () => {
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.SOURCE_PREFIX;
-        AWSMock.restore('Comprehend');
+        comprehendMock.restore();
     });
 });
 
-
 describe('When jobs return failed status', () => {
     beforeEach(() => {
+        comprehendMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
-        process.env.SOURCE_PREFIX = "TWITTER,NEWSCATCHER";
+        process.env.SOURCE_PREFIX = 'TWITTER,NEWSCATCHER';
 
-        AWSMock.mock('Comprehend', 'describeTopicsDetectionJob', (error, callback) => {
-            callback(null,     {
-                "TopicsDetectionJobProperties": {
-                    "JobId": "1234567890123456789012345",
-                    "JobName": "topic_modeling_job",
-                    "JobStatus": "FAILED",
-                    "SubmitTime": "2020-06-26T19:05:16.785Z",
-                    "EndTime": "2020-06-26T19:31:13.798Z",
-                    "InputDataConfig": {
-                        "S3Uri": "s3://testbucket",
-                        "InputFormat": "ONE_DOC_PER_LINE"
-                    },
-                    "OutputDataConfig": {
-                        "S3Uri": "s3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz"
-                    },
-                    "NumberOfTopics": 25,
-                    "DataAccessRoleArn": "arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole"
-                }
-            });
+        comprehendMock.on(DescribeTopicsDetectionJobCommand).resolves({
+            'TopicsDetectionJobProperties': {
+                'JobId': '1234567890123456789012345',
+                'JobName': 'topic_modeling_job',
+                'JobStatus': 'FAILED',
+                'SubmitTime': '2020-06-26T19:05:16.785Z',
+                'EndTime': '2020-06-26T19:31:13.798Z',
+                'InputDataConfig': {
+                    'S3Uri': 's3://testbucket',
+                    'InputFormat': 'ONE_DOC_PER_LINE'
+                },
+                'OutputDataConfig': {
+                    'S3Uri': 's3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz'
+                },
+                'NumberOfTopics': 25,
+                'DataAccessRoleArn': 'arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole'
+            }
         });
     });
 
-    it ('should execute the lambda function and return job status', async () => {
-        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(",");
+    it('should execute the lambda function and return job status', async () => {
+        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(',');
         const event = {};
         for (const sourcePrefix of sourcePrefixList) {
             event[`${sourcePrefix}`] = {
-                "JobId": "1234567890123456789012345",
-                "JobStatus": "IN_PROGRESS"
-            }
+                'JobId': '1234567890123456789012345',
+                'JobStatus': 'IN_PROGRESS'
+            };
         }
 
         const response = await lambda.handler(event);
@@ -118,45 +116,44 @@ describe('When jobs return failed status', () => {
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.SOURCE_PREFIX;
-        AWSMock.restore('Comprehend');
+        comprehendMock.restore();
     });
 });
 
 describe('When jobs return completed status', () => {
     beforeEach(() => {
+        comprehendMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
-        process.env.SOURCE_PREFIX = "TWITTER,NEWSCATCHER";
+        process.env.SOURCE_PREFIX = 'TWITTER,NEWSCATCHER';
 
-        AWSMock.mock('Comprehend', 'describeTopicsDetectionJob', (error, callback) => {
-            callback(null,     {
-                "TopicsDetectionJobProperties": {
-                    "JobId": "1234567890123456789012345",
-                    "JobName": "topic_modeling_job",
-                    "JobStatus": "COMPLETED",
-                    "SubmitTime": "2020-06-26T19:05:16.785Z",
-                    "EndTime": "2020-06-26T19:31:13.798Z",
-                    "InputDataConfig": {
-                        "S3Uri": "s3://testbucket",
-                        "InputFormat": "ONE_DOC_PER_LINE"
-                    },
-                    "OutputDataConfig": {
-                        "S3Uri": "s3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz"
-                    },
-                    "NumberOfTopics": 25,
-                    "DataAccessRoleArn": "arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole"
-                }
-            });
+        comprehendMock.on(DescribeTopicsDetectionJobCommand).resolves({
+            'TopicsDetectionJobProperties': {
+                'JobId': '1234567890123456789012345',
+                'JobName': 'topic_modeling_job',
+                'JobStatus': 'COMPLETED',
+                'SubmitTime': '2020-06-26T19:05:16.785Z',
+                'EndTime': '2020-06-26T19:31:13.798Z',
+                'InputDataConfig': {
+                    'S3Uri': 's3://testbucket',
+                    'InputFormat': 'ONE_DOC_PER_LINE'
+                },
+                'OutputDataConfig': {
+                    'S3Uri': 's3://inferencebucket/testaccount-TOPICS-some1233556sagsdfa/output/output.tar.gz'
+                },
+                'NumberOfTopics': 25,
+                'DataAccessRoleArn': 'arn:aws:iam::testaccount:role/service-role/AmazonComprehendServiceRole'
+            }
         });
     });
 
-    it ('should execute the lambda function and return job status', async () => {
-        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(",");
+    it('should execute the lambda function and return job status', async () => {
+        const sourcePrefixList = process.env.SOURCE_PREFIX.toLowerCase().split(',');
         const event = {};
         for (const sourcePrefix of sourcePrefixList) {
             event[`${sourcePrefix}`] = {
-                "JobId": "1234567890123456789012345",
-                "JobStatus": "IN_PROGRESS"
-            }
+                'JobId': '1234567890123456789012345',
+                'JobStatus': 'IN_PROGRESS'
+            };
         }
 
         const response = await lambda.handler(event);
@@ -170,6 +167,6 @@ describe('When jobs return completed status', () => {
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.SOURCE_PREFIX;
-        AWSMock.restore('Comprehend');
+        comprehendMock.restore();
     });
 });

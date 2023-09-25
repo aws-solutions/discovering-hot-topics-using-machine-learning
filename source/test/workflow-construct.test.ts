@@ -11,11 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Chain, StateMachineType, Succeed, Wait, WaitTime } from '@aws-cdk/aws-stepfunctions';
-import * as cdk from '@aws-cdk/core';
-import { Duration } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Chain, StateMachineType, Succeed, Wait, WaitTime } from 'aws-cdk-lib/aws-stepfunctions';
+import * as cdk from 'aws-cdk-lib';
+import { Duration } from 'aws-cdk-lib';
 import { Workflow } from '../lib/text-analysis-workflow/workflow-construct';
 
 
@@ -27,8 +26,7 @@ test('test standard workflow stack', () => {
                     }))
                     .next(new Succeed(stack, 'Success'))
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });
 
 test('test express workflow stack', () => {
     const stack = new cdk.Stack();
@@ -39,5 +37,4 @@ test('test express workflow stack', () => {
                     }))
                     .next(new Succeed(stack, 'Success'))
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

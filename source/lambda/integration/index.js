@@ -11,21 +11,23 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict";
+'use strict';
 
-const AWS = require('aws-sdk');
+const { KinesisClient, PutRecordCommand } = require('@aws-sdk/client-kinesis');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
-	const awsCustomConfig = CustomConfig.customAwsConfig();
-	const kinesisStream = new AWS.Kinesis(awsCustomConfig);
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const kinesisStream = new KinesisClient(awsCustomConfig);
 
-	const result = kinesisStream.putRecord({
-		Data: JSON.stringify(event),
-		PartitionKey: event.id,
-		StreamName: process.env.STREAM_NAME
-	}).promise();
+    const result = kinesisStream.send(
+        new PutRecordCommand({
+            Data: Buffer.from(JSON.stringify(event)),
+            PartitionKey: event.id,
+            StreamName: process.env.STREAM_NAME
+        })
+    );
 
-	console.debug(`Response from PutRecord: ${JSON.stringify(result)}`);
-	return result;
+    console.debug(`Response from PutRecord: ${JSON.stringify(result)}`);
+    return result;
 };

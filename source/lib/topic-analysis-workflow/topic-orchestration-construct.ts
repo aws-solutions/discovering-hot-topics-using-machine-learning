@@ -11,15 +11,16 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as events from '@aws-cdk/aws-events';
-import * as targets from '@aws-cdk/aws-events-targets';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as cdk from '@aws-cdk/core';
 import { LambdaToS3 } from '@aws-solutions-constructs/aws-lambda-s3';
 import { SqsToLambda } from '@aws-solutions-constructs/aws-sqs-lambda';
+import * as cdk from 'aws-cdk-lib';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import { Construct } from 'constructs';
 import { PlatformType } from '../ingestion/platform-type';
 import { StepFuncLambdaTask } from '../text-analysis-workflow/lambda-task-construct';
 import { Workflow } from '../text-analysis-workflow/workflow-construct';
@@ -37,8 +38,8 @@ export interface TopicOrchestrationProps {
     readonly platformTypes: PlatformType[];
 }
 
-export class TopicOrchestration extends cdk.Construct {
-    constructor(scope: cdk.Construct, id: string, props: TopicOrchestrationProps) {
+export class TopicOrchestration extends Construct {
+    constructor(scope: Construct, id: string, props: TopicOrchestrationProps) {
         super(scope, id);
 
         const lambdaPublishEventPolicy = new iam.Policy(this, 'LambdaEventBusPolicy');
@@ -57,7 +58,7 @@ export class TopicOrchestration extends cdk.Construct {
         const submitTopicTask = new StepFuncLambdaTask(this, 'SubmitTopic', {
             taskName: 'Submit',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../../lambda/wf-submit-topic-model`),
                 environment: {
@@ -224,7 +225,7 @@ export class TopicOrchestration extends cdk.Construct {
         const checkTopicStatus = new StepFuncLambdaTask(this, 'CheckStatus', {
             taskName: 'Check Status',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../../lambda/wf-check-topic-model`),
                 environment: {

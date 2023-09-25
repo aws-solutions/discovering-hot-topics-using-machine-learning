@@ -11,7 +11,7 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const sinon = require('sinon');
 const assert = require('assert');
@@ -19,8 +19,8 @@ const layerFunction = require('../index');
 
 describe('calling aws-nodesdk-custom-config', () => {
     beforeEach(() => {
-        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }'
-        process.env.AWS_REGION = 'us-east-1'
+        process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
+        process.env.AWS_REGION = 'us-east-1';
     });
 
     it('should return a json config', async () => {
@@ -28,7 +28,7 @@ describe('calling aws-nodesdk-custom-config', () => {
         assert(layerFunction.customAwsConfig(), {
             ...JSON.parse(process.env.AWS_SDK_USER_AGENT),
             region: process.env.AWS_REGION,
-            maxRetries: 10,
+            maxRetries: 10
         });
         sinon.assert.calledOnce(layerFuncSpy);
     });

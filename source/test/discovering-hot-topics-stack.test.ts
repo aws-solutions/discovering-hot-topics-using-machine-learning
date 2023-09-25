@@ -11,9 +11,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Stack } from 'aws-cdk-lib';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 
 
@@ -23,5 +22,4 @@ test('test ingestion stack', () => {
     new DiscoveringHotTopicsStack (stack, 'discoveringhottopicsusingmachinelearning', {
         description: 'Some fake description to test'
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

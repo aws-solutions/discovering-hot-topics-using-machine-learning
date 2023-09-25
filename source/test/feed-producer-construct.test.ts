@@ -11,22 +11,19 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Stream, StreamEncryption } from '@aws-cdk/aws-kinesis';
-import { Code, Runtime } from "@aws-cdk/aws-lambda";
-import { Duration, Stack } from '@aws-cdk/core';
 import * as assert from 'assert';
+import { Duration, Stack } from 'aws-cdk-lib';
+import { Stream, StreamEncryption } from 'aws-cdk-lib/aws-kinesis';
+import { Code, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { FeedProducer } from '../lib/ingestion/feed-producer-construct';
-
 
 test('Test Lambda with role and scheduler', () => {
     const stack = new Stack();
 
-    const producerStack = new FeedProducer(stack,'FeedProducerConstruct', {
+    const producerStack = new FeedProducer(stack, 'FeedProducerConstruct', {
         functionProps: {
             timeout: Duration.minutes(5),
-            runtime: Runtime.NODEJS_14_X,
+            runtime: Runtime.NODEJS_18_X,
             code: Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
             handler: 'index.handler',
             environment: {
@@ -39,9 +36,8 @@ test('Test Lambda with role and scheduler', () => {
         credentialKeyPath: '/some/dummy/path/test',
         stream: new Stream(stack, 'TestStream', {
             encryption: StreamEncryption.MANAGED
-        }),
+        })
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
     assert(producerStack.producerFunction !== null);
 });

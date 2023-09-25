@@ -12,9 +12,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { CustomDataTable, LoudnessScoreTable, ItemTable } from './custom-data-table-construct';
 import { EntityTable } from './entity-table-construct';
 import { KeyPhraseTable } from './keyphrase-table-construct';
@@ -36,12 +38,12 @@ export interface InferenceDatabaseProps {
     readonly tablePrefixMappings: Map<string, string>;
     readonly s3LoggingBucket: s3.Bucket;
 }
-export class InferenceDatabase extends cdk.Construct {
-    public readonly database: glue.Database;
+export class InferenceDatabase extends Construct {
+    public readonly database: glue_alpha.Database;
     public readonly tableMap: Map<any, glue.CfnTable>;
     public readonly glueKMSKey: string;
 
-    constructor(scope: cdk.Construct, id: string, props: InferenceDatabaseProps) {
+    constructor(scope: Construct, id: string, props: InferenceDatabaseProps) {
         super(scope, id);
 
         this.glueKMSKey = `arn:${cdk.Aws.PARTITION}:kms:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:alias/aws/glue`;
@@ -65,7 +67,7 @@ export class InferenceDatabase extends cdk.Construct {
             }
         });
 
-        this.database = new glue.Database(this, 'TweetDB', {
+        this.database = new glue_alpha.Database(this, 'TweetDB', {
             databaseName: 'socialmediadb'
         });
 

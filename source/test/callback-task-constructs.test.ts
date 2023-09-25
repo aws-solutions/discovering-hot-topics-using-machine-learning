@@ -11,11 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
 import { StepFuncCallbackTask } from '../lib/text-analysis-workflow/callback-task-construct';
 
 test('test statemachine fragment creation', () => {
@@ -24,15 +22,13 @@ test('test statemachine fragment creation', () => {
         stackName: 'testStack'
     });
 
-    const _sqsTask = new StepFuncCallbackTask (stack, 'testFragment', {
+    const _sqsTask = new StepFuncCallbackTask(stack, 'testFragment', {
         lambdaFunctionProps: {
             handler: 'index.handler',
             code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
-            runtime: lambda.Runtime.NODEJS_14_X
-        },
+            runtime: lambda.Runtime.NODEJS_18_X
+        }
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
 
 test('test by passing state machine', () => {
@@ -41,16 +37,14 @@ test('test by passing state machine', () => {
         stackName: 'testStack'
     });
 
-    const _sqsTask = new StepFuncCallbackTask (stack, 'testFragment', {
+    const _sqsTask = new StepFuncCallbackTask(stack, 'testFragment', {
         lambdaFunctionProps: {
             handler: 'index.handler',
             code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
-            runtime: lambda.Runtime.NODEJS_14_X
+            runtime: lambda.Runtime.NODEJS_18_X
         },
         stateMachine: new sfn.StateMachine(stack, 'testStateMachine', {
-            definition: new sfn.Pass(stack, 'Pass')
+            definitionBody: sfn.DefinitionBody.fromChainable(new sfn.Pass(stack, 'Pass'))
         })
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

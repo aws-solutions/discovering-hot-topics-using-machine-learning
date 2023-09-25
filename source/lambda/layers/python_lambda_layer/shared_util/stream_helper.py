@@ -35,6 +35,6 @@ def buffer_data_into_stream(data, partition_key=None):
     if not partition_key:
         partition_key = str(uuid.uuid4())
 
-    response = kds_client.put_record(StreamName=stream_name, Data=json.dumps(data), PartitionKey=partition_key)
+    response = kds_client.put_record(StreamName=stream_name, Data=json.dumps(data).encode('utf-8'), PartitionKey=partition_key)
     logger.debug(f"Response from buffering the stream is {response}")
     return response

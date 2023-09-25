@@ -11,8 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as cdk from '@aws-cdk/core';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct';
 
 /**
@@ -20,7 +21,7 @@ import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct
  * as a datatype is not supported by Amazon QuickSight.
  */
 export class CustomDataTable extends GenericCfnTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
@@ -28,66 +29,66 @@ export class CustomDataTable extends GenericCfnTable {
         return [
             {
                 name: 'account_name',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'platform',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'id_str',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'parent_id',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'lang',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: '_translated_text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: '_cleansed_text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'source_file',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'Id',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'BeginOffsetMillis',
-                type: glue.Schema.BIG_INT.inputString
+                type: glue_alpha.Schema.BIG_INT.inputString
             },
             {
                 name: 'EndOffsetMillis',
-                type: glue.Schema.BIG_INT.inputString
+                type: glue_alpha.Schema.BIG_INT.inputString
             },
             {
                 name: 'Sentiment',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'ParticipantRole',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }
         ];
     }
 }
 
 export class LoudnessScoreTable extends GenericCfnTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
@@ -95,30 +96,30 @@ export class LoudnessScoreTable extends GenericCfnTable {
         return [
             {
                 name: 'score',
-                type: glue.Schema.FLOAT.inputString
+                type: glue_alpha.Schema.FLOAT.inputString
             },
             {
                 name: 'account_name',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'platform',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'id_str',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'parent_id',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }
         ];
     }
 }
 
 export class ItemTable extends GenericCfnTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
@@ -126,39 +127,39 @@ export class ItemTable extends GenericCfnTable {
         return [
             {
                 name: 'account_name',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'platform',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'id_str',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'parent_id',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'Type',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'Confidence',
-                type: glue.Schema.FLOAT.inputString
+                type: glue_alpha.Schema.FLOAT.inputString
             },
             {
                 name: 'Content',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'BeginOffsetMillis',
-                type: glue.Schema.BIG_INT.inputString
+                type: glue_alpha.Schema.BIG_INT.inputString
             },
             {
                 name: 'EndOffsetMillis',
-                type: glue.Schema.BIG_INT.inputString
+                type: glue_alpha.Schema.BIG_INT.inputString
             }
         ];
     }

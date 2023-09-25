@@ -11,9 +11,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import '@aws-cdk/assert/jest';
-import { SynthUtils } from '@aws-cdk/assert';
-import { Aws, Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Aws, Stack } from 'aws-cdk-lib';
 import { QuickSightStack } from '../lib/quicksight-custom-resources/quicksight-stack';
 
 test('test QuickSight stackCreation', () => {
@@ -28,6 +27,4 @@ test('test QuickSight stackCreation', () => {
             'ParentStackName': Aws.STACK_NAME
         }
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

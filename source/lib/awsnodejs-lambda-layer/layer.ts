@@ -12,9 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { spawnSync } from 'child_process';
+import { Construct } from 'constructs';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -43,8 +43,8 @@ export interface NodejsLayerVersionProps {
 }
 
 export class NodejsLayerVersion extends lambda.LayerVersion {
-    constructor(scope: cdk.Construct, id: string, props: NodejsLayerVersionProps) {
-        const compatibleRuntimes = props.compatibleRuntimes ?? [lambda.Runtime.NODEJS_14_X];
+    constructor(scope: Construct, id: string, props: NodejsLayerVersionProps) {
+        const compatibleRuntimes = props.compatibleRuntimes ?? [lambda.Runtime.NODEJS_18_X];
 
         for (const runtime of compatibleRuntimes) {
             if (runtime && runtime.family !== lambda.RuntimeFamily.NODEJS) {
@@ -58,7 +58,7 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
         super(scope, id, {
             code: lambda.Code.fromAsset(entry, {
                 bundling: {
-                    image: lambda.Runtime.NODEJS_14_X.bundlingImage,
+                    image: lambda.Runtime.NODEJS_18_X.bundlingImage,
                     user: 'root',
                     local: {
                         // attempts local bundling first, if it fails, then executes docker based build

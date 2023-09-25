@@ -12,24 +12,20 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as events from '@aws-cdk/aws-events';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import { NagSuppressions } from 'cdk-nag';
+import { Construct } from 'constructs';
 import { CustomIngestion } from './custom-ingestion';
 import { FeedConsumer } from './feed-consumer-construct';
 import { NewsCatcher } from './newscatcher-stack';
 import { RedditIngestion } from './reddit-ingestion';
-import { TwitterSearchIngestion } from './twitter-search-stack';
 import { YoutubeComments } from './youtube-comments-stacks';
 
 export interface IngestionProps {
     readonly s3LoggingBucket: s3.Bucket;
-    readonly deployTwitter: cdk.CfnParameter;
-    readonly ingestFrequency?: cdk.CfnParameter;
-    readonly twitterQueryParameter?: cdk.CfnParameter;
-    readonly supportedLang?: cdk.CfnParameter; //comma separated values of language codes
-    readonly credentialKeyPath?: cdk.CfnParameter;
     readonly deployRSSNewsFeeds: cdk.CfnParameter;
     readonly rssNewsFeedQueryParameter?: cdk.CfnParameter;
     readonly rssNewsFeedConfig?: cdk.CfnParameter;
@@ -48,15 +44,15 @@ export interface IngestionProps {
     readonly metadataNS: string;
 }
 
-export class Ingestion extends cdk.Construct {
+export class Ingestion extends Construct {
     public readonly consumerLambdaFunc;
 
-    constructor(scope: cdk.Construct, id: string, props: IngestionProps) {
+    constructor(scope: Construct, id: string, props: IngestionProps) {
         super(scope, id);
 
         const _feedConsumerlambda = new FeedConsumer(this, 'FeedConsumer', {
             functionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/ingestion-consumer'),
                 timeout: cdk.Duration.minutes(5),
@@ -66,36 +62,18 @@ export class Ingestion extends cdk.Construct {
             shardCount: 1
         });
         this.consumerLambdaFunc = _feedConsumerlambda.lambdaFunction;
+        NagSuppressions.addResourceSuppressions(_feedConsumerlambda, [
+            { id: 'AwsSolutions-SQS3', reason: 'SQS queue is used as destination for discarded records from Kinesis stream' }
+        ], true);
 
         // creating a common event bus messaging backbone across different ingestion sources
         const _eventBus = new events.EventBus(this, 'Bus');
 
-        const _twitterSearch = new TwitterSearchIngestion(this, 'TwitterSearch', {
-            parameters: {
-                'SupportedLang': props.supportedLang!.valueAsString,
-                'QueryParameter': props.twitterQueryParameter!.valueAsString,
-                'SSMPathForCredentials': props.credentialKeyPath!.valueAsString,
-                'IngestQueryFrequency': props.ingestFrequency!.valueAsString,
-                'StreamARN': _feedConsumerlambda.kinesisStream.streamArn
-            }
-        });
         const _JSON_FILE_EXTN_LENGTH = '.json'.length;
-        _twitterSearch.nestedStackResource!.addMetadata(
-            'nestedStackFileName',
-            _twitterSearch.templateFile.slice(0, -_JSON_FILE_EXTN_LENGTH)
-        );
-
-        const _deployTwitterIngestionCondition = new cdk.CfnCondition(this, 'DeployTwitterIngestion', {
-            expression: cdk.Fn.conditionAnd(
-                cdk.Fn.conditionEquals(props.deployTwitter, 'Yes'),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.twitterQueryParameter, '')),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.ingestFrequency, '')),
-                cdk.Fn.conditionNot(cdk.Fn.conditionEquals(props.credentialKeyPath, ''))
-            )
-        });
-        _twitterSearch.nestedStackResource!.cfnOptions.condition = _deployTwitterIngestionCondition;
-
         const _newsCatcher = new NewsCatcher(this, 'NewsCatcher', {
+            description: `(${this.node.tryGetContext(
+                'solution_id'
+            )}n-newsfeed) - Discovering Hot Topics using Machine Learning nested Newsfeed ingestion resources - Version %%VERSION%%`,
             parameters: {
                 'EventBus': _eventBus.eventBusArn,
                 'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
@@ -122,6 +100,9 @@ export class Ingestion extends cdk.Construct {
 
         // YouTube ingestion nested stack
         const _youTubeComments = new YoutubeComments(this, 'YouTubeCommentsIngestion', {
+            description: `(${this.node.tryGetContext(
+                'solution_id'
+            )}n-youtube) - Discovering Hot Topics using Machine Learning nested Youtube comment ingestion resources - Version %%VERSION%%`,
             parameters: {
                 'EventBus': _eventBus.eventBusArn,
                 'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
@@ -152,6 +133,9 @@ export class Ingestion extends cdk.Construct {
         _youTubeComments.nestedStackResource!.cfnOptions.condition = _deployYoutubeCommentsCondition;
 
         const _customIngestion = new CustomIngestion(this, 'S3CustomIngestion', {
+            description: `(${this.node.tryGetContext(
+                'solution_id'
+            )}n-custom) - Discovering Hot Topics using Machine Learning nested Custom ingestion resources - Version %%VERSION%%`,
             parameters: {
                 'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
                 'IntegrationBus': props.integrationEventBus.eventBusArn,
@@ -168,15 +152,20 @@ export class Ingestion extends cdk.Construct {
             expression: cdk.Fn.conditionEquals(props.deployCustomIngestion.valueAsString, 'Yes')
         });
         _customIngestion.nestedStackResource!.cfnOptions.condition = _deployCustomIngestionCondition;
-        (_customIngestion.node.defaultChild as cdk.CfnResource).addDependsOn(
+        (_customIngestion.node.defaultChild as cdk.CfnResource).addDependency(
             props.s3LoggingBucket.node.tryFindChild('Policy')?.node.tryFindChild('Resource') as cdk.CfnResource
         );
 
         const _redditIngesiton = new RedditIngestion(this, 'RedditIngestion', {
+            description: `(${this.node.tryGetContext(
+                'solution_id'
+            )}n-reddit) - Discovering Hot Topics using Machine Learning nested Reddit comment ingestion resources - Version %%VERSION%%`,
             parameters: {
+                'RedditAPIKey': props.redditAPIKey!.valueAsString,
                 'StreamARN': _feedConsumerlambda.kinesisStream.streamArn,
                 'EventBus': _eventBus.eventBusArn,
-                'SubRedditsToFollow': props.subRedditsToFollow!.valueAsString
+                'SubRedditsToFollow': props.subRedditsToFollow!.valueAsString,
+                'RedditIngestionFrequency': props.redditIngestionFreq?.valueAsString!
             }
         });
         _redditIngesiton.nestedStackResource?.addMetadata(

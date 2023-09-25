@@ -16,7 +16,9 @@
 const lambda = require('../index.js');
 const sinon = require('sinon');
 const expect = require('chai').expect;
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { FirehoseClient, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
+const firehoseMock = AWSMock.mockClient(FirehoseClient);
 const moment = require('moment');
 const assert = require('assert');
 
@@ -27,6 +29,7 @@ describe('When firehose-text-proxy processor is called', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        firehoseMock.reset();
         lambdaSpy = sinon.spy(lambda, 'handler');
         process.env.CUSTOMINGESTIONITEM_FEED_STORAGE = 'customingestionitem_feed_storage';
         process.env.CUSTOMINGESTIONLOUDNESS_FEED_STORAGE = 'customingestionloudness_feed_storage';
@@ -44,14 +47,14 @@ describe('When firehose-text-proxy processor is called', () => {
 
         process.env.REGION = 'us-east-1';
 
-        AWSMock.mock('Firehose', 'putRecord', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
                 'Encrypted': true,
                 'RecordId': '49607933892580429045866716038015163261214518926441971714'
             });
         });
 
-        AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
                 'Encrypted': true,
                 'FailedPutCount': 0
@@ -125,6 +128,6 @@ describe('When firehose-text-proxy processor is called', () => {
         delete process.env.CUSTOMINGESTIONLOUDNESS_FEED_STORAGE;
         delete process.env.CUSTOMINGESTION_FEED_STORAGE;
 
-        AWSMock.restore('Firehose');
+        firehoseMock.restore();
     });
 });

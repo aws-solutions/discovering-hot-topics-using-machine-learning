@@ -13,10 +13,14 @@
 ######################################################################################################################
 
 from util import comment, video
+from shared_util.custom_logging import get_logger
+import json
 
+logger = get_logger(__name__)
 
 def search_videos(event, _):
-    video.search_videos(event)
+    logger.debug(f"Search videos received event: {json.dumps(event)}")
+    video.search_videos()
 
 
 def search_comments(event, _):

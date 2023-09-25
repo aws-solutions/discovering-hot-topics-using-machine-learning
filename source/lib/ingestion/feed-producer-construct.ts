@@ -12,13 +12,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { AttributeType } from '@aws-cdk/aws-dynamodb';
-import { Rule, Schedule } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Effect, PolicyStatement, Role } from '@aws-cdk/aws-iam';
-import { IStream } from '@aws-cdk/aws-kinesis';
-import { Function, FunctionProps } from '@aws-cdk/aws-lambda';
-import { Aws, Construct } from '@aws-cdk/core';
+import { AttributeType } from 'aws-cdk-lib/aws-dynamodb';
+import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { Effect, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
+import { IStream } from 'aws-cdk-lib/aws-kinesis';
+import { Function, FunctionProps } from 'aws-cdk-lib/aws-lambda';
+import { Aws } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
 
 export interface FeedProducerProps {

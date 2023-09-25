@@ -12,15 +12,17 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Construct, Duration } from '@aws-cdk/core';
-import * as cloudtrail from '@aws-cdk/aws-cloudtrail';
-import * as events from '@aws-cdk/aws-events';
-import * as targets from '@aws-cdk/aws-events-targets';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as sqs from '@aws-cdk/aws-sqs';
 import * as defaults from '@aws-solutions-constructs/core';
+import { Duration } from 'aws-cdk-lib';
+import * as cloudtrail from 'aws-cdk-lib/aws-cloudtrail';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { NagSuppressions } from 'cdk-nag';
+import { Construct } from 'constructs';
 
 export interface S3ToEventBridgeToLambdaProps {
     /**
@@ -82,19 +84,22 @@ export class S3ToEventBridgeToLambda extends Construct {
         let bucket: s3.IBucket;
 
         if (!props.existingBucketObj) {
-            [this.s3Bucket, this.s3LoggingBucket] = defaults.buildS3Bucket(this, {
+            const buildS3 = defaults.buildS3Bucket(this, {
                 bucketProps: {
                     ...props.bucketProps,
                     serverAccessLogsBucket: props.s3LoggingBucket,
                     serverAccessLogsPrefix: `${id}/`
                 }
             });
+
+            [this.s3Bucket, this.s3LoggingBucket] = [buildS3.bucket, buildS3.loggingBucket];
             bucket = this.s3Bucket;
         } else {
             bucket = props.existingBucketObj;
         }
 
-        (bucket.node.defaultChild as s3.CfnBucket).notificationConfiguration = {
+        const cfnS3Bucket = bucket.node.defaultChild as s3.CfnBucket;
+        cfnS3Bucket.notificationConfiguration = {
             eventBridgeConfiguration: {
                 eventBridgeEnabled: true
             }
@@ -119,8 +124,12 @@ export class S3ToEventBridgeToLambda extends Construct {
 
         // create a dead-letter queue
         const _dlq = new sqs.Queue(this, 'DLQ', {
-            encryption: sqs.QueueEncryption.KMS_MANAGED
+            encryption: sqs.QueueEncryption.KMS_MANAGED, 
+            enforceSSL: true
         });
+        NagSuppressions.addResourceSuppressions(_dlq, [
+            { id: 'AwsSolutions-SQS3', reason: "This SQS queue is used as a destination to store events that couldn't successfully be delivered to the target" }
+        ]);
 
         let _lambdaFunc = defaults.buildLambdaFunction(this, {
             existingLambdaObj: props.existingLambdaObj,

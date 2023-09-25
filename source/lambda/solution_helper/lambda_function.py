@@ -25,19 +25,6 @@ logger = logging.getLogger(__name__)
 helper = CfnResource(json_logging=True, log_level="INFO")
 
 
-def _sanitize_data(resource_properties):
-    # Remove ServiceToken (lambda arn) to avoid sending AccountId
-    resource_properties.pop("ServiceToken", None)
-    resource_properties.pop("Resource", None)
-
-    # Solution ID and unique ID are sent separately
-    resource_properties.pop("SolutionId", None)
-    resource_properties.pop("UUID", None)
-    resource_properties.pop("Version", None)
-
-    return resource_properties
-
-
 @helper.create
 @helper.update
 @helper.delete
@@ -51,24 +38,24 @@ def custom_resource(event, _):
         helper.Data.update({"UUID": random_id})
     elif resource == "AnonymousMetric":
         try:
-            metrics_data = _sanitize_data(copy(resource_properties))
+            metrics_data = {}
+            metrics_data["Region"] = resource_properties["Region"]
             metrics_data["RequestType"] = request_type
             # determine query complexity, actual query not posted
-            metrics_data["TwitterSearchQueryComplexity"] = len(
-                re.split(" OR  | + ", os.environ.get("TWITTER_SEARCH_QUERY", ""))
-            )
-            metrics_data["TwitterSearchQueryLength"] = len(os.environ.get("TWITTER_SEARCH_QUERY", ""))
-            metrics_data["TwitterLangFilter"] = os.environ.get("TWITTER_LANG_FILTER", "")
-            metrics_data["TwitterIngestionFreq"] = os.environ.get("TWITTER_INGEST_FREQ", "")
-            metrics_data["TopicJobFreq"] = os.environ["TOPIC_JOB_FREQ"]
+            metrics_data["TopicJobFreq"] = resource_properties["TopicJobFreq"]
             # determine query complexity, actual query not posted
-            metrics_data["NewsFeedsSearchComplexity"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", "").split(","))
-            metrics_data["NewsFeedsSearchQueryLength"] = len(os.environ.get("NEWSFEEDS_SEARCH_QUERY", ""))
-            metrics_data["NewsFeedsIngestionFreq"] = os.environ.get("NEWSFEEDS_INGESTION_FREQ", "")
-            metrics_data["YouTubeSearchQueryLength"] = len(os.environ.get("YOUTUBE_SEARCH_QUERY"))
-            metrics_data["YouTubIngestionFreq"] = os.environ.get("YOUTUBE_INGESTION_FREQ", "")
-            metrics_data["YouTubeChannelIDSet"] = "True" if os.environ.get("YOUTUBE_CHANNEL_ID", None) else "False"
-            metrics_data["CustomIngestion"] = os.environ.get("DEPLOY_CUSTOM_INGESTION", "")
+            metrics_data["NewsFeedsIngestionEnabled"] = resource_properties["NewsFeedsIngestionEnabled"]
+            metrics_data["NewsFeedsSearchComplexity"] = len(resource_properties["NewsFeedsSearchQuery"].split(","))
+            metrics_data["NewsFeedsSearchQueryLength"] = len(resource_properties["NewsFeedsSearchQuery"])
+            metrics_data["NewsFeedsIngestionFreq"] = resource_properties["NewsFeedsIngestionFreq"]
+            metrics_data["YoutubeIngestionEnabled"] = resource_properties["YoutubeIngestionEnabled"]
+            metrics_data["YouTubeSearchQueryLength"] = len(resource_properties["YoutubeSearchQuery"])
+            metrics_data["YouTubeIngestionFreq"] = resource_properties["YouTubeIngestionFreq"]
+            metrics_data["YouTubeChannelIDSet"] = "True" if resource_properties["YoutubeChannelId"] else "False"
+            metrics_data["RedditIngestionEnabled"] = resource_properties["RedditIngestionEnabled"]  
+            metrics_data["RedditIngestionFreq"] = resource_properties["RedditIngestionFreq"]
+            metrics_data["RedditIngestionSubredditCount"] = len(list(filter(None, resource_properties["SubredditsToFollow"].strip().split(","))))
+            metrics_data["CustomIngestionEnabled"] = resource_properties["DeployCustomIngestion"]
 
             headers = {"Content-Type": "application/json"}
             payload = {

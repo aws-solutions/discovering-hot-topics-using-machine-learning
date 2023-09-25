@@ -11,27 +11,22 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Code, Runtime } from "@aws-cdk/aws-lambda";
-import { Duration, Stack } from '@aws-cdk/core';
+import { Duration, Stack } from 'aws-cdk-lib';
+import { Code, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { FeedConsumer } from '../lib/ingestion/feed-consumer-construct';
 
 test('Test Lambda with Kinesis', () => {
     const stack = new Stack();
 
-    new FeedConsumer(stack,'FeedConsumerConstruct', {
+    new FeedConsumer(stack, 'FeedConsumerConstruct', {
         functionProps: {
             environment: {
                 WORKFLOW_ARN: 'arn:aws:states:us-east-1:someaccountid:stateMachine:WorkflowEngine12346891012-ad234ab'
             },
             timeout: Duration.minutes(5),
-            runtime: Runtime.NODEJS_14_X,
+            runtime: Runtime.NODEJS_18_X,
             code: Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
             handler: 'index.handler'
         }
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-
 });

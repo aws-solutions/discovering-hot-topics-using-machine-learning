@@ -13,7 +13,9 @@
 
 'use strict';
 
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { DynamoDBClient, QueryCommand, PutItemCommand } = require('@aws-sdk/client-dynamodb');
+const dynamoDBMock = AWSMock.mockClient(DynamoDBClient);
 const expect = require('chai').expect;
 
 const FeedTracker = require('../util/feed-tracker');
@@ -22,24 +24,20 @@ describe('When testing DDB', () => {
     let feedTracker;
 
     beforeEach(() => {
+        dynamoDBMock.reset();
         process.env.DDB_TABLE_NAME = 'test_table';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('DynamoDB', 'query', (error, callback) => {
-            callback(null, {
-                Items: [
-                    {
-                        MAX_ID: { S: '123' }
-                    }
-                ]
-            });
+        dynamoDBMock.on(QueryCommand).resolves({
+            Items: [
+                {
+                    MAX_ID: { S: '123' }
+                }
+            ]
         });
 
-        AWSMock.mock('DynamoDB', 'putItem', (error, callback) => {
-            callback(null, 'Success');
-        });
-
+        dynamoDBMock.on(PutItemCommand).resolves('Success');
         feedTracker = new FeedTracker();
     });
 
@@ -129,6 +127,6 @@ describe('When testing DDB', () => {
         delete process.env.AWS_REGION;
         delete process.env.AWS_SDK_USER_AGENT;
 
-        AWSMock.restore('DynamoDB');
+        dynamoDBMock.restore();
     });
 });

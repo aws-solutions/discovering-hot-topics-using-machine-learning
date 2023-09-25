@@ -13,12 +13,12 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { SFNClient: StepFunctions, StartExecutionCommand } = require('@aws-sdk/client-sfn');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
+    const stepfunctions = new StepFunctions(awsCustomConfig);
 
     await Promise.all(
         event.Records.map(async (record, index) => {
@@ -29,7 +29,8 @@ exports.handler = async (event) => {
             };
 
             try {
-                let response = await stepfunctions.startExecution(params).promise();
+                const command = new StartExecutionCommand(params);
+                const response = await stepfunctions.send(command);
                 console.log(`STATEMACHINE EXECUTE:: ${JSON.stringify(response, null, 2)}`);
             } catch (err) {
                 console.error(`Error occured when processing ${payload}`, err);

@@ -1,4 +1,3 @@
-
 /**********************************************************************************************************************
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.                                                *
  *                                                                                                                    *
@@ -12,14 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict";
+'use strict';
 
-const AWS = require('aws-sdk');
+const { S3Client, ListObjectsV2Command, DeleteObjectsCommand } = require('@aws-sdk/client-s3');
 const CustomConfig = require('aws-nodesdk-custom-config');
 class ImageExtractor {
-    constructor () {
+    constructor() {
         const awsCustomConfig = CustomConfig.customAwsConfig();
-        this.s3 = new AWS.S3(awsCustomConfig);
+        this.s3 = new S3Client(awsCustomConfig);
     }
 
     /**
@@ -33,10 +32,9 @@ class ImageExtractor {
             Prefix: keyPrefix
         };
 
-        while(true) {
-            const objectList = await this.s3.listObjectsV2(params).promise();
-
-            if (objectList.Contents.length == 0) {
+        while (true) {
+            const objectList = await this.s3.send(new ListObjectsV2Command(params));
+            if (objectList.Contents === undefined || objectList.Contents.length === 0) {
                 console.debug('Bucket is empty');
                 break;
             }
@@ -50,20 +48,22 @@ class ImageExtractor {
             console.debug(`Key are ${JSON.stringify(keys)}`);
 
             try {
-                const deleteResponse = await this.s3.deleteObjects({
-                    Bucket: destinationBucket,
-                    Delete: {
-                        Objects: keys,
-                        Quiet: true
-                    }
-                }).promise();
+                const deleteResponse = await this.s3.send(
+                    new DeleteObjectsCommand({
+                        Bucket: destinationBucket,
+                        Delete: {
+                            Objects: keys,
+                            Quiet: true
+                        }
+                    })
+                );
 
                 if (deleteResponse.Deleted !== undefined && deleteResponse.Deleted.length > 0) {
                     deleteResponse.Deleted.forEach((notDeletedKey) => {
                         console.warn(`${JSON.stringify(notDeletedKey)} could not be deleted`);
                     });
                 }
-            } catch(error) {
+            } catch (error) {
                 console.error(`Error in deleting following keys ${JSON.stringify(keys)}`, error);
                 throw error;
             }

@@ -12,12 +12,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as cdk from '@aws-cdk/core';
-import * as applicationinsights from '@aws-cdk/aws-applicationinsights';
-import * as appreg from '@aws-cdk/aws-servicecatalogappregistry';
+import * as cdk from 'aws-cdk-lib';
+import { Construct, IConstruct } from 'constructs';
+import * as appreg_alpha from '@aws-cdk/aws-servicecatalogappregistry-alpha';
+import { aws_servicecatalogappregistry as appreg } from 'aws-cdk-lib';
 import * as crypto from 'crypto';
 
-export class AppRegistry extends cdk.Construct implements cdk.IAspect {
+export class AppRegistry extends Construct implements cdk.IAspect {
     /**
      * Name of the solution as set through from cdk.json
      */
@@ -39,11 +40,6 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
     private solutionVersion: string;
 
     /**
-     * An AttributeGroupName initialized in the constructor of this class
-     */
-    private attributeGroupName: string;
-
-    /**
      * An application type attribute initialized in the constructor of this class
      */
     private applicationType: string;
@@ -51,9 +47,9 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
     /**
      * The instance of application that the solution stacks should be associated with
      */
-    private application: appreg.Application;
+    private application: appreg_alpha.Application;
 
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: Construct, id: string) {
         super(scope, id);
         this.solutionName = scope.node.tryGetContext('solution_name');
         this.applicationName = scope.node.tryGetContext('app_registry_name');
@@ -67,13 +63,13 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
      *
      * @param node
      */
-    public visit(node: cdk.IConstruct): void {
+    public visit(node: IConstruct): void {
         if (node instanceof cdk.Stack) {
             if (!node.nested) {
                 // parent stack
                 const stack = node as cdk.Stack;
                 this.createAppForAppRegistry();
-                this.application.associateStack(stack);
+                this.application.associateApplicationWithStack(stack);
                 this.createAttributeGroup();
                 this.addTagsforApplication();
             }
@@ -84,7 +80,7 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
                 this.createAppForAppRegistry();
             }
 
-            const stack = node as cdk.NestedStack;
+            const nestedStack = node as cdk.NestedStack;
 
             const nestedStackResourceAssociation = new appreg.CfnResourceAssociation(
                 this,
@@ -96,7 +92,7 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
                 }
             );
 
-            const cfnNestedStackResource = stack.nestedStackResource as cdk.CfnResource;
+            const cfnNestedStackResource = nestedStack.nestedStackResource as cdk.CfnResource;
             if (cfnNestedStackResource.hasOwnProperty('cfnOptions')) {
                 nestedStackResourceAssociation.cfnOptions.condition = cfnNestedStackResource.cfnOptions.condition;
             }
@@ -109,7 +105,7 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
      * @returns - Instance of AppRegistry's Application class
      */
     private createAppForAppRegistry(): void {
-        this.application = new appreg.Application(this, 'RegistrySetup', {
+        this.application = new appreg_alpha.Application(this, 'RegistrySetup', {
             applicationName: cdk.Fn.join('-', ['App', cdk.Aws.STACK_NAME, this.applicationName]),
             description: `Service Catalog application to track and manage all your resources for the solution ${this.solutionName}`
         });
@@ -137,18 +133,16 @@ export class AppRegistry extends cdk.Construct implements cdk.IAspect {
         if (!this.application) {
             this.createAppForAppRegistry();
         }
-        this.application.associateAttributeGroup(
-            new appreg.AttributeGroup(this, 'AppAttributes', {
-                attributeGroupName: `AttrGrp-${cdk.Aws.STACK_NAME}`,
-                description: 'Attributes for Solutions Metadata',
-                attributes: {
-                    applicationType: this.applicationType,
-                    version: this.solutionVersion,
-                    solutionID: this.solutionID,
-                    solutionName: this.solutionName
-                }
-            })
-        );
+        const attrGroup = new appreg_alpha.AttributeGroup(this, 'AppAttributes', {
+            attributeGroupName: `AttrGrp-${cdk.Aws.STACK_NAME}`,
+            description: 'Attributes for Solutions Metadata',
+            attributes: {
+                applicationType: this.applicationType,
+                version: this.solutionVersion,
+                solutionID: this.solutionID,
+                solutionName: this.solutionName
+            }
+        });
+        attrGroup.associateWith(this.application);
     }
 }
-

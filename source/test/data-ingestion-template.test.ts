@@ -11,14 +11,12 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { ResourcePart, SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import * as ddb from '@aws-cdk/aws-dynamodb';
-import { EventBus, Rule } from '@aws-cdk/aws-events';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
+import * as ddb from 'aws-cdk-lib/aws-dynamodb';
+import { EventBus, Rule } from 'aws-cdk-lib/aws-events';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { DataIngestionTemplate } from '../lib/ingestion/data-ingestion-template';
-
 
 test('test ingestion with all parameters and custom event bridge', () => {
     const app = new cdk.App();
@@ -29,33 +27,33 @@ test('test ingestion with all parameters and custom event bridge', () => {
     const template = new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
-                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 }
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 },
                 sortKey: {
-                    name: "CREATED_TIMESTAMP",
+                    name: 'CREATED_TIMESTAMP',
                     type: ddb.AttributeType.STRING
                 },
-                timeToLiveAttribute: "EXP_DATE"
+                timeToLiveAttribute: 'EXP_DATE'
             },
             credentialKeyPath: 'test/fakekey/fakepath'
         },
@@ -65,35 +63,28 @@ test('test ingestion with all parameters and custom event bridge', () => {
         ingestionEventRuleProps: {
             enabled: true,
             eventPattern: {
-                account: [ cdk.Aws.ACCOUNT_ID ],
-                region: [ cdk.Aws.REGION ],
-                source: [ 'test.fake.namespace' ]
+                account: [cdk.Aws.ACCOUNT_ID],
+                region: [cdk.Aws.REGION],
+                source: ['test.fake.namespace']
             }
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Events::EventBus', {
-        Type: 'AWS::Events::EventBus',
-        Properties: {
-            Name: "testBus"
+    Template.fromStack(stack).hasResourceProperties('AWS::Events::EventBus', {
+        Name: 'testBus'
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::Events::Rule', {
+        State: 'ENABLED',
+        Targets: Match.anyValue(),
+        EventBusName: {},
+        EventPattern: {
+            account: [{ 'Ref': 'AWS::AccountId' }],
+            region: [{ 'Ref': 'AWS::Region' }],
+            source: ['test.fake.namespace']
         }
-    }, ResourcePart.CompleteDefinition);
-    expect(stack).toHaveResourceLike('AWS::Events::Rule', {
-        Type: "AWS::Events::Rule",
-        Properties: {
-            State: "ENABLED",
-            Targets: {},
-            EventBusName: {},
-            EventPattern: {
-                account: [{ "Ref": "AWS::AccountId" }],
-                region: [{ "Ref": "AWS::Region" }],
-                source: [ "test.fake.namespace" ]
-            }
-        }
-    }, ResourcePart.CompleteDefinition);
-    expect(stack).toCountResources('AWS::DynamoDB::Table', 2);
-    expect(stack).toCountResources('AWS::Lambda::Function', 2);
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DynamoDB::Table', 2);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 2);
 
     // test gettter functions
     expect(template.bus).not.toBeNull();
@@ -124,33 +115,33 @@ test('test ingestion with existing event bus', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
-                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 }
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 },
                 sortKey: {
-                    name: "CREATED_TIMESTAMP",
+                    name: 'CREATED_TIMESTAMP',
                     type: ddb.AttributeType.STRING
                 },
-                timeToLiveAttribute: "EXP_DATE"
+                timeToLiveAttribute: 'EXP_DATE'
             },
             credentialKeyPath: 'test/fakekey/fakepath'
         },
@@ -158,20 +149,16 @@ test('test ingestion with existing event bus', () => {
         ingestionEventRuleProps: {
             enabled: true,
             eventPattern: {
-                account: [ cdk.Aws.ACCOUNT_ID ],
-                region: [ cdk.Aws.REGION ],
-                source: [ 'test.fake.namespace' ]
+                account: [cdk.Aws.ACCOUNT_ID],
+                region: [cdk.Aws.REGION],
+                source: ['test.fake.namespace']
             }
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Events::EventBus', {
-        Type: 'AWS::Events::EventBus',
-        Properties: {
-            Name: "testStackexistingEventBus7236155E"
-        }
-    }, ResourcePart.CompleteDefinition);
+    Template.fromStack(stack).hasResourceProperties('AWS::Events::EventBus', {
+        Name: 'testStackexistingEventBus7236155E'
+    });
 });
 
 test('fail when neither existing bus nor event bus properties are provided', () => {
@@ -184,50 +171,52 @@ test('fail when neither existing bus nor event bus properties are provided', () 
         new DataIngestionTemplate(stack, 'testCustomBus', {
             source: {
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.NODEJS_14_X,
+                    runtime: lambda.Runtime.NODEJS_18_X,
                     handler: 'index.handler',
-                    code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                    code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
                 },
                 tableProps: {
                     partitionKey: {
-                        name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                        name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                         type: ddb.AttributeType.STRING
                     }
                 }
             },
             target: {
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.NODEJS_14_X,
+                    runtime: lambda.Runtime.NODEJS_18_X,
                     handler: 'index.handler',
                     code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
                 },
                 tableProps: {
                     partitionKey: {
-                        name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                        name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                         type: ddb.AttributeType.STRING
                     },
                     sortKey: {
-                        name: "CREATED_TIMESTAMP",
+                        name: 'CREATED_TIMESTAMP',
                         type: ddb.AttributeType.STRING
                     },
-                    timeToLiveAttribute: "EXP_DATE"
+                    timeToLiveAttribute: 'EXP_DATE'
                 },
                 credentialKeyPath: 'test/fakekey/fakepath'
             },
             ingestionEventRuleProps: {
                 enabled: true,
                 eventPattern: {
-                    account: [ cdk.Aws.ACCOUNT_ID ],
-                    region: [ cdk.Aws.REGION ],
-                    source: [ 'test.fake.namespace' ]
+                    account: [cdk.Aws.ACCOUNT_ID],
+                    region: [cdk.Aws.REGION],
+                    source: ['test.fake.namespace']
                 }
             }
         });
-    } catch(error) {
-        expect(error).toEqual(new Error('Either ingestionEventBusProps or existingIngestionEventBus has to be set. Both cannot be undefined'));
+    } catch (error) {
+        expect(error).toEqual(
+            new Error(
+                'Either ingestionEventBusProps or existingIngestionEventBus has to be set. Both cannot be undefined'
+            )
+        );
     }
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
 
 test('do not create source dynamodb table', () => {
@@ -239,27 +228,27 @@ test('do not create source dynamodb table', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
-                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 },
                 sortKey: {
-                    name: "CREATED_TIMESTAMP",
+                    name: 'CREATED_TIMESTAMP',
                     type: ddb.AttributeType.STRING
                 },
-                timeToLiveAttribute: "EXP_DATE"
+                timeToLiveAttribute: 'EXP_DATE'
             },
             credentialKeyPath: 'test/fakekey/fakepath'
         },
@@ -267,28 +256,27 @@ test('do not create source dynamodb table', () => {
         ingestionEventRuleProps: {
             enabled: true,
             eventPattern: {
-                account: [ cdk.Aws.ACCOUNT_ID ],
-                region: [ cdk.Aws.REGION ],
-                source: [ 'test.fake.namespace' ]
+                account: [cdk.Aws.ACCOUNT_ID],
+                region: [cdk.Aws.REGION],
+                source: ['test.fake.namespace']
             }
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toCountResources('AWS::DynamoDB::Table', 1);
-    expect(stack).toCountResources('AWS::Lambda::Function', 2);
-    expect(stack).toHaveResourceLike('AWS::DynamoDB::Table', {
-        Type: 'AWS::DynamoDB::Table',
-        Properties: {
-            KeySchema: [{
-                AttributeName: "ACCOUNT_IDENTIFIER",
-                KeyType: "HASH"
-            }, {
-                AttributeName: "CREATED_TIMESTAMP",
-                KeyType: "RANGE",
-            }]
-        }
-    }, ResourcePart.CompleteDefinition);
+    Template.fromStack(stack).resourceCountIs('AWS::DynamoDB::Table', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 2);
+    Template.fromStack(stack).hasResourceProperties('AWS::DynamoDB::Table', {
+        KeySchema: [
+            {
+                AttributeName: 'ACCOUNT_IDENTIFIER',
+                KeyType: 'HASH'
+            },
+            {
+                AttributeName: 'CREATED_TIMESTAMP',
+                KeyType: 'RANGE'
+            }
+        ]
+    });
 });
 
 test('do not create target dynamodb table', () => {
@@ -300,20 +288,20 @@ test('do not create target dynamodb table', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
-                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
             tableProps: {
                 partitionKey: {
-                    name: "ACCOUNT_IDENTIFIER", // socail media account identifier is the partition key
+                    name: 'ACCOUNT_IDENTIFIER', // socail media account identifier is the partition key
                     type: ddb.AttributeType.STRING
                 }
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -323,37 +311,41 @@ test('do not create target dynamodb table', () => {
         ingestionEventRuleProps: {
             enabled: true,
             eventPattern: {
-                account: [ cdk.Aws.ACCOUNT_ID ],
-                region: [ cdk.Aws.REGION ],
-                source: [ 'test.fake.namespace' ]
+                account: [cdk.Aws.ACCOUNT_ID],
+                region: [cdk.Aws.REGION],
+                source: ['test.fake.namespace']
             }
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toCountResources('AWS::DynamoDB::Table', 1);
-    expect(stack).toCountResources('AWS::Lambda::Function', 2);
-    expect(stack).not.toHaveResourceLike('AWS::DynamoDB::Table', {
-        Type: 'AWS::DynamoDB::Table',
-        Properties: {
-            KeySchema: [{
-                AttributeName: "ACCOUNT_IDENTIFIER",
-                KeyType: "HASH"
-            }, {
-                AttributeName: "CREATED_TIMESTAMP",
-                KeyType: "RANGE",
-            }]
-        }
-    }, ResourcePart.CompleteDefinition);
-    expect(stack).toHaveResourceLike('AWS::DynamoDB::Table', {
-        Type: 'AWS::DynamoDB::Table',
-        Properties: {
-            KeySchema: [{
-                AttributeName: "ACCOUNT_IDENTIFIER",
-                KeyType: "HASH"
-            }]
-        }
-    }, ResourcePart.CompleteDefinition);
+    Template.fromStack(stack).resourceCountIs('AWS::DynamoDB::Table', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 2);
+    Template.fromStack(stack).hasResourceProperties(
+        'AWS::DynamoDB::Table',
+        Match.not({
+            Type: 'AWS::DynamoDB::Table',
+            Properties: {
+                KeySchema: [
+                    {
+                        AttributeName: 'ACCOUNT_IDENTIFIER',
+                        KeyType: 'HASH'
+                    },
+                    {
+                        AttributeName: 'CREATED_TIMESTAMP',
+                        KeyType: 'RANGE'
+                    }
+                ]
+            }
+        })
+    );
+    Template.fromStack(stack).hasResourceProperties('AWS::DynamoDB::Table', {
+        KeySchema: [
+            {
+                AttributeName: 'ACCOUNT_IDENTIFIER',
+                KeyType: 'HASH'
+            }
+        ]
+    });
 });
 
 test('do not create SSM credential path entry', () => {
@@ -365,55 +357,30 @@ test('do not create SSM credential path entry', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
-                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
+                code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_14_X,
+                runtime: lambda.Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
-            },
+            }
         },
         existingIngestionEventBus: new EventBus(stack, 'existingEventBus'),
         ingestionEventRuleProps: {
             enabled: true,
             eventPattern: {
-                account: [ cdk.Aws.ACCOUNT_ID ],
-                region: [ cdk.Aws.REGION ],
-                source: [ 'test.fake.namespace' ]
+                account: [cdk.Aws.ACCOUNT_ID],
+                region: [cdk.Aws.REGION],
+                source: ['test.fake.namespace']
             }
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toCountResources('AWS::Lambda::Function', 2);
-    expect(stack).toCountResources('AWS::Dynamo::Table', 0);
-    expect(stack).not.toHaveResourceLike('AWS::IAM:Policy', {
-        Type: 'AWS::IAM:Policy',
-        Properties: {
-            Statement: [{
-                Action: 'ssm:GetParameter',
-                Effect: 'Allow',
-                Resource: {
-                    "Fn::Join": [
-                        "", [
-                            "arn:", {
-                                "Ref": "AWS::Partition"
-                            },
-                            ":ssm:", {
-                                "Ref": "AWS::Region"
-                            },
-                            ":", {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":parametertest/fakekey/fakepath"
-                        ]
-                    ]
-                }
-            }]
-        }
-    }, ResourcePart.Properties);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 2);
+    Template.fromStack(stack).resourceCountIs('AWS::Dynamo::Table', 0);
+    Template.fromStack(stack).resourceCountIs('AWS::IAM:Policy', 0);
 });

@@ -11,10 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const sinon = require('sinon');
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { SFNClient, SendTaskSuccessCommand, SendTaskFailureCommand } = require('@aws-sdk/client-sfn');
+const { ComprehendClient, DetectDominantLanguageCommand } = require('@aws-sdk/client-comprehend');
+const sfnMock = AWSMock.mockClient(SFNClient);
+const comprehendMock = AWSMock.mockClient(ComprehendClient);
 const chai = require('chai');
 const expect = chai.expect;
 const assert = require('assert');
@@ -26,106 +30,108 @@ describe('When workflow->translate text is called', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        comprehendMock.reset();
+        sfnMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
         process.env.AWS_REGION = 'us-east-1';
 
         lambdaSpy = sinon.spy(lambda, 'handler');
 
-        AWSMock.mock('Comprehend', 'detectDominantLanguage', (error, callback) => {
-            callback(null, {
-                Languages: [{
+        comprehendMock.on(DetectDominantLanguageCommand).resolves({
+            Languages: [
+                {
                     LanguageCode: 'en',
                     Score: '95'
-                }]
-            });
+                }
+            ]
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should receive event correctly', async () => {
-        if (! lambdaSpy.threw()) expect.fail;
+    it('should receive event correctly', async () => {
+        if (!lambdaSpy.threw()) expect.fail;
         expect((await lambda.handler(__test_event__._event))[0].feed.lang).to.equal('en');
     });
 
-    it ('should default to en when number of chars are less than 20', async () => {
-        if (! lambdaSpy.threw()) expect.fail;
+    it('should default to en when number of chars are less than 20', async () => {
+        if (!lambdaSpy.threw()) expect.fail;
         expect((await lambda.handler(__test_event__._less_char_event))[0].feed.lang).to.equal('en');
     });
 
-    AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+    sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
         if (params.taskToken === 'fakeToken') {
             callback(null, 'Success');
         }
     });
 
-    AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+    sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
         if (params.taskToken === 'fakeToken') {
             callback(null, 'Success');
         }
     });
 
     afterEach(() => {
-        AWSMock.restore('Comprehend');
-        AWSMock.restore('StepFunctions');
+        comprehendMock.restore();
+        sfnMock.restore();
         lambdaSpy.restore();
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.AWS_REGION;
     });
 });
 
-
 describe('When translate throws an error', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        comprehendMock.reset();
+        sfnMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
         process.env.AWS_REGION = 'us-east-1';
 
         lambdaSpy = sinon.spy(lambda, 'handler');
 
-        AWSMock.mock('Comprehend', 'detectDominantLanguage', (error, callback) => {
-            callback(new Error('Error in detecting language'),null);
+        comprehendMock.on(DetectDominantLanguageCommand).callsFake((error, callback) => {
+            callback(new Error('Error in detecting language'), null);
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should receive event correctly', async () => {
+    it('should receive event correctly', async () => {
         await lambda.handler(__test_event__._event).catch((error) => {
             if (error instanceof assert.AssertionError) {
-                assert.equal(error.message,'Error in detecting language' );
+                assert.equal(error.message, 'Error in detecting language');
             }
         });
     });
 
     afterEach(() => {
-        AWSMock.restore('Comprehend');
-        AWSMock.restore('StepFunctions');
+        comprehendMock.restore();
+        sfnMock.restore();
         lambdaSpy.restore();
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.AWS_REGION;
-
     });
 });
 
@@ -133,12 +139,14 @@ describe('When Response contains an error', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        comprehendMock.reset();
+        sfnMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
         process.env.AWS_REGION = 'us-east-1';
 
         lambdaSpy = sinon.spy(lambda, 'handler');
 
-        AWSMock.mock('Comprehend', 'detectDominantLanguage', (error, callback) => {
+        comprehendMock.on(DetectDominantLanguageCommand).callsFake((error, callback) => {
             callback(null, {
                 error: {
                     message: 'Service returned an error'
@@ -146,30 +154,30 @@ describe('When Response contains an error', () => {
             });
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should receive event correctly', async () => {
+    it('should receive event correctly', async () => {
         await lambda.handler(__test_event__._event).catch((error) => {
             if (error instanceof assert.AssertionError) {
-                assert.equal(error.message,'Service returned an error');
+                assert.equal(error.message, 'Service returned an error');
             }
         });
     });
 
     afterEach(() => {
-        AWSMock.restore('Comprehend');
-        AWSMock.restore('StepFunctions');
+        comprehendMock.restore();
+        sfnMock.restore();
         lambdaSpy.restore();
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.AWS_REGION;
@@ -180,40 +188,40 @@ describe('When receiving a valid language', () => {
     let lambdaSpy;
 
     beforeEach(() => {
+        comprehendMock.reset();
+        sfnMock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
         process.env.AWS_REGION = 'us-east-1';
 
         lambdaSpy = sinon.spy(lambda, 'handler');
 
-        AWSMock.mock('Comprehend', 'detectDominantLanguage', (error, callback) => {
-            callback(null, {
-                error: {
-                    message: 'Service returned an error'
-                }
-            });
+        comprehendMock.on(DetectDominantLanguageCommand).resolves({
+            error: {
+                message: 'Service returned an error'
+            }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should receive event correctly', async () => {
-        if (! lambdaSpy.threw()) expect.fail;
+    it('should receive event correctly', async () => {
+        if (!lambdaSpy.threw()) expect.fail;
         expect((await lambda.handler(__test_event__._with_valid_lang))[0].feed.lang).to.equal('en');
     });
 
     afterEach(() => {
-        AWSMock.restore('Comprehend');
-        AWSMock.restore('StepFunctions');
+        comprehendMock.restore();
+        sfnMock.restore();
         lambdaSpy.restore();
         delete process.env.AWS_SDK_USER_AGENT;
         delete process.env.AWS_REGION;

@@ -13,13 +13,13 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { DynamoDBClient, PutItemCommand, QueryCommand } = require('@aws-sdk/client-dynamodb');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class FeedTracker {
     constructor(accountName) {
         const awsCustomConfig = CustomConfig.customAwsConfig();
-        this.ddb = new AWS.DynamoDB(awsCustomConfig);
+        this.ddb = new DynamoDBClient(awsCustomConfig);
         this.accountName = accountName;
     }
 
@@ -53,8 +53,8 @@ class FeedTracker {
                 }
             }
         };
-
-        return this.ddb.query(ddbParams).promise();
+        const queryCmd = new QueryCommand(ddbParams);
+        return await this.ddb.send(queryCmd);
     }
 
     async updateTracker(search_metadata, statuses_count, ...args) {
@@ -79,8 +79,8 @@ class FeedTracker {
             TableName: process.env.DDB_TABLE_NAME,
             Item: item
         };
-
-        return this.ddb.putItem(ddbParams).promise();
+        const putCmd = new PutItemCommand(ddbParams);
+        return await this.ddb.send(putCmd);
     }
 }
 

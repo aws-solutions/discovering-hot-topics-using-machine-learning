@@ -11,29 +11,32 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 import { ExecutionRole } from './lambda-role-cloudwatch-construct';
 
 export interface SolutionHelperProps {
     readonly solutionId: string;
-    readonly searchQuery?: string;
-    readonly langFilter?: string;
     readonly solutionVersion: string;
     readonly topicModelingFreq: string;
-    readonly twitterIngestionFreq?: string;
+    readonly deployNewsFeedIngestion: string;
     readonly newsFeedIngestionFreq?: string;
     readonly newsFeedsIngestionSearchQuery?: string;
+    readonly deployYoutubeIngestion: string;
     readonly youTubeIngestionFreq?: string;
     readonly youTubeSearchQuery?: string;
     readonly youTubeChannelID?: string;
+    readonly deployRedditIngestion: string;
+    readonly redditIngestionFreq?: string;
+    readonly subredditsToFollow?: string;
     readonly deployCustomIngestion: string;
 }
 
-export class SolutionHelper extends cdk.Construct {
+export class SolutionHelper extends Construct {
     private readonly _UuidCustomResource: cdk.CustomResource;
 
-    constructor(scope: cdk.Construct, id: string, props: SolutionHelperProps) {
+    constructor(scope: Construct, id: string, props: SolutionHelperProps) {
         super(scope, id);
 
         const metricsMapping = new cdk.CfnMapping(this, 'AnonymousData', {
@@ -58,21 +61,7 @@ export class SolutionHelper extends cdk.Construct {
                 'This function generates UUID for each deployment and sends anonymous data to the AWS Solutions team',
             role: helperRole.Role,
             code: lambda.Code.fromAsset(`${__dirname}/../../lambda/solution_helper`),
-            timeout: cdk.Duration.seconds(30),
-            environment: {
-                // the query is only used to determin query complexity, actually query is not posted for metrics data
-                TWITTER_SEARCH_QUERY: props.searchQuery ? props.searchQuery : '',
-                TWITTER_LANG_FILTER: props.langFilter ? props.langFilter : '',
-                TWITTER_INGEST_FREQ: props.twitterIngestionFreq ? props.twitterIngestionFreq : '',
-                TOPIC_JOB_FREQ: props.topicModelingFreq,
-                NEWSFEEDS_INGESTION_FREQ: props.newsFeedIngestionFreq ? props.newsFeedIngestionFreq : '',
-                // the query is only used to determin query complexity, actually query is not posted for metrics data
-                NEWSFEEDS_SEARCH_QUERY: props.newsFeedsIngestionSearchQuery ? props.newsFeedsIngestionSearchQuery : '',
-                YOUTUBE_INGESTION_FREQ: props.youTubeIngestionFreq ? props.youTubeIngestionFreq : '',
-                YOUTUBE_SEARCH_QUERY: props.youTubeSearchQuery ? props.youTubeSearchQuery : '',
-                YOUTUBE_CHANNEL_ID: props.youTubeChannelID ? props.youTubeChannelID : '',
-                DEPLOY_CUSTOM_INGESTION: props.deployCustomIngestion
-            }
+            timeout: cdk.Duration.seconds(30)
         });
 
         (helperFunction.node.defaultChild as lambda.CfnFunction).addMetadata('cfn_nag', {
@@ -103,7 +92,19 @@ export class SolutionHelper extends cdk.Construct {
                 'SolutionId': props.solutionId,
                 'UUID': this._UuidCustomResource.getAttString('UUID'),
                 'Region': cdk.Aws.REGION,
-                'Version': props.solutionVersion
+                'Version': props.solutionVersion,
+                'TopicJobFreq': props.topicModelingFreq,
+                'NewsFeedsIngestionEnabled': props.deployNewsFeedIngestion,
+                'NewsFeedsIngestionFreq': props.newsFeedIngestionFreq ? props.newsFeedIngestionFreq : '',
+                'NewsFeedsSearchQuery': props.newsFeedsIngestionSearchQuery ? props.newsFeedsIngestionSearchQuery : '',
+                'YoutubeIngestionEnabled': props.deployYoutubeIngestion,
+                'YouTubeIngestionFreq': props.youTubeIngestionFreq ? props.youTubeIngestionFreq : '',
+                'YoutubeSearchQuery': props.youTubeSearchQuery ? props.youTubeSearchQuery : '',
+                'YoutubeChannelId': props.youTubeChannelID ? props.youTubeChannelID : '',
+                'RedditIngestionEnabled': props.deployRedditIngestion,
+                'RedditIngestionFreq': props.redditIngestionFreq ? props.redditIngestionFreq : '',
+                'SubredditsToFollow': props.subredditsToFollow ? props.subredditsToFollow : '',
+                'DeployCustomIngestion': props.deployCustomIngestion
             },
             resourceType: 'Custom::AnonymousData'
         });

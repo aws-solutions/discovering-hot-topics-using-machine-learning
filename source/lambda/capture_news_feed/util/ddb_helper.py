@@ -15,9 +15,8 @@
 import os
 from datetime import datetime, timedelta, timezone
 
-import boto3
 from boto3.dynamodb.conditions import Attr, Key
-from shared_util import custom_boto_config, custom_logging, service_helper
+from shared_util import custom_logging, service_helper
 
 logger = custom_logging.get_logger(__name__)
 

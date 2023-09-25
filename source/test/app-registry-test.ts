@@ -11,8 +11,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as cdk from '@aws-cdk/core';
-import { Capture, Template } from '@aws-cdk/assertions';
+import * as cdk from 'aws-cdk-lib';
+import { Capture, Template } from 'aws-cdk-lib/assertions';
 import { AppRegistry } from '../lib/aspects/app-registry';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 

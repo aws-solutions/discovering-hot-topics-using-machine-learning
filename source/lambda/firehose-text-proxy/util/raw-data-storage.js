@@ -45,15 +45,16 @@ class FeedStorage {
         if (data.feed.hasOwnProperty('LoudnessScores')) {
             const scoreArray = [];
             data.feed.LoudnessScores.forEach((score) => {
+                const scoreData = JSON.stringify({
+                    platform: data.platform,
+                    account_name: data.account_name,
+                    parent_id: data.feed.parent_id,
+                    id_str: data.feed.id_str,
+                    score: score,
+                    created_at: data.feed.created_at
+                });
                 scoreArray.push({
-                    Data: `${JSON.stringify({
-                        platform: data.platform,
-                        account_name: data.account_name,
-                        parent_id: data.feed.parent_id,
-                        id_str: data.feed.id_str,
-                        score: score,
-                        created_at: data.feed.created_at
-                    })}\n`
+                    Data: Buffer.from(`${scoreData}\n`)
                 });
             });
 
@@ -71,19 +72,20 @@ class FeedStorage {
         if (data.feed.hasOwnProperty('Items')) {
             const itemsArray = [];
             data.feed.Items.forEach((item) => {
+                const itemsData = JSON.stringify({
+                    platform: data.platform,
+                    account_name: data.account_name,
+                    parent_id: data.feed.parent_id,
+                    id_str: data.feed.id_str,
+                    Type: item.Type,
+                    Confidence: item.Confidence,
+                    Content: item.Content,
+                    BeginOffsetMillis: item.BeginOffsetMillis,
+                    EndOffsetMillis: item.EndOffsetMillis,
+                    created_at: data.feed.created_at
+                });
                 itemsArray.push({
-                    Data: `${JSON.stringify({
-                        platform: data.platform,
-                        account_name: data.account_name,
-                        parent_id: data.feed.parent_id,
-                        id_str: data.feed.id_str,
-                        Type: item.Type,
-                        Confidence: item.Confidence,
-                        Content: item.Content,
-                        BeginOffsetMillis: item.BeginOffsetMillis,
-                        EndOffsetMillis: item.EndOffsetMillis,
-                        created_at: data.feed.created_at
-                    })}\n`
+                    Data: Buffer.from(`${itemsData}\n`)
                 });
             });
 

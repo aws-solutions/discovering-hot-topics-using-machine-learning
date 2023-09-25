@@ -11,12 +11,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as cdk from '@aws-cdk/core';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct';
 
 export class MetdataTable extends GenericCfnTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
@@ -24,22 +25,22 @@ export class MetdataTable extends GenericCfnTable {
         return [
             {
                 name: 'account_name',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'platform',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'parent_id',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'Categories',
-                type: glue.Schema.struct([
+                type: glue_alpha.Schema.struct([
                     {
                         name: 'MatchedCategories',
-                        type: glue.Schema.array(glue.Schema.STRING)
+                        type: glue_alpha.Schema.array(glue_alpha.Schema.STRING)
                     }
                     // Could not define schema for 'MatchedDetails' because Key is not constant.
                     // It takes the value of the matched category name
@@ -47,83 +48,83 @@ export class MetdataTable extends GenericCfnTable {
             },
             {
                 name: 'Channel',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'JobName',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             },
             {
                 name: 'Participants',
-                type: glue.Schema.array(
-                    glue.Schema.struct([
+                type: glue_alpha.Schema.array(
+                    glue_alpha.Schema.struct([
                         {
                             name: 'ParticipantRole',
-                            type: glue.Schema.STRING
+                            type: glue_alpha.Schema.STRING
                         }
                     ])
                 ).inputString
             },
             {
                 name: 'ConversationCharacteristics',
-                type: glue.Schema.struct([
+                type: glue_alpha.Schema.struct([
                     {
                         name: 'NonTalkTime',
-                        type: glue.Schema.struct([
+                        type: glue_alpha.Schema.struct([
                             {
                                 name: 'Instances',
-                                type: glue.Schema.array(
-                                    glue.Schema.struct([
+                                type: glue_alpha.Schema.array(
+                                    glue_alpha.Schema.struct([
                                         {
                                             name: 'BeginOffsetMillis',
-                                            type: glue.Schema.BIG_INT
+                                            type: glue_alpha.Schema.BIG_INT
                                         },
                                         {
                                             name: 'DurationMillis',
-                                            type: glue.Schema.BIG_INT
+                                            type: glue_alpha.Schema.BIG_INT
                                         },
                                         {
                                             name: 'EndOffsetMillis',
-                                            type: glue.Schema.BIG_INT
+                                            type: glue_alpha.Schema.BIG_INT
                                         }
                                     ])
                                 )
                             },
                             {
                                 name: 'TotalTimeMillis',
-                                type: glue.Schema.BIG_INT
+                                type: glue_alpha.Schema.BIG_INT
                             }
                         ])
                     },
                     {
                         name: 'Interruptions',
-                        type: glue.Schema.struct([
+                        type: glue_alpha.Schema.struct([
                             {
                                 name: 'TotalCount',
-                                type: glue.Schema.INTEGER
+                                type: glue_alpha.Schema.INTEGER
                             },
                             {
                                 name: 'TotalTimeMillis',
-                                type: glue.Schema.BIG_INT
+                                type: glue_alpha.Schema.BIG_INT
                             },
                             {
                                 name: 'InterruptionsByInterrupter',
-                                type: glue.Schema.struct([
+                                type: glue_alpha.Schema.struct([
                                     {
                                         name: 'AGENT',
-                                        type: glue.Schema.array(
-                                            glue.Schema.struct([
+                                        type: glue_alpha.Schema.array(
+                                            glue_alpha.Schema.struct([
                                                 {
                                                     name: 'BeginOffsetMillis',
-                                                    type: glue.Schema.BIG_INT
+                                                    type: glue_alpha.Schema.BIG_INT
                                                 },
                                                 {
                                                     name: 'DurationMillis',
-                                                    type: glue.Schema.BIG_INT
+                                                    type: glue_alpha.Schema.BIG_INT
                                                 },
                                                 {
                                                     name: 'EndOffsetMillis',
-                                                    type: glue.Schema.BIG_INT
+                                                    type: glue_alpha.Schema.BIG_INT
                                                 }
                                             ])
                                         )
@@ -134,64 +135,64 @@ export class MetdataTable extends GenericCfnTable {
                     },
                     {
                         name: 'TotalConversationDurationMillis',
-                        type: glue.Schema.BIG_INT
+                        type: glue_alpha.Schema.BIG_INT
                     },
                     {
                         name: 'Sentiment',
-                        type: glue.Schema.struct([
+                        type: glue_alpha.Schema.struct([
                             {
                                 name: 'OverallSentiment',
-                                type: glue.Schema.struct([
+                                type: glue_alpha.Schema.struct([
                                     {
                                         name: 'AGENT',
-                                        type: glue.Schema.FLOAT
+                                        type: glue_alpha.Schema.FLOAT
                                     },
                                     {
                                         name: 'CUSTOMER',
-                                        type: glue.Schema.FLOAT
+                                        type: glue_alpha.Schema.FLOAT
                                     }
                                 ])
                             },
                             {
                                 name: 'SentimentByPeriod',
-                                type: glue.Schema.struct([
+                                type: glue_alpha.Schema.struct([
                                     {
                                         name: 'QUARTER',
-                                        type: glue.Schema.struct([
+                                        type: glue_alpha.Schema.struct([
                                             {
                                                 name: 'AGENT',
-                                                type: glue.Schema.array(
-                                                    glue.Schema.struct([
+                                                type: glue_alpha.Schema.array(
+                                                    glue_alpha.Schema.struct([
                                                         {
                                                             name: 'Score',
-                                                            type: glue.Schema.FLOAT
+                                                            type: glue_alpha.Schema.FLOAT
                                                         },
                                                         {
                                                             name: 'BeginOffsetMillis',
-                                                            type: glue.Schema.BIG_INT
+                                                            type: glue_alpha.Schema.BIG_INT
                                                         },
                                                         {
                                                             name: 'EndOffsetMillis',
-                                                            type: glue.Schema.BIG_INT
+                                                            type: glue_alpha.Schema.BIG_INT
                                                         }
                                                     ])
                                                 )
                                             },
                                             {
                                                 name: 'CUSTOMER',
-                                                type: glue.Schema.array(
-                                                    glue.Schema.struct([
+                                                type: glue_alpha.Schema.array(
+                                                    glue_alpha.Schema.struct([
                                                         {
                                                             name: 'Score',
-                                                            type: glue.Schema.FLOAT
+                                                            type: glue_alpha.Schema.FLOAT
                                                         },
                                                         {
                                                             name: 'BeginOffsetMillis',
-                                                            type: glue.Schema.BIG_INT
+                                                            type: glue_alpha.Schema.BIG_INT
                                                         },
                                                         {
                                                             name: 'EndOffsetMillis',
-                                                            type: glue.Schema.BIG_INT
+                                                            type: glue_alpha.Schema.BIG_INT
                                                         }
                                                     ])
                                                 )
@@ -204,25 +205,25 @@ export class MetdataTable extends GenericCfnTable {
                     },
                     {
                         name: 'TalkSpeed',
-                        type: glue.Schema.struct([
+                        type: glue_alpha.Schema.struct([
                             {
                                 name: 'DetailsByParticipant',
-                                type: glue.Schema.struct([
+                                type: glue_alpha.Schema.struct([
                                     {
                                         name: 'AGENT',
-                                        type: glue.Schema.struct([
+                                        type: glue_alpha.Schema.struct([
                                             {
                                                 name: 'AverageWordsPerMinute',
-                                                type: glue.Schema.INTEGER
+                                                type: glue_alpha.Schema.INTEGER
                                             }
                                         ])
                                     },
                                     {
                                         name: 'CUSTOMER',
-                                        type: glue.Schema.struct([
+                                        type: glue_alpha.Schema.struct([
                                             {
                                                 name: 'AverageWordsPerMinute',
-                                                type: glue.Schema.INTEGER
+                                                type: glue_alpha.Schema.INTEGER
                                             }
                                         ])
                                     }
@@ -232,25 +233,25 @@ export class MetdataTable extends GenericCfnTable {
                     },
                     {
                         name: 'TalkTime',
-                        type: glue.Schema.struct([
+                        type: glue_alpha.Schema.struct([
                             {
                                 name: 'DetailsByParticipant',
-                                type: glue.Schema.struct([
+                                type: glue_alpha.Schema.struct([
                                     {
                                         name: 'AGENT',
-                                        type: glue.Schema.struct([
+                                        type: glue_alpha.Schema.struct([
                                             {
                                                 name: 'TotalTimeMillis',
-                                                type: glue.Schema.BIG_INT
+                                                type: glue_alpha.Schema.BIG_INT
                                             }
                                         ])
                                     },
                                     {
                                         name: 'CUSTOMER',
-                                        type: glue.Schema.struct([
+                                        type: glue_alpha.Schema.struct([
                                             {
                                                 name: 'TotalTimeMillis',
-                                                type: glue.Schema.BIG_INT
+                                                type: glue_alpha.Schema.BIG_INT
                                             }
                                         ])
                                     }
@@ -258,7 +259,7 @@ export class MetdataTable extends GenericCfnTable {
                             },
                             {
                                 name: 'TotalTimeMillis',
-                                type: glue.Schema.BIG_INT
+                                type: glue_alpha.Schema.BIG_INT
                             }
                         ])
                     }
@@ -266,10 +267,10 @@ export class MetdataTable extends GenericCfnTable {
             },
             {
                 name: 'ContentMetadata',
-                type: glue.Schema.struct([
+                type: glue_alpha.Schema.struct([
                     {
                         name: 'Output',
-                        type: glue.Schema.STRING
+                        type: glue_alpha.Schema.STRING
                     }
                 ]).inputString
             }

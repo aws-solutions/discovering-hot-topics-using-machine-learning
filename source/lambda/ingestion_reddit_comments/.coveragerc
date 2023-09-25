@@ -1,0 +1,17 @@
+[run]
+omit =
+    tests/*
+    .venv-*/*
+    test/*
+    */__init__.py
+    bin
+    certifi/*
+    charset_normalizer/*
+    idna/*
+    praw*/*
+    requests/*
+    urllib3/*
+    websocket/*
+    update_checker*
+source =
+    .

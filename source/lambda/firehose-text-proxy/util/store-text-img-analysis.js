@@ -13,105 +13,109 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { FirehoseClient, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class ImageAnalysis {
     static storeTextFromImage = async (data) => {
-        if (data.text_in_images !== undefined && data.text_in_images.length > 0) {
-            const awsCustomConfig = CustomConfig.customAwsConfig();
-            const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
+        if (data.text_in_images === undefined || data.text_in_images.length === 0) {
+            return;
+        }
+        const awsCustomConfig = CustomConfig.customAwsConfig();
+        const kinesisFireshose = new FirehoseClient(awsCustomConfig);
 
-            const txtInImgs = data.text_in_images ? data.text_in_images : []; // empty array if the data feed does not have the array
-            const txtInImgSentimentRecords = [];
-            const txtInImgEntityRecords = [];
-            const txtInImgKeyPhrasesRecords = [];
-            txtInImgs.forEach((txt_in_img) => {
-                if (txt_in_img.Sentiment !== undefined) {
-                    txtInImgSentimentRecords.push({
-                        Data: `${JSON.stringify({
-                            account_name: data.account_name,
-                            platform: data.platform,
-                            search_query: data.search_query,
-                            id_str: data.feed.id_str,
-                            created_at: data.feed.created_at,
-                            text: txt_in_img.text,
-                            image_url: txt_in_img.image_url,
-                            sentiment: txt_in_img.Sentiment,
-                            sentimentposscore: txt_in_img.SentimentScore.Positive,
-                            sentimentnegscore: txt_in_img.SentimentScore.Negative,
-                            sentimentneuscore: txt_in_img.SentimentScore.Neutral,
-                            sentimentmixscore: txt_in_img.SentimentScore.Mixed
-                        })}\n`
+        const txtInImgs = data.text_in_images ? data.text_in_images : []; // empty array if the data feed does not have the array
+        const txtInImgSentimentRecords = [];
+        const txtInImgEntityRecords = [];
+        const txtInImgKeyPhrasesRecords = [];
+        txtInImgs.forEach((txt_in_img) => {
+            if (txt_in_img.Sentiment !== undefined) {
+                const sentimentData = JSON.stringify({
+                    account_name: data.account_name,
+                    platform: data.platform,
+                    search_query: data.search_query,
+                    id_str: data.feed.id_str,
+                    created_at: data.feed.created_at,
+                    text: txt_in_img.text,
+                    image_url: txt_in_img.image_url,
+                    sentiment: txt_in_img.Sentiment,
+                    sentimentposscore: txt_in_img.SentimentScore.Positive,
+                    sentimentnegscore: txt_in_img.SentimentScore.Negative,
+                    sentimentneuscore: txt_in_img.SentimentScore.Neutral,
+                    sentimentmixscore: txt_in_img.SentimentScore.Mixed
+                });
+                txtInImgSentimentRecords.push({
+                    Data: Buffer.from(`${sentimentData}\n`)
+                });
+            }
+
+            txt_in_img.Entities.forEach((entity) => {
+                if (entity.Text !== undefined) {
+                    const entityData = JSON.stringify({
+                        account_name: data.account_name,
+                        platform: data.platform,
+                        search_query: data.search_query,
+                        id_str: data.feed.id_str,
+                        created_at: data.feed.created_at,
+                        text: txt_in_img.text,
+                        image_url: txt_in_img.image_url,
+                        entity_text: entity.Text,
+                        entity_type: entity.Type,
+                        entity_score: entity.Score,
+                        entity_begin_offset: entity.BeginOffset,
+                        entity_end_offset: entity.EndOffset
+                    });
+                    txtInImgEntityRecords.push({
+                        Data: Buffer.from(`${entityData}\n`)
                     });
                 }
-
-                txt_in_img.Entities.forEach((entity) => {
-                    if (entity.Text !== undefined) {
-                        txtInImgEntityRecords.push({
-                            Data: `${JSON.stringify({
-                                account_name: data.account_name,
-                                platform: data.platform,
-                                search_query: data.search_query,
-                                id_str: data.feed.id_str,
-                                created_at: data.feed.created_at,
-                                text: txt_in_img.text,
-                                image_url: txt_in_img.image_url,
-                                entity_text: entity.Text,
-                                entity_type: entity.Type,
-                                entity_score: entity.Score,
-                                entity_begin_offset: entity.BeginOffset,
-                                entity_end_offset: entity.EndOffset
-                            })}\n`
-                        });
-                    }
-                });
-
-                txt_in_img.KeyPhrases.forEach((keyPhrase) => {
-                    if (keyPhrase.Text !== undefined) {
-                        txtInImgKeyPhrasesRecords.push({
-                            Data: `${JSON.stringify({
-                                account_name: data.account_name,
-                                platform: data.platform,
-                                search_query: data.search_query,
-                                id_str: data.feed.id_str,
-                                created_at: data.feed.created_at,
-                                text: txt_in_img.text,
-                                image_url: txt_in_img.image_url,
-                                phrase: keyPhrase.Text,
-                                phrase_score: keyPhrase.Score,
-                                phrase_begin_offset: keyPhrase.BeginOffset,
-                                phrase_end_offset: keyPhrase.EndOffset
-                            })}\n`
-                        });
-                    }
-                });
             });
 
-            await kinesisFireshose
-                .putRecordBatch({
-                    DeliveryStreamName: process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE,
-                    Records: txtInImgSentimentRecords
+            txt_in_img.KeyPhrases.forEach((keyPhrase) => {
+                if (keyPhrase.Text !== undefined) {
+                    const keyphraseData = JSON.stringify({
+                        account_name: data.account_name,
+                        platform: data.platform,
+                        search_query: data.search_query,
+                        id_str: data.feed.id_str,
+                        created_at: data.feed.created_at,
+                        text: txt_in_img.text,
+                        image_url: txt_in_img.image_url,
+                        phrase: keyPhrase.Text,
+                        phrase_score: keyPhrase.Score,
+                        phrase_begin_offset: keyPhrase.BeginOffset,
+                        phrase_end_offset: keyPhrase.EndOffset
+                    });
+                    txtInImgKeyPhrasesRecords.push({
+                        Data: Buffer.from(`${keyphraseData}\n`)
+                    });
+                }
+            });
+        });
+
+        await kinesisFireshose.send(
+            new PutRecordBatchCommand({
+                DeliveryStreamName: process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE,
+                Records: txtInImgSentimentRecords
+            })
+        );
+
+        if (txtInImgEntityRecords.length > 0) {
+            await kinesisFireshose.send(
+                new PutRecordBatchCommand({
+                    DeliveryStreamName: process.env.TXT_IN_IMG_ENTITY_FIREHOSE,
+                    Records: txtInImgEntityRecords
                 })
-                .promise();
+            );
+        }
 
-            if (txtInImgEntityRecords.length > 0) {
-                await kinesisFireshose
-                    .putRecordBatch({
-                        DeliveryStreamName: process.env.TXT_IN_IMG_ENTITY_FIREHOSE,
-                        Records: txtInImgEntityRecords
-                    })
-                    .promise();
-            }
-
-            if (txtInImgKeyPhrasesRecords.length > 0) {
-                await kinesisFireshose
-                    .putRecordBatch({
-                        DeliveryStreamName: process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE,
-                        Records: txtInImgKeyPhrasesRecords
-                    })
-                    .promise();
-            }
+        if (txtInImgKeyPhrasesRecords.length > 0) {
+            await kinesisFireshose.send(
+                new PutRecordBatchCommand({
+                    DeliveryStreamName: process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE,
+                    Records: txtInImgKeyPhrasesRecords
+                })
+            );
         }
     };
 }
