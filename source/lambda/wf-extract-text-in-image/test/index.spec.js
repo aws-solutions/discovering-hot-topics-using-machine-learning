@@ -11,13 +11,19 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
 const assert = require('assert');
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { SFNClient, SendTaskSuccessCommand, SendTaskFailureCommand } = require('@aws-sdk/client-sfn');
+const sfnMock = AWSMock.mockClient(SFNClient);
+const { RekognitionClient, DetectTextCommand } = require('@aws-sdk/client-rekognition');
+const rekognitionMock = AWSMock.mockClient(RekognitionClient);
+const { S3Client, UploadPartCommand } = require('@aws-sdk/client-s3');
+const s3Mock = AWSMock.mockClient(S3Client);
 const axios = require('axios');
 const fs = require('fs');
 
@@ -27,11 +33,14 @@ const __rekresponse__ = require('./rek-response-test-data');
 
 describe('Test the lambda function Rek found no text', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     resolve({
@@ -44,33 +53,34 @@ describe('Test the lambda function Rek found no text', () => {
             });
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
-            callback(null, __rekresponse__.rekResponse_with_empty_text_detections);
-        });
+        rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse_with_empty_text_detections);
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
+    it('should execute the lambda function', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
@@ -82,26 +92,29 @@ describe('Test the lambda function Rek found no text', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('Rekognition');
-        AWSMock.restore('StepFunctions');
+        s3Mock.restore();
+        rekognitionMock.restore();
+        sfnMock.restore();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
 describe('Test the lambda function Rek found no text', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
-                    resolve({
+                    return resolve({
                         ETag: 'SomeETag',
                         Location: 'PublicWebsiteLink',
                         Key: 'RandomKey',
@@ -111,33 +124,34 @@ describe('Test the lambda function Rek found no text', () => {
             });
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
-            callback(null, __rekresponse__.rekResponse_with_undefined_text_detections);
-        });
+        rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse_with_undefined_text_detections);
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
-        const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
+    it('should execute the lambda function', async () => {
+        const axiosStub = sinon.stub(axios.default, 'get').resolves(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
@@ -149,23 +163,26 @@ describe('Test the lambda function Rek found no text', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('StepFunctions');
-        AWSMock.restore('Rekognition');
+        s3Mock.restore();
+        sfnMock.restore();
+        rekognitionMock.restore();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
 describe('Test the lambda function when Rek found text', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     resolve({
@@ -178,33 +195,34 @@ describe('Test the lambda function when Rek found text', () => {
             });
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
-            callback(null, __rekresponse__.rekResponse);
-        });
+        rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
+    it('should execute the lambda function', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
@@ -216,23 +234,26 @@ describe('Test the lambda function when Rek found text', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('Rekognition');
-        AWSMock.restore('StepFunctions');
+        s3Mock.restore();
+        rekognitionMock.restore();
+        sfnMock.restore();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
 describe('Test the lambda function when Rek fails', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     resolve({
@@ -245,33 +266,36 @@ describe('Test the lambda function when Rek fails', () => {
             });
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
+        rekognitionMock.on(DetectTextCommand).callsFake((error, callback) => {
             callback(new Error('Rek service failed'), null);
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
+    it('should execute the lambda function', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
@@ -286,60 +310,62 @@ describe('Test the lambda function when Rek fails', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('Rekognition');
-        AWSMock.restore('StepFunctions');
-
+        s3Mock.restore();
+        rekognitionMock.restore();
+        sfnMock.restore();
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
-
 describe('Test the lambda function when S3 upload fails', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(new Error('S3 upload failed'), null);
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
-            callback(null, __rekresponse__.rekResponse);
-        });
+        rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
+    it('should execute the lambda function', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
         await lambda.handler(__test__.event_with_entities).catch((error) => {
             if (error instanceof assert.AssertionError) {
-                assert.fail()
+                assert.fail();
             }
             assert.equal(error.message, 'S3 upload failed');
         });
@@ -348,23 +374,26 @@ describe('Test the lambda function when S3 upload fails', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('Rekognition');
-        AWSMock.restore('StepFunctions');
+        s3Mock.restore();
+        rekognitionMock.restore();
+        sfnMock.restore();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });
 
 describe('Test the lambda function when S3 upload fails', () => {
     beforeEach(() => {
+        sfnMock.reset();
+        rekognitionMock.reset();
+        s3Mock.reset();
         process.env.S3_BUCKET_NAME = 'TestBucket';
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     resolve({
@@ -377,39 +406,40 @@ describe('Test the lambda function when S3 upload fails', () => {
             });
         });
 
-        AWSMock.mock('Rekognition', 'detectText', (error, callback) => {
-            callback(null, __rekresponse__.rekResponse);
-        });
+        rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
-        AWSMock.mock('StepFunctions', 'sendTaskSuccess', (params, callback) => {
+        sfnMock.on(SendTaskSuccessCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(new Error('Fake Task failure'), null);
             }
         });
 
-        AWSMock.mock('StepFunctions', 'sendTaskFailure', (params, callback) => {
+        sfnMock.on(SendTaskFailureCommand).callsFake((params, callback) => {
             if (params.taskToken === 'fakeToken') {
                 callback(null, 'Success');
             }
         });
     });
 
-    it ('should execute the lambda function', async () => {
+    it('should execute the lambda function', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return {
                 status: 200,
                 data: fs.createReadStream(`${__dirname}/text.png`),
-                headers: [{
-                    'content-type': 'image/jpeg'
-                }, {
-                    'content-length': '10256'
-                }]
+                headers: [
+                    {
+                        'content-type': 'image/jpeg'
+                    },
+                    {
+                        'content-length': '10256'
+                    }
+                ]
             };
         });
 
         await lambda.handler(__test__.event_with_entities).catch((error) => {
             if (error instanceof assert.AssertionError) {
-                assert.fail()
+                assert.fail();
             }
         });
 
@@ -417,12 +447,11 @@ describe('Test the lambda function when S3 upload fails', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('S3');
-        AWSMock.restore('Rekognition');
-        AWSMock.restore('StepFunctions');
-
+        s3Mock.restore();
+        rekognitionMock.restore();
+        sfnMock.restore();
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
-        delete process.env.AWS_SDK_USER_AGENT
+        delete process.env.AWS_SDK_USER_AGENT;
     });
 });

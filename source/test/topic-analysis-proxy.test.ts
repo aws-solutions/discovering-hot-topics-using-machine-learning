@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import { Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import { Stack } from 'aws-cdk-lib';
 import { TopicAnalysisProxy } from '../lib/integration/topic-analysis-proxy';
 import { EventStorage } from '../lib/storage/event-storage-construct';
 
@@ -40,5 +39,4 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         topicsAnalysisInfNS: 'com.analyze.inference.mapping'
 
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

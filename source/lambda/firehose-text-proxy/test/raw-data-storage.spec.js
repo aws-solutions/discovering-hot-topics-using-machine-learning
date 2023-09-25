@@ -15,7 +15,9 @@
 
 const sinon = require('sinon');
 const expect = require('chai').expect;
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { FirehoseClient, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
+const firehoseMock = AWSMock.mockClient(FirehoseClient);
 const assert = require('assert');
 
 const __test_data__ = require('./news-feed-even-test-data');
@@ -26,7 +28,7 @@ describe('when storing news feeds', () => {
         process.env.NEWSFEEDS_FEED_STORAGE = 'fake_news_feed_storage';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('Firehose', 'putRecord', (params, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((params, callback) => {
             console.log(params);
             if (
                 params.Record.Data ===
@@ -44,8 +46,7 @@ describe('when storing news feeds', () => {
                 callback(new Error('Received invalid parameters'), null);
             }
         });
-
-        AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
                 'Encrypted': true,
                 'FailedPutCount': 0
@@ -54,7 +55,7 @@ describe('when storing news feeds', () => {
     });
 
     afterEach(() => {
-        AWSMock.restore('Firehose');
+        firehoseMock.restore();
         delete process.env.NEWSFEEDS_FEED_STORAGE;
         delete process.env.AWS_SDK_USER_AGENT;
     });

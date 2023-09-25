@@ -1,6 +1,6 @@
 {
   "name": "integration",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "description": "Kinesis stream consumer",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,18 @@
     "test-debug": "jest --coverage",
     "clean": "rm -rf node_modules"
   },
-  "author": "aws-solutions-builder@",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "aws-sdk": "^2.1388.0"
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com/solutions"
   },
+  "license": "Apache-2.0",
   "devDependencies": {
-    "aws-sdk-mock": "^5.8.0",
+    "aws-sdk-client-mock": "^3.0.0",
     "chai": "^4.3.7",
-    "jest": "^29.5.0",
-    "sinon": "^15.1.0"
+    "jest": "^29.6.1",
+    "sinon": "^15.2.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kinesis": "^3.369.0"
   }
 }

@@ -11,12 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
-import { Function, IFunction } from '@aws-cdk/aws-lambda';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as logs from '@aws-cdk/aws-logs';
-import * as cdk from '@aws-cdk/core';
-import { LambdaToStepFunction } from '@aws-solutions-constructs/aws-lambda-step-function';
+import { LambdaToStepfunctions } from '@aws-solutions-constructs/aws-lambda-stepfunctions';
+import * as cdk from 'aws-cdk-lib';
+import { CfnPolicy, Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { Function, IFunction } from 'aws-cdk-lib/aws-lambda';
+import * as logs from 'aws-cdk-lib/aws-logs';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import { NagSuppressions } from 'cdk-nag';
+import { Construct } from 'constructs';
 
 export interface WorkflowProps {
     readonly stateMachineType?: sfn.StateMachineType;
@@ -24,17 +26,18 @@ export interface WorkflowProps {
     readonly lambdaFunc?: IFunction;
 }
 
-export class Workflow extends cdk.Construct {
+export class Workflow extends Construct {
     private _stMachine: sfn.StateMachine;
 
-    constructor(scope: cdk.Construct, id: string, props: WorkflowProps) {
+    constructor(scope: Construct, id: string, props: WorkflowProps) {
         super(scope, id);
 
         if (props.lambdaFunc != null && props.lambdaFunc != undefined) {
-            const lambdaStepFunction = new LambdaToStepFunction(this, 'WorkflowEngine', {
+            const lambdaStepFunction = new LambdaToStepfunctions(this, 'WorkflowEngine', {
                 existingLambdaObj: props.lambdaFunc as Function,
                 stateMachineProps: {
-                    definition: props.chain,
+                    definitionBody: sfn.DefinitionBody.fromChainable(props.chain),
+                    tracingEnabled: true,
                     ...(props.stateMachineType === sfn.StateMachineType.EXPRESS && {
                         stateMachineType: props.stateMachineType,
                         logs: {
@@ -92,7 +95,8 @@ export class Workflow extends cdk.Construct {
             _stateMachineRole.attachInlinePolicy(stateMachineLogPolicy);
 
             this._stMachine = new sfn.StateMachine(this, 'WorkflowEngine', {
-                definition: props.chain,
+                definitionBody: sfn.DefinitionBody.fromChainable(props.chain),
+                tracingEnabled: true,
                 ...(props.stateMachineType === sfn.StateMachineType.EXPRESS && {
                     stateMachineType: props.stateMachineType,
                     role: _stateMachineRole,
@@ -108,6 +112,14 @@ export class Workflow extends cdk.Construct {
 
             this._stMachine.node.addDependency(_stateMachineRole);
         }
+        NagSuppressions.addResourceSuppressions(
+            this._stMachine, [
+            {
+                id: 'AwsSolutions-SF1', reason: "Information required for troubleshooting is logged by state function and lambda functions",
+            }
+        ],
+            true
+        );
     }
 
     public get stateMachine(): sfn.StateMachine {

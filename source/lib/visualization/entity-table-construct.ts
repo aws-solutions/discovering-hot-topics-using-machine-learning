@@ -12,8 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import { Construct } from '@aws-cdk/core';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import * as glue_alpha  from '@aws-cdk/aws-glue-alpha';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
 export class EntityTable extends GenericCfnTable {
@@ -25,25 +26,25 @@ export class EntityTable extends GenericCfnTable {
         return [
             ...this.coreColumns, {
                 name: 'text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'translated_text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'entity_text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'entity_type',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'entity_score',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'entity_begin_offset',
-                type: glue.Schema.INTEGER.inputString
+                type: glue_alpha.Schema.INTEGER.inputString
             }, {
                 name: 'entity_end_offset',
-                type: glue.Schema.INTEGER.inputString
+                type: glue_alpha.Schema.INTEGER.inputString
             }];
     }
 }

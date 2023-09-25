@@ -13,11 +13,12 @@
  *********************************************************************************************************************/
 
 
-import * as ddb from '@aws-cdk/aws-dynamodb';
-import * as events from '@aws-cdk/aws-events';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as ddb from 'aws-cdk-lib/aws-dynamodb';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { EventbridgeToLambda } from '@aws-solutions-constructs/aws-eventbridge-lambda';
 import { LambdaToDynamoDB } from '@aws-solutions-constructs/aws-lambda-dynamodb';
 import * as defaults from '@aws-solutions-constructs/core';
@@ -117,13 +118,13 @@ enum Qualifier {
  * This construct also adds the role policy permissions required for the source trigger to publish messages
  * on the event bus and for the targets to be able to read from the event bus
  */
-export class DataIngestionTemplate extends cdk.Construct {
+export class DataIngestionTemplate extends Construct {
     private _bus: events.EventBus;
     private _rule: events.Rule;
     private _lambda: { [qualifier: string]: lambda.Function } = {};
     private _dynamoDB: { [qualifier: string]: ddb.Table } = {};
 
-    constructor(scope: cdk.Construct, id: string, props: DataIngestionTemplateProps) {
+    constructor(scope: Construct, id: string, props: DataIngestionTemplateProps) {
         super(scope, id);
 
         // start of building target/ query engine lambda, optional DDB, and add optional SSM policy (TARGET)

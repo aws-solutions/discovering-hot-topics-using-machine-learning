@@ -12,9 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Bucket, CfnBucket } from '@aws-cdk/aws-s3';
-import { Construct } from '@aws-cdk/core';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 import { buildS3Bucket } from '@aws-solutions-constructs/core';
 import { EventStorage } from '../storage/event-storage-construct';
 import { updateBucketResourcePolicy } from '../utils/policy';
@@ -41,13 +41,13 @@ export class AppIntegration extends Construct {
         super(scope, id);
 
         // Setup S3 Bucket
-        [this._s3Bucket] = buildS3Bucket(this, {
+        this._s3Bucket = buildS3Bucket(this, {
             bucketProps: {
                 versioned: false,
                 serverAccessLogsBucket: props.s3LoggingBucket,
                 serverAccessLogsPrefix: `${id}/`
             }
-        });
+        }).bucket;
 
         updateBucketResourcePolicy(props.s3LoggingBucket, this._s3Bucket, id);
 

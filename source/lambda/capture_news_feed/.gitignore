@@ -7,6 +7,8 @@ newscatcher/
 certifi/
 chardet/
 crhelper/
+feedparser/
+filelock/
 idna/
 requests/
 ## crhelper tests directory
@@ -17,3 +19,5 @@ yaml
 tldextract/
 charset_normalizer/
 six.py
+sgmllib.py
+typing_extensions.py

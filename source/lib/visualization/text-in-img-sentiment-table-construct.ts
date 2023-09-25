@@ -12,13 +12,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as cdk from '@aws-cdk/core';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct';
 
 export class TextInImgSentimentTable extends GenericCfnTable {
 
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
 
     }
@@ -27,25 +28,25 @@ export class TextInImgSentimentTable extends GenericCfnTable {
         return [
             ...this.coreColumns, {
                 name: 'text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'sentiment',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'sentimentposscore',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentnegscore',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentneuscore',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'sentimentmixscore',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'image_url',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }];
     }
 }

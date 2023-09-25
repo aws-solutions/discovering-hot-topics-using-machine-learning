@@ -11,9 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict";
+'use strict';
 
-const AWS = require('aws-sdk');
+const { RekognitionClient, DetectTextCommand } = require('@aws-sdk/client-rekognition'),
+    { SFNClient: StepFunctions, SendTaskSuccessCommand, SendTaskFailureCommand } = require('@aws-sdk/client-sfn');
 const path = require('path');
 const url = require('url');
 
@@ -23,75 +24,27 @@ const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const rek = new AWS.Rekognition(awsCustomConfig);
-    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
+    const stepfunctions = new StepFunctions(awsCustomConfig);
 
     const outputs = [];
 
     for (const record of event.Records) {
-
-        const message = JSON.parse(record.body);
+        const message = JSON.parse(Buffer.from(record.body).toString());
         const input = message.input;
-        const sentences = [];
+        let sentences = [];
 
         try {
             if (input.feed.entities !== undefined) {
                 const mediaArray = StreamAnalyzer.getMediaEntity(input.feed);
                 const bucketName = process.env.S3_BUCKET_NAME;
 
-                console.debug (`Media urls are ${JSON.stringify(mediaArray)}`);
+                console.debug(`Media urls are ${JSON.stringify(mediaArray)}`);
                 if (mediaArray !== undefined) {
-                    for (let index = 0; index < mediaArray.length; ++index) {
-                        const mediaUrl = StreamAnalyzer.getMediaUrl(mediaArray[index]);
-                        try {
-                            await ImageExtractor.retrieveImageAndS3Upload(mediaUrl, bucketName, input.feed.id_str);
-                        } catch(error) {
-                            console.error(`Error in uploading image for ${mediaUrl} and id ${input.feed.id_str}`, JSON.stringify(error));
-                            break; // skip to the next iteration if there are more images
-                        }
-
-                        console.debug(`Bucket name is ${bucketName} Bucket prefix for image is ${input.feed.id_str+'/'+path.basename(url.parse(String(mediaUrl)).pathname)}`);
-                        try {
-                            const _s3Key = input.feed.id_str+'/'+path.basename(url.parse(String(mediaUrl)).pathname);
-                            console.debug(`Key to retrieving image from bucket ${_s3Key}`);
-                            const response = await rek.detectText({
-                                Image: {
-                                    S3Object: {
-                                        Bucket: bucketName,
-                                        Name: _s3Key
-                                    }
-                                }
-                            }).promise();
-                            console.debug(`Response from Rek text detection is ${JSON.stringify(response)}`);
-                            if (response.TextDetections!== undefined) {
-                                const lines = [];
-                                const textDetections = response.TextDetections;
-                                for (let detectionIndex = 0; detectionIndex < textDetections.length; ++detectionIndex) {
-                                    if (textDetections[detectionIndex].Type === 'LINE' && textDetections[detectionIndex].DetectedText !== '' ) {
-                                        lines.push(textDetections[detectionIndex].DetectedText);
-                                    }
-                                }
-
-                                const sentence = lines.join(' ');
-                                console.debug(`The line is ${sentence}`);
-
-                                if (sentence !== '') { // only add the line to the sentence if its not empty
-                                    sentences.push({
-                                        image_url: mediaUrl,
-                                        text: sentence
-                                    });
-                                }
-                            }
-                            console.debug(`The sentence is ${JSON.stringify(sentences)}`);
-                        } catch(error) {
-                            console.error('error in extracting text', JSON.stringify(error));
-                            break; // skip to the next iteration
-                        }
-                    }
+                    sentences = await processMedia(mediaArray, bucketName, input.feed.id_str);
                 }
             }
             input.text_in_images = sentences;
-            const strRecord = JSON.stringify(input)
+            const strRecord = JSON.stringify(input);
             const params = {
                 output: strRecord,
                 taskToken: message.taskToken
@@ -99,14 +52,13 @@ exports.handler = async (event) => {
             console.debug(`Final record is ${strRecord}`);
 
             try {
-                await stepfunctions.sendTaskSuccess(params).promise();
-            } catch(error) {
+                await stepfunctions.send(new SendTaskSuccessCommand(params));
+            } catch (error) {
                 console.error(`Failed to publish successful message, params: ${JSON.stringify(params)}`, error);
                 throw error;
             }
 
             outputs.push(input);
-
         } catch (error) {
             console.error(`Task failed: ${error.message}`, error);
             await taskFailed(stepfunctions, error, message.taskToken);
@@ -114,12 +66,78 @@ exports.handler = async (event) => {
     }
 
     return outputs;
+};
+
+async function taskFailed(stepfunctions, error, taskToken) {
+    await stepfunctions.send(
+        new SendTaskFailureCommand({
+            taskToken: taskToken,
+            cause: error.message,
+            error: error.code
+        })
+    );
 }
 
-async function taskFailed (stepfunctions, error, taskToken) {
-    await stepfunctions.sendTaskFailure({
-        taskToken: taskToken,
-        cause: error.message,
-        error: error.code
-    }).promise();
+async function processMedia(mediaArray, bucketName, inputFeedId) {
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const rek = new RekognitionClient(awsCustomConfig);
+    const sentences = [];
+    for (const media of mediaArray) {
+        const mediaUrl = StreamAnalyzer.getMediaUrl(media);
+        try {
+            await ImageExtractor.retrieveImageAndS3Upload(mediaUrl, bucketName, inputFeedId);
+        } catch (error) {
+            console.error(`Error in uploading image for ${mediaUrl} and id ${inputFeedId}`, JSON.stringify(error));
+            break; // skip to the next iteration if there are more images
+        }
+
+        console.debug(
+            `Bucket name is ${bucketName} Bucket prefix for image is ${
+                inputFeedId + '/' + path.basename(url.parse(String(mediaUrl)).pathname)
+            }`
+        );
+        try {
+            const _s3Key = inputFeedId + '/' + path.basename(url.parse(String(mediaUrl)).pathname);
+            console.debug(`Key to retrieving image from bucket ${_s3Key}`);
+            const response = await rek.send(
+                new DetectTextCommand({
+                    Image: {
+                        S3Object: {
+                            Bucket: bucketName,
+                            Name: _s3Key
+                        }
+                    }
+                })
+            );
+            console.debug(`Response from Rek text detection is ${JSON.stringify(response)}`);
+            if (response.TextDetections === undefined) {
+                continue;
+            }
+            const lines = [];
+            const textDetections = response.TextDetections;
+            for (const detectionElement of textDetections) {
+                if (detectionElement.Type === 'LINE' && detectionElement.DetectedText !== '') {
+                    lines.push(detectionElement.DetectedText);
+                }
+            }
+
+            const sentence = lines.join(' ');
+            console.debug(`The line is ${sentence}`);
+
+            if (sentence !== '') {
+                // only add the line to the sentence if its not empty
+                sentences.push({
+                    image_url: mediaUrl,
+                    text: sentence
+                });
+            }
+
+            console.debug(`The sentence is ${JSON.stringify(sentences)}`);
+        } catch (error) {
+            console.trace();
+            console.error('error in extracting text', JSON.stringify(error));
+            break; // skip to the next iteration
+        }
+    }
+    return sentences;
 }

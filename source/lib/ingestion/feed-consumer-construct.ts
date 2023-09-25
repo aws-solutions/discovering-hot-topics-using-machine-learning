@@ -12,12 +12,12 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-
-import * as iam from '@aws-cdk/aws-iam';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as lambda from '@aws-cdk/aws-lambda';
-import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources';
-import * as cdk from '@aws-cdk/core';
+import { Construct } from 'constructs';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { SqsDlq } from 'aws-cdk-lib/aws-lambda-event-sources';
+import * as cdk from 'aws-cdk-lib';
 import { KinesisStreamsToLambda } from '@aws-solutions-constructs/aws-kinesisstreams-lambda';
 import * as defaults from '@aws-solutions-constructs/core';
 
@@ -29,15 +29,15 @@ export interface FeedConsumerProps {
     readonly retentionPeriod?: cdk.Duration;
 }
 
-export class FeedConsumer extends cdk.Construct {
+export class FeedConsumer extends Construct {
 
     private readonly feedConsumerStream: kinesis.IStream;
     private _consumerFunction: lambda.Function;
 
-    constructor(scope: cdk.Construct, id: string, props: FeedConsumerProps) {
+    constructor(scope: Construct, id: string, props: FeedConsumerProps) {
         super(scope, id);
 
-        const [sqsQueue] = defaults.buildQueue(this, 'SqsDlqQueue', {});
+        const sqsQueue = defaults.buildQueue(this, 'SqsDlqQueue', {}).queue;
 
         const ingestionStream = new KinesisStreamsToLambda(this, 'IngestionStream', {
             lambdaFunctionProps: props.functionProps,

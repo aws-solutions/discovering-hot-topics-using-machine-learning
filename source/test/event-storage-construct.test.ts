@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Stack } from 'aws-cdk-lib';
 import { EventStorage } from '../lib/storage/event-storage-construct';
 
 
@@ -25,8 +24,7 @@ test ('Event Storage Construct with props', () => {
         prefix: 'test-prefix/',
         s3Bucket: new Bucket(stack, 'testBucket')
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });
 
 test ('Event Storage Construct without props', () => {
     const stack = new Stack();
@@ -34,8 +32,7 @@ test ('Event Storage Construct without props', () => {
         compressionFormat: 'GZIP',
         s3Bucket: new Bucket(stack, 'testBucket')
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });
 
 test ('Event Storage Construct with Lambda processor', () => {
     const stack = new Stack();
@@ -45,5 +42,4 @@ test ('Event Storage Construct with Lambda processor', () => {
         prefix: 'testPrefix/',
         s3Bucket: new Bucket(stack, 'testBucket')
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

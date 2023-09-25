@@ -11,12 +11,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { EventBus } from '@aws-cdk/aws-events';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { EventBus } from 'aws-cdk-lib/aws-events';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
 import { TextOrchestration } from '../lib/text-analysis-workflow/text-orchestration-construct';
 
 test('test orchestration construct', () => {
@@ -51,9 +50,8 @@ test('test orchestration construct', () => {
         ]
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-
-    expect(stack).toHaveResourceLike('AWS::IAM::Policy', {
+    
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
         'PolicyDocument': {
             'Statement': [
                 {

@@ -12,10 +12,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { CfnPolicy, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct, Duration } from '@aws-cdk/core';
 import { buildLambdaFunction } from '@aws-solutions-constructs/core';
+import { Duration } from 'aws-cdk-lib';
+import { CfnPolicy, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 import { EventStorage } from '../storage/event-storage-construct';
 
 export interface TextAnalysisProxyProps {
@@ -46,7 +47,7 @@ export class TextAnalysisProxy extends Construct {
 
         this.textAnalysisLambda = buildLambdaFunction(this, {
             lambdaFunctionProps: {
-                runtime: Runtime.NODEJS_14_X,
+                runtime: Runtime.NODEJS_18_X,
                 handler: 'index.handler',
                 code: Code.fromAsset(`${__dirname}/../../lambda/firehose-text-proxy`),
                 environment: {

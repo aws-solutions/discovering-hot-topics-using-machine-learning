@@ -11,9 +11,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { ResourcePart } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import * as cdk from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import * as cdk from 'aws-cdk-lib';
 import * as sinon from 'sinon';
 import { ApplytoLambda } from '../lib/aspects/apply-to-lambda';
 import * as layer from '../lib/awsnodejs-lambda-layer/layer';
@@ -28,10 +27,10 @@ test('Sample snapshot test', () => {
     const stack = new DiscoveringHotTopicsStack(app, 'DHT', {
         description: 'This is a test stack to execute unit tests'
     });
-    app.node.applyAspect(new ApplytoLambda(stack, 'Layer'));
-    expect(stack).toHaveResource('AWS::Lambda::LayerVersion', {
+    cdk.Aspects.of(stack).add(new ApplytoLambda(stack, 'Layer'));
+    Template.fromStack(stack).hasResource('AWS::Lambda::LayerVersion', {
         "Type": "AWS::Lambda::LayerVersion"
-    }, ResourcePart.CompleteDefinition);
+    });
 
     sinon.assert.calledOnce(localCopySpy);
     localCopySpy.restore();

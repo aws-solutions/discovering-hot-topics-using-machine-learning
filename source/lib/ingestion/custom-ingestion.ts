@@ -12,12 +12,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as events from '@aws-cdk/aws-events';
-import * as iam from '@aws-cdk/aws-iam';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import * as fs from 'fs';
 import { S3ToEventBridgeToLambda } from '../s3-event-notification/s3-eventbridge-lambda';
 import path = require('path');
@@ -25,7 +26,7 @@ import path = require('path');
 export class CustomIngestion extends cdk.NestedStack {
     public readonly s3Bucket: s3.Bucket;
 
-    constructor(scope: cdk.Construct, id: string, props: cdk.NestedStackProps) {
+    constructor(scope: Construct, id: string, props: cdk.NestedStackProps) {
         super(scope, id, props);
 
         const _streamArn = new cdk.CfnParameter(this, 'StreamARN', {

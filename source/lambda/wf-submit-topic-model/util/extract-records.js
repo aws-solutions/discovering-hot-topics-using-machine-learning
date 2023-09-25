@@ -11,28 +11,29 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict";
+'use strict';
 
-const AWS = require('aws-sdk');
-var path = require('path');
+const { S3Client, CopyObjectCommand, ListObjectsV2Command, DeleteObjectsCommand } = require('@aws-sdk/client-s3');
+const path = require('path');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class RecordExtractor {
-
-    constructor () {
+    constructor() {
         const awsCustomConfig = CustomConfig.customAwsConfig();
-        this.s3 = new AWS.S3(awsCustomConfig);
+        this.s3 = new S3Client(awsCustomConfig);
     }
 
     async transferRecords(sourceBucket, destinationBucket) {
         console.debug(`The source file is ${path.basename(sourceBucket)}`);
         let response;
-        try{
-            response = await this.s3.copyObject({
-                CopySource: sourceBucket,
-                Bucket: destinationBucket,
-                Key: 'input/'+sourceBucket.split('/').splice(1).join('/') //remove bucket name and regenerating key prefix
-            }).promise();
+        try {
+            response = await this.s3.send(
+                new CopyObjectCommand({
+                    CopySource: sourceBucket,
+                    Bucket: destinationBucket,
+                    Key: 'input/' + sourceBucket.split('/').splice(1).join('/') //remove bucket name and regenerating key prefix
+                })
+            );
         } catch (error) {
             console.error('Error in copying object', error);
         }
@@ -42,13 +43,13 @@ class RecordExtractor {
 
     async emptyBucket(destinationBucket) {
         const params = {
-            Bucket: destinationBucket,
+            Bucket: destinationBucket
         };
 
-        while(true) {
-            const objectList = await this.s3.listObjectsV2(params).promise();
+        while (true) {
+            const objectList = await this.s3.send(new ListObjectsV2Command(params));
 
-            if (objectList.Contents.length === 0) {
+            if (objectList.Contents === undefined || objectList.Contents.length === 0) {
                 console.debug('Bucket is empty');
                 break;
             }
@@ -60,13 +61,15 @@ class RecordExtractor {
             });
 
             console.debug('Calling s3 deleteObjects');
-            const deleteResponse = await this.s3.deleteObjects({
-                Bucket: destinationBucket,
-                Delete: {
-                    Objects: keys,
-                    Quiet: true
-                }
-            }).promise();
+            const deleteResponse = await this.s3.send(
+                new DeleteObjectsCommand({
+                    Bucket: destinationBucket,
+                    Delete: {
+                        Objects: keys,
+                        Quiet: true
+                    }
+                })
+            );
 
             if (deleteResponse.Deleted !== undefined && deleteResponse.Deleted.length > 0) {
                 deleteResponse.Deleted.forEach((notDeletedKey) => {

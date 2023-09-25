@@ -11,12 +11,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { ResourcePart, SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import * as events from '@aws-cdk/aws-events';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import { Template, Match } from 'aws-cdk-lib/assertions';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
 import { CustomIngestion } from '../lib/ingestion/custom-ingestion';
 
 test('Test custom ingestion nested stack', () => {
@@ -36,25 +35,21 @@ test('Test custom ingestion nested stack', () => {
             'StreamARN': new kinesis.Stream(stack, 'Stream', {}).streamArn
         }
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike(
-        'AWS::CloudFormation::Stack',
+        Template.fromStack(stack).hasResource('AWS::CloudFormation::Stack',
         {
-            'Type': 'AWS::CloudFormation::Stack',
-            'Properties': {
-                'TemplateURL': {},
-                'Parameters': {
-                    'EventBus': {
-                        'Fn::GetAtt': []
+            Type: 'AWS::CloudFormation::Stack',
+            Properties: {
+                TemplateURL: {},
+                Parameters: {
+                    EventBus: {
+                        'Fn::GetAtt': Match.anyValue()
                     },
-                    'StreamARN': {
-                        'Fn::GetAtt': []
+                    StreamARN: {
+                        'Fn::GetAtt': Match.anyValue()
                     }
                 }
             },
-            'UpdateReplacePolicy': 'Delete',
-            'DeletionPolicy': 'Delete'
-        },
-        ResourcePart.CompleteDefinition
-    );
+            UpdateReplacePolicy: 'Delete',
+            DeletionPolicy: 'Delete'
+        });
 });

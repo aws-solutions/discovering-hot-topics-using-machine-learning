@@ -14,7 +14,7 @@
 'use strict';
 
 const moment = require('moment');
-const AWS = require('aws-sdk');
+const { KinesisClient, PutRecordsCommand } = require('@aws-sdk/client-kinesis');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 const twitterTimestampFormat = 'ddd MMM DD HH:mm:ss Z YYYY';
@@ -22,7 +22,7 @@ const dbTimestampFormat = 'YYYY-MM-DD HH:mm:ss';
 class FeedProducer {
     constructor() {
         const awsCustomConfig = CustomConfig.customAwsConfig();
-        this.kinesisStream = new AWS.Kinesis(awsCustomConfig);
+        this.kinesisStream = new KinesisClient(awsCustomConfig);
     }
 
     async writeToStream(data, props) {
@@ -44,17 +44,17 @@ class FeedProducer {
                 console.debug(`Writing tweet: ${JSON.stringify(message)}`);
 
                 dataRecords.push({
-                    Data: JSON.stringify(message),
+                    Data: Buffer.from(JSON.stringify(message)),
                     PartitionKey: record.id_str
                 });
             });
 
-            return this.kinesisStream
-                .putRecords({
+            return this.kinesisStream.send(
+                new PutRecordsCommand({
                     Records: dataRecords,
                     StreamName: process.env.STREAM_NAME
                 })
-                .promise();
+            );
         }
     }
 }

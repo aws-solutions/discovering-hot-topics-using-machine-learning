@@ -12,8 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { IRuleTarget } from '@aws-cdk/aws-events';
-import { Aws, Construct } from '@aws-cdk/core';
+import { IRuleTarget } from 'aws-cdk-lib/aws-events';
+import { Aws } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { EventManager, RuleConfig } from './event-manager-construct';
 
 export interface Config {

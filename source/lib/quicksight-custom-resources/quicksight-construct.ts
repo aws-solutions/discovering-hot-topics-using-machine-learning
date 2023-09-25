@@ -12,9 +12,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Effect, IRole, Policy, PolicyStatement } from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import { Effect, IRole, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export enum QuickSightSetup {
     DATA_SET = 'dataset',
@@ -34,11 +35,11 @@ export interface QuickSightProps {
     readonly role: IRole;
     readonly parentStackName: string;
 }
-export class QuickSight extends cdk.Construct {
+export class QuickSight extends Construct {
     private _analysisURL: string;
     private _dashboardURL: string;
 
-    constructor(scope: cdk.Construct, id: string, props: QuickSightProps) {
+    constructor(scope: Construct, id: string, props: QuickSightProps) {
         super(scope, id);
         const qsCreateResource = this.createCustomResource(props);
         this._analysisURL = qsCreateResource.getAtt('analysis_url').toString();

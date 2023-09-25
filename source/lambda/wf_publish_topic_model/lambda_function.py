@@ -46,7 +46,7 @@ def handler(event, context):
     topic_terms_handler(event, context)
 
 
-def topic_handler(event, context):
+def topic_handler(event, _):
     source_prefix_list = os.environ["SOURCE_PREFIX"].lower().split(",")
 
     for source_prefix in source_prefix_list:
@@ -71,7 +71,7 @@ def topic_handler(event, context):
             delete_downloaded_file(TMP_DIR + TOPICS_FILE_NAME)  # delete the topics csv file
 
 
-def topic_mapping_handler(event, context):
+def topic_mapping_handler(event, _):
     records = event["Records"]
     logger.debug("Staring to process the records")
     try:
@@ -86,7 +86,7 @@ def topic_mapping_handler(event, context):
     logger.debug("Publishing topics mappings complete")
 
 
-def topic_terms_handler(event, context):
+def topic_terms_handler(event, _):
     source_prefix_list = os.environ["SOURCE_PREFIX"].lower().split(",")
 
     for source_prefix in source_prefix_list:

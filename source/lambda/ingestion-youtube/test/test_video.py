@@ -68,7 +68,7 @@ def test_search_video(mock_youtube_resource, get_event_bus_stubber):
     get_event_bus_stubber.activate()
     from util.video import search_videos
 
-    search_videos(None)
+    search_videos()
 
     get_event_bus_stubber.assert_no_pending_responses()
     get_event_bus_stubber.deactivate()
@@ -183,7 +183,7 @@ def test_search_video_with_10_or_more_iterations(mock_youtube_resource, get_even
     get_event_bus_stubber.activate()
     from util.video import search_videos
 
-    search_videos(None)
+    search_videos()
 
     get_event_bus_stubber.assert_no_pending_responses()
     get_event_bus_stubber.deactivate()
@@ -277,7 +277,7 @@ def test_search_video_with_page_token(mock_youtube_resource, get_event_bus_stubb
     get_event_bus_stubber.activate()
     from util.video import search_videos
 
-    search_videos(None)
+    search_videos()
 
     get_event_bus_stubber.assert_no_pending_responses()
     get_event_bus_stubber.deactivate()
@@ -329,7 +329,7 @@ def test_search_video_with_event_bus_failures(mock_youtube_resource, get_event_b
     get_event_bus_stubber.activate()
     from util.video import search_videos
 
-    search_videos(None)
+    search_videos()
 
     get_event_bus_stubber.assert_no_pending_responses()
     get_event_bus_stubber.deactivate()
@@ -362,7 +362,7 @@ def test_search_video_when_api_throws_error(mock_youtube_resource, get_event_bus
 
     from util.video import search_videos
 
-    search_videos(None)
+    search_videos()
 
     get_event_bus_stubber.assert_no_pending_responses()
     get_event_bus_stubber.deactivate()

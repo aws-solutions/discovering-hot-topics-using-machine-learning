@@ -1,46 +1,97 @@
 Discovering Hot Topics using Machine Learning
-Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Licensed under the Apache License Version 2.0 (the "License"). You may not use this file except
+in compliance with the License. A copy of the License is located at http://www.apache.org/licenses/
+or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 
 **********************
 THIRD PARTY COMPONENTS
 **********************
 This software includes third party software subject to the following copyrights:
-AWS CDK - Apache-2.0
-AWS SDK - Apache-2.0
-AWS SDK Mock - Apache-2.0
-AWS Solutions Constructs Library - Apache-2.0
-boto3 - Apache-2.0
-botocore - Apache-2.0
-chai - MIT license
-crhelper - Apache-2.0
-googleapis - Apache-2.0
-jest - MIT license
-jmespath - MIT License
-momentjs - MIT license
-moto - Apache-2.0
-newscatcher - MIT license
-nock - MIT license
-node - MIT license
-openpyx - MIT license
-pytest-cov - MIT license
-pytest - MIT license
-requests - Apache-2.0
-sinon - BSD license
-snoowrap - MIT license
-tenacity - Apache-2.0
-ts-jest - MIT license
-ts-node - MIT license
-twitter-lite - MIT License
-typescript - Apache-2.0
+
+@aws-cdk/aws-glue-alpha under Apache License 2.0
+@aws-cdk/aws-lambda-python-alpha under Apache License 2.0
+@aws-cdk/aws-servicecatalogappregistry-alpha under Apache License 2.0
+@aws-solutions-constructs/aws-eventbridge-lambda under Apache License 2.0
+@aws-solutions-constructs/aws-kinesisfirehose-s3 under Apache License 2.0
+@aws-solutions-constructs/aws-kinesisstreams-lambda under Apache License 2.0
+@aws-solutions-constructs/aws-lambda-dynamodb under Apache License 2.0
+@aws-solutions-constructs/aws-lambda-s3 under Apache License 2.0
+@aws-solutions-constructs/aws-lambda-stepfunctions under Apache License 2.0
+@aws-solutions-constructs/aws-sqs-lambda under Apache License 2.0
+@aws-solutions-constructs/core -Apache License 2.0
+attrs under MIT License
+aws-cdk-lib under Apache License 2.0
+aws-sdk-client-mock under MIT License
+aws-solutions-constructs under Apache License 2.0
+boolean.py under BSD-2-Clause
+boto3 under Apache License 2.0
+botocore under Apache License 2.0
+cachetools under MIT License
+cdk-nag under Apache License 2.0
+cffi under MIT License
+chai under MIT license
+constructs under Apache License 2.0
+coverage under Apache License 2.0
+crhelper under Apache License 2.0
+crypto under ISC
+cryptography under Apache Software License, BSD License (Apache License 2.0 OR BSD-3-Clause)
+et-xmlfile under MIT License
+exceptiongroup under MIT License
+feedparser under BSD License (BSD-2-Clause)
+googleapis under Apache License 2.0
+googleapis-common-protos under Apache License 2.0
+google-api-core under Apache 2.0
+google-api-python-client under Apache 2.0
+google-auth under Apache 2.0
+google-auth-httplib2 under Apache 2.0
+httplib2 under MIT License
+iniconfig under MIT License
+jest under MIT license
+jinja under BSD License (BSD-3-Clause)
+Jinja2 under BSD License (BSD-3-Clause)
+jmespath under MIT License
+license-expression under Apache License 2.0
+MarkupSafe under BSD License (BSD-3-Clause)
+momentjs under MIT license
+moto under Apache License 2.0
+newscatcher under MIT license
+nock under MIT license
+node under MIT license
+openpyx under MIT license
+openpyxl under MIT License
+pluggy under MIT License
+pytest-cov under MIT license
+pytest under MIT license
+praw under BSD License (BSD-2-Clause)
+prawcore under BSD License
+protobuf under BSD License (BSD-3-Clause)
+pyasn1 under BSD License (BSD-2-Clause)
+pyasn1-modules under BSD License
+pycparser under BSD License
+python-dateutil under Apache License 2.0, BSD License
+requests under Apache License 2.0
+requests-file under Apache 2.0
+responses under Apache 2.0
+rsa under Apache License 2.0
+s3transfer under Apache 2.0
+sgmllib3k under BSD License
+sinon under BSD license
+source-map-support under MIT License
+tenacity under Apache License 2.0
+tldextract under BSD License (BSD-3-Clause)
+tomli under MIT License
+types-PyYAML under Apache License 2.0
+ts-jest under MIT license
+ts-node under MIT license
+twitter-lite under MIT License
+@types/uuid under MIT License
+typescript under Apache License 2.0
+update-checker under BSD License
+uritemplate under Apache Software License, BSD License (BSD 3-Clause License or Apache License, Version 2.0)
+websocket-client under Apache License 2.0
+Werkzeug under BSD License
+xmltodict under MIT License
+

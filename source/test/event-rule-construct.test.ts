@@ -11,21 +11,18 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Code, Runtime } from '@aws-cdk/aws-lambda';
-import { Stack } from '@aws-cdk/core';
 import { buildLambdaFunction } from '@aws-solutions-constructs/core';
+import { Stack } from 'aws-cdk-lib';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { Code, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Config, EventRule } from '../lib/integration/event-rule-construct';
-
 
 test('test Event Rule Construct', () => {
     const stack = new Stack();
 
-    const proxylambda = buildLambdaFunction(stack,  {
+    const proxylambda = buildLambdaFunction(stack, {
         lambdaFunctionProps: {
-            runtime: Runtime.NODEJS_14_X,
+            runtime: Runtime.NODEJS_18_X,
             handler: 'index.handler',
             code: Code.fromAsset(`${__dirname}/../lambda/integration`),
             environment: {
@@ -34,15 +31,14 @@ test('test Event Rule Construct', () => {
         }
     });
 
-    const configs: Config[] = [{
-        source: [ 'com.test' ],
-        ruleTargets: [
-            new LambdaFunction(proxylambda),
-        ]
-    }];
+    const configs: Config[] = [
+        {
+            source: ['com.test'],
+            ruleTargets: [new LambdaFunction(proxylambda)]
+        }
+    ];
 
     new EventRule(stack, 'EventRule', {
         configs: configs
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

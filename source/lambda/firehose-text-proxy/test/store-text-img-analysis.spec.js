@@ -11,18 +11,21 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const assert = require('assert');
-const AWSMock = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-client-mock');
+const { FirehoseClient, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
+const firehoseMock = AWSMock.mockClient(FirehoseClient);
 
 const ImageAnalysis = require('../util/store-text-img-analysis');
 const __test_event__ = require('./event-test-data');
 
 describe('Test Image analysis', () => {
     beforeEach(() => {
+        firehoseMock.reset();
         process.env.REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
@@ -30,23 +33,23 @@ describe('Test Image analysis', () => {
         process.env.TXT_IN_IMG_ENTITY_FIREHOSE = 'entity_stream';
         process.env.TXT_IN_IMG_KEYPHRASE_FIREHOSE = 'keyphrase_stream';
 
-        AWSMock.mock('Firehose', 'putRecord', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
-                "Encrypted": true,
-                "RecordId": "49607933892580429045866716038015163261214518926441971714"
-             });
+                'Encrypted': true,
+                'RecordId': '49607933892580429045866716038015163261214518926441971714'
+            });
         });
 
-        AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
-                "Encrypted": true,
-                "FailedPutCount": 0,
-             });
+                'Encrypted': true,
+                'FailedPutCount': 0
+            });
         });
     });
 
     afterEach(() => {
-        AWSMock.restore('Firehose');
+        firehoseMock.restore();
 
         delete process.env.REGION;
         delete process.env.TXT_IN_IMG_SENTIMENT_FIREHOSE;
@@ -55,7 +58,7 @@ describe('Test Image analysis', () => {
         delete process.env.AWS_SDK_USER_AGENT;
     });
 
-    it ('should store the image analyzed information', async () => {
+    it('should store the image analyzed information', async () => {
         const spy = sinon.spy(ImageAnalysis, 'storeTextFromImage');
         expect(await ImageAnalysis.storeTextFromImage(__test_event__.event_no_entity_keyphrase)).to.be.undefined;
         assert.equal(spy.callCount, 1);

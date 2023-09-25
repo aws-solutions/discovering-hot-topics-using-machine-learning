@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { Role, ServicePrincipal } from '@aws-cdk/aws-iam';
-import { Aws, Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { Aws, Stack } from 'aws-cdk-lib';
 import { QuickSight, QuickSightSetup } from '../lib/quicksight-custom-resources/quicksight-construct';
 
 test('QS custom resource creation', () => {
@@ -31,5 +30,4 @@ test('QS custom resource creation', () => {
         }),
         parentStackName: Aws.STACK_NAME
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

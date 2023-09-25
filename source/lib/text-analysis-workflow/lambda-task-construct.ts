@@ -12,11 +12,12 @@
  *********************************************************************************************************************/
 
 
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as tasks from '@aws-cdk/aws-stepfunctions-tasks';
-import * as cdk from '@aws-cdk/core';
 import * as defaults from '@aws-solutions-constructs/core';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import * as tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
+import { Construct } from 'constructs';
 
 export interface StepFuncLambdaTaskProps {
     readonly taskName: string,
@@ -25,13 +26,13 @@ export interface StepFuncLambdaTaskProps {
     readonly outputPath?: string | any
 }
 
-export class StepFuncLambdaTask extends cdk.Construct {
+export class StepFuncLambdaTask extends Construct {
 
     private executeTask: tasks.LambdaInvoke;
 
     private lambdaFn: lambda.Function;
 
-    constructor (scope: cdk.Construct, id: string, props: StepFuncLambdaTaskProps) {
+    constructor (scope: Construct, id: string, props: StepFuncLambdaTaskProps) {
         super(scope, id);
 
         this.lambdaFn = defaults.buildLambdaFunction(this, {
@@ -42,7 +43,7 @@ export class StepFuncLambdaTask extends cdk.Construct {
             lambdaFunction: this.lambdaFn,
             inputPath: props.inputPath,
             outputPath: props.outputPath,
-            heartbeat: cdk.Duration.minutes(15),
+            heartbeatTimeout: sfn.Timeout.duration(cdk.Duration.minutes(15)),
             retryOnServiceExceptions: true,
         });
 

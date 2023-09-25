@@ -1,7 +1,13 @@
 {
   "name": "cdk-solution-helper",
+  "license": "Apache-2.0",
+  "description": "CDK solution helper",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com/solutions"
+  },
   "version": "0.1.0",
   "dependencies": {
-    "fs": "0.0.1-security"
+    "fs": "^0.0.2"
   }
 }

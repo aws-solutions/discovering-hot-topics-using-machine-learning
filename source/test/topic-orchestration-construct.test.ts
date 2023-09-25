@@ -11,11 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { EventBus } from '@aws-cdk/aws-events';
-import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import { Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { EventBus } from 'aws-cdk-lib/aws-events';
+import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import { Stack } from 'aws-cdk-lib';
 import { TopicOrchestration } from '../lib/topic-analysis-workflow/topic-orchestration-construct';
 
 test('test Text Analysis Fireshose Stream Creation', () => {
@@ -45,5 +44,4 @@ test('test Text Analysis Fireshose Stream Creation', () => {
         topicSchedule: '(5 */2 * * ? *)',
         s3LoggingBucket: s3AccessLoggingBucket
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });

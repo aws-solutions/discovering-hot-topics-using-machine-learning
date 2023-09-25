@@ -12,12 +12,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as cdk from '@aws-cdk/core';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from './generic-table-construct';
 export class TextInImgKeyPhraseTable extends GenericCfnTable {
 
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
@@ -25,22 +26,22 @@ export class TextInImgKeyPhraseTable extends GenericCfnTable {
         return [
             ...this.coreColumns, {
                 name: 'text',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'phrase',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }, {
                 name: 'phrase_score',
-                type: glue.Schema.DOUBLE.inputString
+                type: glue_alpha.Schema.DOUBLE.inputString
             }, {
                 name: 'phrase_begin_offset',
-                type: glue.Schema.INTEGER.inputString
+                type: glue_alpha.Schema.INTEGER.inputString
             }, {
                 name: 'phrase_end_offset',
-                type: glue.Schema.INTEGER.inputString
+                type: glue_alpha.Schema.INTEGER.inputString
             }, {
                 name: 'image_url',
-                type: glue.Schema.STRING.inputString
+                type: glue_alpha.Schema.STRING.inputString
             }];
     }
 }

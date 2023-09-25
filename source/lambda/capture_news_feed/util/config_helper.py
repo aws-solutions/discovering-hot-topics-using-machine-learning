@@ -16,7 +16,7 @@ import json
 import os
 import re
 
-import newscatcher
+from util.newscatcher import urls as newscatcher_urls
 from shared_util import custom_logging
 
 logger = custom_logging.get_logger(__name__)
@@ -29,7 +29,7 @@ def validate_2_char_iso_code(str_iso_code):
     any SQL injection scenarios
     """
     if len(str_iso_code) == 2:
-        return re.match(r"[a-zA-Z]{2}", str_iso_code, re.I).string
+        return re.match(r"[a-z]{2}", str_iso_code, re.I).string
     else:
         logger.error(f"Not a 2 character ISO code {str_iso_code}")
         raise TypeError((f"Not a 2 character ISO code {str_iso_code}"))
@@ -111,7 +111,7 @@ def retrieve_urls(country=None, language=None, topic=None):
             topic = None if topic == "ALL" else validate_topic(topic)
 
         logger.info(f"Parameters to retrieve list are - country:{country}, language:{language}, topic:{topic}")
-        url_list = newscatcher.urls(country=country, language=language, topic=topic)
+        url_list = newscatcher_urls(country=country, language=language, topic=topic)
         logger.debug(f"retrieved url list: {url_list}")
         return url_list
 
