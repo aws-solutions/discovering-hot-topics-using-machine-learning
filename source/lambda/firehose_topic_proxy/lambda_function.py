@@ -21,7 +21,7 @@ from util.topic import store_mappings, store_topics
 logger = custom_logging.get_logger(__name__)
 
 
-def handler(event, context):
+def handler(event, _):
     if event["source"] == os.environ["TOPICS_NS"]:
         logger.debug("Event namespace is " + os.environ["TOPICS_NS"])
         store_topics(event["detail"])

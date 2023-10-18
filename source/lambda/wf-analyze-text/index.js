@@ -13,17 +13,23 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const {
+        ComprehendClient,
+        DetectKeyPhrasesCommand,
+        DetectSentimentCommand,
+        DetectEntitiesCommand
+    } = require('@aws-sdk/client-comprehend'),
+    { SFNClient: StepFunctions, SendTaskFailureCommand, SendTaskSuccessCommand } = require('@aws-sdk/client-sfn');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const stepfunctions = new AWS.StepFunctions(awsCustomConfig);
+    const stepfunctions = new StepFunctions(awsCustomConfig);
 
     const analyzedTextoutputs = [];
 
     for (const record of event.Records) {
-        const message = JSON.parse(record.body);
+        const message = JSON.parse(Buffer.from(record.body).toString());
         const input = message.input;
 
         try {
@@ -50,7 +56,7 @@ exports.handler = async (event) => {
             };
 
             try {
-                await stepfunctions.sendTaskSuccess(params).promise();
+                await stepfunctions.send(new SendTaskSuccessCommand(params));
             } catch (error) {
                 console.error(`Failed to publish successful message, params: ${JSON.stringify(params)}`, error);
                 throw error;
@@ -62,7 +68,6 @@ exports.handler = async (event) => {
             await taskFailed(stepfunctions, error, message.taskToken);
         }
     }
-
     return analyzedTextoutputs;
 };
 
@@ -78,7 +83,7 @@ exports.handler = async (event) => {
  */
 const analyzeText = async (targetElement, elementToAnalyze) => {
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const comprehend = new AWS.Comprehend(awsCustomConfig);
+    const comprehend = new ComprehendClient(awsCustomConfig);
 
     if (elementToAnalyze._cleansed_text.length > 0) {
         //detect sentiment
@@ -95,11 +100,12 @@ const analyzeText = async (targetElement, elementToAnalyze) => {
         targetElement = Object.assign(
             targetElement,
             await comprehend
-                .detectKeyPhrases({
-                    Text: elementToAnalyze._cleansed_text,
-                    LanguageCode: 'en'
-                })
-                .promise()
+                .send(
+                    new DetectKeyPhrasesCommand({
+                        Text: elementToAnalyze._cleansed_text,
+                        LanguageCode: 'en'
+                    })
+                )
                 .catch((error) => {
                     console.error(
                         `Error when performing keyphrase detection on ${elementToAnalyze._cleansed_text}`,
@@ -113,11 +119,12 @@ const analyzeText = async (targetElement, elementToAnalyze) => {
         targetElement = Object.assign(
             targetElement,
             await comprehend
-                .detectEntities({
-                    Text: elementToAnalyze._cleansed_text,
-                    LanguageCode: 'en'
-                })
-                .promise()
+                .send(
+                    new DetectEntitiesCommand({
+                        Text: elementToAnalyze._cleansed_text,
+                        LanguageCode: 'en'
+                    })
+                )
                 .catch((error) => {
                     console.error(`Error when performing detect entities on ${elementToAnalyze._cleansed_text}`, error);
                     throw error;
@@ -131,7 +138,6 @@ const analyzeText = async (targetElement, elementToAnalyze) => {
         targetElement.KeyPhrases = [];
         targetElement.Entities = [];
     }
-
     return targetElement;
 };
 
@@ -139,11 +145,12 @@ const detectSentiment = async (comprehend, text) => {
     let response;
     if (text.length > 0) {
         response = await comprehend
-            .detectSentiment({
-                Text: text,
-                LanguageCode: 'en'
-            })
-            .promise()
+            .send(
+                new DetectSentimentCommand({
+                    Text: text,
+                    LanguageCode: 'en'
+                })
+            )
             .catch((error) => {
                 console.error(`Error when performing sentiment analysis for ${text}`, error);
                 throw error;
@@ -158,16 +165,15 @@ const detectSentiment = async (comprehend, text) => {
             SentimentScore: {}
         };
     }
-
     return response;
 };
 
 async function taskFailed(stepfunctions, error, taskToken) {
-    await stepfunctions
-        .sendTaskFailure({
+    await stepfunctions.send(
+        new SendTaskFailureCommand({
             taskToken: taskToken,
             cause: error.message,
             error: error.code
         })
-        .promise();
+    );
 }

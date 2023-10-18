@@ -12,7 +12,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { CfnParameter, Construct, NestedStack, NestedStackProps } from '@aws-cdk/core';
+import { CfnParameter, NestedStack, NestedStackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { ExecutionRole } from '../solution-helper/lambda-role-cloudwatch-construct';
 import { QuickSight, QuickSightSetup } from './quicksight-construct';
 

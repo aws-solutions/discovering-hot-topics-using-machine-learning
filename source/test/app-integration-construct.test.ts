@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import { App, Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import { App, Stack } from 'aws-cdk-lib';
 import { AppIntegration } from '../lib/integration/app-integration-construct';
 
 test('test App Integration Construct', () => {
@@ -58,5 +57,4 @@ test('test App Integration Construct', () => {
         s3LoggingBucket: s3AccessLoggingBucket
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

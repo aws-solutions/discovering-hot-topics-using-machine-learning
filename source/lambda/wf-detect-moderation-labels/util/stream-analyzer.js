@@ -11,29 +11,27 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict";
-
-const { stringify } = require("querystring");
+'use strict';
 
 class StreamAnalyzer {
-
     /**
      * The media entity object in the tweet feed contains media url. the media entity does not have all the URLs and hence
      * the use of the extended media entity object to get all the associated images
      *
      * @param {*} feed
      */
-    static getMediaEntity (feed) {
+    static getMediaEntity(feed) {
         let media;
         if (feed.entities.media !== undefined) {
-            if (feed.extended_entities !== undefined) { // check if extended entities exists. If yes then use extended entities to ingest media
+            if (feed.extended_entities !== undefined) {
+                // check if extended entities exists. If yes then use extended entities to ingest media
                 if (feed.extended_entities.media !== undefined) {
-                    media = feed.extended_entities.media
+                    media = feed.extended_entities.media;
                 } else {
-                    media = feed.entities.media
+                    media = feed.entities.media;
                 }
             } else {
-                media = feed.entities.media
+                media = feed.entities.media;
             }
         }
 
@@ -45,7 +43,7 @@ class StreamAnalyzer {
      *
      * @param {*} media
      */
-    static getMediaUrl (media) {
+    static getMediaUrl(media) {
         let mediaUrl;
         if (media.media_url_https !== undefined || media.media_url !== undefined) {
             // check if https is available use https if not use http

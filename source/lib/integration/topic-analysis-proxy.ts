@@ -12,9 +12,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Aws, Construct, Duration } from '@aws-cdk/core';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Aws, Duration } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 import { EventStorage } from '../storage/event-storage-construct';
 

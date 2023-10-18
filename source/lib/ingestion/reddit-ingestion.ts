@@ -12,19 +12,20 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as ddb from '@aws-cdk/aws-dynamodb';
-import * as events from '@aws-cdk/aws-events';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as targets from '@aws-cdk/aws-events-targets';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as ddb from 'aws-cdk-lib/aws-dynamodb';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 import { DiscoveringHotTopicsStack } from '../discovering-hot-topics-stack';
 import { DataIngestionTemplate } from './data-ingestion-template';
 
 export class RedditIngestion extends cdk.NestedStack {
     readonly reddit_namespace: string = 'com.analyze.reddit.subreddit';
 
-    constructor(scope: cdk.Construct, id: string, props: cdk.NestedStackProps) {
+    constructor(scope: Construct, id: string, props: cdk.NestedStackProps) {
         super(scope, id, props);
 
         const _redditAPIKey = new cdk.CfnParameter(this, 'RedditAPIKey', {
@@ -78,8 +79,8 @@ export class RedditIngestion extends cdk.NestedStack {
                 lambdaFunctionProps: {
                     description: 'Lambda function to publish the subreddits to ingest information from',
                     handler: 'publish-subreddit.handler',
-                    code: lambda.Code.fromAsset('lambda/ingestion-reddit'),
-                    runtime: lambda.Runtime.NODEJS_14_X,
+                    code: lambda.Code.fromAsset('lambda/ingestion-publish-subreddit'),
+                    runtime: lambda.Runtime.NODEJS_18_X,
                     environment: {
                         SUBREDDITS_TO_FOLLOW: _subRedditsToFollow.valueAsString,
                         SUBREDDIT_PUBLISH_NAMESPACE: this.reddit_namespace
@@ -96,9 +97,9 @@ export class RedditIngestion extends cdk.NestedStack {
             target: {
                 lambdaFunctionProps: {
                     description: 'Lambda function to ingest comments from subreddits of interest',
-                    handler: 'subreddit-comment.handler',
-                    code: lambda.Code.fromAsset('lambda/ingestion-reddit'),
-                    runtime: lambda.Runtime.NODEJS_14_X,
+                    handler: 'lambda_function.handler',
+                    code: lambda.Code.fromAsset('lambda/ingestion_reddit_comments'),
+                    runtime: lambda.Runtime.PYTHON_3_8,
                     environment: {
                         REDDIT_API_KEY: _redditAPIKey.valueAsString,
                         SOLUTION_VERSION: _solution_version,

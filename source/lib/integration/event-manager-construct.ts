@@ -12,8 +12,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { EventBus, EventPattern, IRuleTarget, Rule } from "@aws-cdk/aws-events";
-import { Construct } from "@aws-cdk/core";
+import { EventBus, EventPattern, IRuleTarget, Rule } from "aws-cdk-lib/aws-events";
+import { Construct } from 'constructs';
 export interface RuleConfig {
     readonly eventPattern: EventPattern,
     readonly targets?: IRuleTarget[]

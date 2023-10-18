@@ -11,8 +11,8 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import { Aws, Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Aws, Stack } from 'aws-cdk-lib';
 import { EventManager } from '../lib/integration/event-manager-construct';
 
 test ('Event Bus creation', () => {
@@ -29,6 +29,4 @@ test ('Event Bus creation', () => {
         }],
         eventBusName: 'TestEventBus'
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

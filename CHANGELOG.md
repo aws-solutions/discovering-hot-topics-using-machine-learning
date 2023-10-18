@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2023-09-21
+
+### Updated
+- Migrated to AWS CDK v2
+- Migrated to AWS SDK V3
+- Updated Node Lambda runtime to Node 18
+- Implemented NewsCatcher Locally instead of using deprecated library
+- Reddit comments Ingestion - Migrated from npm snoowrap package to Python praw library. Subreddit comment ingestion lambda is now using Python runtime
+- Security patches for npm packages
+- Updated outdated libraries
+- Operational metrics to include additional deployment attributes for Reddit ingestion and attributes indicating if particular ingestion type is enabled
+
+### Fixed 
+- Youtube Search query when OR (|) expression is used in query parameter
+- Reddit comment ingestion issue for highly active subreddits
+- UrlLib issue in RssNewsFeed Ingestion Lambda
+
+### Removed
+- Python NewCatcher library
+- npm snoowrap package
+
 ## [2.1.4] - 2023-06-07
 
 ### Updated

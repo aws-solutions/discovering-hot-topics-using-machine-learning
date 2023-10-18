@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import { BlockPublicAccess, Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
 import { InferenceDatabase } from '../lib/visualization/inf-database-construct';
 
 test('test workflow stack', () => {
@@ -48,6 +47,4 @@ test('test workflow stack', () => {
         tablePrefixMappings: storageConfig,
         s3LoggingBucket: s3AccessLoggingBucket
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

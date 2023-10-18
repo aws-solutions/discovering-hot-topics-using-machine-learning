@@ -13,13 +13,13 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { FirehoseClient, PutRecordCommand } = require('@aws-sdk/client-firehose');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 class TwRawStorage {
     static storeTweets = async (data) => {
         const awsCustomConfig = CustomConfig.customAwsConfig();
-        const kinesisFireshose = new AWS.Firehose(awsCustomConfig);
+        const kinesisFireshose = new FirehoseClient(awsCustomConfig);
 
         const rawTwFeed = {
             account_name: data.account_name,
@@ -29,14 +29,14 @@ class TwRawStorage {
 
         console.debug(`Raw tweet: ${JSON.stringify(rawTwFeed)}`);
 
-        await kinesisFireshose
-            .putRecord({
+        await kinesisFireshose.send(
+            new PutRecordCommand({
                 DeliveryStreamName: process.env.TW_FEED_STORAGE,
                 Record: {
-                    Data: `${JSON.stringify(rawTwFeed)}\n`
+                    Data: Buffer.from(`${JSON.stringify(rawTwFeed)}\n`)
                 }
             })
-            .promise();
+        );
     };
 }
 

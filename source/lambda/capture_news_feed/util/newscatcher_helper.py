@@ -13,12 +13,11 @@
 ######################################################################################################################
 
 import json
-import os
 import re
 from datetime import date, datetime, timezone
 from urllib.parse import urlparse
 
-from newscatcher import Newscatcher
+from util.newscatcher import Newscatcher
 from shared_util import custom_logging
 
 from shared_util.stream_helper import buffer_data_into_stream
@@ -168,51 +167,58 @@ def create_and_publish_record(news_feed, account_name, platform, last_published_
             logger.warning(f"Cannot parse published timestamp for {article}")
             continue
 
-        if not last_published_timestamp or published_timestamp > datetime.fromisoformat(last_published_timestamp):
-            # check if at least one element of list is present in the article summary else skip this article
-            text = article.get("summary", article.get("title", None))
-            if text:
-                logger.debug(f"Article Detail: {article}")
-                if len(query_str_list) > 0 and not any(keyword in text for keyword in query_str_list):
-                    logger.debug(f"Did not find {query_str} in {article}")
-                    # Moving to next article since it did not have any of the search key words
-                    continue
+        if last_published_timestamp and published_timestamp <= datetime.fromisoformat(last_published_timestamp):
+            continue
 
-                clean_text = re.sub(cleanr, "", text)
-                text_array = slice_text_into_arrays(clean_text)
+        text = article.get("summary", article.get("title", None))
+        logger.debug(f"Article Detail: {article}")
+        # check if at least one element of list is present in the article summary else skip this article
+        if not check_article_text_contains_query(text, article, query_str_list):
+            continue
 
-                # populate image urls
-                id_str = f"{str(int(datetime.now(timezone.utc).timestamp() * 1000))}#{url}"
-                image_urls = filter_link_types(article["links"], "image/jpeg")
-                entities, extended_entities = dict(), dict()
-                entities["media"], extended_entities["media"] = image_urls, image_urls
+        clean_text = re.sub(cleanr, "", text)
+        text_array = slice_text_into_arrays(clean_text)
+
+        # populate image urls
+        id_str = f"{str(int(datetime.now(timezone.utc).timestamp() * 1000))}#{url}"
+        image_urls = filter_link_types(article["links"], "image/jpeg")
+        entities, extended_entities = dict(), dict()
+        entities["media"], extended_entities["media"] = image_urls, image_urls
 
                 # populate text urls
-                text_urls = filter_link_types(article["links"], "text/html")
-                text_urls = filter_link_types(article["links"], "audio/mpeg") if not text_urls else text_urls
+        text_urls = filter_link_types(article["links"], "text/html")
+        text_urls = filter_link_types(article["links"], "audio/mpeg") if not text_urls else text_urls
 
-                if text_urls:
-                    entities["urls"], extended_entities["urls"] = text_urls, text_urls
-                    publish_record(
-                        {
-                            "account_name": account_name,
-                            "platform": platform,
-                            "search_query": query_str,
-                            "feed": {
-                                "created_at": published_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-                                "entities": entities,
-                                "extended_entities": extended_entities,
-                                "lang": language,
-                                "metadata": {"website": url, "country": country, "topic": topic},
-                            },
-                        },
-                        id_str,
-                        text_array,
-                    )
-                else:
-                    logger.debug(f"Skipping news feed from {url} since could not get url from {json.dumps(article)}")
-            else:
-                logger.debug(f"Could not find article in newsfeed {article}")
+        if text_urls:
+            entities["urls"], extended_entities["urls"] = text_urls, text_urls
+            publish_record(
+                {
+                    "account_name": account_name,
+                    "platform": platform,
+                    "search_query": query_str,
+                    "feed": {
+                        "created_at": published_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                        "entities": entities,
+                        "extended_entities": extended_entities,
+                        "lang": language,
+                        "metadata": {"website": url, "country": country, "topic": topic},
+                    },
+                },
+                id_str,
+                text_array,
+            )
+        else:
+            logger.debug(f"Skipping news feed from {url} since could not get url from {json.dumps(article)}")
+
+
+def check_article_text_contains_query(text, article, query_str_list):
+    if not text:
+        logger.debug(f"Could not find article in newsfeed {article}")
+        return False
+    if len(query_str_list) > 0 and not any(keyword in text for keyword in query_str_list):
+        logger.debug(f"Did not find keywords from {query_str_list} in {article}")
+        return False
+    return True
 
 
 def publish_record(record_to_publish, id_str, text_array):

@@ -11,15 +11,16 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import { SqsEventSourceProps } from '@aws-cdk/aws-lambda-event-sources';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as sfn from '@aws-cdk/aws-stepfunctions';
-import * as task from '@aws-cdk/aws-stepfunctions-tasks';
-import * as cdk from '@aws-cdk/core';
 import { SqsToLambda } from '@aws-solutions-constructs/aws-sqs-lambda';
 import * as defaults from '@aws-solutions-constructs/core';
+import * as cdk from 'aws-cdk-lib';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { SqsEventSourceProps } from 'aws-cdk-lib/aws-lambda-event-sources';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import * as task from 'aws-cdk-lib/aws-stepfunctions-tasks';
+import { Construct } from 'constructs';
 
 export interface StepFuncCallbackTaskProps {
     /**
@@ -94,7 +95,7 @@ export class StepFuncCallbackTask extends sfn.StateMachineFragment {
     public readonly startState: sfn.State;
     public readonly endStates: sfn.INextable[];
 
-    constructor(scope: cdk.Construct, id: string, props: StepFuncCallbackTaskProps) {
+    constructor(scope: Construct, id: string, props: StepFuncCallbackTaskProps) {
         super(scope, id);
 
         const _sqsLambda = new SqsToLambda(this, 'Task', {
@@ -116,8 +117,8 @@ export class StepFuncCallbackTask extends sfn.StateMachineFragment {
             }),
             integrationPattern: sfn.IntegrationPattern.WAIT_FOR_TASK_TOKEN,
             outputPath: "$",
-            heartbeat: cdk.Duration.minutes(720),
-            timeout: cdk.Duration.minutes(1440)
+            heartbeatTimeout: sfn.Timeout.duration(cdk.Duration.minutes(720)),
+            taskTimeout: sfn.Timeout.duration(cdk.Duration.minutes(1440))
         };
 
         const _sqsSendMessageProps = props.sqsSendMessageProps !== undefined ?

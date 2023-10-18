@@ -10,6 +10,8 @@ This solution deploys an AWS CloudFormation template to automate data ingestion 
 - Reddit (comments from subreddits of interest)
 - custom data in JSON or XLSX format
 
+**Note**: Twitter ingestion is temporarily disabled starting release v2.2.0 as Twitter has retired v1 APIs.
+
 This solution uses pre-trained machine learning (ML) models from Amazon Comprehend, Amazon Translate, and Amazon Rekognition to provide these benefits:
 
 - **Detecting dominant topics using topic modeling**-identifies the terms that collectively form a topic.
@@ -19,7 +21,7 @@ This solution uses pre-trained machine learning (ML) models from Amazon Comprehe
 
 The solution can be customized to aggregate other social media platforms and internal enterprise systems. The default CloudFormation deployment sets up custom ingestion configuration with parameters and an Amazon Simple Storage Service (Amazon S3) bucket to allow Amazon Transcribe Call Analytics output to be processed for natural language processing (NLP) analysis.
 
-With minimal configuration changes in the custom ingestion functionality, this solution can ingest data from both internal systems and external data sources, such as transcriptions from call center calls, product reviews, movie reviews, and community chat forums including Twitch and Discord. This is done by exporting the custom data in JSON or XLSX format from the respective platforms and then uploading it to an Amazon Simple Storage Service (Amazon S3) bucket that is created when deploying this solution. More details on how to customize this feature, please refer Customizing Amazon Amazon S3 ingestion.
+With minimal configuration changes in the custom ingestion functionality, this solution can ingest data from both internal systems and external data sources, such as transcriptions from call center calls, product reviews, movie reviews, and community chat forums including Twitch and Discord. This is done by exporting the custom data in JSON or XLSX format from the respective platforms and then uploading it to an Amazon Simple Storage Service (Amazon S3) bucket that is created when deploying this solution. More details on how to customize this feature, please refer [Customizing Amazon S3 ingestion](https://docs.aws.amazon.com/solutions/latest/discovering-hot-topics-using-machine-learning/s3-ingestion.html).
 
 For a detailed solution deployment guide, refer to [Discovering Hot Topics using Machine Learning](https://aws.amazon.com/solutions/implementations/discovering-hot-topics-using-machine-learning)
 
@@ -67,7 +69,7 @@ After you deploy the solution, use the included Amazon QuickSight dashboard to v
 - aws-kinesisstreams-lambda
 - aws-lambda-dynamodb
 - aws-lambda-s3
-- aws-lambda-step-function
+- aws-lambda-stepfunctions
 - aws-sqs-lambda
 
 ## Deployment
@@ -91,7 +93,8 @@ The solution is deployed using a CloudFormation template with a lambda backed cu
     │   ├── ingestion-consumer          [lambda function that consumes messages from Amazon Kinesis Data Streams]
     │   ├── ingestion-custom            [lambda function that reads files from Amazon S3 bucket and pushes data to Amazon Kinesis Data Streams]
     │   ├── ingestion-producer          [lambda function that makes Twitter API call and pushes data to Amazon Kinesis Data Stream]
-    │   ├── ingestion-reddit            [lambda function that makes Reddit API call to retrieve comments from subreddits of interest and pushes data to Amazon Kinesis Data Stream]
+    │   ├── ingestion-publish-subreddit [lambda function that publishes Eventbridge (CloudWatch) events for the subreddits to ingest information from. This event triggers ingestion_reddit_comments lambda which retrieves comments from subreddit]
+    │   ├── ingestion_reddit_comments   [lambda function that makes Reddit API call to retrieve comments from subreddits of interest and pushes data to Amazon Kinesis Data Stream]
     │   ├── ingestion-youtube           [lambda function that ingests comments from YouTube videos and pushes data to Amazon Kinesis Data Streams]
     │   ├── integration                 [lambda function that publishes inference outputs to Amazon Events Bridge]
     │   ├── layers                      [lambda layer function library for Node and Python layers]
@@ -143,30 +146,26 @@ chmod +x ./run-all-tests.sh
 ./run-all-tests.sh
 ```
 
-- Configure the bucket name of your target Amazon S3 distribution bucket
+- Configure environment variables for build
 
+Configure below environment variables. Note: The values provided below are example values only.
 ```
-export DIST_OUTPUT_BUCKET=my-bucket-name
-export VERSION=my-version
+export DIST_OUTPUT_BUCKET=my-bucket-name  #This is the global name of the distribution. For the bucket name, the AWS Region is added to the global name (example: 'my-bucket-name-us-east-1') to create a regional bucket. The lambda artifact should be uploaded to the regional buckets for the CloudFormation template to pick it up for deployment.
+
+export SOLUTION_NAME=discovering-hot-topics-using-machine-learning  #The name of this solution
+export VERSION=my-version #version number for the customized code
+export CF_TEMPLATE_BUCKET_NAME=my-cf-template-bucket-name #The name of the S3 bucket where the CloudFormation templates should be uploaded
+export QS_TEMPLATE_ACCOUNT=aws-account-id   #The AWS account Id from which the Amazon QuickSight templates should be sourced for Amazon QuickSight Analysis and Dashboard creation
+export DIST_QUICKSIGHT_NAMESPACE=my-quicksight-namespace  #Quicksight namespace
 ```
 
-- Now build the distributable:
+- Run below commands to build the distributable:
 
 ```
 cd <rootDir>/deployment
 chmod +x ./build-s3-dist.sh
-./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $VERSION $CF_TEMPLATE_BUCKET_NAME QS_TEMPLATE_ACCOUNT
+./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $VERSION $CF_TEMPLATE_BUCKET_NAME $QS_TEMPLATE_ACCOUNT $DIST_QUICKSIGHT_NAMESPACE
 
-```
-
-- Parameter details
-
-```
-$DIST_OUTPUT_BUCKET - This is the global name of the distribution. For the bucket name, the AWS Region is added to the global name (example: 'my-bucket-name-us-east-1') to create a regional bucket. The lambda artifact should be uploaded to the regional buckets for the CloudFormation template to pick it up for deployment.
-$SOLUTION_NAME - The name of This solution (example: discovering-hot-topics-using-machine-learning)
-$VERSION - The version number of the change
-$CF_TEMPLATE_BUCKET_NAME - The name of the S3 bucket where the CloudFormation templates should be uploaded
-$QS_TEMPLATE_ACCOUNT - The account from which the Amazon QuickSight templates should be sourced for Amazon QuickSight Analysis and Dashboard creation
 ```
 
 - When creating and using buckets it is recommeded to:
@@ -175,12 +174,18 @@ $QS_TEMPLATE_ACCOUNT - The account from which the Amazon QuickSight templates sh
   - Ensure buckets are not public.
   - Verify bucket ownership prior to uploading templates or code artifacts.
 
+### 3. Upload deployment assets to your Amazon S3 buckets
 - Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
 
 ```
-aws s3 cp ./global-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot-topics-using-machine-learning/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
-aws s3 cp ./regional-s3-assets/ s3://my-bucket-name-<aws_region>/discovering-hot-topics-using-machine-learning/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
+aws s3 cp ./global-s3-assets/ s3://$CF_TEMPLATE_BUCKET_NAME/discovering-hot-topics-using-machine-learning/$VERSION/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
+aws s3 cp ./regional-s3-assets/ s3://$DIST_OUTPUT_BUCKET-<aws_region>/discovering-hot-topics-using-machine-learning/$VERSION/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
 ```
+
+### 4. Launch the CloudFormation template
+- Get the link of the template uploaded to Amazon S3 bucket ($CF_TEMPLATE_BUCKET_NAME bucket from previous step)
+- Deploy the solution to your account by launching a new AWS CloudFormation stack
+
 
 ## Collection of operational metrics
 

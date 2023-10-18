@@ -12,65 +12,66 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as glue from '@aws-cdk/aws-glue';
-import * as cdk from '@aws-cdk/core';
+import * as glue_alpha from '@aws-cdk/aws-glue-alpha';
+import * as glue from 'aws-cdk-lib/aws-glue';
+import { Construct } from 'constructs';
 import { GenericCfnTable, GenericCfnTableProps } from "./generic-table-construct";
 
 
 export class NewsFeedTable extends GenericCfnTable {
-    constructor(scope: cdk.Construct, id: string, props: GenericCfnTableProps) {
+    constructor(scope: Construct, id: string, props: GenericCfnTableProps) {
         super(scope, id, props);
     }
 
     protected getColumns(): glue.CfnTable.ColumnProperty[] {
         return [{
             name: 'account_name',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'platform',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'search_query',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'entities',
-            type: glue.Schema.struct([{
+            type: glue_alpha.Schema.struct([{
                 name: 'urls',
-                type: glue.Schema.array(glue.Schema.struct([{
+                type: glue_alpha.Schema.array(glue_alpha.Schema.struct([{
                     name: 'expanded_url',
-                    type: glue.Schema.STRING
+                    type: glue_alpha.Schema.STRING
                 }]))
             }, {
                 name: 'media',
-                type: glue.Schema.array(glue.Schema.struct([{
+                type: glue_alpha.Schema.array(glue_alpha.Schema.struct([{
                     name: 'media_url',
-                    type: glue.Schema.STRING
+                    type: glue_alpha.Schema.STRING
                 }]))
             }]).inputString
         }, {
             name: 'metadata',
-            type: glue.Schema.struct([{
+            type: glue_alpha.Schema.struct([{
                 name: 'website',
-                type: glue.Schema.STRING
+                type: glue_alpha.Schema.STRING
             }, {
                 name: 'country',
-                type: glue.Schema.STRING
+                type: glue_alpha.Schema.STRING
             }, {
                 name: 'topic',
-                type: glue.Schema.STRING
+                type: glue_alpha.Schema.STRING
             }]).inputString
         }, {
             name: 'lang',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'id_str',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'text',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }, {
             name: 'translated_text',
-            type: glue.Schema.STRING.inputString
+            type: glue_alpha.Schema.STRING.inputString
         }]
     }
 }

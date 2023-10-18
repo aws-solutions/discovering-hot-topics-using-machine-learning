@@ -12,10 +12,8 @@
  *********************************************************************************************************************/
 
 'use strict';
-
 const lambda = require('../');
 const expect = require('chai').expect;
-const AWS = require('aws-sdk');
 const DataCleanse = require('../util/data-cleanse');
 
 describe('When cleansing data', () => {

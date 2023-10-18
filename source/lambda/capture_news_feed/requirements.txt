@@ -1,1 +1,3 @@
-newscatcher
+feedparser
+tldextract
+urllib3<2

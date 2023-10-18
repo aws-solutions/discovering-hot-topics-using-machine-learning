@@ -12,8 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 import { Ingestion } from './ingestion/ingestion-construct';
 import { PlatformType } from './ingestion/platform-type';
 import { AppIntegration } from './integration/app-integration-construct';
@@ -38,56 +39,8 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         '(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?' +
         '(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))\\))$';
 
-    constructor(scope: cdk.Construct, id: string, props: DiscoveringHotTopicsStackProps) {
+    constructor(scope: Construct, id: string, props: DiscoveringHotTopicsStackProps) {
         super(scope, id, props);
-
-        const _deployTwitter = new cdk.CfnParameter(this, 'DeployTwitter', {
-            type: 'String',
-            default: 'Yes',
-            allowedValues: ['Yes', 'No'],
-            description:
-                'Required: Would you like to deploy the Twitter ingestion mechanism. If you answer yes, Please provide parameters for TwitterIngestionSetup'
-        });
-
-        const _twitterIngestFreqParam = new cdk.CfnParameter(this, 'TwitterIngestQueryFrequency', {
-            type: 'String',
-            default: 'cron(0/5 * * * ? *)',
-            description:
-                'Required: The frequency at which API calls will be made to twitter in a cron expression format. For detailed documentation on schedule expression rules, please nativate to https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html',
-            allowedPattern: `^$|${DiscoveringHotTopicsStack.cronRegex}`,
-            constraintDescription:
-                "Please provide a valid cron expression of the format 'cron(0/5 * * * ? *)'. For details on CloudWatch cron expressions, please navigate to https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html"
-        });
-
-        const _twitterSearchQueryParam = new cdk.CfnParameter(this, 'TwitterSearchQuery', {
-            type: 'String',
-            description:
-                'Required:The query you would like to execute on twitter. For details of how write a query and use operators, please navigate to https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators',
-            minLength: 0,
-            maxLength: 500,
-            default: 'Amazon OR AWS'
-        });
-
-        const _twitterSupportedLang = new cdk.CfnParameter(this, 'SupportedLanguages', {
-            default: 'en,es',
-            description:
-                'The list of languages to query the Search API with. The superset of languages supported is driven by Amazon Translate. For the latest list of languages, please navigate to https://docs.aws.amazon.com/translate/latest/dg/what-is.html#language-pairs for a comprehensive list',
-            maxLength: 43,
-            minLength: 0,
-            allowedPattern: '^$|([a-z]{2}-[a-z]{2}|[a-z]{2})(,([a-z]{2}-[a-z]{2}|[a-z]{2}))*',
-            constraintDescription:
-                'Provide a list of comma separated language iso-code values, Example: de,en,es,it,pt,fr,ja,ko,zh-cn (no spaces after the comma). The input did not match the validation pattern.'
-        });
-
-        const _twitterCredentialKeyPath = new cdk.CfnParameter(this, 'TwitterSSMPathForBearerToken', {
-            type: 'String',
-            default:
-                '/discovering-hot-topics-using-machine-learning/discovering-hot-topics-using-machine-learning/twitter',
-            allowedPattern: '^$|^(?!\\s*$).+',
-            description:
-                'Required: The SSM parameter store path of key where the credentials are stored as encrypted string',
-            constraintDescription: 'The SSM parameter store path cannot be empty'
-        });
 
         const _deployNewsFeeds = new cdk.CfnParameter(this, 'DeployNewsFeeds', {
             type: 'String',
@@ -255,16 +208,6 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             'AWS::CloudFormation::Interface': {
                 ParameterGroups: [
                     {
-                        Label: { default: 'TwitterIngestionSetup' },
-                        Parameters: [
-                            _deployTwitter.logicalId,
-                            _twitterSearchQueryParam.logicalId,
-                            _twitterCredentialKeyPath.logicalId,
-                            _twitterIngestFreqParam.logicalId,
-                            _twitterSupportedLang.logicalId
-                        ]
-                    },
-                    {
                         Label: { default: 'NewsFeedIngestionSetup' },
                         Parameters: [
                             _deployNewsFeeds.logicalId,
@@ -308,34 +251,17 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             }
         };
 
-        new cdk.CfnRule(this, 'TwitterIngestionParamValidation', {
-            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'No'),
-            assertions: [
-                {
-                    assert: cdk.Fn.conditionOr(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
-                    ),
-                    assertDescription:
-                        'If "DeployTwitter" is set to "No", then at least one of "DeployNewsFeeds", "DeployYouTubeCommentsIngestion", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
-                }
-            ]
-        });
-
         new cdk.CfnRule(this, 'NewsFeedsIngestionParamValidation', {
             ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'No'),
             assertions: [
                 {
                     assert: cdk.Fn.conditionOr(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployNewsFeeds" is set to "No", then at least one of "DeployTwitter", "DeployYouTubeCommentsIngestion", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployNewsFeeds" is set to "No", then at least one of "DeployYouTubeCommentsIngestion", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -345,13 +271,12 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             assertions: [
                 {
                     assert: cdk.Fn.conditionOr(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployYouTubeCommentsIngestion" is set to "No", then at least one of "DeployTwitter", "DeployNewsFeeds", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployYouTubeCommentsIngestion" is set to "No", then at least one of "DeployNewsFeeds", "DeployRedditIngestion", or "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -361,13 +286,12 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             assertions: [
                 {
                     assert: cdk.Fn.conditionOr(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployCustomIngestion.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployRedditIngestion" is set to "No", then at least one of "DeployTwitter", "DeployYouTubeCommentsIngestion", "DeployNewsFeeds", "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
+                        'If "DeployRedditIngestion" is set to "No", then at least one of "DeployYouTubeCommentsIngestion", "DeployNewsFeeds", "DeployCustomIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -377,40 +301,12 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
             assertions: [
                 {
                     assert: cdk.Fn.conditionOr(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployNewsFeeds.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployYoutubeCommentsIngestion.logicalId), 'Yes'),
                         cdk.Fn.conditionEquals(cdk.Fn.ref(_deployRedditIngestion.logicalId), 'Yes')
                     ),
                     assertDescription:
-                        'If "DeployCustomIngestion" is set to "No", then at least one of "DeployTwitter" or "DeployNewsFeeds" or "DeployYouTubeCommentsIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
-                }
-            ]
-        });
-
-        new cdk.CfnRule(this, 'ValidateTwitterMandatoryParam', {
-            ruleCondition: cdk.Fn.conditionEquals(cdk.Fn.ref(_deployTwitter.logicalId), 'Yes'),
-            assertions: [
-                {
-                    assert: cdk.Fn.conditionNot(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_twitterIngestFreqParam.logicalId), '')
-                    ),
-                    assertDescription:
-                        'If "DeployTwitter" is set to "Yes", then "TwitterIngestQueryFrequency" should be provided. It cannot be blank'
-                },
-                {
-                    assert: cdk.Fn.conditionNot(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_twitterCredentialKeyPath.logicalId), '')
-                    ),
-                    assertDescription:
-                        'If "DeployTwitter" is set to "Yes", then "TwitterSSMPathForBearerToken" should be provided. It cannot be blank'
-                },
-                {
-                    assert: cdk.Fn.conditionNot(
-                        cdk.Fn.conditionEquals(cdk.Fn.ref(_twitterSearchQueryParam.logicalId), '')
-                    ),
-                    assertDescription:
-                        'If "DeployTwitter" is set to "Yes" then "TwitterSearchQuery" should be provided. It cannot be blank'
+                        'If "DeployCustomIngestion" is set to "No", then at least one of "DeployNewsFeeds" or "DeployYouTubeCommentsIngestion" should be set to "Yes". At least one ingestion mechanism is required.'
                 }
             ]
         });
@@ -483,21 +379,23 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
 
         new SolutionHelper(this, 'SolutionHelper', {
             solutionId: solutionID,
-            searchQuery: _twitterSearchQueryParam.valueAsString,
-            langFilter: _twitterSupportedLang.valueAsString,
             solutionVersion: solutionVersion,
+            deployNewsFeedIngestion: _deployNewsFeeds.valueAsString,
             newsFeedsIngestionSearchQuery: _newsSearchQuery.valueAsString,
             newsFeedIngestionFreq: _newsFeedIngestFreq ? _newsFeedIngestFreq.valueAsString : '',
-            twitterIngestionFreq: _twitterIngestFreqParam.valueAsString,
             topicModelingFreq: _topicSchedule.valueAsString,
+            deployYoutubeIngestion: _deployYoutubeCommentsIngestion.valueAsString, 
             youTubeIngestionFreq: _youtubeVideoSearchFreq.valueAsString,
             youTubeSearchQuery: _youtubeVideoSearchQuery.valueAsString,
             youTubeChannelID: _youtubeChannelId.valueAsString,
-            deployCustomIngestion: _deployCustomIngestion.valueAsString
+            deployRedditIngestion: _deployRedditIngestion.valueAsString,
+            redditIngestionFreq: _subRedditIngestionFreq ? _subRedditIngestionFreq.valueAsString : '',
+            subredditsToFollow: _subRedditsToFollow ? _subRedditsToFollow.valueAsString : '',
+            deployCustomIngestion: _deployCustomIngestion.valueAsString, 
         });
 
         const s3AccessLoggingBucket = new s3.Bucket(this, 'AccessLog', {
-            versioned: false,
+            versioned: false, // NOSONAR - bucket versioning is recommended in the IG, but is not enforced
             encryption: s3.BucketEncryption.S3_MANAGED,
             removalPolicy: cdk.RemovalPolicy.RETAIN,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -523,6 +421,9 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         });
 
         const qsNestedTemplate = new QuickSightStack(this, 'QSDashboard', {
+            description: `(${this.node.tryGetContext(
+                'solution_id'
+            )}n-quicksight) - Discovering Hot Topics using Machine Learning nested Quicksight resources - Version %%VERSION%%`,
             parameters: {
                 'QuickSightSourceTemplateArn': this.node.tryGetContext('quicksight_source_template_arn'),
                 'QuickSightPrincipalArn': _quickSightPrincipalArn.valueAsString,
@@ -576,11 +477,6 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         // start creation of Kinesis consumer that invokes state machine
         const _ingestion = new Ingestion(this, 'Ingestion', {
             s3LoggingBucket: s3AccessLoggingBucket,
-            deployTwitter: _deployTwitter,
-            ingestFrequency: _twitterIngestFreqParam,
-            twitterQueryParameter: _twitterSearchQueryParam,
-            supportedLang: _twitterSupportedLang,
-            credentialKeyPath: _twitterCredentialKeyPath,
             deployRSSNewsFeeds: _deployNewsFeeds,
             rssNewsFeedConfig: _newsFeedConfigParam,
             rssNewsFeedQueryParameter: _newsSearchQuery,
@@ -601,10 +497,6 @@ export class DiscoveringHotTopicsStack extends cdk.Stack {
         // end creation of Lambda Kinesis producer that fetches social media feed
 
         const ingestionTypes: PlatformType[] = [
-            {
-                name: 'TWITTER',
-                topicModelling: true
-            },
             {
                 name: 'NEWSFEEDS',
                 topicModelling: true

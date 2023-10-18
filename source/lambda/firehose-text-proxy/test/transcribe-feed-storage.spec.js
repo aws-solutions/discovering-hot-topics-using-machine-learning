@@ -11,32 +11,35 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
- "use strict"
+'use strict';
 
- const sinon = require('sinon');
- const expect = require('chai').expect;
- const AWSMock = require('aws-sdk-mock');
- const assert = require('assert');
- 
- const RawFeedStorage = require('../util/raw-data-storage');
- const __test_data__ = require('./trascribe-call-event-test-data');
+const sinon = require('sinon');
+const expect = require('chai').expect;
+const AWSMock = require('aws-sdk-client-mock');
+const { FirehoseClient, PutRecordBatchCommand } = require('@aws-sdk/client-firehose');
+const firehoseMock = AWSMock.mockClient(FirehoseClient);
+const assert = require('assert');
 
- describe('when normalizing transcribe data and publishing to firehose', () => {
+const RawFeedStorage = require('../util/raw-data-storage');
+const __test_data__ = require('./trascribe-call-event-test-data');
+
+describe('when normalizing transcribe data and publishing to firehose', () => {
     beforeEach(() => {
+        firehoseMock.reset();
         process.env.CUSTOMINGESTIONITEM_FEED_STORAGE = 'customingestionitem_feed_storage';
         process.env.CUSTOMINGESTIONLOUDNESS_FEED_STORAGE = 'customingestionloudness_feed_storage';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('Firehose', 'putRecordBatch', (error, callback) => {
+        firehoseMock.on(PutRecordBatchCommand).callsFake((error, callback) => {
             callback(null, {
-                "Encrypted": true,
-                "FailedPutCount": 0,
+                'Encrypted': true,
+                'FailedPutCount': 0
             });
         });
     });
 
     afterEach(() => {
-        AWSMock.restore('Firehose');
+        firehoseMock.restore();
         delete process.env.CUSTOMINGESTIONITEM_FEED_STORAGE;
         delete process.env.CUSTOMINGESTIONLOUDNESS_FEED_STORAGE;
         delete process.env.AWS_SDK_USER_AGENT;
@@ -48,4 +51,4 @@
         assert.equal(spy.callCount, 1);
         spy.restore();
     });
- });
+});

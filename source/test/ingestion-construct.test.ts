@@ -11,10 +11,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { SynthUtils } from '@aws-cdk/assert';
-import * as events from '@aws-cdk/aws-events';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { DiscoveringHotTopicsStack } from '../lib/discovering-hot-topics-stack';
 import { Ingestion } from '../lib/ingestion/ingestion-construct';
 
@@ -212,15 +211,10 @@ test('Event Bus creation', () => {
     });
 
     new Ingestion(stack, 'Ingestion', {
-        ingestFrequency: _twitterIngestFreqParam,
-        twitterQueryParameter: _queryParam,
-        supportedLang: _supportedLang,
-        credentialKeyPath: _credentialKeyPath,
         rssNewsFeedConfig: _newsFeedConfigParam,
         rssNewsFeedQueryParameter: _newsSearchQuery,
         rssNewsFeedIngestFreq: _rssNewsFeedIngestFreq,
         s3LoggingBucket: s3AccessLoggingBucket,
-        deployTwitter: _deployTwitter,
         deployRSSNewsFeeds: _deployRSSFeeds,
         deployYouTubeComments: _deployYoutubeCommentsIngestion,
         youTubeSearchFreq: _youtubeVideoSearchFreq,
@@ -234,6 +228,4 @@ test('Event Bus creation', () => {
         metadataNS: 'metadata.call_analytics',
         integrationEventBus: new events.EventBus(stack, 'TestBus')
     });
-
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

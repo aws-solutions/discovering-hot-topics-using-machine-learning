@@ -12,19 +12,20 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
-import * as events from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as events from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { DiscoveringHotTopicsStack } from '../discovering-hot-topics-stack';
 import { DataIngestionTemplate } from './data-ingestion-template';
 
 export class NewsCatcher extends cdk.NestedStack {
     readonly _newsConfigNamespace:string = "com.analyze.news.config";
 
-    constructor(scope: cdk.Construct, id: string, props?: cdk.NestedStackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.NestedStackProps) {
         super(scope, id, props);
 
         const _eventBusArn = new cdk.CfnParameter(this, 'EventBus', {

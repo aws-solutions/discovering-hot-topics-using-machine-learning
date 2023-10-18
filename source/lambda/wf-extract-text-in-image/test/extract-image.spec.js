@@ -11,13 +11,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-"use strict"
+'use strict';
 const axios = require('axios');
 const stream = require('stream');
 const fs = require('fs');
-const AWS = require('aws-sdk');
-
-const AWSMock = require('aws-sdk-mock');
+const { Upload } = require('@aws-sdk/lib-storage');
+const AWSMock = require('aws-sdk-client-mock');
+const { S3Client, UploadPartCommand } = require('@aws-sdk/client-s3');
+const s3Mock = AWSMock.mockClient(S3Client);
 const sinon = require('sinon');
 const assert = require('assert');
 
@@ -25,9 +26,10 @@ const ImageExtractor = require('../util/extract-image');
 
 describe('Test retrieveIamageAndS3Upload', () => {
     beforeEach(() => {
+        s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     return resolve({
@@ -41,23 +43,28 @@ describe('Test retrieveIamageAndS3Upload', () => {
         });
     });
 
-    it ('should execute succesfully', async() => {
+    it('should execute succesfully', async () => {
         const spy = sinon.spy(ImageExtractor, 'retrieveImageAndS3Upload');
-        await ImageExtractor.retrieveImageAndS3Upload('https://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg', 'TestBucket', 'RandomKey');
+        await ImageExtractor.retrieveImageAndS3Upload(
+            'https://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg',
+            'TestBucket',
+            'RandomKey'
+        );
         assert(spy.calledOnce);
     });
 
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
-        AWSMock.restore('S3');
+        s3Mock.restore();
     });
 });
 
 describe('Test S3 Upload', () => {
     beforeEach(() => {
+        s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     return resolve({
@@ -71,55 +78,66 @@ describe('Test S3 Upload', () => {
         });
     });
 
-    it ('should successfully mock S3 upload', async () => {
-        const s3 = new AWS.S3();
-        await s3.upload({
-            Bucket: 'TestBucket',
-            Key: 'RandomKey',
-            Body: fs.createReadStream(`${__dirname}/text.png`)
-        }).promise();
+    it('should successfully mock S3 upload', async () => {
+        const s3 = new S3Client();
+        await new Upload({
+            client: s3,
+            params: {
+                Bucket: 'TestBucket',
+                Key: 'RandomKey',
+                Body: fs.createReadStream(`${__dirname}/text.png`)
+            }
+        }).done();
     });
 
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
-        AWSMock.restore('S3');
+        s3Mock.restore();
     });
 });
 
 describe('Test Error scenario', () => {
     beforeEach(() => {
+        s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(new Error('S3 upload failed'), null);
         });
     });
 
-    it ('should fail S3 upload', async () => {
-        const s3 = new AWS.S3();
-        await s3.upload({
+    it('should fail S3 upload', async () => {
+        const s3 = new S3Client();
+        await new Upload({
+            client: s3,
+
+            params: {
                 Bucket: 'TestBucket',
                 Key: 'RandomKey',
                 Body: fs.createReadStream(`${__dirname}/text.png`)
-        }).promise().catch((error) => {
-            if (error instanceof assert.AssertionError) {
-                assert.fail()
             }
-            assert.equal(error.message, 'S3 upload failed');
-        });
+        })
+            .done()
+            .catch((error) => {
+                if (error instanceof assert.AssertionError) {
+                    assert.fail();
+                }
+                assert.equal(error.message, 'S3 upload failed');
+            });
     });
 
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
-        AWSMock.restore('S3');
+        s3Mock.restore();
     });
 });
 
 describe('Test mock axios with S3 upload mock', () => {
     beforeEach(() => {
+        s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        AWSMock.mock('S3', 'upload', (error, callback) => {
+        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(null, () => {
                 return new Promise((resolve) => {
                     return resolve({
@@ -135,26 +153,31 @@ describe('Test mock axios with S3 upload mock', () => {
 
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
-        AWSMock.restore('S3');
-
+        s3Mock.restore();
     });
 
-    it ('return a readstream and successfully uploads', async () => {
+    it('return a readstream and successfully uploads', async () => {
         const axiosStub = sinon.stub(axios.default, 'get').callsFake(async () => {
             return { status: 200, data: fs.createReadStream(`${__dirname}/text.png`) };
         });
 
-        const response = await axios.default.get('http://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg', { responseType: 'stream' });
+        const response = await axios.default.get('http://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg', {
+            responseType: 'stream'
+        });
         const passThrough = new stream.PassThrough();
         response.data.pipe(passThrough);
 
-        const s3 = new AWS.S3();
+        const s3 = new S3Client();
 
-        await s3.upload({
-            Bucket: 'TestBucket',
-            Key: 'RandomKey',
-            Body: passThrough
-        }).promise();
+        await new Upload({
+            client: s3,
+
+            params: {
+                Bucket: 'TestBucket',
+                Key: 'RandomKey',
+                Body: passThrough
+            }
+        }).done();
 
         axiosStub.restore();
     });

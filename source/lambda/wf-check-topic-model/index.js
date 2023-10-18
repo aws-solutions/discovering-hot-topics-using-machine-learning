@@ -13,14 +13,14 @@
 
 'use strict';
 
-const AWS = require('aws-sdk');
+const { ComprehendClient, DescribeTopicsDetectionJobCommand } = require('@aws-sdk/client-comprehend');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 exports.handler = async (event) => {
     console.debug(`Event received is ${JSON.stringify(event)}`);
 
     const awsCustomConfig = CustomConfig.customAwsConfig();
-    const comprehend = new AWS.Comprehend(awsCustomConfig);
+    const comprehend = new ComprehendClient(awsCustomConfig);
 
     const response = {};
     let completedCount = 0;
@@ -30,11 +30,11 @@ exports.handler = async (event) => {
     for (const sourcePrefix of sourcePrefixList) {
         console.debug(`Processing source prefix: ${sourcePrefix}`);
         if (event[`${sourcePrefix}`]) {
-            const serviceResponse = await comprehend
-                .describeTopicsDetectionJob({
+            const serviceResponse = await comprehend.send(
+                new DescribeTopicsDetectionJobCommand({
                     JobId: event[`${sourcePrefix}`].JobId
                 })
-                .promise();
+            );
 
             if (serviceResponse?.TopicsDetectionJobProperties) {
                 response[`${sourcePrefix}`] = serviceResponse.TopicsDetectionJobProperties;

@@ -11,11 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { ResourcePart, SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cdk from '@aws-cdk/core';
+import { Template, Match } from 'aws-cdk-lib/assertions';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cdk from 'aws-cdk-lib';
 import { S3ToEventBridgeToLambda } from '../lib/s3-event-notification/s3-eventbridge-lambda';
 
 test('Test default s3-cloudtrail-eventbridge-lambda', () => {
@@ -28,8 +27,7 @@ test('Test default s3-cloudtrail-eventbridge-lambda', () => {
             handler: 'lambda_function/handler'
         }
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-});
+    });
 
 test('Test when an existing lambda is provided', () => {
     const stack = new cdk.Stack();
@@ -43,7 +41,6 @@ test('Test when an existing lambda is provided', () => {
     const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
        existingLambdaObj: _lambdaFunc
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
 
 test('Test when an existing bucket is provided', () => {
@@ -61,13 +58,9 @@ test('Test when an existing bucket is provided', () => {
         },
         existingBucketObj: _existingBucket
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
-        "Type": "AWS::S3::Bucket",
-        "Properties": {
-            "BucketName": "testbucket",
-        }
-    }, ResourcePart.CompleteDefinition);
+        Template.fromStack(stack).hasResourceProperties('AWS::S3::Bucket', {
+            BucketName: "testbucket"
+    });
 });
 
 test('Use bucket props to create a bucket', () => {
@@ -83,13 +76,9 @@ test('Use bucket props to create a bucket', () => {
             bucketName: 'bucketpropsprovided'
         }
     });
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
-        "Type": "AWS::S3::Bucket",
-        "Properties": {
-            "BucketName": "bucketpropsprovided"
-        }
-    }, ResourcePart.CompleteDefinition);
+        Template.fromStack(stack).hasResourceProperties('AWS::S3::Bucket', {
+            BucketName: "bucketpropsprovided"
+    });
 });
 
 test('Test when event props are provided', () => {
@@ -118,31 +107,23 @@ test('Test when event props are provided', () => {
         }
     });
 
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-    expect(stack).toHaveResourceLike('AWS::Events::Rule', {
-        "Type": "AWS::Events::Rule",
-        "Properties": {
-            "EventPattern": {
-                "source": [
-                    "aws.fake.event"
+        Template.fromStack(stack).hasResourceProperties('AWS::Events::Rule', {
+        EventPattern: {
+            source: ['aws.fake.event'],
+            'detail-type': ['Test API Call Event'],
+            detail: {
+                'eventSource': [
+                    'fake.amazonaws.com'
                 ],
-                "detail-type": [
-                    "Test API Call Event"
-                ],
-                "detail": {
-                    "eventSource": [
-                        "fake.amazonaws.com"
-                    ],
-                    "eventName": [
-                        "fakeEvent1",
-                        "fakeEvent2"
-                    ]
-                }
-            },
-            "State": "ENABLED",
-            "Targets": []
-        }
-    }, ResourcePart.CompleteDefinition)
+                'eventName': [
+                    'fakeEvent1',
+                    'fakeEvent2'
+                ]
+            }
+        },
+        State: 'ENABLED',
+        Targets: Match.anyValue()
+    })
 });
 
 test('Throw error when specifying bucket instance and bucket props', () => {

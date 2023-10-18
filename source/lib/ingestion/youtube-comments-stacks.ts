@@ -12,13 +12,14 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as ddb from '@aws-cdk/aws-dynamodb';
-import * as events from '@aws-cdk/aws-events';
-import * as targets from '@aws-cdk/aws-events-targets';
-import * as iam from '@aws-cdk/aws-iam';
-import * as kinesis from '@aws-cdk/aws-kinesis';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+import * as ddb from 'aws-cdk-lib/aws-dynamodb';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as kinesis from 'aws-cdk-lib/aws-kinesis';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { DiscoveringHotTopicsStack } from '../discovering-hot-topics-stack';
 import { DataIngestionTemplate } from './data-ingestion-template';
 
@@ -26,7 +27,7 @@ export class YoutubeComments extends cdk.NestedStack {
     readonly video_namespace:string = "com.analyze.youtube.video";
     // readonly comment_namespace:string = "com.analyze.youtube.comment";
 
-    constructor(scope: cdk.Construct, id: string, props?: cdk.NestedStackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.NestedStackProps) {
         super(scope, id, props);
 
         const _youtubeAPIKey = new cdk.CfnParameter(this, 'YoutubeAPIKey', {

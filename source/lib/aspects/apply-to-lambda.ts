@@ -12,16 +12,17 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as lambda_python from '@aws-cdk/aws-lambda-python';
-import * as cdk from '@aws-cdk/core';
+import * as lambda_python from '@aws-cdk/aws-lambda-python-alpha';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { Construct, IConstruct } from 'constructs';
 import { NodejsLayerVersion } from '../awsnodejs-lambda-layer/layer';
 
-export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
+export class ApplytoLambda extends Construct implements cdk.IAspect {
     readonly pythonLayer: lambda.LayerVersion;
     readonly nodejsLayer: lambda.LayerVersion;
 
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: Construct, id: string) {
         super(scope, id);
 
         this.pythonLayer = new lambda_python.PythonLayerVersion(this, 'PythonLibLayer', {
@@ -32,17 +33,17 @@ export class ApplytoLambda extends cdk.Construct implements cdk.IAspect {
 
         this.nodejsLayer = new NodejsLayerVersion(this, id, {
             entry: 'lambda/layers/aws-nodesdk-custom-config',
-            compatibleRuntimes: [lambda.Runtime.NODEJS_14_X],
+            compatibleRuntimes: [lambda.Runtime.NODEJS_18_X],
             description: 'This layer configures AWS Node SDK initialization'
         });
     }
 
-    public visit(node: cdk.IConstruct): void {
+    public visit(node: IConstruct): void {
         // the various rules that apply to the lambda function
         this.applyUserAgentAspect(node); // add user agent for node and python
     }
 
-    private applyUserAgentAspect(node: cdk.IConstruct): void {
+    private applyUserAgentAspect(node: IConstruct): void {
         const solutionID = node.node.tryGetContext('solution_id');
         const solutionVersion = node.node.tryGetContext('solution_version');
 
