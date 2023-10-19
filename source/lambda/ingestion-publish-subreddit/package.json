@@ -1,6 +1,6 @@
 {
     "name": "ingestion-publish-subreddit",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "description": "This function publishes the events for subreddits to ingest information from",
     "main": "index.js",
     "scripts": {
