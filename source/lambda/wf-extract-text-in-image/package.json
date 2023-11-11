@@ -18,7 +18,7 @@
     "@aws-sdk/client-s3": "^3.369.0",
     "@aws-sdk/client-sfn": "^3.369.0",
     "@aws-sdk/lib-storage": "^3.369.0",
-    "axios": "^1.4.0"
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "aws-sdk-client-mock": "^3.0.0",
