@@ -68,7 +68,7 @@ export class TextOrchestration extends Construct {
         // start of detect language task
         const detectLangTask = new StepFuncCallbackTask(this, 'DetectLang', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-detect-language'),
                 reservedConcurrentExecutions: 15,
@@ -118,7 +118,7 @@ export class TextOrchestration extends Construct {
 
         const imageAnalysisTask = new StepFuncCallbackTask(this, 'ImageAnalysis', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-extract-text-in-image'),
                 timeout: cdk.Duration.minutes(15),
@@ -176,7 +176,7 @@ export class TextOrchestration extends Construct {
         // start of content moderation
         const moderationLabelTask = new StepFuncCallbackTask(this, 'ModerationLabels', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-detect-moderation-labels'),
                 timeout: cdk.Duration.minutes(5),
@@ -222,7 +222,7 @@ export class TextOrchestration extends Construct {
         // start of translation task state lambda function and role iam.Policy
         const translateTask = new StepFuncCallbackTask(this, 'Translate', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-translate-text'),
                 timeout: cdk.Duration.minutes(5),
@@ -270,7 +270,7 @@ export class TextOrchestration extends Construct {
         // start of text analysis task state lambda function and role iam.Policy
         const textAnalysisTask = new StepFuncCallbackTask(this, 'TextAnalysis', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
                 timeout: cdk.Duration.minutes(5),
@@ -313,7 +313,7 @@ export class TextOrchestration extends Construct {
         const publishEventsTask = new StepFuncLambdaTask(this, 'PublishEvents', {
             taskName: 'PublishEvents',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/wf-publish-text-inference'),
                 timeout: cdk.Duration.minutes(5),

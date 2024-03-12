@@ -50,7 +50,7 @@ def read_config(file_name):
 class QuicksightApplication:
     def __init__(self, resource_properties):
         # TODO: use the config data / file to figure out the supported_data_set_types
-        supported_data_set_types = ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
+        supported_data_set_types = ["image-text", "topic", "image-moderation-label", "topic-mapping", "feed"]
 
         self.resource_properties = resource_properties
         self.global_state = get_global_state()

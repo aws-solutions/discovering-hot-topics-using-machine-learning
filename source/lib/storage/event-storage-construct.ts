@@ -147,7 +147,7 @@ export class EventStorage extends Construct {
             } else {
                 this._lambda = buildLambdaFunction(this, {
                     lambdaFunctionProps: {
-                        runtime: lambda.Runtime.NODEJS_18_X,
+                        runtime: lambda.Runtime.NODEJS_20_X,
                         handler: 'index.handler',
                         code: lambda.Code.fromAsset(`${__dirname}/../../lambda/storage-firehose-processor`)
                     }

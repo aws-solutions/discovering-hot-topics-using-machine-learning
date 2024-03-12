@@ -70,10 +70,6 @@ def test_source_entity_get_map_invalid_sub_type(quicksight_application_stub, min
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
                         },
                         {
-                            "DataSetPlaceholder": "geo",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/geo",
-                        },
-                        {
                             "DataSetPlaceholder": "topic-mapping",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic-mapping",
                         },
@@ -120,10 +116,6 @@ def test_source_entity_get_map_missing_source_entity(quicksight_application_stub
                         {
                             "DataSetPlaceholder": "topic",
                             "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic",
-                        },
-                        {
-                            "DataSetPlaceholder": "geo",
-                            "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/geo",
                         },
                         {
                             "DataSetPlaceholder": "topic-mapping",

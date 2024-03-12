@@ -12,9 +12,9 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import * as cdk from 'aws-cdk-lib';
 import { Effect, IRole, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 export enum QuickSightSetup {
@@ -81,7 +81,7 @@ export class QuickSight extends Construct {
         customResourcePolicy.attachToRole(props.role);
 
         const customResourceFunction = new lambda.Function(this, 'CustomResource', {
-            runtime: lambda.Runtime.PYTHON_3_8,
+            runtime: lambda.Runtime.PYTHON_3_11,
             handler: 'lambda_function.handler',
             role: props.role,
             code: lambda.Code.fromAsset('lambda/quicksight-custom-resources'),

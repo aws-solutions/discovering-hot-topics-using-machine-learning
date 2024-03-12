@@ -49,7 +49,7 @@ class TestHelper:
     @staticmethod
     def get_supported_data_set_sub_types():
         # ENHANCEMENT: Should we use the config data / file for test to figure out the supported_data_set_types?
-        return ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
+        return ["image-text", "topic", "image-moderation-label", "topic-mapping", "feed"]
 
     @staticmethod
     def get_resource_properties():
@@ -110,7 +110,7 @@ def quicksight_application_stub():
             self.athena_workgroup = "mock-WorkGroup"
 
         def get_supported_data_set_sub_types(self):
-            return ["image-text", "topic", "image-moderation-label", "geo", "topic-mapping", "feed"]
+            return ["image-text", "topic", "image-moderation-label", "topic-mapping", "feed"]
 
     return QuicksightApplicationStub()
 
@@ -147,11 +147,6 @@ def quicksight_state_all():
                     "id": "DHTUT_image-text_DataSet",
                     "name": "DHTUT_image-text_DataSet",
                     "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_image-text_DataSet",
-                },
-                "text": {
-                    "id": "DHTUT_geo_DataSet",
-                    "name": "DHTUT_geo_DataSet",
-                    "arn": "arn:aws:quicksight:us-east-1:FAKE_ACCOUNT:dataset/DHT_geo_DataSet",
                 },
                 "topic": {
                     "id": "DHTUT_topic_DataSet",

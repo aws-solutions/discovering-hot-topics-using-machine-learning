@@ -15,10 +15,6 @@
                     "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic"
                 },
                 {
-                    "DataSetPlaceholder": "geo",
-                    "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/geo"
-                },
-                {
                     "DataSetPlaceholder": "topic-mapping",
                     "DataSetArn": "arn:{Aws.PARTITION}:quicksight:{Aws.REGION}:{Aws.ACCOUNT_ID}:dataset/topic-mapping"
                 },

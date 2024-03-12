@@ -21,7 +21,7 @@ test('test lambda task construct', () => {
     new StepFuncLambdaTask(stack, 'StepFuncWorkflowStack', {
         taskName: 'unitTestTask',
         lambdaFunctionProps: {
-            runtime: lambda.Runtime.NODEJS_18_X,
+            runtime: lambda.Runtime.NODEJS_20_X,
             handler: 'index.handler',
             code: lambda.Code.fromAsset(`${__dirname}/../lambda/wf-analyze-text`)
         }

@@ -12,12 +12,12 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as events from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DiscoveringHotTopicsStack } from '../discovering-hot-topics-stack';
 import { DataIngestionTemplate } from './data-ingestion-template';
@@ -73,7 +73,7 @@ export class NewsCatcher extends cdk.NestedStack {
             source: {
                 lambdaFunctionProps: {
                     description: 'This lambda function picks up the configuration for RSS news feeds',
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.publish_config_handler',
                     code: lambda.Code.fromAsset('lambda/capture_news_feed'),
                     environment: {
@@ -88,7 +88,7 @@ export class NewsCatcher extends cdk.NestedStack {
             target: {
                 lambdaFunctionProps: {
                     description: 'This lambda function pulls news feeds based on the above configuration received in the event from Amazon Event Bridge',
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.process_config_handler',
                     code: lambda.Code.fromAsset('lambda/capture_news_feed'),
                     environment: {

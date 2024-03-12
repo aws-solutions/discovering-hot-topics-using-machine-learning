@@ -11,11 +11,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
-import * as cdk from 'aws-cdk-lib';
 import { TextOrchestration } from '../lib/text-analysis-workflow/text-orchestration-construct';
 
 test('test orchestration construct', () => {
@@ -34,7 +34,7 @@ test('test orchestration construct', () => {
         textAnalysisNameSpace: 'com.test.text',
         s3LoggingBucket: s3AccessLoggingBucket,
         lambdaTriggerFunc: new Function(stack, 'testFunction', {
-            runtime: Runtime.PYTHON_3_8,
+            runtime: Runtime.PYTHON_3_11,
             code: Code.fromAsset('lambda/wf-extract-text-in-image'),
             handler: 'index.handler'
         }),

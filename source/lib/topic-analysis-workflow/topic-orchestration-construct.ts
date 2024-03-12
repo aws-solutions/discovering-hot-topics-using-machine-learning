@@ -58,7 +58,7 @@ export class TopicOrchestration extends Construct {
         const submitTopicTask = new StepFuncLambdaTask(this, 'SubmitTopic', {
             taskName: 'Submit',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../../lambda/wf-submit-topic-model`),
                 environment: {
@@ -142,7 +142,7 @@ export class TopicOrchestration extends Construct {
 
         const _publishTopicsMappings = new SqsToLambda(this, 'PublishTopicMapping', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.PYTHON_3_8,
+                runtime: lambda.Runtime.PYTHON_3_11,
                 handler: 'lambda_function.topic_mapping_handler',
                 code: lambda.Code.fromAsset('lambda/wf_publish_topic_model'),
                 environment: {
@@ -170,7 +170,7 @@ export class TopicOrchestration extends Construct {
             const _publishTopicTerms = new StepFuncLambdaTask(this, `${platformType}PublishTopicTerms`, {
                 taskName: `Publish Topic Terms for ${platformType}`,
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.topic_terms_handler',
                     code: lambda.Code.fromAsset('lambda/wf_publish_topic_model'),
                     environment: {
@@ -192,7 +192,7 @@ export class TopicOrchestration extends Construct {
             const _publishTopics = new StepFuncLambdaTask(this, `${platformType}PublishTopics`, {
                 taskName: `Publish Topics for ${platformType}`,
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.topic_handler',
                     code: lambda.Code.fromAsset('lambda/wf_publish_topic_model'),
                     environment: {
@@ -225,7 +225,7 @@ export class TopicOrchestration extends Construct {
         const checkTopicStatus = new StepFuncLambdaTask(this, 'CheckStatus', {
             taskName: 'Check Status',
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../../lambda/wf-check-topic-model`),
                 environment: {

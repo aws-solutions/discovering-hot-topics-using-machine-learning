@@ -55,7 +55,7 @@ export class SolutionHelper extends Construct {
         const helperRole = new ExecutionRole(this, 'Role');
 
         const helperFunction = new lambda.Function(this, 'SolutionHelper', {
-            runtime: lambda.Runtime.PYTHON_3_8,
+            runtime: lambda.Runtime.PYTHON_3_11,
             handler: 'lambda_function.handler',
             description:
                 'This function generates UUID for each deployment and sends anonymous data to the AWS Solutions team',

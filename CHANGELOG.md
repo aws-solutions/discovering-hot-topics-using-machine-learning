@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2024-03-12
+
+### Updated
+- Updated Python Lambda function runtime to Python 3.11
+- Updated Node Lambda function runtime to NodeJS 20
+- Patch security vulnerabilities
+- Updated outdated libraries and dependencies
+- Replaced deprecated url.parse with URL constructor
+- Updated AppRegistry Resource logical Id creation logic to generate consistent Ids
+- Updated QuickSight template to remove Twitter references
+
+### Fixed
+- Updated QuickSight template to fix issue with platform menu on Topic Analysis page
+- Fixed connection timeout issue when uploading images on S3
+
 ## [2.2.1] - 2023-10-18
 
 ### Security
