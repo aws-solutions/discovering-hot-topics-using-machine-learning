@@ -47,7 +47,7 @@ export class TextAnalysisProxy extends Construct {
 
         this.textAnalysisLambda = buildLambdaFunction(this, {
             lambdaFunctionProps: {
-                runtime: Runtime.NODEJS_18_X,
+                runtime: Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: Code.fromAsset(`${__dirname}/../../lambda/firehose-text-proxy`),
                 environment: {

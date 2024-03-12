@@ -11,10 +11,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import { Template, Match } from 'aws-cdk-lib/assertions';
+import * as cdk from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as cdk from 'aws-cdk-lib';
 import { S3ToEventBridgeToLambda } from '../lib/s3-event-notification/s3-eventbridge-lambda';
 
 test('Test default s3-cloudtrail-eventbridge-lambda', () => {
@@ -22,7 +22,7 @@ test('Test default s3-cloudtrail-eventbridge-lambda', () => {
 
     const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
         lambdaFunctionProps: {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromAsset('lambda/ingestion-custom'),
             handler: 'lambda_function/handler'
         }
@@ -33,7 +33,7 @@ test('Test when an existing lambda is provided', () => {
     const stack = new cdk.Stack();
 
     const _lambdaFunc = new lambda.Function(stack, 'testfunction', {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromAsset('lambda/ingestion-custom'),
             handler: 'lambda_function/handler'
     });
@@ -52,7 +52,7 @@ test('Test when an existing bucket is provided', () => {
 
     const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
         lambdaFunctionProps: {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromAsset('lambda/ingestion-custom'),
             handler: 'lambda_function/handler'
         },
@@ -68,7 +68,7 @@ test('Use bucket props to create a bucket', () => {
 
     const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
         lambdaFunctionProps: {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromAsset('lambda/ingestion-custom'),
             handler: 'lambda_function/handler'
         },
@@ -86,7 +86,7 @@ test('Test when event props are provided', () => {
 
     const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
         lambdaFunctionProps: {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromAsset('lambda/ingestion-custom'),
             handler: 'lambda_function/handler'
         },
@@ -136,7 +136,7 @@ test('Throw error when specifying bucket instance and bucket props', () => {
     try {
         const _s3EventIntegration = new S3ToEventBridgeToLambda(stack, 'testS3Event', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.PYTHON_3_9,
+                runtime: lambda.Runtime.PYTHON_3_11,
                 code: lambda.Code.fromAsset('lambda/ingestion-custom'),
                 handler: 'lambda_function/handler'
             },

@@ -12,12 +12,12 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import * as cdk from 'aws-cdk-lib';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as fs from 'fs';
 import { S3ToEventBridgeToLambda } from '../s3-event-notification/s3-eventbridge-lambda';
@@ -105,7 +105,7 @@ export class CustomIngestion extends cdk.NestedStack {
 
         const _s3ToEventBridgeToLambda = new S3ToEventBridgeToLambda(this, 'CustomIngestion', {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.PYTHON_3_8,
+                runtime: lambda.Runtime.PYTHON_3_11,
                 code: lambda.Code.fromAsset('lambda/ingestion-custom'),
                 handler: 'lambda_function.handler',
                 environment: _lambdaEnv,
@@ -158,7 +158,7 @@ export class CustomIngestion extends cdk.NestedStack {
 
         const s3PolicyUpdate = new lambda.Function(this, 'UpdateS3BucketPolicy', {
             handler: 'index.handler',
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_11,
             code: lambda.Code.fromInline(fs.readFileSync(path.join(__dirname, 'index.py'), 'utf8')),
             role: s3PolicyUpdateRole,
             tracing: lambda.Tracing.ACTIVE,

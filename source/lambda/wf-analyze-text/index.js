@@ -173,7 +173,7 @@ async function taskFailed(stepfunctions, error, taskToken) {
         new SendTaskFailureCommand({
             taskToken: taskToken,
             cause: error.message,
-            error: error.code
+            error: error.name
         })
     );
 }

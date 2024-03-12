@@ -72,7 +72,7 @@ class DataSet(QuickSightResource):
             ImportMode="DIRECT_QUERY",
         )
 
-        if self.sub_type in ["geo", "feed"]:
+        if self.sub_type in ["feed"]:
             params.update({"ColumnGroups": column_groups_map})
         try:
             logger.info(f"Params for creating the dataset for id:{self.id}:: {params}")

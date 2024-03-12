@@ -29,7 +29,7 @@ const dht = new DiscoveringHotTopicsStack(app, 'discovering-hot-topics-using-mac
 });
 
 NagSuppressions.addStackSuppressions(dht, [
-    { id: 'AwsSolutions-L1', reason: 'Lambda running on Node are already on latest runtime (NodeJs18). Python lambda runtime is planned to be upgraded in future release' },
+    { id: 'AwsSolutions-L1', reason: 'Lambda running on Node are already on latest runtime (NodeJs20). Python lambda runtime is Python 3.11' },
     { id: 'AwsSolutions-IAM5', reason: 'All IAM policies defined in this solution grant only least-privilege permissions. Wild card for resources is used only for services which do not have a resource arn (Comprehend, Xray, Regoknition, Translate, State Machine) ' }
 ], true);
 

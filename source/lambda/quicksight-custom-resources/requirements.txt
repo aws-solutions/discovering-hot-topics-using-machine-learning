@@ -1,5 +1,5 @@
-crhelper==2.0.11
-requests==2.31.0
+crhelper~=2.0.11
+requests~=2.31.0
 pyyaml
-tenacity==8.2.2
+tenacity~=8.2.3
 urllib3<2

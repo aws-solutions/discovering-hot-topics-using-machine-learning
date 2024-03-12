@@ -23,7 +23,7 @@ test('Test Lambda with role and scheduler', () => {
     const producerStack = new FeedProducer(stack, 'FeedProducerConstruct', {
         functionProps: {
             timeout: Duration.minutes(5),
-            runtime: Runtime.NODEJS_18_X,
+            runtime: Runtime.NODEJS_20_X,
             code: Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
             handler: 'index.handler',
             environment: {

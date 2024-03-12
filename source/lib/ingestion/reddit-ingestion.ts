@@ -80,7 +80,7 @@ export class RedditIngestion extends cdk.NestedStack {
                     description: 'Lambda function to publish the subreddits to ingest information from',
                     handler: 'publish-subreddit.handler',
                     code: lambda.Code.fromAsset('lambda/ingestion-publish-subreddit'),
-                    runtime: lambda.Runtime.NODEJS_18_X,
+                    runtime: lambda.Runtime.NODEJS_20_X,
                     environment: {
                         SUBREDDITS_TO_FOLLOW: _subRedditsToFollow.valueAsString,
                         SUBREDDIT_PUBLISH_NAMESPACE: this.reddit_namespace
@@ -99,7 +99,7 @@ export class RedditIngestion extends cdk.NestedStack {
                     description: 'Lambda function to ingest comments from subreddits of interest',
                     handler: 'lambda_function.handler',
                     code: lambda.Code.fromAsset('lambda/ingestion_reddit_comments'),
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     environment: {
                         REDDIT_API_KEY: _redditAPIKey.valueAsString,
                         SOLUTION_VERSION: _solution_version,

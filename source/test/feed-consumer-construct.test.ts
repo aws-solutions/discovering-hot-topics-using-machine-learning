@@ -24,7 +24,7 @@ test('Test Lambda with Kinesis', () => {
                 WORKFLOW_ARN: 'arn:aws:states:us-east-1:someaccountid:stateMachine:WorkflowEngine12346891012-ad234ab'
             },
             timeout: Duration.minutes(5),
-            runtime: Runtime.NODEJS_18_X,
+            runtime: Runtime.NODEJS_20_X,
             code: Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
             handler: 'index.handler'
         }

@@ -14,50 +14,37 @@
 'use strict';
 
 const { Upload } = require('@aws-sdk/lib-storage');
-const { S3 } = require('@aws-sdk/client-s3');
-const url = require('url');
+const { S3Client } = require('@aws-sdk/client-s3');
+const { URL } = require('url');
 const path = require('path');
-const stream = require('stream');
 const axios = require('axios');
 const CustomConfig = require('aws-nodesdk-custom-config');
 
 const downloadFile = async (imageUrl) => {
     console.debug(`Image url is ${imageUrl}`);
-    return axios.default.get(imageUrl, { responseType: 'stream' });
-};
-
-const uploadFromStream = (fileResponse, fileName, destinationBucket) => {
-    const awsCustomConfig = CustomConfig.customAwsConfig();
-    const s3 = new S3(awsCustomConfig);
-    const passThrough = new stream.PassThrough();
-    const promise = new Upload({
-        client: s3,
-
-        params: {
-            Bucket: destinationBucket,
-            Key: fileName,
-            Body: passThrough,
-            ContentType: fileResponse.headers['content-type'],
-            ContentLength: fileResponse.headers['content-length']
-        }
-    }).done();
-    return { passThrough, promise };
+    return await axios.default.get(imageUrl, { responseType: 'stream' });
 };
 
 exports.retrieveImageAndS3Upload = async (imageUrl, destinationBucket, bucketPrefix) => {
     const responseStream = await downloadFile(imageUrl);
-    const { passThrough, promise } = uploadFromStream(
-        responseStream,
-        bucketPrefix + '/' + path.basename(url.parse(imageUrl).pathname),
-        destinationBucket
-    );
-    responseStream.data.pipe(passThrough);
-    return promise
-        .then((result) => {
-            return result.Location;
-        })
-        .catch((error) => {
-            console.error('Error in uploading content', error);
-            throw error;
+    const parsed = new URL(String(imageUrl));
+    const pathName = parsed.pathname;
+    const awsCustomConfig = CustomConfig.customAwsConfig();
+    const s3 = new S3Client(awsCustomConfig);
+    try {
+        const uploadFile = new Upload({
+            client: s3,
+            params: {
+                Bucket: destinationBucket,
+                Key: bucketPrefix + '/' + path.basename(pathName),
+                Body: responseStream.data,
+                ContentType: responseStream.headers['content-type'],
+            }
         });
+        await uploadFile.done();
+    } 
+    catch (error) {
+        console.error('Error in uploading content', error);
+        throw error;
+    }
 };

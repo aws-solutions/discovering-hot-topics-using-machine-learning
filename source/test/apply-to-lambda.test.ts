@@ -20,7 +20,7 @@ test('test adding custom config', () => {
     const stack = new cdk.Stack();
     new ApplytoLambda(stack, 'TestConfig');
     Template.fromStack(stack).hasResourceProperties('AWS::Lambda::LayerVersion', {
-        CompatibleRuntimes: ['python3.8', 'python3.9'],
+        CompatibleRuntimes: ['python3.11'],
         Content: {}
     });
 });
@@ -30,13 +30,13 @@ test('visting node lambda runtimes and adding aspects', () => {
     const stack = new cdk.Stack(app);
     new lambda.Function(stack, 'testFunction', {
         code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`),
-        runtime: lambda.Runtime.NODEJS_18_X,
+        runtime: lambda.Runtime.NODEJS_20_X,
         handler: 'index.handler'
     });
 
     cdk.Aspects.of(stack).add(new ApplytoLambda(stack, 'testConfigWithNode'));
     Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {
-        Runtime: 'nodejs18.x',
+        Runtime: 'nodejs20.x',
         Environment: {
             Variables: {
                 'AWS_SDK_USER_AGENT': '{ "customUserAgent": "AwsSolution/undefined/undefined" }'
@@ -60,7 +60,7 @@ test('visting node python runtimes and adding aspects', () => {
     const stack = new cdk.Stack(app);
     new lambda.Function(stack, 'testFunction', {
         code: lambda.Code.fromAsset(`${__dirname}/../lambda/quicksight-custom-resources`),
-        runtime: lambda.Runtime.PYTHON_3_8,
+        runtime: lambda.Runtime.PYTHON_3_11,
         handler: 'handler'
     });
 
@@ -68,7 +68,7 @@ test('visting node python runtimes and adding aspects', () => {
     Template.fromStack(stack).hasResource('AWS::Lambda::Function', {
         Type: 'AWS::Lambda::Function',
         Properties: {
-            Runtime: 'python3.8',
+            Runtime: 'python3.11',
             Environment: {
                 Variables: {
                     'AWS_SDK_USER_AGENT': '{ "user_agent_extra": "AwsSolution/undefined/undefined" }'

@@ -26,6 +26,17 @@ attrs under MIT License
 aws-cdk-lib under Apache License 2.0
 aws-sdk-client-mock under MIT License
 aws-solutions-constructs under Apache License 2.0
+@aws-sdk/client-firehose under Apache License Version 2.0
+@aws-sdk/client-sfn under Apache License Version 2.0
+@aws-sdk/client-dynamodb under Apache License Version 2.0
+@aws-sdk/client-eventbridge under Apache License Version 2.0
+@aws-sdk/client-kinesis under Apache License Version 2.0
+@aws-sdk/client-ssm under Apache License Version 2.0
+@aws-sdk/client-comprehend under Apache License Version 2.0
+@aws-sdk/client-rekognition under Apache License Version 2.0
+@aws-sdk/client-s3 under Apache License Version 2.0
+@aws-sdk/lib-storage under Apache License Version 2.0
+@aws-sdk/client-translate under Apache License Version 2.0
 boolean.py under BSD-2-Clause
 boto3 under Apache License 2.0
 botocore under Apache License 2.0
@@ -36,7 +47,6 @@ chai under MIT license
 constructs under Apache License 2.0
 coverage under Apache License 2.0
 crhelper under Apache License 2.0
-crypto under ISC
 cryptography under Apache Software License, BSD License (Apache License 2.0 OR BSD-3-Clause)
 et-xmlfile under MIT License
 exceptiongroup under MIT License
@@ -94,4 +104,6 @@ uritemplate under Apache Software License, BSD License (BSD 3-Clause License or 
 websocket-client under Apache License 2.0
 Werkzeug under BSD License
 xmltodict under MIT License
-
+colorama under BSD License
+docutils under BSD License
+awscli under Apache License 2.0

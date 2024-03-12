@@ -22,7 +22,7 @@ test('test Event Rule Construct', () => {
 
     const proxylambda = buildLambdaFunction(stack, {
         lambdaFunctionProps: {
-            runtime: Runtime.NODEJS_18_X,
+            runtime: Runtime.NODEJS_20_X,
             handler: 'index.handler',
             code: Code.fromAsset(`${__dirname}/../lambda/integration`),
             environment: {
