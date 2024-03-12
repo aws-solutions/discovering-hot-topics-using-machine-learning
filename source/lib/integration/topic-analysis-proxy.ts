@@ -12,11 +12,11 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import { buildLambdaFunction } from '@aws-solutions-constructs/core';
+import { Aws, Duration } from 'aws-cdk-lib';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
-import { Aws, Duration } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { buildLambdaFunction } from '@aws-solutions-constructs/core';
 import { EventStorage } from '../storage/event-storage-construct';
 
 export interface TopicAnalysisProxyProps {
@@ -34,7 +34,7 @@ export class TopicAnalysisProxy extends Construct {
 
         this.topicAnalysisLamda = buildLambdaFunction(this, {
             lambdaFunctionProps: {
-                runtime: Runtime.PYTHON_3_8,
+                runtime: Runtime.PYTHON_3_11,
                 handler: 'lambda_function.handler',
                 code: Code.fromAsset(`${__dirname}/../../lambda/firehose_topic_proxy`
                 /* for use with docker image to build dependencies {

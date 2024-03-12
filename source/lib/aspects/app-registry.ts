@@ -12,10 +12,10 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
-import * as cdk from 'aws-cdk-lib';
-import { Construct, IConstruct } from 'constructs';
 import * as appreg_alpha from '@aws-cdk/aws-servicecatalogappregistry-alpha';
+import * as cdk from 'aws-cdk-lib';
 import { aws_servicecatalogappregistry as appreg } from 'aws-cdk-lib';
+import { Construct, IConstruct } from 'constructs';
 import * as crypto from 'crypto';
 
 export class AppRegistry extends Construct implements cdk.IAspect {
@@ -81,10 +81,12 @@ export class AppRegistry extends Construct implements cdk.IAspect {
             }
 
             const nestedStack = node as cdk.NestedStack;
+            const hash = crypto.createHash('sha256');
+            hash.update(cdk.Names.nodeUniqueId(nestedStack.node));
 
             const nestedStackResourceAssociation = new appreg.CfnResourceAssociation(
                 this,
-                `ResourceAssociation${crypto.randomUUID()}`,
+                `ResourceAssociation${hash.digest('hex').slice(0, 12)}`,
                 {
                     application: this.application.applicationId,
                     resource: node.stackId,

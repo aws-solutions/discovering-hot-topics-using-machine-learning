@@ -44,7 +44,7 @@ export interface NodejsLayerVersionProps {
 
 export class NodejsLayerVersion extends lambda.LayerVersion {
     constructor(scope: Construct, id: string, props: NodejsLayerVersionProps) {
-        const compatibleRuntimes = props.compatibleRuntimes ?? [lambda.Runtime.NODEJS_18_X];
+        const compatibleRuntimes = props.compatibleRuntimes ?? [lambda.Runtime.NODEJS_20_X];
 
         for (const runtime of compatibleRuntimes) {
             if (runtime && runtime.family !== lambda.RuntimeFamily.NODEJS) {
@@ -58,7 +58,7 @@ export class NodejsLayerVersion extends lambda.LayerVersion {
         super(scope, id, {
             code: lambda.Code.fromAsset(entry, {
                 bundling: {
-                    image: lambda.Runtime.NODEJS_18_X.bundlingImage,
+                    image: lambda.Runtime.NODEJS_20_X.bundlingImage,
                     user: 'root',
                     local: {
                         // attempts local bundling first, if it fails, then executes docker based build

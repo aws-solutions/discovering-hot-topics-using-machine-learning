@@ -122,7 +122,7 @@ echo "--------------------------------------------------------------------------
 echo "[Install] Installing CDK $cdk_version"
 echo "------------------------------------------------------------------------------"
 
-npm install aws-cdk@$cdk_version
+npm install -g aws-cdk@$cdk_version
 
 ## Option to suppress the Override Warning messages while synthesizing using CDK
 export overrideWarningsEnabled=false
@@ -179,6 +179,14 @@ do
     replace="s/%%DASHED_VERSION%%/$dashed_version/g"
     sed -i -e $replace $file
 done
+
+## Replacing logical id of ServiceCatalogAppRegistry::ResourceAssociation resource to previous values to allow stack upgrades
+template_file=$template_dist_dir/discovering-hot-topics-using-machine-learning.template
+sed -i -e "s/AppRegistryResourceAssociationb45d1e4178a976D755C8/AppRegistryResourceAssociationcc06d03324874db1a6662e1611406807903F5030/1" $template_file
+sed -i -e "s/AppRegistryResourceAssociationc490c813979fC5E92A98/AppRegistryResourceAssociationd4f559e6fc5240f3bc3592f30e56951f0AE36CD8/1" $template_file
+sed -i -e "s/AppRegistryResourceAssociation666daa84115cEE166A87/AppRegistryResourceAssociation8e08b310e72540d5946fc04ccdda0abc66C36D1C/1" $template_file
+sed -i -e "s/AppRegistryResourceAssociationac1ddf3fb67759A3BEE9/AppRegistryResourceAssociationa01d8973655b4b9db7b61a97d80e97a4A72685A3/1" $template_file
+sed -i -e "s/AppRegistryResourceAssociationd047beaf2b8e83CF3FB5/AppRegistryResourceAssociationc4eb0c6a4488492999f9a7a6c8818dbcEC354414/1" $template_file
 
 echo "------------------------------------------------------------------------------"
 echo "[Packing] Source code artifacts"

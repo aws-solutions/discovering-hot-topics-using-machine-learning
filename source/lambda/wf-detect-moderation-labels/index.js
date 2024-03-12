@@ -16,7 +16,7 @@
 const { RekognitionClient, DetectModerationLabelsCommand } = require('@aws-sdk/client-rekognition'),
     { SFNClient: StepFunctions, SendTaskSuccessCommand, SendTaskFailureCommand } = require('@aws-sdk/client-sfn');
 const path = require('path');
-const url = require('url');
+const { URL } = require('url');
 const StreamAnalyzer = require('./util/stream-analyzer');
 const ImageExtractor = require('./util/extract-image');
 const CustomConfig = require('aws-nodesdk-custom-config');
@@ -73,7 +73,7 @@ async function taskFailed(stepfunctions, error, taskToken) {
         new SendTaskFailureCommand({
             taskToken: taskToken,
             cause: error.message,
-            error: error.code
+            error: error.name
         })
     );
 }
@@ -84,18 +84,20 @@ async function processMedia(mediaList, bucketName, inputFeedId) {
     const moderationLables = [];
     for (const media of mediaList) {
         const mediaUrl = StreamAnalyzer.getMediaUrl(media);
+        const parsed = new URL(String(mediaUrl));
+        const pathName = parsed.pathname
         try {
             console.debug(`Dump media information ${JSON.stringify(media)}`);
             console.debug(`Media Url ${mediaUrl}`);
             console.debug(
-                `Bucket location ${bucketName}/${inputFeedId}/${path.basename(url.parse(String(mediaUrl)).pathname)}`
+                `Bucket location ${bucketName}/${inputFeedId}/${path.basename(pathName)}`
             );
             const response = await rek.send(
                 new DetectModerationLabelsCommand({
                     Image: {
                         S3Object: {
                             Bucket: bucketName,
-                            Name: inputFeedId + '/' + path.basename(url.parse(String(mediaUrl)).pathname)
+                            Name: inputFeedId + '/' + path.basename(pathName)
                         }
                     }
                 })
@@ -121,11 +123,7 @@ async function processMedia(mediaList, bucketName, inputFeedId) {
             // Not rethrowing the error because the cleanup statements below should be executed. Also the statements
             // are in a loop, if one image fails, there may be other images to detect, so continue further
             console.error(
-                `Error when calling Rek moderation label for ${inputFeedId}/${path.basename(
-                    url.parse(String(mediaUrl)).pathname
-                )}`,
-                error
-            );
+                `Error when calling Rek moderation label for ${inputFeedId}/${path.basename(pathName)}`, error );
             break; // skip to the next iteration if there are more images
         }
     }

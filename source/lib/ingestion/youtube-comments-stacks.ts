@@ -12,13 +12,13 @@
  *  and limitations under the License.                                                                                *
  *********************************************************************************************************************/
 
+import * as cdk from 'aws-cdk-lib';
 import * as ddb from 'aws-cdk-lib/aws-dynamodb';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as targets from 'aws-cdk-lib/aws-events-targets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DiscoveringHotTopicsStack } from '../discovering-hot-topics-stack';
 import { DataIngestionTemplate } from './data-ingestion-template';
@@ -108,7 +108,7 @@ export class YoutubeComments extends cdk.NestedStack {
             source: {
                 lambdaFunctionProps: {
                     description: 'This lambda function searches for the videos',
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.search_videos',
                     code: lambda.Code.fromAsset('lambda/ingestion-youtube'),
                     environment: {
@@ -125,7 +125,7 @@ export class YoutubeComments extends cdk.NestedStack {
             target: {
                 lambdaFunctionProps: {
                     description: 'This lambda function searches for the comments associates with the videos',
-                    runtime: lambda.Runtime.PYTHON_3_8,
+                    runtime: lambda.Runtime.PYTHON_3_11,
                     handler: 'lambda_function.search_comments',
                     code: lambda.Code.fromAsset('lambda/ingestion-youtube'),
                     environment: {

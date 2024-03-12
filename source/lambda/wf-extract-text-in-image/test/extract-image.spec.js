@@ -28,19 +28,15 @@ describe('Test retrieveIamageAndS3Upload', () => {
     beforeEach(() => {
         s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
-
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    return resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
     });
 
     it('should execute succesfully', async () => {
@@ -56,6 +52,7 @@ describe('Test retrieveIamageAndS3Upload', () => {
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         s3Mock.restore();
+        jest.clearAllMocks();
     });
 });
 
@@ -64,18 +61,15 @@ describe('Test S3 Upload', () => {
         s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    return resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
     });
 
     it('should successfully mock S3 upload', async () => {
@@ -93,6 +87,7 @@ describe('Test S3 Upload', () => {
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         s3Mock.restore();
+        jest.clearAllMocks();
     });
 });
 
@@ -104,26 +99,27 @@ describe('Test Error scenario', () => {
         s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(new Error('S3 upload failed'), null);
         });
+
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                throw new Error('S3 upload failed');
+            });
     });
 
     it('should fail S3 upload', async () => {
         const s3 = new S3Client();
-        await new Upload({
-            client: s3,
 
-            params: {
-                Bucket: 'TestBucket',
-                Key: 'RandomKey',
-                Body: fs.createReadStream(`${__dirname}/text.png`)
+        await ImageExtractor.retrieveImageAndS3Upload(
+            'https://pbs.twimg.com/media/DOhM30VVwAEpIHq.jpg',
+            'TestBucket',
+            'RandomKey'
+        ).catch((error) => {
+            console.log("here1");
+            if (error instanceof assert.AssertionError) {
+                assert.fail();
             }
-        })
-            .done()
-            .catch((error) => {
-                if (error instanceof assert.AssertionError) {
-                    assert.fail();
-                }
-                assert.equal(error.message, 'S3 upload failed');
-            });
+            assert.equal(error.message, 'S3 upload failed');
+        });
     });
 
     afterEach(() => {
@@ -136,24 +132,21 @@ describe('Test mock axios with S3 upload mock', () => {
     beforeEach(() => {
         s3Mock.reset();
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
-
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    return resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
     });
 
     afterEach(() => {
         delete process.env.AWS_SDK_USER_AGENT;
         s3Mock.restore();
+        jest.clearAllMocks();
     });
 
     it('return a readstream and successfully uploads', async () => {

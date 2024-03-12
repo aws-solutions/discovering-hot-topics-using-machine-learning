@@ -28,12 +28,12 @@ export class ApplytoLambda extends Construct implements cdk.IAspect {
         this.pythonLayer = new lambda_python.PythonLayerVersion(this, 'PythonLibLayer', {
             entry: 'lambda/layers/python_lambda_layer',
             description: 'This layer has boto config initialization and logging functions',
-            compatibleRuntimes: [lambda.Runtime.PYTHON_3_8, lambda.Runtime.PYTHON_3_9]
+            compatibleRuntimes: [lambda.Runtime.PYTHON_3_11]
         });
 
         this.nodejsLayer = new NodejsLayerVersion(this, id, {
             entry: 'lambda/layers/aws-nodesdk-custom-config',
-            compatibleRuntimes: [lambda.Runtime.NODEJS_18_X],
+            compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
             description: 'This layer configures AWS Node SDK initialization'
         });
     }

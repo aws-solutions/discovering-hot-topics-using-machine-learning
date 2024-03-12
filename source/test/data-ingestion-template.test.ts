@@ -27,7 +27,7 @@ test('test ingestion with all parameters and custom event bridge', () => {
     const template = new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -40,7 +40,7 @@ test('test ingestion with all parameters and custom event bridge', () => {
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -115,7 +115,7 @@ test('test ingestion with existing event bus', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -128,7 +128,7 @@ test('test ingestion with existing event bus', () => {
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -171,7 +171,7 @@ test('fail when neither existing bus nor event bus properties are provided', () 
         new DataIngestionTemplate(stack, 'testCustomBus', {
             source: {
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.NODEJS_18_X,
+                    runtime: lambda.Runtime.NODEJS_20_X,
                     handler: 'index.handler',
                     code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
                 },
@@ -184,7 +184,7 @@ test('fail when neither existing bus nor event bus properties are provided', () 
             },
             target: {
                 lambdaFunctionProps: {
-                    runtime: lambda.Runtime.NODEJS_18_X,
+                    runtime: lambda.Runtime.NODEJS_20_X,
                     handler: 'index.handler',
                     code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
                 },
@@ -228,14 +228,14 @@ test('do not create source dynamodb table', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -288,7 +288,7 @@ test('do not create target dynamodb table', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -301,7 +301,7 @@ test('do not create target dynamodb table', () => {
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             },
@@ -357,14 +357,14 @@ test('do not create SSM credential path entry', () => {
     new DataIngestionTemplate(stack, 'testCustomBus', {
         source: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             }
         },
         target: {
             lambdaFunctionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset(`${__dirname}/../lambda/ingestion-producer`)
             }

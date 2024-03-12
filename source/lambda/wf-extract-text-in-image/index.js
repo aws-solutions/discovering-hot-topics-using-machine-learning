@@ -16,7 +16,7 @@
 const { RekognitionClient, DetectTextCommand } = require('@aws-sdk/client-rekognition'),
     { SFNClient: StepFunctions, SendTaskSuccessCommand, SendTaskFailureCommand } = require('@aws-sdk/client-sfn');
 const path = require('path');
-const url = require('url');
+const { URL } = require('url');
 
 const StreamAnalyzer = require('./util/stream-analyzer');
 const ImageExtractor = require('./util/extract-image');
@@ -73,7 +73,7 @@ async function taskFailed(stepfunctions, error, taskToken) {
         new SendTaskFailureCommand({
             taskToken: taskToken,
             cause: error.message,
-            error: error.code
+            error: error.name
         })
     );
 }
@@ -84,6 +84,8 @@ async function processMedia(mediaArray, bucketName, inputFeedId) {
     const sentences = [];
     for (const media of mediaArray) {
         const mediaUrl = StreamAnalyzer.getMediaUrl(media);
+        const parsed = new URL(String(mediaUrl));
+        const pathName = parsed.pathname
         try {
             await ImageExtractor.retrieveImageAndS3Upload(mediaUrl, bucketName, inputFeedId);
         } catch (error) {
@@ -93,11 +95,11 @@ async function processMedia(mediaArray, bucketName, inputFeedId) {
 
         console.debug(
             `Bucket name is ${bucketName} Bucket prefix for image is ${
-                inputFeedId + '/' + path.basename(url.parse(String(mediaUrl)).pathname)
+                inputFeedId + '/' + path.basename(pathName)
             }`
         );
         try {
-            const _s3Key = inputFeedId + '/' + path.basename(url.parse(String(mediaUrl)).pathname);
+            const _s3Key = inputFeedId + '/' + path.basename(pathName);
             console.debug(`Key to retrieving image from bucket ${_s3Key}`);
             const response = await rek.send(
                 new DetectTextCommand({

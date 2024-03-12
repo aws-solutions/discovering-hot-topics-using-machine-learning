@@ -79,7 +79,7 @@ export class S3ToEventBridgeToLambda extends Construct {
      */
     constructor(scope: Construct, id: string, props: S3ToEventBridgeToLambdaProps) {
         super(scope, id);
-        defaults.CheckProps(props);
+        defaults.CheckS3Props(props);
 
         let bucket: s3.IBucket;
 

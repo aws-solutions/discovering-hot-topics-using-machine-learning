@@ -26,7 +26,7 @@ test('test statemachine fragment creation', () => {
         lambdaFunctionProps: {
             handler: 'index.handler',
             code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
-            runtime: lambda.Runtime.NODEJS_18_X
+            runtime: lambda.Runtime.NODEJS_20_X
         }
     });
 });
@@ -41,7 +41,7 @@ test('test by passing state machine', () => {
         lambdaFunctionProps: {
             handler: 'index.handler',
             code: lambda.Code.fromAsset('lambda/wf-analyze-text'),
-            runtime: lambda.Runtime.NODEJS_18_X
+            runtime: lambda.Runtime.NODEJS_20_X
         },
         stateMachine: new sfn.StateMachine(stack, 'testStateMachine', {
             definitionBody: sfn.DefinitionBody.fromChainable(new sfn.Pass(stack, 'Pass'))

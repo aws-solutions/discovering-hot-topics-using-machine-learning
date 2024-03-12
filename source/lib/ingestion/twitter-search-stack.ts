@@ -87,7 +87,7 @@ export class TwitterSearchIngestion extends cdk.NestedStack {
         new FeedProducer(this, 'TwitterSearchAPI', {
             functionProps: {
                 timeout: cdk.Duration.minutes(10),
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 code: lambda.Code.fromAsset('lambda/ingestion-producer'),
                 handler: 'index.handler',
                 environment: {

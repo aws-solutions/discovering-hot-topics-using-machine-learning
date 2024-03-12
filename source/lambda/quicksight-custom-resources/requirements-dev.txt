@@ -1,7 +1,7 @@
-pytest-cov==4.1.0
-pytest-env==0.8.1
-moto==4.1.10
-pytest==7.3.1
+pytest-cov~=4.1.0
+pytest-env~=1.0.1
+moto~=4.2.4
+pytest~=7.4.2
 botocore
-mock==5.0.2
+mock~=5.1.0
 -e ../layers/python_lambda_layer

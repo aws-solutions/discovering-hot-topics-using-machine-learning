@@ -52,7 +52,7 @@ export class Ingestion extends Construct {
 
         const _feedConsumerlambda = new FeedConsumer(this, 'FeedConsumer', {
             functionProps: {
-                runtime: lambda.Runtime.NODEJS_18_X,
+                runtime: lambda.Runtime.NODEJS_20_X,
                 handler: 'index.handler',
                 code: lambda.Code.fromAsset('lambda/ingestion-consumer'),
                 timeout: cdk.Duration.minutes(5),

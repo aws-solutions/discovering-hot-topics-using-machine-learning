@@ -23,6 +23,7 @@ const sfnMock = AWSMock.mockClient(SFNClient);
 const { RekognitionClient, DetectTextCommand } = require('@aws-sdk/client-rekognition');
 const rekognitionMock = AWSMock.mockClient(RekognitionClient);
 const { S3Client, UploadPartCommand } = require('@aws-sdk/client-s3');
+const { Upload } = require('@aws-sdk/lib-storage');
 const s3Mock = AWSMock.mockClient(S3Client);
 const axios = require('axios');
 const fs = require('fs');
@@ -40,18 +41,15 @@ describe('Test the lambda function Rek found no text', () => {
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
 
         rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse_with_empty_text_detections);
 
@@ -99,6 +97,7 @@ describe('Test the lambda function Rek found no text', () => {
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
         delete process.env.AWS_SDK_USER_AGENT;
+        jest.clearAllMocks();
     });
 });
 
@@ -111,18 +110,15 @@ describe('Test the lambda function Rek found no text', () => {
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    return resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
 
         rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse_with_undefined_text_detections);
 
@@ -166,6 +162,7 @@ describe('Test the lambda function Rek found no text', () => {
         s3Mock.restore();
         sfnMock.restore();
         rekognitionMock.restore();
+        jest.clearAllMocks();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
@@ -182,18 +179,15 @@ describe('Test the lambda function when Rek found text', () => {
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
 
         rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
@@ -237,6 +231,7 @@ describe('Test the lambda function when Rek found text', () => {
         s3Mock.restore();
         rekognitionMock.restore();
         sfnMock.restore();
+        jest.clearAllMocks();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
@@ -253,18 +248,15 @@ describe('Test the lambda function when Rek fails', () => {
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
 
         rekognitionMock.on(DetectTextCommand).callsFake((error, callback) => {
             callback(new Error('Rek service failed'), null);
@@ -313,6 +305,7 @@ describe('Test the lambda function when Rek fails', () => {
         s3Mock.restore();
         rekognitionMock.restore();
         sfnMock.restore();
+        jest.clearAllMocks();
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
         delete process.env.AWS_SDK_USER_AGENT;
@@ -331,6 +324,11 @@ describe('Test the lambda function when S3 upload fails', () => {
         s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
             callback(new Error('S3 upload failed'), null);
         });
+
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                throw new Error('S3 upload failed');
+            });
 
         rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
@@ -377,6 +375,7 @@ describe('Test the lambda function when S3 upload fails', () => {
         s3Mock.restore();
         rekognitionMock.restore();
         sfnMock.restore();
+        jest.clearAllMocks();
 
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
@@ -393,18 +392,15 @@ describe('Test the lambda function when S3 upload fails', () => {
         process.env.AWS_REGION = 'us-east-1';
         process.env.AWS_SDK_USER_AGENT = '{ "cutomerAgent": "fakedata" }';
 
-        s3Mock.on(UploadPartCommand).callsFake((error, callback) => {
-            callback(null, () => {
-                return new Promise((resolve) => {
-                    resolve({
-                        ETag: 'SomeETag',
-                        Location: 'PublicWebsiteLink',
-                        Key: 'RandomKey',
-                        Bucket: 'TestBucket'
-                    });
-                });
+        jest.spyOn(Upload.prototype, 'done')
+            .mockImplementation(() => {
+                return {
+                    ETag: 'SomeETag',
+                    Location: 'PublicWebsiteLink',
+                    Key: 'RandomKey',
+                    Bucket: 'TestBucket'
+                };
             });
-        });
 
         rekognitionMock.on(DetectTextCommand).resolves(__rekresponse__.rekResponse);
 
@@ -450,6 +446,7 @@ describe('Test the lambda function when S3 upload fails', () => {
         s3Mock.restore();
         rekognitionMock.restore();
         sfnMock.restore();
+        jest.clearAllMocks();
         delete process.env.AWS_REGION;
         delete process.env.S3_BUCKET_NAME;
         delete process.env.AWS_SDK_USER_AGENT;
