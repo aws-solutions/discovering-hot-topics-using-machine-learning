@@ -1,6 +1,6 @@
 {
   "name": "wf-detect-language",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "The lambda function to detect language of the text content, when not available.",
   "main": "index.js",
   "scripts": {
