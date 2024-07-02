@@ -107,3 +107,5 @@ xmltodict under MIT License
 colorama under BSD License
 docutils under BSD License
 awscli under Apache License 2.0
+proto-plus under Apache License 2.0
+pyasn1_modules under BSD License

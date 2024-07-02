@@ -1,6 +1,6 @@
 {
   "name": "wf-extract-text-in-image",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Lambda function to analyze images for text detection and content moderation",
   "main": "index.js",
   "scripts": {
