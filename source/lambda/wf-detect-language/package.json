@@ -1,6 +1,6 @@
 {
   "name": "wf-detect-language",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "The lambda function to detect language of the text content, when not available.",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
     "chai": "^4.3.7",
     "jest": "^29.7.0",
     "sinon": "^17.0.1"
+  },
+  "overrides": {
+    "fast-xml-parser": "^4.4.1"
   }
 }

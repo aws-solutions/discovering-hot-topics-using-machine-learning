@@ -274,3 +274,13 @@ source/lambda/wf_publish_topic_model/test/fixtures/output/doc-topics.csv
 source/lambda/wf_publish_topic_model/test/fixtures/output/topic-terms.csv
 
 .idea/
+
+# 3rd party libraries
+source/lambda/ingestion-youtube/proto/
+source/lambda/ingestion-youtube/proto_plus-1.24.0.dist-info/
+source/lambda/layers/python_lambda_layer/bin/
+source/lambda/layers/python_lambda_layer/certifi/
+source/lambda/layers/python_lambda_layer/charset_normalizer/
+source/lambda/layers/python_lambda_layer/idna/
+source/lambda/layers/python_lambda_layer/requests/
+source/lambda/layers/python_lambda_layer/urllib3/
