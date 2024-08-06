@@ -1,6 +1,6 @@
 {
     "name": "ingestion-publish-subreddit",
-    "version": "2.3.1",
+    "version": "2.3.2",
     "description": "This function publishes the events for subreddits to ingest information from",
     "main": "index.js",
     "scripts": {
@@ -21,5 +21,8 @@
         "aws-sdk-client-mock": "^3.0.1",
         "chai": "^4.3.7",
         "jest": "^29.7.0"
+    },
+    "overrides": {
+      "fast-xml-parser": "^4.4.1"
     }
 }

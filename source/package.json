@@ -1,6 +1,6 @@
 {
   "name": "discovering-hot-topics-using-machine-learning",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Solution to identify the most dominant topics associated with your products, brands, and topics relevant to your business",
   "bin": {
     "discovering-hot-topics-app": "bin/discovering-hot-topics-app.js"

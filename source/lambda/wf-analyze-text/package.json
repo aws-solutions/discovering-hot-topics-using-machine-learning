@@ -1,6 +1,6 @@
 {
   "name": "wf-analyze-text",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Use AWS ML services to derive inference from text",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "dependencies": {
     "@aws-sdk/client-comprehend": "^3.515.0",
     "@aws-sdk/client-sfn": "^3.515.0"
+  },
+  "overrides": {
+    "fast-xml-parser": "^4.4.1"
   }
 }
