@@ -1,6 +1,6 @@
 {
   "name": "integration",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Kinesis stream consumer",
   "main": "index.js",
   "scripts": {

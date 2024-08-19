@@ -1,6 +1,6 @@
 {
   "name": "wf-check-topic-model",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Check the status of the Topic modeling job",
   "main": "index.js",
   "scripts": {

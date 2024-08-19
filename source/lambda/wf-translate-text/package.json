@@ -1,6 +1,6 @@
 {
   "name": "wf-translate-text",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Translate non-english context to english for Topic analysis",
   "main": "index.js",
   "scripts": {
