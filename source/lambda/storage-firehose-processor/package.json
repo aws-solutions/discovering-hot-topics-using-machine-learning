@@ -1,6 +1,6 @@
 {
   "name": "storage-firehose-processor",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Function to unwrap event object",
   "main": "index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "wf-analyze-text",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Use AWS ML services to derive inference from text",
   "main": "index.js",
   "scripts": {

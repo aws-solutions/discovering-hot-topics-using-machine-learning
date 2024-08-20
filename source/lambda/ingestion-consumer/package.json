@@ -1,6 +1,6 @@
 {
   "name": "ingestion-consumer",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "The consumer of the Kinesis stream to receive social media feed",
   "main": "index.js",
   "scripts": {

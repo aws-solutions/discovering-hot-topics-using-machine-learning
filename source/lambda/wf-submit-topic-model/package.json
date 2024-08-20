@@ -1,6 +1,6 @@
 {
   "name": "wf-submit-topic-model",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "This lambda function submits the topic modeling job. It looks up for the data in the last 48 hours (default) and submits the bucket information for processing",
   "main": "index.js",
   "scripts": {
