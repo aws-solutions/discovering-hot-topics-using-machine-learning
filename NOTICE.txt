@@ -82,6 +82,7 @@ This software includes third party software subject to the following copyrights:
 @aws-solutions-constructs/aws-lambda-s3 under the Apache-2.0 license
 @aws-solutions-constructs/aws-lambda-stepfunctions under the Apache-2.0 license
 @aws-solutions-constructs/aws-sqs-lambda under the Apache-2.0 license
+@aws-solutions-constructs/core under the Apache License 2.0
 @babel/code-frame under the MIT license
 @babel/compat-data under the MIT license
 @babel/generator under the MIT license
@@ -572,10 +573,8 @@ jmespath under the MIT license
 mock under the 0BSD license
 moto under the Apache-2.0 license
 openpyxl under the MIT license
-praw under the 0BSD license
-praw under the Simplified BSD License license
+praw under the BSD License 
 protobuf under the BSD-3-Clause license
-pyaml under the Public Domain license
 pyaml under the WTFPL license
 pytest-cov under the MIT license
 pytest-env under the MIT license
@@ -588,6 +587,26 @@ tenacity under the Apache-2.0 license
 tldextract under the 0BSD license
 tldextract under the BSD-3-Clause license
 urllib3 under the MIT license
+cachetools under MIT License
+colorama under BSD License
+docutils under BSD License
+et-xmlfile under MIT License
+google-api-core under Apache 2.0
+google-auth under Apache 2.0
+google-auth-httplib2 under Apache 2.0
+googleapis-common-protos under Apache License 2.0
+httplib2 under MIT License
+prawcore under BSD License
+pyasn1 under BSD License (BSD-2-Clause)
+pyasn1-modules under BSD License
+proto-plus under Apache License 2.0
+python-dateutil under Apache License 2.0, BSD License
+requests-file under Apache 2.0
+s3transfer under Apache 2.0
+sgmllib3k under BSD License
+update-checker under BSD License
+uritemplate under Apache Software License, BSD License (BSD 3-Clause License or Apache License, Version 2.0)
+websocket-client under Apache License 2.0
 
 ********************
 OPEN SOURCE LICENSES
@@ -606,4 +625,4 @@ MIT - https://opensource.org/licenses/MIT
 Public Domain - None
 Simplified BSD License - None
 Unlicense - https://opensource.org/licenses/Unlicense
-WTFPL - https://opensource.org/licenses/WTFPL%                                                                                               bios@bcd0741e1ff7 .temp_redpencil % 
+WTFPL - https://opensource.org/licenses/WTFPL%

@@ -1,6 +1,6 @@
 {
   "name": "aws-nodesdk-custom-config",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "AWS Nodejs SDK Config intialization layer",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,11 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "sinon": "^17.0.1"
+    "sinon": "^18.0.1"
+  },
+  "overrides": {
+    "micromatch": "^4.0.8",
+    "sinon": "^18.0.1"
   },
   "author": {
     "name": "Amazon Web Services",
