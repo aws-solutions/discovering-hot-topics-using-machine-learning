@@ -1,6 +1,6 @@
 {
   "name": "discovering-hot-topics-using-machine-learning",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "Solution to identify the most dominant topics associated with your products, brands, and topics relevant to your business",
   "bin": {
     "discovering-hot-topics-app": "bin/discovering-hot-topics-app.js"
@@ -28,7 +28,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.7.0",
     "prettier": "^3.2.5",
-    "sinon": "^17.0.0",
+    "sinon": "^18.0.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
@@ -49,6 +49,9 @@
     "cdk-nag": "^2.28.39",
     "constructs": "~10.3.0",
     "source-map-support": "^0.5.21"
+  },
+  "overrides": {
+    "micromatch": "^4.0.8"
   },
   "author": {
     "name": "Amazon Web Services",
