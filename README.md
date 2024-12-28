@@ -1,3 +1,7 @@
+## Deprecation Notice
+
+As of 12/20/2024, The Discovering Hot Topics Using Machine Learning solution has been deprecated and will not be receiving any additional features or updates. You can explore other Solutions in the [AWS Solutions Library](https://aws.amazon.com/solutions/).
+
 ## Discovering Hot Topics using Machine Learning
 
 The Discovering Hot Topics Using Machine Learning solution identifies the most dominant topics associated with your products, policies, events, and brands. This enables you to react quickly to new growth opportunities, address negative brand associations, and deliver a higher level of customer satisfaction for your business. In addition to helping you understand what your customers are saying about your brand, this solution gives you insights into topics that are relevant to your business.

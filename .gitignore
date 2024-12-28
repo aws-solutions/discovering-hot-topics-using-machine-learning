@@ -277,7 +277,7 @@ source/lambda/wf_publish_topic_model/test/fixtures/output/topic-terms.csv
 
 # 3rd party libraries
 source/lambda/ingestion-youtube/proto/
-source/lambda/ingestion-youtube/proto_plus-1.24.0.dist-info/
+source/lambda/ingestion-youtube/proto_plus-1.25.0.dist-info/
 source/lambda/layers/python_lambda_layer/bin/
 source/lambda/layers/python_lambda_layer/certifi/
 source/lambda/layers/python_lambda_layer/charset_normalizer/
