@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "sinon": "^18.0.1"
+    "sinon": "^19.0.2"
   },
   "overrides": {
-    "micromatch": "^4.0.8",
-    "sinon": "^18.0.1"
+    "cross-spawn": "^7.0.6",
+    "micromatch": "^4.0.8"
   },
   "author": {
     "name": "Amazon Web Services",
